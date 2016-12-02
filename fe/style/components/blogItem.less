@@ -1,0 +1,120 @@
+.blog {
+    margin: 0 0 30px;
+    background: #fff;
+    -webkit-box-shadow: 1px 2px 3px #ddd;
+    box-shadow: 1px 2px 3px #ddd;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    header {
+        padding: 20px 20px 0;
+        position: relative;
+        a.article-title {
+            font-size: 2em;
+            font-weight: bold;
+            line-height: 1.1em;
+        }
+        .article-times {
+            color: #999;
+            vertical-align: bottom;
+            font-size: 12px;
+            position: absolute;
+            top: 40px;
+            right: 10px;
+        }
+        a.article-delete,
+        a.article-edit {
+            padding-left: 10px;
+            color: #777;
+            display: inline-block;
+        }
+    }
+    .content {
+        color: #555;
+        padding: 0 5px 0 20px;
+        font-size: 14px;
+        overflow: hidden;
+        height: 300px;
+    }
+    footer {
+        font-size: 0.85em;
+        line-height: 1.6em;
+        border-top: 1px solid #ddd;
+        padding-top: 1.6em;
+        margin: 0 20px 20px;
+        .article-time {
+            float: right;
+        }
+        .article-next-link {
+            margin: 0 0 10px;
+            a {
+                padding: 0 10px;
+            }
+        }
+    }
+    .comments {
+        border-top: 1px solid #CCC;
+        padding: 5px;
+        .comment {
+            padding: 10px 30px;
+            .name {
+                display: inline-block;
+                text-align: left;
+                vertical-align: top;
+                width: 80px;
+                overflow: hidden;
+            }
+            .content {
+                width: 630px;
+                background: #eee;
+                border-radius: 5px;
+                padding: 8px 12px;
+                word-break: break-word;
+                .time {
+                    color: gray;
+                    font-size: 12px;
+                    padding: 0 0 6px;
+                }
+                display: inline-block;
+            }
+            .del_icon {
+                vertical-align: top;
+                display: inline-block;
+                position: relative;
+                right: 16px;
+                top: 5px;
+            }
+        }
+        .in-comment {
+            padding: 25px;
+            label {
+                padding: 0 15px 0 0;
+                vertical-align: top;
+            }
+            .in-email,
+            .in-name {
+                padding: 0 0 20px;
+                input {
+                    padding: 5px;
+                    width: 200px;
+                    height: auto;
+                    font-size: 12px;
+                }
+            }
+            .in-content {
+                .editor {
+                    width: 668px;
+                    display: inline-block;
+                    .preview,
+                    textarea {
+                        height: 200px;
+                    }
+                }
+            }
+            .in-btn {
+                text-align: right;
+                padding: 10px 20px 0 0;
+            }
+        }
+    }
+}
