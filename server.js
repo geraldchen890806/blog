@@ -12,19 +12,16 @@ routes(app);
 if (!isDev) {
     var static_path = path.join(__dirname);
     app.use('/static', express.static(__dirname + '/static'));
-    app.get('/', function (req, res) {
+    app.get('*', function (req, res) {
         res.sendFile('/static/index.html', {
             root: static_path
         });
     });
-    // app.get('*', function(req, res) {
-    //   res.sendFile(path.join(__dirname, 'index.html'));
-    // });
-    app.listen(process.env.PORT || 3010, function (err) {
+    app.listen(8080, function (err) {
         if (err) {
             console.log(err)
         };
-        console.log('Listening at localhost:3000');
+        console.log('Listening at localhost:8080');
     });
 }
 

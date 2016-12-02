@@ -29,9 +29,6 @@ module.exports = {
             __DEVELOPMENT__: true,
             __DEVTOOLS__: true
         }),
-        new CopyWebpackPlugin([{
-            from: 'img/*'
-        }, ]),
         new webpack.ProvidePlugin({
             'jQuery': 'jquery'
         })

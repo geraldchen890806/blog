@@ -3,6 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -11,7 +12,7 @@ module.exports = {
     },
     output: {
         filename: 'main.[chunkHash].js',
-        path: path.join(__dirname, 'build/static'),
+        path: path.join(__dirname, '/static'),
         publicPath: '/static/'
     },
     resolve: {
@@ -38,11 +39,15 @@ module.exports = {
             }
         }),
         new CopyWebpackPlugin([{
-            from: 'img/*'
+            from: 'fe/img',
+            to: 'img'
         }, ]),
         new webpack.DefinePlugin({
             __DEVELOPMENT__: false,
-            __DEVTOOLS__: false
+            __DEVTOOLS__: false,
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
         })
     ],
     module: {
