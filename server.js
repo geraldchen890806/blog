@@ -4,12 +4,13 @@ var webpack = require('webpack');
 var express = require('express');
 var path = require('path');
 var app = express();
-
+var favicon = require('serve-favicon');
 var routes = require('./api/api');
 
 routes(app);
 
 if (!isDev) {
+    app.use(favicon(__dirname + '/favicon.ico'));
     var static_path = path.join(__dirname);
     app.use('/static', express.static(__dirname + '/static'));
     app.get('*', function (req, res) {
