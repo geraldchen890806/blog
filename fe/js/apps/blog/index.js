@@ -16,7 +16,7 @@ export default class Home extends Component {
     render() {
         var {_common, actions, routeParams} = this.props;
         var {blogs} = _common;
-        let cur = _.find(blogs, {title: routeParams.id});
+        let cur = _.find(blogs, {url: routeParams.id});
         var blogTpl;
         if (cur) {
             blogTpl = <BlogItem key={cur.title} blog={cur} {...actions}/>;

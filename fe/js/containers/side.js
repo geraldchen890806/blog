@@ -17,7 +17,7 @@ export default class Side extends Component {
                 <h4 className="title">最新文章</h4>
                 <ul>
                     {blogs.slice(0,5).map(blog => {
-                        return <li>
+                        return <li key={blog.title}>
                             <Link className="article-title" to={`/blog/${blog.url}`}>{blog.title}</Link>
                         </li>;
                     })}
@@ -27,7 +27,7 @@ export default class Side extends Component {
                 <h4 className="title">标签</h4>
                 <ul>
                     {tags.map(tag => {
-                        return <li>
+                        return <li key={tag.name}>
                             <Link className="article-title" to={`/tag/${tag.name}`}>{tag.name}</Link>
                         </li>;
                     })}
