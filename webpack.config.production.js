@@ -8,7 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: {
         app: './fe/js/index',
-        vendor: ["bootstrap",  "jquery", "jquery-ui", "lodash", "moment", "react", "react-dom", "react-redux", "react-router", "react-router-redux", "redux", "redux-thunk"]
+        vendor: ["jquery", "lodash", "moment", "react", "react-dom", "react-redux", "react-router", "react-router-redux", "redux", "redux-thunk"]
     },
     output: {
         filename: 'main.[chunkHash].js',

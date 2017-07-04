@@ -10,7 +10,7 @@ module.exports = {
             'webpack-hot-middleware/client',
             './fe/js/index'
         ],
-        vendor: ['eventsource-polyfill', 'webpack-hot-middleware/client', "bootstrap",  "jquery", "jquery-ui", "lodash", "moment", "react", "react-dom", "react-redux", "react-router", "react-router-redux", "redux", "redux-thunk"]
+        vendor: ['eventsource-polyfill', 'webpack-hot-middleware/client',  "jquery", "lodash", "moment", "react", "react-dom", "react-redux", "react-router", "react-router-redux", "redux", "redux-thunk"]
     },
     output: {
         filename: 'bundle.js',
