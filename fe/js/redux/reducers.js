@@ -7,8 +7,8 @@ import {
     routerReducer
 } from "react-router-redux";
 
-import home from "./home";
-import common from "./common";
+import common from "js/containers/reducer";
+import home from "js/apps/home/reducer";
 
 export default combineReducers({
     common,

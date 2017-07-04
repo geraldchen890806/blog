@@ -1,6 +1,6 @@
 import {
     commonType
-} from "js/redux/constants/index";
+} from "js/redux/constants";
 
 export function fetchBlogs() {
     return function (dispatch) {

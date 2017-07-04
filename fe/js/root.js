@@ -15,11 +15,12 @@ import {syncHistoryWithStore} from "react-router-redux";
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-import {commonType} from "js/redux/constants/index";
+import {commonType} from "js/redux/constants";
 
 import App from "js/containers";
 import Home from "js/apps/home";
 import Blog from "js/apps/blog";
+import Tag from "js/apps/tag";
 import Recommend from "js/apps/home";
 import About from "js/apps/about";
 
@@ -39,6 +40,7 @@ export default class Root extends Component {
                             <Route path='recommend' component={Recommend}/>
                             <Route path='about' component={About}/>
                             <Route path='blog/:id' component={Blog}/>
+                            <Route path='tag/:tag' component={Tag}/>
                         </Route>
                     </Router>
                 </Provider>

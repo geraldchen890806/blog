@@ -1,7 +1,7 @@
 import {
     home as types,
     commonType
-} from "js/redux/constants/index";
+} from "js/redux/constants";
 const initialState = {
     items: [],
     isFetching: false,
