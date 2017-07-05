@@ -14,7 +14,7 @@ export default class BlogItem extends Component {
           </h1>
         </header>
         <div className="content article-entry">
-          <ReactMarkdown source={blog.content} htmlMode={'raw'} />
+          <ReactMarkdown source={blog.content || ''} htmlMode={'raw'} />
         </div>
         <footer className="article-footer" />
       </div>
