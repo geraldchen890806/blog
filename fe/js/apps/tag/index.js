@@ -15,8 +15,9 @@ export default class Home extends Component {
 
     render() {
         var {_common, actions, routeParams} = this.props;
+        let tag = routeParams.tag;
         var {blogs} = _common;
-        let curBlogs = _.filter(blogs, b => ~b.tag.indexOf(routeParams.tag));
+        let curBlogs = _.filter(blogs, b => _.some(b.tags, t => t.name == tag));
         return (
           <div className='homePage'>
               {curBlogs.map(blog => <BlogItem key={blog.title} blog={blog} {...actions}/>)}
