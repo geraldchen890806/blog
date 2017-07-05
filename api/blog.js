@@ -1,47 +1,40 @@
-var DB = require('./db');
-var db = new DB('blogs');
-var md = require("marked");
-var mm = require("moment");
+let DB = require('./db');
+let db = new DB('blogs');
+let mm = require('moment');
 
-exports.sqlBlogs = function(callback) {
-    // var blogs = this.queryStr("SELECT * FROM blogs left join (select blog_tag.blogID,blog_tag.tagID,name as tagName from tags left join blog_tag on tags.id = blog_tag.tagID ) b on blogs.id = b.blogID order by blogs.addTime DESC");
-    db.queryStr("SELECT * FROM blogs left join (select blog_tag.blogID,blog_tag.tagID,name as tagName from tags left join blog_tag on tags.id = blog_tag.tagID ) b on blogs.id = b.blogID order by blogs.addTime DESC", {}, function(blogs) {
-        var res = [];
-        blogs.forEach(function(v, i) {
-            v.realContent = v.content;
-            v.content = md(v.content, {
-                gfm: true,
-                pedantic: false,
-                sanitize: false,
-                tables: true,
-                breaks: true,
-                smartLists: true,
-                smartypants: true
+exports.sqlBlogs = function (callback) {
+  // var blogs = this.queryStr("SELECT * FROM blogs left join (select blog_tag.blogID,blog_tag.tagID,name as tagName from tags left join blog_tag on tags.id = blog_tag.tagID ) b on blogs.id = b.blogID order by blogs.addTime DESC");
+  db.queryStr(
+    'SELECT * FROM blogs left join (select blog_tag.blogID,blog_tag.tagID,name as tagName from tags left join blog_tag on tags.id = blog_tag.tagID ) b on blogs.id = b.blogID order by blogs.addTime DESC',
+    {},
+    (blogs) => {
+      let res = [];
+      blogs.forEach((v, i) => {
+        let id = parseInt(v.id);
+        if (res[id]) {
+          res[id].tags.push({
+            id: v.tagID,
+            name: v.tagName
+          });
+        } else {
+          let date = mm(v.addTime);
+          v.pubDate = date.format();
+          v.addTime = date.format('LL');
+          v.tags = [];
+          if (v.tagID) {
+            v.tags.push({
+              id: v.tagID,
+              name: v.tagName
             });
-            var id = parseInt(v.id);
-            if (res[id]) {
-                res[id].tags.push({
-                    "id": v.tagID,
-                    'name': v.tagName
-                });
-            } else {
-                var date = mm(v.addTime);
-                v.pubDate = date.format();
-                v.addTime = date.format("LL");
-                v.tags = [];
-                if (v.tagID) {
-                    v.tags.push({
-                        "id": v.tagID,
-                        'name': v.tagName
-                    });
-                }
-                res[id] = v;
-            }
-            // console.log(res[id]);
-        });
-        res = res.filter(function(v, i) {
-            return !!(v);
-        }).reverse();
-        callback(res);
-    });
+          }
+          res[id] = v;
+        }
+        // console.log(res[id]);
+      });
+      res = res
+        .filter((v, i) => !!v)
+        .reverse();
+      callback(res);
+    }
+  );
 };
