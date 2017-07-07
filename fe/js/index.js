@@ -1,20 +1,29 @@
+import 'babel-polyfill';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 
-
-import "babel-polyfill";
-import React from "react";
-import { render } from "react-dom";
-import _ from "lodash";
-import $ from "jquery";
+import _ from 'lodash';
+import $ from 'jquery';
 window.$ = window.jQuery = $;
 
-import "./configs/index";
+import './configs/index';
+import '../style/main.less';
+import { store } from './redux/store';
 
-import Root from "./root";
-import "../style/main.less";
+import App from 'js/containers';
 
-
-if(module.hot) {
-    module.hot.accept();
+if (module.hot) {
+  module.hot.accept();
 }
 
-render(<Root />, document.getElementById("root"));
+if (module.hot) {
+  module.hot.accept();
+}
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);

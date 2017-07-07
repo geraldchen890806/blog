@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import 'github-markdown-css/github-markdown.css';
 
 export default class BlogItem extends Component {

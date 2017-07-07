@@ -10,11 +10,11 @@ import _ from 'lodash';
 export default class BlogNew extends Component {
   constructor(props) {
     super(props);
-    let { routeParams = {}, _common = {} } = props;
+    let { match = {}, _common = {} } = props;
     let { blogs = [] } = _common;
     let cur = {};
-    if (routeParams.id) {
-      cur = _.find(blogs, { url: routeParams.id }) || {};
+    if (match.params.id) {
+      cur = _.find(blogs, { url: match.params.id }) || {};
     }
     this.state = {
       cur
@@ -22,7 +22,7 @@ export default class BlogNew extends Component {
   }
 
   render() {
-    let { _common, actions, routeParams } = this.props;
+    let { _common, actions } = this.props;
     let { cur = {} } = this.state;
     let blogTpl = <BlogItem key={cur.title} blog={cur} {...actions} />;
     return (
