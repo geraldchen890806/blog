@@ -1,10 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Redirect, withRouter } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions';
-import createHistory from 'history/createBrowserHistory';
-const history = createHistory();
+
+import { ConnectedRouter } from 'react-router-redux';
+
+import history from 'js/redux/middleware/history';
 
 import Header from './header';
 import Side from './side';
@@ -32,7 +34,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <BrowserRouter history={history}>
+      <ConnectedRouter history={history}>
         <div>
           <Header />
           <div className="main">
@@ -49,7 +51,7 @@ export default class App extends Component {
             <Side {...this.props} />
           </div>
         </div>
-      </BrowserRouter>
+      </ConnectedRouter>
     );
   }
 }
