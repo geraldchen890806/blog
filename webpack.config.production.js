@@ -77,7 +77,7 @@ module.exports = {
         test: /\.js$/,
         loader: "babel",
         exclude: /node_modules/,
-        include: path.join(__dirname, "fe/js")
+        include: path.join(__dirname, "fe")
       },
       {
         test: /\.css$/,
