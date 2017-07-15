@@ -1,7 +1,7 @@
 // @import "./style";
 @import "./common/common";
+@import "./common/normalize";
 @import "./common/variables";
-@import "./common/style";
 
 @import './components/blogItem';
 
@@ -16,7 +16,8 @@
   -moz-box-sizing: border-box;
 }
 body {
-  background: #F7F7F7;
+  background: #f2f2f2;
+  -webkit-text-size-adjust: 100%;
   a {
     text-decoration: none;
     color: #555;
@@ -26,6 +27,7 @@ body {
   a:hover {
     color: #258fb8;
   }
+  font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', Arial, sans-serif;
   margin: 0 auto;
   padding: 0;

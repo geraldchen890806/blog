@@ -20,7 +20,6 @@ module.exports = {
       "react",
       "react-dom",
       "react-redux",
-      ,
       "redux",
       "redux-thunk"
     ]
@@ -53,7 +52,7 @@ module.exports = {
     alias: {
       business: process.cwd(),
       js: path.resolve("fe/js"),
-      core: path.resolve("fe/js/core"),
+      resources: path.resolve("fe/resources"),
       apps: path.resolve("fe/js/apps")
       // 'redux': path.join(__dirname, 'node_modules/redux')
     },
@@ -104,6 +103,10 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: "url?limit=10000&mimetype=image/svg+xml"
+      },
+      {
+        test: /\.md$/,
+        loader: "html!markdown"
       }
     ]
   }

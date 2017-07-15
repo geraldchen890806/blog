@@ -11,6 +11,8 @@ import './configs/index';
 import '../style/main.less';
 import { store } from './redux/store';
 
+import 'github-markdown-css/github-markdown.css';
+
 import App from 'js/containers';
 
 if (module.hot) {

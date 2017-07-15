@@ -9,9 +9,9 @@ import _ from 'lodash';
 }))
 export default class BlogView extends Component {
   render() {
-    let { _common, match = {}, location } = this.props;
+    let { _common, routeParams = {}, location } = this.props;
     let { blogs } = _common;
-    let cur = _.find(blogs, { url: match.params.id });
+    let cur = _.find(blogs, { url: routeParams.id });
     let blogTpl;
     if (cur) {
       blogTpl = <BlogItem key={cur.title} blog={cur} />;

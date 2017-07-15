@@ -28,7 +28,7 @@ module.exports = {
     alias: {
       business: process.cwd(),
       js: path.resolve("fe/js"),
-      core: path.resolve("fe/js/core"),
+      resources: path.resolve("fe/resources"),
       apps: path.resolve("fe/js/apps")
     },
     extensions: ["", ".js"]
@@ -115,6 +115,10 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: "url?limit=10000&mimetype=image/svg+xml"
+      },
+      {
+        test: /\.md$/,
+        loader: "html!markdown"
       }
     ]
   }

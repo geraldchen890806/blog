@@ -20,15 +20,20 @@ module.exports = {
     }
   },
   rules: {
-    camelcase: ['error', {
-      properties: 'never'
-    }],
+    camelcase: [
+      'error',
+      {
+        properties: 'never'
+      }
+    ],
+    'class-methods-use-this': 0,
     'comma-dangle': 0,
+    'class-methods-use-this': 'off',
     eqeqeq: ['warn', 'smart'],
     'max-len': ['warn', 200],
     'no-param-reassign': 0,
     'prefer-const': 0,
-    'indent': ['error', 2],
+    indent: ['error', 2],
     'no-new': 0,
     'import/extensions': 0,
     'import/first': 1,
@@ -50,13 +55,14 @@ module.exports = {
     'react/prop-types': 1,
     'react/sort-comp': 0,
     'no-bitwise': 0,
-    "no-unused-vars": ["warn"],
+    'no-unused-vars': ['warn'],
     'react/jsx-filename-extension': [
       1,
       {
         extensions: ['.js', '.jsx']
       }
-    ]
+    ],
+    'comma-dangle': ['error', 'never']
   },
   settings: {
     'import/resolver': {
