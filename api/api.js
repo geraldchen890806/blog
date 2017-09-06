@@ -3,7 +3,7 @@ var blog = require("./blog");
 const request = require("superagent");
 var _ = require("lodash");
 
-const secret = "fba1e9ed15b672f05f45ac4943416105";
+const secret = "dbfc4000ea9d2920ef9fbca808ad44f5";
 var sign = require("./sign.js");
 
 let ticket;
@@ -31,7 +31,7 @@ module.exports = function(app) {
       query.appId == ticket.appId &&
       ticket.time - new Date() > -7200000
     ) {
-      res.send(sign(ticket.ticket, query.url));
+      res.send(_.assignIn(sign(ticket.ticket, query.url), ticket));
       return;
     }
 
@@ -49,7 +49,7 @@ module.exports = function(app) {
           )
           .end((err, resp2) => {
             ticket = _.assignIn(resp2.body, { time: new Date() }, query);
-            res.send(sign(ticket.ticket, query.url));
+            res.send(_.assignIn(sign(ticket.ticket, query.url), ticket));
           });
       });
   });

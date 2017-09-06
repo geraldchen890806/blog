@@ -6,7 +6,7 @@ const appId = 'wx3451a3941b095c75';
 window.wx = wx;
 export default function (obj) {
   // let timestamp = new Date().getTime();
-  let url = location.url;
+  let url = location.href;
   $.ajax({
     type: 'get',
     url: `${_config.api}/wx/token?appId=${appId}&url=${url}`,
