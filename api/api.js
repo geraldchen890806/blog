@@ -3,7 +3,7 @@ var blog = require("./blog");
 const request = require("superagent");
 var _ = require("lodash");
 
-const secret = "dbfc4000ea9d2920ef9fbca808ad44f5";
+const secret = "3f4c554304b13b6d8d3229dffc17a6f0";
 var sign = require("./sign.js");
 
 let ticket;
