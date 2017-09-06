@@ -59,10 +59,10 @@ wx.ready(() => {
   });
 
   // wx.onMenuShareAppMessage(options.obj);
-  // 分享到朋友圈
-  wx.onMenuShareTimeline(options.obj);
-  // 分享到QQ
-  wx.onMenuShareQQ(options.obj);
-  // 分享到腾讯微博
-  wx.onMenuShareWeibo(options.obj);
+  // // 分享到朋友圈
+  // wx.onMenuShareTimeline(options.obj);
+  // // 分享到QQ
+  // wx.onMenuShareQQ(options.obj);
+  // // 分享到腾讯微博
+  // wx.onMenuShareWeibo(options.obj);
 });
