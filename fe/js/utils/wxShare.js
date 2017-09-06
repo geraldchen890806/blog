@@ -4,10 +4,10 @@ window.wx = wx;
 export default function (obj) {
   let params = {
     appId: 'wx3451a3941b095c75',
-    signature: 'db01f5ee66df9b6bccf33f5e6a8d93fca7872fc7',
+    signature: '06f182e253a5084f91d10272b50a947811df4d62',
     nonceStr: 'test',
-    timestamp: 1504677538763,
-    url: 'http://chenguangliang.com/home'
+    timestamp: 1504678930592,
+    url: 'http://www.chenguangliang.com/home'
   };
   wxConfig({ ...params, obj });
   // $.ajax({
@@ -18,7 +18,7 @@ export default function (obj) {
   //   }),
   //   success: (resp) => {
   //     if (resp.data) {
-  //       wxConfig({ signature: resp.data, ...params, obj });
+  //       wxConfig({ signature: resp.data, ..1.params, obj });
   //     }
   //   }
   // });
