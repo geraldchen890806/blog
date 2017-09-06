@@ -4,8 +4,8 @@ import sha1 from 'sha1';
 
 const appId = 'wx3451a3941b095c75';
 const secret = 'fba1e9ed15b672f05f45ac4943416105';
-const nonceStr = 'test';
-const timestamp = 1504686399419;
+const nonceStr = 'Test';
+const timestamp = 1504686399;
 window.wx = wx;
 export default function (obj) {
   // let timestamp = new Date().getTime();
@@ -21,7 +21,8 @@ export default function (obj) {
         timestamp
       };
       let str = `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${location.href}`;
-      let signature = '162bdc2818497266476cf37fe5de8f14390be921'; // sha1(str);
+      console.log(str);
+      let signature = sha1(str);
       wxConfig({ ...params, signature, obj });
     }
   });
