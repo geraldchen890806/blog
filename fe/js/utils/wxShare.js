@@ -1,9 +1,10 @@
 import wx from 'weixin-js-sdk';
 
+window.wx = wx;
 export default function (obj) {
   let params = {
     appId: 'wx3451a3941b095c75',
-    signature: '2dea1187b9cfff9cba052e97c4834bb2d7ba7e72',
+    signature: 'db01f5ee66df9b6bccf33f5e6a8d93fca7872fc7',
     nonceStr: 'test',
     timestamp: 1504677538763,
     url: 'http://chenguangliang.com/home'
