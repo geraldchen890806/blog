@@ -14,6 +14,10 @@ if (!isDev) {
   var static_path = path.join(__dirname);
   app.use("/static", express.static(__dirname + "/static"));
   app.use("/mp", express.static(__dirname + "/mp"));
+  app.use(
+    "/MP_verify_JDni6b15rFNM6wto.txt",
+    express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
+  );
   app.get("*", function(req, res) {
     res.sendFile("/static/index.html", {
       root: static_path
@@ -32,6 +36,10 @@ if (isDev) {
   var compiler = webpack(config);
   app.use("/static/img", express.static(__dirname + "/fe/img"));
   app.use("/mp", express.static(__dirname + "/mp"));
+  app.use(
+    "/MP_verify_JDni6b15rFNM6wto.txt",
+    express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
+  );
 
   app.use(
     require("webpack-dev-middleware")(compiler, {
