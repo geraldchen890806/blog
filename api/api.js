@@ -2,9 +2,6 @@ var express = require("express");
 var blog = require("./blog");
 const request = require("superagent");
 
-const appId = "wx3451a3941b095c75";
-const secret = "fba1e9ed15b672f05f45ac4943416105";
-
 module.exports = function(app) {
   var allowCrossDomain = function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -22,9 +19,10 @@ module.exports = function(app) {
   });
 
   app.get("/wx/token", function(req, res, next) {
+    let query = req.query || {};
     request
       .get(
-        `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${secret}`
+        `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${query.appId}&secret=${query.secret}`
       )
       .end((err, resp) => {
         // res.send(resp.body);

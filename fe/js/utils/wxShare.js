@@ -11,7 +11,7 @@ export default function (obj) {
   let timestamp = new Date().getTime();
   $.ajax({
     type: 'get',
-    url: `${_config.api}/wx/token`,
+    url: `${_config.api}/wx/token?appId=${appId}&secret=${secret}`,
     success: (resp) => {
       let ticket = resp.ticket;
       let params = {
