@@ -1,6 +1,9 @@
 var express = require("express");
 var blog = require("./blog");
 const request = require("superagent");
+var _ = require("lodash");
+
+let ticket;
 
 module.exports = function(app) {
   var allowCrossDomain = function(req, res, next) {
@@ -20,6 +23,10 @@ module.exports = function(app) {
 
   app.get("/wx/token", function(req, res, next) {
     let query = req.query || {};
+    if (ticket && query.appId == ticket.appId) {
+      res.send(ticket);
+    }
+
     request
       .get(
         `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${query.appId}&secret=${query.secret}`
@@ -34,6 +41,7 @@ module.exports = function(app) {
           )
           .end((err, resp2) => {
             res.send(resp2.body);
+            tiket = _.assignIn(resp2.body, { time: new Date() }, query);
           });
       });
   });

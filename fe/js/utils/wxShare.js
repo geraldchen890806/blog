@@ -5,10 +5,10 @@ import sha1 from 'sha1';
 const appId = 'wx3451a3941b095c75';
 const secret = 'fba1e9ed15b672f05f45ac4943416105';
 const nonceStr = 'test';
-
+const timestamp = 1504686399419;
 window.wx = wx;
 export default function (obj) {
-  let timestamp = new Date().getTime();
+  // let timestamp = new Date().getTime();
   $.ajax({
     type: 'get',
     url: `${_config.api}/wx/token?appId=${appId}&secret=${secret}`,
@@ -20,7 +20,8 @@ export default function (obj) {
         nonceStr,
         timestamp
       };
-      let signature = sha1(`jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${location.href}`);
+      let str = `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${location.href}`;
+      let signature = '162bdc2818497266476cf37fe5de8f14390be921'; // sha1(str);
       wxConfig({ ...params, signature, obj });
     }
   });
@@ -34,17 +35,6 @@ function wxConfig(options) {
     nonceStr: options.nonceStr, // 必填，生成签名的随机串
     signature: options.signature, // 必填，签名，见附录13
     jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ', 'onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-  });
-  wx.checkJsApi({
-    jsApiList: ['onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-    success(res) {
-      console.log('success');
-      // 以键值对的形式返回，可用的api值true，不可用为false
-      // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-    },
-    error: (resp) => {
-      console.log(resp);
-    }
   });
   wx.ready(() => {
     // 分享给朋友
