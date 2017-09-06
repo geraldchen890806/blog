@@ -21,7 +21,7 @@ export default class BlogView extends Component {
     }
     wxShare({
       title: "GeraldChen's blog",
-      desc: cur.title,
+      desc: (cur && cur.title) || '',
       imgUrl: 'http://www.chenguangliang.com/static/img/icon.png'
     });
     return <div className="blogPage">{blogTpl}</div>;
