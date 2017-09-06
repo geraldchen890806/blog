@@ -3,6 +3,7 @@ var blog = require("./blog");
 const request = require("superagent");
 var _ = require("lodash");
 
+const secret = "fba1e9ed15b672f05f45ac4943416105";
 var sign = require("./sign.js");
 
 let ticket;
@@ -30,13 +31,13 @@ module.exports = function(app) {
       query.appId == ticket.appId &&
       ticket.time - new Date() > -7200000
     ) {
-      res.send(sign(ticket.ticket, "http://www.chenguangliang.com/home/"));
+      res.send(sign(ticket.ticket, query.url));
       return;
     }
 
     request
       .get(
-        `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${query.appId}&secret=${query.secret}`
+        `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${query.appId}&secret=${secret}`
       )
       .end((err, resp) => {
         // res.send(resp.body);
@@ -48,9 +49,7 @@ module.exports = function(app) {
           )
           .end((err, resp2) => {
             ticket = _.assignIn(resp2.body, { time: new Date() }, query);
-            res.send(
-              sign(ticket.ticket, "http://www.chenguangliang.com/home/")
-            );
+            res.send(sign(ticket.ticket, query.url));
           });
       });
   });

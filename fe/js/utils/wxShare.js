@@ -2,14 +2,14 @@ import wx from 'weixin-js-sdk';
 import $ from 'jquery';
 
 const appId = 'wx3451a3941b095c75';
-const secret = 'fba1e9ed15b672f05f45ac4943416105';
 
 window.wx = wx;
 export default function (obj) {
   // let timestamp = new Date().getTime();
+  let url = location.url;
   $.ajax({
     type: 'get',
-    url: `${_config.api}/wx/token?appId=${appId}&secret=${secret}`,
+    url: `${_config.api}/wx/token?appId=${appId}&url=${url}`,
     success: (resp) => {
       wxConfig({
         appId,
