@@ -3,7 +3,7 @@ import wx from 'weixin-js-sdk';
 export default function (obj) {
   let params = {
     appid: 'wx3451a3941b095c75',
-    signature: '93900b2d7b59d26c661a7d769b00188c',
+    signature: '2dea1187b9cfff9cba052e97c4834bb2d7ba7e72',
     noncestr: 'test',
     timestamp: 1504677538763,
     url: 'http://chenguangliang.com/home'
