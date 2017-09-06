@@ -19,8 +19,8 @@ export default class Home extends Component {
     wxShare({
       title: '看懂了这个私募排行榜,你才更懂”FOF”',
       desc: '通联魔方，倾力打造17年私募排行榜暨黑马榜，综合考虑收益、风险、最大回撤、VAR、峰度等指标，给广大投资者展示一个更“FOF”视角的私募榜单',
-      link: 'http://chenguangliang.com/home',
-      imgUrl: 'http://chenguangliang.com/static/img/icon.png'
+      link: 'http://www.chenguangliang.com/home',
+      imgUrl: 'http://www.chenguangliang.com/static/img/icon.png'
     });
   }
   render() {
