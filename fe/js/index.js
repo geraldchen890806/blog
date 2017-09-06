@@ -18,7 +18,6 @@ import App from 'js/containers';
 if (module.hot) {
   module.hot.accept();
 }
-
 render(
   <Provider store={store}>
     <App />

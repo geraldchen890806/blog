@@ -54,7 +54,7 @@ if (isDev) {
     });
   });
 
-  app.listen(80, "0.0.0.0", function(err) {
+  app.listen(3010, "0.0.0.0", function(err) {
     if (err) {
       console.log(err);
       return;

@@ -2,24 +2,25 @@ import wx from 'weixin-js-sdk';
 
 export default function (obj) {
   let params = {
-    appid: 'xxx',
-    appSecret: 'xxx',
+    appid: 'wx3451a3941b095c75',
+    signature: '93900b2d7b59d26c661a7d769b00188c',
     noncestr: 'test',
-    timestamp: new Date().getTime(),
-    url: location.href
+    timestamp: 1504677538763,
+    url: 'http://chenguangliang.com/home'
   };
-  $.ajax({
-    type: 'post',
-    url: 'https://gw.wmcloud-stg.com/cloud/wechatapp/jsapi/ticket/signature.json',
-    data: JSON.stringify({
-      ...params
-    }),
-    success: (resp) => {
-      if (resp.data) {
-        wxConfig({ signature: resp.data, ...params, obj });
-      }
-    }
-  });
+  wxConfig({ ...params, obj });
+  // $.ajax({
+  //   type: 'post',
+  //   url: 'https://gw.wmcloud-stg.com/cloud/wechatapp/jsapi/ticket/signature.json',
+  //   data: JSON.stringify({
+  //     ...params
+  //   }),
+  //   success: (resp) => {
+  //     if (resp.data) {
+  //       wxConfig({ signature: resp.data, ...params, obj });
+  //     }
+  //   }
+  // });
 }
 
 function wxConfig(options) {
