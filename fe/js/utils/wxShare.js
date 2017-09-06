@@ -20,7 +20,7 @@ export default function (obj) {
         nonceStr,
         timestamp
       };
-      let str = `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=http://www.chenguangliang.com/home/`;
+      let str = `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=www.chenguangliang.com/home`;
       console.log(str);
       let signature = sha1(str);
       wxConfig({ ...params, signature, obj });
