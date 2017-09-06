@@ -52,7 +52,7 @@ function wxConfig(options) {
       }
     });
 
-    wx.onMenuShareAppMessage(options.obj);
+    // wx.onMenuShareAppMessage(options.obj);
     // 分享到朋友圈
     wx.onMenuShareTimeline(options.obj);
     // 分享到QQ
