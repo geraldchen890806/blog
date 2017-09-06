@@ -4,9 +4,9 @@ window.wx = wx;
 export default function (obj) {
   let params = {
     appId: 'wx3451a3941b095c75',
-    signature: '5b0a887badda73011bd3bd7e29a3e596096ea248',
+    signature: '02dc710172cf8c7c03875c34b80c7e26e6a5b83c',
     nonceStr: 'test',
-    timestamp: 1504678930592
+    timestamp: 1504680416125
   };
   wxConfig({ ...params, obj });
   // $.ajax({
