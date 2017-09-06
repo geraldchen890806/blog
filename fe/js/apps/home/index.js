@@ -17,9 +17,8 @@ import wxShare from 'js/utils/wxShare';
 export default class Home extends Component {
   componentDidMount() {
     wxShare({
-      title: '看懂了这个私募排行榜,你才更懂”FOF”',
-      desc: '通联魔方，倾力打造17年私募排行榜暨黑马榜，综合考虑收益、风险、最大回撤、VAR、峰度等指标，给广大投资者展示一个更“FOF”视角的私募榜单',
-      link: 'http://www.chenguangliang.com/home',
+      title: "GeraldChen's blog",
+      desc: '本网站为学习nodejs+react创建，正在不停完善中',
       imgUrl: 'http://www.chenguangliang.com/static/img/icon.png'
     });
   }
