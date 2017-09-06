@@ -1,26 +1,29 @@
 import wx from 'weixin-js-sdk';
+import $ from 'jquery';
+import sha1 from 'sha1';
+
+const appId = 'wx3451a3941b095c75';
+const secret = 'fba1e9ed15b672f05f45ac4943416105';
+const nonceStr = 'test';
 
 window.wx = wx;
 export default function (obj) {
-  let params = {
-    appId: 'wx3451a3941b095c75',
-    signature: '02dc710172cf8c7c03875c34b80c7e26e6a5b83c',
-    nonceStr: 'test',
-    timestamp: 1504680416125
-  };
-  wxConfig({ ...params, obj });
-  // $.ajax({
-  //   type: 'post',
-  //   url: 'https://gw.wmcloud-stg.com/cloud/wechatapp/jsapi/ticket/signature.json',
-  //   data: JSON.stringify({
-  //     ...params
-  //   }),
-  //   success: (resp) => {
-  //     if (resp.data) {
-  //       wxConfig({ signature: resp.data, ..1.params, obj });
-  //     }
-  //   }
-  // });
+  let timestamp = new Date().getTime();
+  $.ajax({
+    type: 'get',
+    url: `${_config.api}/wx/token`,
+    success: (resp) => {
+      let ticket = resp.ticket;
+      let params = {
+        appId,
+        signature,
+        nonceStr,
+        timestamp
+      };
+      let signature = sha1(`jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${location.href}`);
+      wxConfig({ ...params, signature, obj });
+    }
+  });
 }
 
 function wxConfig(options) {
@@ -35,11 +38,12 @@ function wxConfig(options) {
   wx.checkJsApi({
     jsApiList: ['onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
     success(res) {
+      console.log('success');
       // 以键值对的形式返回，可用的api值true，不可用为false
       // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
     },
     error: (resp) => {
-      // console.log(resp);
+      console.log(resp);
     }
   });
   wx.ready(() => {
@@ -53,6 +57,6 @@ function wxConfig(options) {
     wx.onMenuShareWeibo(options.obj);
   });
   wx.error((res) => {
-    // console.log(res);
+    console.log(res);
   });
 }
