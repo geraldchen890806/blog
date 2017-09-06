@@ -1,11 +1,9 @@
 import wx from 'weixin-js-sdk';
 import $ from 'jquery';
-import sha1 from 'sha1';
 
 const appId = 'wx3451a3941b095c75';
 const secret = 'fba1e9ed15b672f05f45ac4943416105';
-const nonceStr = 'Test';
-const timestamp = 1504686399;
+
 window.wx = wx;
 export default function (obj) {
   // let timestamp = new Date().getTime();
@@ -13,17 +11,13 @@ export default function (obj) {
     type: 'get',
     url: `${_config.api}/wx/token?appId=${appId}&secret=${secret}`,
     success: (resp) => {
-      let ticket = resp.ticket;
-      let params = {
+      wxConfig({
         appId,
-        signature,
-        nonceStr,
-        timestamp
-      };
-      let str = `jsapi_ticket=${ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=www.chenguangliang.com/home/`;
-      console.log(str);
-      let signature = sha1(str);
-      wxConfig({ ...params, signature, obj });
+        signature: resp.signature,
+        nonceStr: resp.nonceStr,
+        timestamp: resp.timestamp,
+        obj: { ...obj, link: resp.url }
+      });
     }
   });
 }

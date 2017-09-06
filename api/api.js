@@ -3,6 +3,8 @@ var blog = require("./blog");
 const request = require("superagent");
 var _ = require("lodash");
 
+var sign = require("./sign.js");
+
 let ticket;
 
 module.exports = function(app) {
@@ -23,8 +25,13 @@ module.exports = function(app) {
 
   app.get("/wx/token", function(req, res, next) {
     let query = req.query || {};
-    if (ticket && query.appId == ticket.appId) {
-      res.send(ticket);
+    if (
+      ticket &&
+      query.appId == ticket.appId &&
+      ticket.time - new Date() > -7200000
+    ) {
+      res.send(sign(ticket.ticket, "http://www.chenguangliang.com/home/"));
+      return;
     }
 
     request
@@ -40,8 +47,10 @@ module.exports = function(app) {
               .body.access_token}&type=jsapi`
           )
           .end((err, resp2) => {
-            res.send(resp2.body);
-            tiket = _.assignIn(resp2.body, { time: new Date() }, query);
+            ticket = _.assignIn(resp2.body, { time: new Date() }, query);
+            res.send(
+              sign(ticket.ticket, "http://www.chenguangliang.com/home/")
+            );
           });
       });
   });
