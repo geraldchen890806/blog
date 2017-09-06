@@ -13,6 +13,7 @@ if (!isDev) {
   app.use(favicon(__dirname + "/favicon.ico"));
   var static_path = path.join(__dirname);
   app.use("/static", express.static(__dirname + "/static"));
+  app.use("/mp", express.static(__dirname + "/mp"));
   app.get("*", function(req, res) {
     res.sendFile("/static/index.html", {
       root: static_path
