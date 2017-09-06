@@ -26,12 +26,15 @@ module.exports = function(app) {
 
   app.get("/wx/token", function(req, res, next) {
     let query = req.query || {};
+    console.log(query);
     if (
       ticket &&
       query.appId == ticket.appId &&
       ticket.time - new Date() > -7200000
     ) {
-      res.send(_.assignIn(sign(ticket.ticket, query.url), ticket));
+      res.send(
+        _.assignIn(sign(ticket.ticket, query.url), ticket, { url: query.url })
+      );
       return;
     }
 
@@ -49,7 +52,11 @@ module.exports = function(app) {
           )
           .end((err, resp2) => {
             ticket = _.assignIn(resp2.body, { time: new Date() }, query);
-            res.send(_.assignIn(sign(ticket.ticket, query.url), ticket));
+            res.send(
+              _.assignIn(sign(ticket.ticket, query.url), ticket, {
+                url: query.url
+              })
+            );
           });
       });
   });
