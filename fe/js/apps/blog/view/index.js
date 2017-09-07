@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
 import _ from 'lodash';
-import wxShare from 'js/utils/wxShare';
+// import wxShare from 'js/utils/wxShare';
 
 @connect(state => ({
   ...state.blog,
@@ -19,11 +19,11 @@ export default class BlogView extends Component {
     } else {
       blogTpl = <div className="noneBlog">并没有这篇文章</div>;
     }
-    wxShare({
-      title: "GeraldChen's blog",
-      desc: (cur && cur.title) || '',
-      imgUrl: 'http://www.chenguangliang.com/static/img/icon.png'
-    });
+    // wxShare({
+    //   title: "GeraldChen's blog",
+    //   desc: (cur && cur.title) || '',
+    //   imgUrl: 'http://www.chenguangliang.com/static/img/icon.png'
+    // });
     return <div className="blogPage">{blogTpl}</div>;
   }
 }
