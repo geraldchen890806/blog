@@ -64,3 +64,17 @@ body {
     }
   }
 }
+
+@media only screen and (max-width: 640px), only screen and (max-device-width: 640px) {
+  body #root {
+    width: 100%;
+    .main {
+      .mainContent {
+        width: 100%;
+      }
+      .mainSide {
+        display: none;
+      }
+    }
+  }
+}
