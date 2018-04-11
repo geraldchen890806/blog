@@ -5,7 +5,7 @@ var express = require("express");
 var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
-var routes = require("./api/api");
+var routes = require("./api");
 
 routes(app);
 
@@ -23,18 +23,18 @@ if (!isDev) {
       root: static_path
     });
   });
-  app.listen(80, function(err) {
+  app.listen(process.env.PORT || 3000, function(err) {
     if (err) {
       console.log(err);
     }
-    console.log("Listening at localhost:80");
+    console.log("Listening at localhost:" + (process.env.PORT || 3000));
   });
 }
 
 if (isDev) {
   var config = require("./webpack.config");
   var compiler = webpack(config);
-  app.use("/static/img", express.static(__dirname + "/fe/img"));
+  app.use("/static/", express.static(__dirname + "/static"));
   app.use("/mp", express.static(__dirname + "/mp"));
   app.use(
     "/MP_verify_JDni6b15rFNM6wto.txt",
@@ -62,11 +62,11 @@ if (isDev) {
     });
   });
 
-  app.listen(3010, "0.0.0.0", function(err) {
+  app.listen(3000, "0.0.0.0", function(err) {
     if (err) {
       console.log(err);
       return;
     }
-    console.log("Listening at localhost:3010");
+    console.log("Listening at localhost:" + (process.env.PORT || 3000));
   });
 }

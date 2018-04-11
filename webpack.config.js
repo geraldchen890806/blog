@@ -2,6 +2,8 @@
 var path = require("path");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var OfflinePlugin = require('offline-plugin');
+var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   devtool: "source-map",
@@ -9,7 +11,7 @@ module.exports = {
     app: [
       "eventsource-polyfill",
       "webpack-hot-middleware/client",
-      "./fe/js/index"
+      "./js/index"
     ],
     vendor: [
       "eventsource-polyfill",
@@ -25,8 +27,8 @@ module.exports = {
     ]
   },
   output: {
-    filename: "bundle.js",
-    path: path.join(__dirname, "dist"),
+    filename: "main.js",
+    path: path.join(__dirname, "static"),
     publicPath: "/static/"
   },
   plugins: [
@@ -44,6 +46,15 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true
     }),
+    new CopyWebpackPlugin([
+      {
+        from: "img",
+        to: "img"
+      },
+      {
+        from: "mainfest.json"
+      }
+    ]),
     new webpack.ProvidePlugin({
       jQuery: "jquery"
     })
@@ -51,9 +62,9 @@ module.exports = {
   resolve: {
     alias: {
       business: process.cwd(),
-      js: path.resolve("fe/js"),
-      resources: path.resolve("fe/resources"),
-      apps: path.resolve("fe/js/apps")
+      js: path.resolve("js"),
+      resources: path.resolve("js/resources"),
+      apps: path.resolve("js/apps")
       // 'redux': path.join(__dirname, 'node_modules/redux')
     },
     extensions: ["", ".js"]
@@ -68,7 +79,7 @@ module.exports = {
         test: /\.js$/,
         loader: "babel",
         exclude: /node_modules/,
-        include: path.join(__dirname, "fe")
+        include: path.join(__dirname, "js")
       },
       {
         test: /\.css$/,
@@ -103,6 +114,11 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: "url?limit=10000&mimetype=image/svg+xml"
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.md$/,

@@ -4,10 +4,11 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
+var OfflinePlugin = require('offline-plugin');
 
 module.exports = {
   entry: {
-    app: "./fe/js/index",
+    app: "./js/index",
     vendor: [
       "jquery",
       "lodash",
@@ -27,9 +28,9 @@ module.exports = {
   resolve: {
     alias: {
       business: process.cwd(),
-      js: path.resolve("fe/js"),
-      resources: path.resolve("fe/resources"),
-      apps: path.resolve("fe/js/apps")
+      js: path.resolve("js"),
+      resources: path.resolve("js/resources"),
+      apps: path.resolve("js/apps")
     },
     extensions: ["", ".js"]
   },
@@ -37,7 +38,7 @@ module.exports = {
     new ExtractTextPlugin("css/main.[contentHash].css"),
     new webpack.optimize.CommonsChunkPlugin(
       /* chunkName= */ "vendor",
-      /* filename= */ "vendor.bundle.js"
+      /* filename= */ "vendor.[hash].js"
     ),
     new HtmlWebpackPlugin({
       filename: "index.html",
@@ -52,8 +53,11 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: "fe/img",
+        from: "img",
         to: "img"
+      },
+      {
+        from: "mainfest.json"
       }
     ]),
     new webpack.ProvidePlugin({
@@ -65,6 +69,28 @@ module.exports = {
       "process.env": {
         NODE_ENV: JSON.stringify("production")
       }
+    }),
+    new OfflinePlugin({
+      relativePaths: false,
+      publicPath: '/static/',
+
+      // No need to cache .htaccess. See http://mxs.is/googmp,
+      // this is applied before any match in `caches` section
+      // excludes: ['.htaccess'],
+
+      caches: {
+        main: [':rest:'],
+
+        // All chunks marked as `additional`, loaded after main section
+        // and do not prevent SW to install. Change to `optional` if
+        // do not want them to be preloaded at all (cached only when first loaded)
+        // additional: ['*.chunk.js']
+      },
+
+      // Removes warning for about `additional` section usage
+      safeToUseOptionalCaches: true,
+
+      AppCache: false
     })
   ],
   module: {
@@ -77,7 +103,7 @@ module.exports = {
         test: /\.js$/,
         loader: "babel",
         exclude: /node_modules/,
-        include: path.join(__dirname, "fe")
+        include: path.join(__dirname, "js")
       },
       {
         test: /\.css$/,
@@ -111,6 +137,11 @@ module.exports = {
       {
         test: /\.eot$/,
         loader: "file"
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.svg$/,
