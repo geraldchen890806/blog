@@ -2,6 +2,9 @@
 var isDev = process.env.NODE_ENV !== "production";
 var webpack = require("webpack");
 var express = require("express");
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
 var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
@@ -9,40 +12,28 @@ var routes = require("./api");
 
 routes(app);
 
+var privateKey  = fs.readFileSync(__dirname + '/sslforfree/private.key', 'utf8');
+var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+
+app.use("/static", express.static(__dirname + "/static"));
+app.use("/mp", express.static(__dirname + "/mp"));
+app.use("/.well-known", express.static(__dirname + "/.well-known"));
+app.use(
+  "/MP_verify_JDni6b15rFNM6wto.txt",
+  express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
+);
 if (!isDev) {
   app.use(favicon(__dirname + "/favicon.ico"));
   var static_path = path.join(__dirname);
-  app.use("/static", express.static(__dirname + "/static"));
-  app.use("/mp", express.static(__dirname + "/mp"));
-  app.use("/.well-known", express.static(__dirname + "/.well-known"));
-  app.use(
-    "/MP_verify_JDni6b15rFNM6wto.txt",
-    express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
-  );
   app.get("*", function(req, res) {
     res.sendFile("/static/index.html", {
       root: static_path
     });
   });
-  app.listen(process.env.PORT || 80, function(err) {
-    if (err) {
-      console.log(err);
-    }
-    console.log("Listening at localhost:" + (process.env.PORT || 80));
-  });
-}
-
-if (isDev) {
+} else {
   var config = require("./webpack.config");
   var compiler = webpack(config);
-  app.use("/static/", express.static(__dirname + "/static"));
-  app.use("/mp", express.static(__dirname + "/mp"));
-  app.use("/.well-known", express.static(__dirname + "/.well-known"));
-  app.use(
-    "/MP_verify_JDni6b15rFNM6wto.txt",
-    express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
-  );
-
   app.use(
     require("webpack-dev-middleware")(compiler, {
       noInfo: true,
@@ -63,12 +54,22 @@ if (isDev) {
       res.end();
     });
   });
-
-  app.listen(process.env.PORT || 3000, "0.0.0.0", function(err) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log("Listening at localhost:" + (process.env.PORT || 3000));
-  });
 }
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(process.env.PORT || 3000, function(err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log('HTTP Server is running on: http://localhost:%s', process.env.PORT || 3000);
+});
+httpsServer.listen(process.env.SSLPORT || 3001, function(err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log('HTTPS Server is running on: https://localhost:%s', process.env.SSLPORT || 3001);
+});
