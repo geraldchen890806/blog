@@ -14,6 +14,7 @@ if (!isDev) {
   var static_path = path.join(__dirname);
   app.use("/static", express.static(__dirname + "/static"));
   app.use("/mp", express.static(__dirname + "/mp"));
+  app.use("/.well-known", express.static(__dirname + "/.well-known"));
   app.use(
     "/MP_verify_JDni6b15rFNM6wto.txt",
     express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
@@ -23,11 +24,11 @@ if (!isDev) {
       root: static_path
     });
   });
-  app.listen(process.env.PORT || 3000, function(err) {
+  app.listen(process.env.PORT || 80, function(err) {
     if (err) {
       console.log(err);
     }
-    console.log("Listening at localhost:" + (process.env.PORT || 3000));
+    console.log("Listening at localhost:" + (process.env.PORT || 80));
   });
 }
 
@@ -36,6 +37,7 @@ if (isDev) {
   var compiler = webpack(config);
   app.use("/static/", express.static(__dirname + "/static"));
   app.use("/mp", express.static(__dirname + "/mp"));
+  app.use("/.well-known", express.static(__dirname + "/.well-known"));
   app.use(
     "/MP_verify_JDni6b15rFNM6wto.txt",
     express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
@@ -62,7 +64,7 @@ if (isDev) {
     });
   });
 
-  app.listen(3000, "0.0.0.0", function(err) {
+  app.listen(process.env.PORT || 3000, "0.0.0.0", function(err) {
     if (err) {
       console.log(err);
       return;
