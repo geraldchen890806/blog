@@ -57,7 +57,7 @@ module.exports = {
         to: "img"
       },
       {
-        from: "mainfest.json"
+        from: "manifest.json"
       }
     ]),
     new webpack.ProvidePlugin({
