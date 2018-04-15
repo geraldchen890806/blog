@@ -21,7 +21,7 @@ export default class Side extends Component {
     return (
       <div className="mainSide">
         <div id="info">
-          <img alt="" src="/static/img/icon.png" />
+          <img alt="" src="/img/icon.png" />
           <div>geraldchen890806@gmail.com</div>
         </div>
         <div id="recent">

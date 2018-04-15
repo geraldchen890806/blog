@@ -29,7 +29,7 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.join(__dirname, "static"),
-    publicPath: "/static/"
+    publicPath: "/"
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(

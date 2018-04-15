@@ -23,7 +23,7 @@ module.exports = {
   output: {
     filename: "main.[chunkHash].js",
     path: path.join(__dirname, "/static"),
-    publicPath: "/static/"
+    publicPath: "/"
   },
   resolve: {
     alias: {
@@ -72,7 +72,10 @@ module.exports = {
     }),
     new OfflinePlugin({
       relativePaths: false,
-      publicPath: '/static/',
+      publicPath: '/',
+      ServiceWorker: {
+        events: true
+      },
 
       // No need to cache .htaccess. See http://mxs.is/googmp,
       // this is applied before any match in `caches` section
@@ -84,7 +87,7 @@ module.exports = {
         // All chunks marked as `additional`, loaded after main section
         // and do not prevent SW to install. Change to `optional` if
         // do not want them to be preloaded at all (cached only when first loaded)
-        // additional: ['*.chunk.js']
+        additional: ['*.js']
       },
 
       // Removes warning for about `additional` section usage
