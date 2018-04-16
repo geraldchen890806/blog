@@ -73,7 +73,7 @@ export default class App extends Component {
           <Header />
           <div className="main">
             <div className="mainContent">
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
+              <Route exact path="/" render={props => this.checkAndrender(Home, props)} />
               <Route path="/home" render={props => this.checkAndrender(Home, props)} />
               <Route path="/recommend" render={props => this.checkAndrender(Recommend, props)} />
               <Route path="/about" render={props => this.checkAndrender(About, props)} />

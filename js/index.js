@@ -43,7 +43,7 @@ if (process.env.NODE_ENV === 'production') {
     onUpdated: () => {
       console.log('SW Event:', 'onUpdated');
       // Reload the webpage to load into the new version
-      window.location.reload();
+      // window.location.reload();
     },
 
     onUpdateFailed: () => {

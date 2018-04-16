@@ -1,21 +1,33 @@
 import {
-    commonType
-} from "js/redux/constants";
+    commonType,
+} from 'js/redux/constants';
 
 export function fetchBlogs() {
-    return function (dispatch) {
+  return function (dispatch) {
+    dispatch({
+      type: commonType.FETCHING_BLOGS,
+    });
+    // if (!navigator.onLine) {
+    //   dispatch({
+    //     type: commonType.FETCHING_BLOGS_SUCCESS,
+    //     blogs: [],
+    //   });
+    // }
+    $.ajax({
+      url: '/api/get',
+      type: 'GET',
+      success(resp) {
         dispatch({
-            type: commonType.FETCHING_BLOGS
+          type: commonType.FETCHING_BLOGS_SUCCESS,
+          blogs: resp,
         });
-        $.ajax({
-            url: "/api/get",
-            type: "GET",
-            success: function (resp) {
-                dispatch({
-                    type: commonType.FETCHING_BLOGS_SUCCESS,
-                    blogs: resp
-                });
-            }
+      },
+      error: () => {
+        dispatch({
+          type: commonType.FETCHING_BLOGS_SUCCESS,
+          blogs: [],
         });
-    };
+      },
+    });
+  };
 }
