@@ -9,7 +9,7 @@
     "deploy": "export NODE_ENV=production && `npm bin`/webpack --config webpack.config.production.js && npm start",
     "package": "NODE_ENV=production && webpack -p --config ./webpack.config.production.js --progress",
     "forever": "export NODE_ENV=production PORT=80 SSLPORT=443 && `npm bin`/webpack --config webpack.config.production.js && forever start server.js",
-    "testSW": "export NODE_ENV=production PORT=3000 SSLPORT=3001 && `npm bin`/webpack --config webpack.config.production.js && npm start"
+    "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config webpack.config.production.js && npm start"
   },
   "license": "MIT",
   "dependencies": {
