@@ -17,6 +17,7 @@ var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'ut
 var credentials = {key: privateKey, cert: certificate};
 
 app.use(express.static(__dirname +'/static'));
+app.use('/vender', express.static(__dirname + '/vender'));
 app.use("/mp", express.static(__dirname + "/mp"));
 app.use("/.well-known", express.static(__dirname + "/.well-known"));
 app.use(

@@ -1,12 +1,13 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import ReactBlog from './reactBlog';
 
 export default class BlogItem extends Component {
+
   render() {
     const { blog } = this.props;
-    if (blog.view) return <ReactBlog {...this.props} />;
+    if (blog.load) return <ReactBlog {...this.props} />;
     return (
       <div className="article blog">
         <header className="blogItem">

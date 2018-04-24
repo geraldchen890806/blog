@@ -2,7 +2,6 @@
 var path = require("path");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
-var OfflinePlugin = require('offline-plugin');
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
@@ -12,49 +11,28 @@ module.exports = {
       "eventsource-polyfill",
       "webpack-hot-middleware/client",
       "./js/index"
-    ],
-    vendor: [
-      "eventsource-polyfill",
-      "webpack-hot-middleware/client",
-      "jquery",
-      "lodash",
-      "moment",
-      "react",
-      "react-dom",
-      "react-redux",
-      "redux",
-      "redux-thunk"
     ]
   },
   output: {
-    filename: "main.js",
+    filename: "main.[hash].js",
     path: path.join(__dirname, "static"),
+    chunkFilename: '[name].[chunkhash].chunk.js',
     publicPath: "/"
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(
-      /* chunkName= */ "vendor",
-      /* filename= */ "vendor.[hash].js"
-    ),
+    // new webpack.DllReferencePlugin({
+    //   context: path.join(__dirname, 'vender'),
+    //   manifest: path.join(__dirname, 'dll.json')
+    // }),
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: "index.html"
+      template: "index.dev.html"
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: true
+      __DEVTOOLS__: true,
     }),
-    new CopyWebpackPlugin([
-      {
-        from: "img",
-        to: "img"
-      },
-      {
-        from: "manifest.json"
-      }
-    ]),
     new webpack.ProvidePlugin({
       jQuery: "jquery"
     })
@@ -65,64 +43,53 @@ module.exports = {
       js: path.resolve("js"),
       resources: path.resolve("js/resources"),
       apps: path.resolve("js/apps")
-      // 'redux': path.join(__dirname, 'node_modules/redux')
     },
-    extensions: ["", ".js"]
+    extensions: [".js"]
   },
   module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: "json-loader"
-      },
+    rules: [
       {
         test: /\.js$/,
-        loader: "babel",
+        use: ['babel-loader?cacheDirectory'],
         exclude: /node_modules/,
-        include: path.join(__dirname, "js")
+        include: path.join(__dirname, 'js')
       },
       {
         test: /\.css$/,
-        loaders: ["style", "raw"],
+        use: ['style-loader', 'raw-loader'],
         include: __dirname
       },
       {
         test: /\.less$/,
-        loaders: ["style", "css", "less"],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              modifyVars: {
+                '@icon-url': '"~fonts/iconfont"'
+              }
+            }
+          }
+        ],
         include: __dirname
       },
       {
-        test: /\.(jpeg|png|jpg|gif|pdf)$/,
-        loader: "file?name=[path][name].[ext]"
+        test: /\.(jpeg|png|jpg|gif|pdf|mp3|ogg|wav)$/,
+        use: ['file-loader?name=[path][name].[ext]']
       },
       {
-        test: /\.woff|\.woff2$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url-loader?limit=10000&mimetype=application/font-woff']
       },
       {
-        test: /\.ttf$/,
-        loader: "url?limit=10000&mimetype=application/octet-stream"
-      },
-      {
-        test: /\.(tpl|html)$/,
-        loader: "ejs"
-      },
-      {
-        test: /\.eot$/,
-        loader: "file"
-      },
-      {
-        test: /\.svg$/,
-        loader: "url?limit=10000&mimetype=image/svg+xml"
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-        exclude: /node_modules/
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['file-loader']
       },
       {
         test: /\.md$/,
-        loader: "html!markdown"
+        loader: ["html-loader", 'markdown-loader']
       }
     ]
   }

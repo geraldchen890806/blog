@@ -5,50 +5,66 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 var OfflinePlugin = require('offline-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: "./js/index",
-    vendor: [
-      "jquery",
-      "lodash",
-      "moment",
-      "react",
-      "react-dom",
-      "react-redux",
-      "redux",
-      "redux-thunk"
-    ]
+    main: ['babel-polyfill', "./js/index"],
   },
   output: {
     filename: "main.[chunkHash].js",
     path: path.join(__dirname, "/static"),
+    chunkFilename: '[name].[chunkhash].chunk.js',
     publicPath: "/"
   },
   resolve: {
+    modules: ['node_modules'],
     alias: {
       business: process.cwd(),
       js: path.resolve("js"),
       resources: path.resolve("js/resources"),
       apps: path.resolve("js/apps")
     },
-    extensions: ["", ".js"]
+    extensions: [".js"]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'main',
+      children: true,
+      async: true,
+      minChunks: function(module) {
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'main',
+      async: 'chunk-vendor',
+      children: true,
+      minChunks: function(module, count) {
+        return count >= 2;
+      }
+    }),
+
     new ExtractTextPlugin("css/main.[contentHash].css"),
-    new webpack.optimize.CommonsChunkPlugin(
-      /* chunkName= */ "vendor",
-      /* filename= */ "vendor.[hash].js"
-    ),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "index.html"
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
+    new UglifyJSPlugin({
+      // 最紧凑的输出
+      beautify: false,
+      // 删除所有的注释
+      comments: false,
+      compress: {
+        // 在UglifyJs删除没有用到的代码时不输出警告
+        warnings: false,
+        // 删除所有的 `console` 语句
+        // 还可以兼容ie浏览器
+        drop_console: true,
+        // 内嵌定义了但是只用到一次的变量
+        collapse_vars: true,
+        // 提取出出现多次但是没有定义成变量去引用的静态值
+        reduce_vars: true
       }
     }),
     new CopyWebpackPlugin([
@@ -76,83 +92,58 @@ module.exports = {
       ServiceWorker: {
         events: true
       },
-
-      // No need to cache .htaccess. See http://mxs.is/googmp,
-      // this is applied before any match in `caches` section
-      // excludes: ['.htaccess'],
-
       caches: {
         main: [':rest:'],
 
-        // All chunks marked as `additional`, loaded after main section
-        // and do not prevent SW to install. Change to `optional` if
-        // do not want them to be preloaded at all (cached only when first loaded)
         additional: ['vendor.*.js', '*.chunk.js']
       },
-
-      // Removes warning for about `additional` section usage
-      // safeToUseOptionalCaches: true,
-
       AppCache: false
     })
   ],
   module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: "json-loader"
-      },
+    rules: [
       {
         test: /\.js$/,
-        loader: "babel",
+        use: ['babel-loader?cacheDirectory'],
         exclude: /node_modules/,
-        include: path.join(__dirname, "js")
+        include: path.join(__dirname, 'js')
       },
       {
         test: /\.css$/,
-        loaders: ["style", "raw"],
+        use: ['style-loader', 'raw-loader'],
         include: __dirname
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          "style",
-          "raw!autoprefixer?browsers=last 2 version!less"
-        ),
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              modifyVars: {
+                '@icon-url': '"~fonts/iconfont"'
+              }
+            }
+          }
+        ],
         include: __dirname
       },
       {
-        test: /\.(jpeg|png|jpg|gif|pdf)$/,
-        loader: "file?name=[path][name].[ext]"
+        test: /\.(jpeg|png|jpg|gif|pdf|mp3|ogg|wav)$/,
+        use: ['file-loader?name=[path][name].[ext]']
       },
       {
-        test: /\.woff|\.woff2$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['url-loader?limit=10000&mimetype=application/font-woff']
       },
       {
-        test: /\.ttf$/,
-        loader: "url?limit=10000&mimetype=application/octet-stream"
-      },
-      {
-        test: /\.(tpl|html)$/,
-        loader: "ejs"
-      },
-      {
-        test: /\.eot$/,
-        loader: "file"
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.svg$/,
-        loader: "url?limit=10000&mimetype=image/svg+xml"
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['file-loader']
       },
       {
         test: /\.md$/,
-        loader: "html!markdown"
+        loader: ["html-loader", 'markdown-loader']
       }
     ]
   }

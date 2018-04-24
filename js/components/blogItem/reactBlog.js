@@ -1,10 +1,39 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class BlogItemS extends Component {
-  render() {
+  state = {
+    Content: null,
+  }
+
+  componentWillMount() {
+    this.load();
+  }
+
+  load() {
+    // import
     const { blog } = this.props;
-    let Content = blog.view;
+    if (blog.load) {
+      blog.load().then((mod) => {
+        this.setState({
+          Content: mod.default ? mod.default : mod,
+        });
+      });
+      return;
+    }
+
+    // bundle loader
+    blog.load()((mod) => {
+      this.setState({
+        // handle both es imports and cjs
+        Content: mod.default ? mod.default : mod,
+      });
+    });
+  }
+
+  render() {
+    const { Content } = this.state;
+    const { blog } = this.props;
     return (
       <div className="article blog">
         <header className="blogItem">
@@ -13,7 +42,7 @@ export default class BlogItemS extends Component {
           </h1>
         </header>
         <div className="content markdown-body">
-          <Content />
+          {Content && <Content {...this.props} />}
         </div>
         <footer className="article-footer" />
       </div>
