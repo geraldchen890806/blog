@@ -95,7 +95,7 @@ export default class ResizableTable extends React.Component {
             ? {
               width: width - 5 - (customSort ? 25 : 0), // 5:rightPadding
               padding: '0 2px',
-                // cursor: sortFlag ? 'pointer' : 'text',
+              // cursor: sortFlag ? 'pointer' : 'text',
               display: 'inline-block',
               verticalAlign: 'top',
               height: lineHeight,
@@ -179,7 +179,9 @@ ResizableTable.propTypes = {
 };
 
 const ResizableTitle = (props) => {
-  const { onResize, width, dataIndex, ...restProps } = props;
+  const {
+    onResize, width, dataIndex, ...restProps
+  } = props;
   if (!width) {
     return <th key={dataIndex} {...restProps} />;
   }

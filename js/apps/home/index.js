@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as allActions from './actions';
 import BlogItem from 'js/components/blogItem';
 // import wxShare from 'js/utils/wxShare';
 
 @connect(
-  state => ({
-    ...state.home,
-    _common: state.common
-  }),
-  dispatch => ({
-    actions: bindActionCreators(allActions, dispatch)
+  (state) => ({
+    blogs: state.common.blogs,
   })
 )
 export default class Home extends Component {
@@ -23,8 +18,11 @@ export default class Home extends Component {
   //   });
   // }
   render() {
-    let { actions, _common } = this.props;
-    let { blogs } = _common;
-    return <div className="homePage">{blogs.map(blog => <BlogItem key={blog.title} blog={blog} {...actions} />)}</div>;
+    const { blogs } = this.props;
+    return <div className="homePage">{blogs.map((blog, i) => <BlogItem key={i} blog={blog} />)}</div>;
   }
 }
+
+Home.propTypes = {
+  blogs: propTypes.array,
+};

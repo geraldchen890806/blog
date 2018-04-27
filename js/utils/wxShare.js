@@ -6,7 +6,7 @@ const appId = 'wx3451a3941b095c75';
 window.wx = wx;
 export default function (obj) {
   // let timestamp = new Date().getTime();
-  let url = location.href;
+  const url = location.href;
   $.ajax({
     type: 'get',
     url: `${_config.api}/wx/token?appId=${appId}&url=${url}`,
@@ -16,9 +16,9 @@ export default function (obj) {
         signature: resp.signature,
         nonceStr: resp.nonceStr,
         timestamp: resp.timestamp,
-        obj: { ...obj, link: resp.url }
+        obj: { ...obj, link: resp.url },
       });
-    }
+    },
   });
 }
 
@@ -29,7 +29,7 @@ function wxConfig(options) {
     timestamp: options.timestamp, // 必填，生成签名的时间戳
     nonceStr: options.nonceStr, // 必填，生成签名的随机串
     signature: options.signature, // 必填，签名，见附录13
-    jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ', 'onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
   });
   wx.ready(() => {
     // alert('ready');
@@ -64,7 +64,7 @@ wx.ready(() => {
     },
     fail(res) {
       alert(JSON.stringify(res));
-    }
+    },
   });
   // alert('ready2');
   // 分享给朋友

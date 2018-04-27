@@ -13,17 +13,17 @@ export default class Header extends Component {
           </h3>
           <ul>
             <li>
-              <Link to={'/home'}>
+              <Link to="/home">
                 首页
               </Link>
             </li>
             <li>
-              <Link to={'/recommend'}>
+              <Link to="/recommend">
                 推荐
               </Link>
             </li>
             <li>
-              <Link to={'/about'}>
+              <Link to="/about">
                 关于
               </Link>
             </li>

@@ -1,6 +1,7 @@
 const DB = require('./db');
 const db = new DB('blogs');
 const mm = require('moment');
+const scripts = require('./scripts');
 
 exports.sqlBlogs = function (callback) {
   // var blogs = this.queryStr("SELECT * FROM blogs left join (select blog_tag.blogID,blog_tag.tagID,name as tagName from tags left join blog_tag on tags.id = blog_tag.tagID ) b on blogs.id = b.blogID order by blogs.addTime DESC");
@@ -31,9 +32,12 @@ exports.sqlBlogs = function (callback) {
         }
         // console.log(res[id]);
       });
+
+      scripts(res);
+
       res = res
-        .filter((v, i) => !!v)
-        .reverse();
+      .filter((v, i) => !!v)
+      .reverse();
       callback(res);
     }
   );

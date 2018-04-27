@@ -1,7 +1,5 @@
-import * as commonType from "js/containers/constants";
-import * as home from "js/apps/home/constants";
+import * as commonType from 'js/containers/constants';
 
 export {
-    commonType,
-    home
+  commonType,
 };

@@ -27,7 +27,9 @@ import ResizableTable from './resizableTable';
 export default class TableAntd extends React.Component {
   constructor(props) {
     super(props);
-    const { width, columns, columnWidthsPreference, onSortChange, showEllipsis, expandIconColumnIndex } = this.props;
+    const {
+      width, columns, columnWidthsPreference, onSortChange, showEllipsis, expandIconColumnIndex,
+    } = this.props;
     const res = resetColumnWidth({
       columns,
       showEllipsis,
@@ -43,7 +45,9 @@ export default class TableAntd extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { columns, columnWidthsPreference, showEllipsis, expandIconColumnIndex, width } = nextProps;
+    const {
+      columns, columnWidthsPreference, showEllipsis, expandIconColumnIndex, width,
+    } = nextProps;
     let stateColumnWidthsPreference = this.state.columnWidthsPreference;
     let stateColumns = this.state.columns;
     if (!_.isEqual(columnWidthsPreference, this.props.columnWidthsPreference)) {
@@ -101,7 +105,9 @@ export default class TableAntd extends React.Component {
   }
 }
 
-const _render = ({ column, showEllipsis, columnIndex, expandIconColumnIndex }) => (text, record, index, width) => {
+const _render = ({
+  column, showEllipsis, columnIndex, expandIconColumnIndex,
+}) => (text, record, index, width) => {
   let html;
   if (column.render) {
     html = column.render(text, record, index, width);
@@ -147,7 +153,7 @@ const _render = ({ column, showEllipsis, columnIndex, expandIconColumnIndex }) =
       title = '';
     }
     return (
-      <Tooltip placement={'topLeft'} mouseEnterDelay={0.5} title={title}>
+      <Tooltip placement="topLeft" mouseEnterDelay={0.5} title={title}>
         {html}
       </Tooltip>
     );
@@ -155,7 +161,9 @@ const _render = ({ column, showEllipsis, columnIndex, expandIconColumnIndex }) =
   return html;
 };
 
-export const resetColumnWidth = ({ columns, showEllipsis, expandIconColumnIndex, columnWidthsPreference, width }) => {
+export const resetColumnWidth = ({
+  columns, showEllipsis, expandIconColumnIndex, columnWidthsPreference, width,
+}) => {
   let step = 1;
   if (width && _.isEmpty(columnWidthsPreference)) {
     const sumWidth = _.sumBy(columns, (c) => c.width || 0);
@@ -166,7 +174,9 @@ export const resetColumnWidth = ({ columns, showEllipsis, expandIconColumnIndex,
       ...column,
       title: column.title || column.column,
       dataIndex: column.dataIndex || column.key,
-      render: _render({ column, showEllipsis, columnIndex: index, expandIconColumnIndex }),
+      render: _render({
+        column, showEllipsis, columnIndex: index, expandIconColumnIndex,
+      }),
       className: column.className || column.tdClass,
       titleRender: column.titleRender || column.columnRender,
       width: parseInt(column.width * step, 10),

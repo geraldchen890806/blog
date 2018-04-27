@@ -18,6 +18,7 @@ var credentials = {key: privateKey, cert: certificate};
 
 app.use(express.static(__dirname +'/static'));
 app.use('/vender', express.static(__dirname + '/vender'));
+app.use('/img', express.static(__dirname + '/img'));
 app.use("/mp", express.static(__dirname + "/mp"));
 app.use("/.well-known", express.static(__dirname + "/.well-known"));
 app.use(
@@ -60,17 +61,17 @@ if (!isDev) {
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(process.env.PORT || 3000, function(err) {
+httpServer.listen(process.env.PORT || 3022, function(err) {
   if (err) {
     console.log(err);
     return;
   }
-  console.log('HTTP Server is running on: http://localhost:%s', process.env.PORT || 3000);
+  console.log('HTTP Server is running on: http://localhost:%s', process.env.PORT || 3022);
 });
-httpsServer.listen(process.env.SSLPORT || 3001, function(err) {
+httpsServer.listen(process.env.SSLPORT || 3021, function(err) {
   if (err) {
     console.log(err);
     return;
   }
-  console.log('HTTPS Server is running on: https://localhost:%s', process.env.SSLPORT || 3001);
+  console.log('HTTPS Server is running on: https://localhost:%s', process.env.SSLPORT || 3021);
 });

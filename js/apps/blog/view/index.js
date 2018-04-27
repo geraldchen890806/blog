@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
 import _ from 'lodash';
 // import wxShare from 'js/utils/wxShare';
 
-@connect(state => ({
-  ...state.blog,
-  _common: state.common
+@connect((state) => ({
+  blogs: state.common.blogs,
 }))
-export default class BlogView extends Component {
+export default class Blog extends Component {
   render() {
-    let { _common, routeParams = {}, location } = this.props;
-    let { blogs } = _common;
-    let cur = _.find(blogs, { url: routeParams.id });
+    const { blogs, routeParams = {} } = this.props;
+    const cur = _.find(blogs, { url: routeParams.id });
     let blogTpl;
     if (cur) {
       blogTpl = <BlogItem key={cur.title} blog={cur} />;
@@ -27,3 +27,8 @@ export default class BlogView extends Component {
     return <div className="blogPage">{blogTpl}</div>;
   }
 }
+
+Blog.propTypes = {
+  blogs: propTypes.array,
+  routeParams: propTypes.object,
+};

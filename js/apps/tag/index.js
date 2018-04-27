@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as allActions from './actions';
 import BlogItem from 'js/components/blogItem';
-import { browserHistory } from 'react-router-dom';
 import _ from 'lodash';
 
 @connect(
-  state => ({
-    ...state.blog,
-    _common: state.common
-  }),
-  dispatch => ({
-    actions: bindActionCreators(allActions, dispatch)
+  (state) => ({
+    blogs: state.common.blogs,
   })
 )
-export default class Home extends Component {
+export default class Tag extends Component {
   render() {
-    let { _common, actions, match } = this.props;
-    let tag = match.params.tag;
-    let { blogs } = _common;
-    let curBlogs = _.filter(blogs, b => _.some(b.tags, t => t.name == tag));
+    const { blogs, match } = this.props;
+    const tag = match.params.tag;
+    const curBlogs = _.filter(blogs, (blog) => blog.tags.includes(tag));
     return (
       <div className="homePage">
-        {curBlogs.map(blog => <BlogItem key={blog.title} blog={blog} {...actions} />)}
+        {curBlogs.map((blog) => <BlogItem key={blog.title} blog={blog} />)}
       </div>
     );
   }
 }
+
+Tag.propTypes = {
+  blogs: propTypes.array,
+  match: propTypes.object,
+};

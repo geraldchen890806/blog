@@ -4,20 +4,8 @@ import _ from 'lodash';
 
 export default class Side extends Component {
   render() {
-    let { blogs } = this.props;
-
-    let tags = _.reduce(
-      blogs,
-      (re, b) => {
-        (b.tags || []).forEach((t) => {
-          let name = t.name || t;
-          re[name] = (re[name] || []).concat([name]);
-        });
-        return re;
-      },
-      {}
-    );
-    tags = _.sortBy(_.values(tags), t => t.length).reverse().map(t => t[0]);
+    const { blogs } = this.props;
+    const tags = _.uniq(_.reduce(blogs, (re, b) => re.concat(b.tags), []));
     return (
       <div className="mainSide">
         <div id="info">
@@ -27,21 +15,19 @@ export default class Side extends Component {
         <div id="recent">
           <h4 className="title">最新文章</h4>
           <ul>
-            {blogs.slice(0, 5).map(blog =>
-              <li key={blog.title}>
+            {blogs.slice(0, 5).map((blog) =>
+              (<li key={blog.title}>
                 <Link className="article-title" to={`/blog/${blog.url}`}>{blog.title}</Link>
-              </li>
-            )}
+               </li>))}
           </ul>
         </div>
         <div id="tags" className="item">
           <h4 className="title">标签</h4>
           <ul>
-            {tags.map(tag =>
-              <li key={tag}>
+            {tags.map((tag, i) =>
+              (<li key={i}>
                 <Link className="article-title" to={`/tag/${tag}`}>{tag}</Link>
-              </li>
-            )}
+               </li>))}
           </ul>
         </div>
         <div id="links" className="item">
@@ -51,7 +37,7 @@ export default class Side extends Component {
               <a href="http://www.jiweiwei.com/">众生相</a>
             </li>
             <li>
-              <a href="http://blog.samsonis.me/">{"Samson's Weblog"}</a>
+              <a href="http://blog.samsonis.me/">Samson's Weblog</a>
             </li>
             <li>
               <a href="http://www.adrian-run.com/">Adrian Hwang</a>

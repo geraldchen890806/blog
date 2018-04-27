@@ -9,7 +9,8 @@
     "deploy": "export NODE_ENV=production && `npm bin`/webpack --config webpack.config.production.js && npm start",
     "package": "NODE_ENV=production && webpack -p --config ./webpack.config.production.js --progress",
     "forever": "export NODE_ENV=production PORT=80 SSLPORT=443 && `npm bin`/webpack --config webpack.config.production.js && forever start server.js",
-    "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config webpack.config.production.js && npm start"
+    "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config webpack.config.production.js && npm start",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern api -- ."
   },
   "license": "MIT",
   "dependencies": {
@@ -17,6 +18,7 @@
     "github-markdown-css": "^2.8.0",
     "history": "4.6.3",
     "html-loader": "^0.4.5",
+    "intersection-observer": "^0.5.0",
     "jquery": "3.1.1",
     "jssha": "1.5.0",
     "lodash": "4.17.4",
@@ -64,7 +66,7 @@
     "eslint-config-airbnb-base": "10.0.1",
     "eslint-import-resolver-webpack": "0.8.1",
     "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "6.10.0",
     "eventsource-polyfill": "0.9.6",
     "express": "4.14.1",
