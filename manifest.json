@@ -1,6 +1,17 @@
 {
-  "name": "G L",
+  "short_name": "GeraldChen's Blog",
+  "name": "GeraldChen's Blog",
   "icons": [
+    {
+      "src": "/img/icon.png",
+      "sizes": "48*48",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icon.png",
+      "sizes": "96*96",
+      "type": "image/png"
+    },
     {
       "src": "/img/icon.png",
       "sizes": "192x192",
@@ -10,5 +21,5 @@
   "theme_color": "#181743",
   "background_color": "#181743",
   "start_url": "/",
-  "display": "standalone"
+  "display": "fullscreen"
 }

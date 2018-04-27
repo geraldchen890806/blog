@@ -9,12 +9,7 @@ var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
 
-var privateKey  = fs.readFileSync(__dirname + '/sslforfree/private.key', 'utf8');
-var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
-
 app.use(express.static(__dirname +'/static'));
-app.use('/vender', express.static(__dirname + '/vender'));
 app.use('/img', express.static(__dirname + '/img'));
 app.use("/mp", express.static(__dirname + "/mp"));
 app.use("/.well-known", express.static(__dirname + "/.well-known"));
@@ -31,6 +26,8 @@ if (!isDev) {
     });
   });
 } else {
+  app.use('/vender', express.static(__dirname + '/vender'));
+  app.use('/manifest.json', express.static(__dirname + '/manifest.json'));
   var config = require("./webpack.config");
   var compiler = webpack(config);
   app.use(
@@ -56,7 +53,6 @@ if (!isDev) {
 }
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(process.env.PORT || 3022, function(err) {
   if (err) {
@@ -65,10 +61,17 @@ httpServer.listen(process.env.PORT || 3022, function(err) {
   }
   console.log('HTTP Server is running on: http://localhost:%s', process.env.PORT || 3022);
 });
-httpsServer.listen(process.env.SSLPORT || 3021, function(err) {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log('HTTPS Server is running on: https://localhost:%s', process.env.SSLPORT || 3021);
-});
+
+if(!isDev){
+  var privateKey  = fs.readFileSync(__dirname + '/sslforTest/private.key', 'utf8');
+  var certificate = fs.readFileSync(__dirname + '/sslforTest/certificate.crt', 'utf8');
+  var credentials = {key: privateKey, cert: certificate};
+  var httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(process.env.SSLPORT || 3021, function(err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log('HTTPS Server is running on: https://localhost:%s', process.env.SSLPORT || 3021);
+  });
+}
