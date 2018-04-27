@@ -95,7 +95,7 @@ module.exports = {
       caches: {
         main: [':rest:'],
 
-        additional: ['vendor.*.js', '*.chunk.js']
+        additional: ['*.chunk.js']
       },
       AppCache: false
     })
