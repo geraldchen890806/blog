@@ -63,8 +63,8 @@ httpServer.listen(process.env.PORT || 3022, function(err) {
 });
 
 if(!isDev){
-  var privateKey  = fs.readFileSync(__dirname + '/sslforTest/private.key', 'utf8');
-  var certificate = fs.readFileSync(__dirname + '/sslforTest/certificate.crt', 'utf8');
+  var privateKey  = fs.readFileSync(__dirname + '/sslforfree/private.key', 'utf8');
+  var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'utf8');
   var credentials = {key: privateKey, cert: certificate};
   var httpsServer = https.createServer(credentials, app);
   httpsServer.listen(process.env.SSLPORT || 3021, function(err) {
