@@ -8,9 +8,6 @@ var fs = require('fs');
 var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
-var routes = require("./api");
-
-routes(app);
 
 var privateKey  = fs.readFileSync(__dirname + '/sslforfree/private.key', 'utf8');
 var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'utf8');

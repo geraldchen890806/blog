@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
 import { ConnectedRouter } from 'react-router-redux';
 
-import { store } from 'js/redux/store';
-import { commonType } from 'js/redux/constants';
 import history from 'js/redux/middleware/history';
-
 import Home from 'js/apps/home';
 import Recommend from 'js/apps/recommend';
 import Blog from 'js/apps/blog/view';
@@ -19,18 +15,9 @@ import About from 'js/apps/about';
 import Header from './header';
 import Side from './side';
 
-import * as allActions from './actions';
-
-history.listen((location, action) => {
-  store.dispatch({ type: commonType.CLEAR });
-});
-
 @connect(
   (state) => ({
     ...state.common,
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(allActions, dispatch),
   })
 )
 export default class App extends Component {

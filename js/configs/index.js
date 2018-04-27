@@ -1,4 +1,3 @@
 
 
-import './ajax';
 import './numFloat';
