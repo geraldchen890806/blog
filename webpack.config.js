@@ -64,14 +64,7 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
-          {
-            loader: 'less-loader',
-            options: {
-              modifyVars: {
-                '@icon-url': '"~fonts/iconfont"'
-              }
-            }
-          }
+          'less-loader'
         ],
         include: __dirname
       },
