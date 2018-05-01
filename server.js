@@ -20,17 +20,14 @@ app.use(
 if (!isDev) {
   app.use(favicon(__dirname + "/favicon.ico"));
   var static_path = path.join(__dirname);
-  app.use(function(req, res, next) {
+  app.get("*", function(req, res) {
     if (!/https/.test(req.protocol)){
       res.redirect("https://" + req.headers.host + req.url);
     } else {
-      return next();
+      res.sendFile("/static/index.html", {
+        root: static_path
+      });
     }
-  });
-  app.get("*", function(req, res) {
-    res.sendFile("/static/index.html", {
-      root: static_path
-    });
   });
 } else {
   app.use('/vender', express.static(__dirname + '/vender'));
@@ -43,20 +40,7 @@ if (!isDev) {
       publicPath: config.output.publicPath
     })
   );
-
   app.use(require("webpack-hot-middleware")(compiler));
-
-  app.use("/", function(req, res, next) {
-    var filename = path.join(compiler.outputPath, "index.html");
-    compiler.outputFileSystem.readFile(filename, function(err, result) {
-      if (err) {
-        return next(err);
-      }
-      res.set("content-type", "text/html");
-      res.send(result);
-      res.end();
-    });
-  });
 }
 
 var httpServer = http.createServer(app);
