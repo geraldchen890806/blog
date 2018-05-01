@@ -20,6 +20,13 @@ app.use(
 if (!isDev) {
   app.use(favicon(__dirname + "/favicon.ico"));
   var static_path = path.join(__dirname);
+  app.use(function(req, res, next) {
+    if (!/https/.test(req.protocol)){
+      res.redirect("https://" + req.headers.host + req.url);
+    } else {
+      return next();
+    }
+  });
   app.get("*", function(req, res) {
     res.sendFile("/static/index.html", {
       root: static_path
