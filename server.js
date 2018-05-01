@@ -11,8 +11,7 @@ var favicon = require("serve-favicon");
 
 app.use(function(req, res, next) {
   if (!/https/.test(req.protocol) && process.env.SSLPORT) {
-    res.redirect("http://chenguangliang.com/blog/react-router4");
-    return;
+    res.redirect("https://" + req.headers.host + req.url);
   } else {
     return next();
   }
