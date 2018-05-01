@@ -9,6 +9,14 @@ var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
 
+app.use(function(req, res, next) {
+  if (!/https/.test(req.protocol) && process.env.SSLPORT) {
+    res.redirect("http://chenguangliang.com/blog/react-router4");
+    return;
+  } else {
+    return next();
+  }
+});
 app.use(express.static(__dirname +'/static'));
 app.use('/img', express.static(__dirname + '/img'));
 app.use("/mp", express.static(__dirname + "/mp"));
@@ -21,13 +29,9 @@ if (!isDev) {
   app.use(favicon(__dirname + "/favicon.ico"));
   var static_path = path.join(__dirname);
   app.get("*", function(req, res) {
-    if (!/https/.test(req.protocol)){
-      res.redirect("https://" + req.headers.host + req.url);
-    } else {
-      res.sendFile("/static/index.html", {
-        root: static_path
-      });
-    }
+    res.sendFile("/static/index.html", {
+      root: static_path
+    });
   });
 } else {
   app.use('/vender', express.static(__dirname + '/vender'));
