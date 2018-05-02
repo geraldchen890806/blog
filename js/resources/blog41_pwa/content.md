@@ -34,8 +34,8 @@
   [App Shell](https://developers.google.cn/web/fundamentals/architecture/app-shell)
 
 ### 粘性
-  借助 [Web App Manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn) 提供给用户和 Native App 一样的沉浸式体验
-  可以通过给用户[发送离线通知](https://developers.google.cn/web/fundamentals/push-notifications/?hl=zh-cn)，让用户回流
+  1. 借助 [Web App Manifest](https://developers.google.cn/web/fundamentals/web-app-manifest/?hl=zh-cn) 提供给用户和 Native App 一样的沉浸式体验
+  2. 可以通过给用户[发送离线通知](https://developers.google.cn/web/fundamentals/push-notifications/?hl=zh-cn)，让用户回流
 
 
 ### 坑：
