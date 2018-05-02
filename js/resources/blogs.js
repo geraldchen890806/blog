@@ -80,9 +80,11 @@ import blog38 from './blog38_harpjs';
 import blog39 from './blog39_es7-rest-spread';
 // blog40_react-router4
 import blog40 from './blog40_react-router4';
+// blog40_pwa
+import blog41 from './blog41_pwa';
 
 export default [blog0, blog1, blog2, blog3, blog4, blog5, blog6, blog7, blog8, blog9,
   blog10, blog11, blog12, blog13, blog14, blog15, blog16, blog17, blog18, blog19,
   blog20, blog21, blog22, blog23, blog24, blog25, blog26, blog27, blog28, blog29,
   blog30, blog31, blog32, blog33, blog34, blog35, blog36, blog37, blog38, blog39,
-  blog40].reverse();
+  blog40, blog41].reverse();
