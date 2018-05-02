@@ -15,7 +15,7 @@ export default class Blog extends Component {
     const cur = _.find(blogs, { url: routeParams.id });
     let blogTpl;
     if (cur) {
-      blogTpl = <BlogItem key={cur.title} blog={cur} />;
+      blogTpl = <BlogItem key={cur.title} blog={cur} isDetail />;
     } else {
       blogTpl = <div className="noneBlog">并没有这篇文章</div>;
     }

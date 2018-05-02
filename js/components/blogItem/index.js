@@ -52,9 +52,9 @@ export default class BlogItem extends Component {
 
   render() {
     const { Content } = this.state;
-    const { blog } = this.props;
+    const { blog, isDetail } = this.props;
     return (
-      <BlogDiv className="article" innerRef={(c) => (this.blog = c)}>
+      <BlogDiv className={`article ${isDetail ? 'isDetail' : ''}`} innerRef={(c) => (this.blog = c)}>
         <header>
           <h1>
             <Link className="article-title" to={`/blog/${blog.url}`}>{blog.title}</Link>
@@ -64,12 +64,12 @@ export default class BlogItem extends Component {
           {Content && <Content {...this.props} />}
         </div>
         <footer>
-        <ul>
-          {blog.tags.map((tag, i) =>
+          <ul>
+            {blog.tags.map((tag, i) =>
               (<li key={i}>
                 <Link className="article-title" to={`/tag/${tag}`}>#{tag}</Link>
-               </li>))}
-        </ul>
+              </li>))}
+          </ul>
           {moment(blog.date).format('YYYY-MM-DD')}
         </footer>
       </BlogDiv>
@@ -119,6 +119,11 @@ const BlogDiv = styled.div`
     height: 300px;
     pre {
       // margin: 0 -20px;
+    }
+  }
+  &.isDetail {
+    .content {
+      height: auto;
     }
   }
   footer {
@@ -205,4 +210,4 @@ const BlogDiv = styled.div`
       }
     }
   }
-`
+`;
