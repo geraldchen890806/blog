@@ -16,7 +16,7 @@ export default class RJM extends Component {
     const height = document.body.clientHeight;
     return (
       <div style={{ width: '100%', margin:'0 auto'}} ref={c => this.ul = c}>
-        <Carousel>
+        <Carousel autoplay>
           <div><img src={img1} height={height}/></div>
           <div><img src={img2} height={height}/></div>
           <div><img src={img3} height={height}/></div>
