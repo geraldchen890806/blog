@@ -37,15 +37,6 @@ module.exports = {
       children: true,
       async: true,
       minChunks: function(module) {
-        console.log('1111', module.context, module.context.indexOf('node_modules') !== -1);
-        return module.context && module.context.indexOf('node_modules') === -1 && module.context.indexOf('resources') === -1;
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'main',
-      children: true,
-      async: true,
-      minChunks: function(module) {
         return module.context && module.context.indexOf('node_modules') !== -1;
       }
     }),

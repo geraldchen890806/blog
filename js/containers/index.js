@@ -85,6 +85,7 @@ export default class App extends Component {
   componentDidMount(){
     if (['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(location.host)) { // 任加敏.我爱你
       this.loadRjm();
+      document.title = '任加敏.我爱你';
     }
   }
 

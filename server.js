@@ -13,7 +13,6 @@ if (!isDev) {
   app.use(compression())
 }
 app.use(function(req, res, next) {
-  console.log(req.headers.host)
   if(['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(req.headers.host)) {
     return next();
   }
