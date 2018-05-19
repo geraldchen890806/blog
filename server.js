@@ -10,7 +10,8 @@ var app = express();
 var favicon = require("serve-favicon");
 
 app.use(function(req, res, next) {
-  if(req.headers.host.includes('任加min')) {
+  console.log(req.headers.host)
+  if(['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(req.headers.host)) {
     return next();
   }
   if (!/https/.test(req.protocol) && process.env.SSLPORT) {
