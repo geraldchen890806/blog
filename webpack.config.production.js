@@ -105,19 +105,20 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader?cacheDirectory'],
-        exclude: /node_modules/,
-        options: {
-          plugins: [
-            [
-              'import',
-              {
-                libraryName: 'antd',
-                style: true
-              }
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              [
+                'import',
+                {
+                  libraryName: 'antd'
+                }
+              ]
             ]
-          ]
+          }
         },
+        exclude: /node_modules/,
         include: path.join(__dirname, 'js')
       },
       {
