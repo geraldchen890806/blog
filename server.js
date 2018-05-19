@@ -10,6 +10,9 @@ var app = express();
 var favicon = require("serve-favicon");
 
 app.use(function(req, res, next) {
+  if(req.headers.host.includes('任加min')) {
+    return next();
+  }
   if (!/https/.test(req.protocol) && process.env.SSLPORT) {
     res.redirect("https://" + req.headers.host + req.url);
   } else {

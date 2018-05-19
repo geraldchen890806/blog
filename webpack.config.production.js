@@ -22,6 +22,7 @@ module.exports = {
     alias: {
       business: process.cwd(),
       js: path.resolve("js"),
+      img: path.resolve("img"),
       resources: path.resolve("js/resources"),
       apps: path.resolve("js/apps")
     },
@@ -106,6 +107,17 @@ module.exports = {
         test: /\.js$/,
         use: ['babel-loader?cacheDirectory'],
         exclude: /node_modules/,
+        options: {
+          plugins: [
+            [
+              'import',
+              {
+                libraryName: 'antd',
+                style: true
+              }
+            ]
+          ]
+        },
         include: path.join(__dirname, 'js')
       },
       {

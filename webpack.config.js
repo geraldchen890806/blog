@@ -41,6 +41,7 @@ module.exports = {
     alias: {
       business: process.cwd(),
       js: path.resolve("js"),
+      img: path.resolve("img"),
       resources: path.resolve("js/resources"),
       apps: path.resolve("js/apps")
     },

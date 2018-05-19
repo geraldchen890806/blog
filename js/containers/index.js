@@ -15,6 +15,8 @@ import About from 'js/apps/about';
 import Header from './header';
 import Side from './side';
 
+import RJM from './rjm';
+
 @connect(
   (state) => ({
     ...state.common,
@@ -44,6 +46,9 @@ export default class App extends Component {
   }
 
   render() {
+    if (['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(location.host)) { // 任加敏.我爱你
+      return <RJM />
+    }
     return (
       <ConnectedRouter history={history}>
         <div>
