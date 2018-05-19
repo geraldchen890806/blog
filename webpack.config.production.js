@@ -7,7 +7,7 @@ var CopyWebpackPlugin = require("copy-webpack-plugin");
 var OfflinePlugin = require('offline-plugin');
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: {
@@ -31,7 +31,7 @@ module.exports = {
     extensions: [".js"]
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'main',
       children: true,
