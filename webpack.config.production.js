@@ -7,6 +7,8 @@ var CopyWebpackPlugin = require("copy-webpack-plugin");
 var OfflinePlugin = require('offline-plugin');
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   entry: {
     main: ['babel-polyfill', "./js/index"],
@@ -29,6 +31,16 @@ module.exports = {
     extensions: [".js"]
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'main',
+      children: true,
+      async: true,
+      minChunks: function(module) {
+        console.log('1111', module.context, module.context.indexOf('node_modules') !== -1);
+        return module.context && module.context.indexOf('node_modules') === -1 && module.context.indexOf('resources') === -1;
+      }
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'main',
       children: true,
@@ -77,9 +89,6 @@ module.exports = {
         from: "manifest.json"
       }
     ]),
-    new webpack.ProvidePlugin({
-      jQuery: "jquery"
-    }),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,

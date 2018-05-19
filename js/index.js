@@ -4,7 +4,6 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import _ from 'lodash';
-import $ from 'jquery';
 
 import './configs/index';
 import '../style/main.less';
@@ -14,12 +13,10 @@ import 'github-markdown-css/github-markdown.css';
 
 import App from 'js/containers';
 
-
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
 // we do not want it installed
 import runtime from 'offline-plugin/runtime';
-window.$ = window.jQuery = $;
 
 if (module.hot) {
   module.hot.accept();

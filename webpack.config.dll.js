@@ -13,7 +13,6 @@ module.exports = {
     lib: [
       'antd',
       'history',
-      'jquery',
       'html-entities/lib/html5-entities.js',
       'lodash',
       'moment',

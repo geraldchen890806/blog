@@ -33,9 +33,6 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
     }),
-    new webpack.ProvidePlugin({
-      jQuery: "jquery"
-    })
   ],
   resolve: {
     alias: {

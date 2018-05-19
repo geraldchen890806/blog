@@ -1,6 +1,7 @@
 /* eslint-disable */
 var isDev = process.env.NODE_ENV !== "production";
 var webpack = require("webpack");
+var compression = require('compression')
 var express = require("express");
 var http = require('http');
 var https = require('https');
@@ -8,7 +9,9 @@ var fs = require('fs');
 var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
-
+if (!isDev) {
+  app.use(compression())
+}
 app.use(function(req, res, next) {
   console.log(req.headers.host)
   if(['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(req.headers.host)) {
