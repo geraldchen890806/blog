@@ -73,7 +73,7 @@ httpServer.listen(process.env.PORT || 3022, function(err) {
   console.log('HTTP Server is running on: http://localhost:%s', process.env.PORT || 3022);
 });
 
-if(!isDev){
+if(!isDev && process.env.SSLPORT){
   var privateKey  = fs.readFileSync(__dirname + '/sslforfree/private.key', 'utf8');
   var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'utf8');
   var credentials = {key: privateKey, cert: certificate};
