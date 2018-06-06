@@ -11,8 +11,8 @@ import _ from 'lodash';
 }))
 export default class Blog extends Component {
   render() {
-    const { blogs, routeParams = {} } = this.props;
-    const cur = _.find(blogs, { url: routeParams.id });
+    const { blogs, match = {} } = this.props;
+    const cur = _.find(blogs, { url: _.get(match, 'params.id')});
     let blogTpl;
     if (cur) {
       blogTpl = <BlogItem key={cur.title} blog={cur} isDetail />;
