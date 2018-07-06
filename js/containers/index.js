@@ -1,62 +1,65 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
-import queryString from 'query-string';
-import { ConnectedRouter } from 'react-router-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Route } from "react-router-dom";
+import queryString from "query-string";
+import { ConnectedRouter } from "react-router-redux";
 
-import history from 'js/redux/middleware/history';
+import history from "js/redux/middleware/history";
 
-const navs = [{
-  url: '/',
-  component: () =>
-    import(/* webpackChunkName: "home" */ 'js/apps/home')
-},{
-  url: '/home',
-  component: () =>
-    import(/* webpackChunkName: "home" */ 'js/apps/home')
-}, {
-  url: '/recommend',
-  component: () =>
-    import(/* webpackChunkName: "Recommend" */ 'js/apps/recommend')
-}, {
-  url: '/blog/:id',
-  component: () =>
-    import(/* webpackChunkName: "Blog" */ 'js/apps/blog/view')
-}, {
-  url: '/tag/:tag',
-  component: () =>
-    import(/* webpackChunkName: "Tag" */ 'js/apps/tag')
-}]
+const navs = [
+  {
+    url: "/",
+    component: () => import(/* webpackChunkName: "home" */ "js/apps/home")
+  },
+  {
+    url: "/home",
+    component: () => import(/* webpackChunkName: "home" */ "js/apps/home")
+  },
+  {
+    url: "/recommend",
+    component: () =>
+      import(/* webpackChunkName: "Recommend" */ "js/apps/recommend")
+  },
+  {
+    url: "/blog/:id",
+    component: () => import(/* webpackChunkName: "Blog" */ "js/apps/blog/view")
+  },
+  {
+    url: "/tag/:tag",
+    component: () => import(/* webpackChunkName: "Tag" */ "js/apps/tag")
+  }
+];
 
-import Header from './header';
-import Side from './side';
+import Header from "./header";
+import Side from "./side";
 
 let globalComponents = {};
 
-@connect(
-  (state) => ({
-    ...state.common,
-  })
-)
+@connect(state => ({
+  ...state.common
+}))
 export default class App extends Component {
   checkAndRender = (Comp, props) => {
-    const { history: { location = {} }, match = {} } = props;
+    const {
+      history: { location = {} },
+      match = {}
+    } = props;
     const nProps = {
       ...props,
       history: {
         ...location,
-        query: queryString.parse(location.search),
+        query: queryString.parse(location.search)
       },
       params: {
-        ...match.params,
+        ...match.params
       },
       routeParams: {
-        ...match.params,
+        ...match.params
       },
       location: {
         ...props.location,
-        query: queryString.parse(location.search),
-      },
+        query: queryString.parse(location.search)
+      }
     };
     if (_.isFunction(Comp) && !Comp.propTypes) {
       return (
@@ -70,28 +73,38 @@ export default class App extends Component {
     }
 
     return <Comp {...nProps} />;
-  }
-  
-  state = {}
+  };
 
-  loadRjm(){
-    import(/* webpackChunkName: "Rjm" */ 'js/apps/rjm').then(mod => {
+  state = {};
+
+  loadRjm() {
+    import(/* webpackChunkName: "Rjm" */ "js/apps/rjm").then(mod => {
       this.setState({
         RjmComp: mod.default ? mod.default : mod
-      })
-    })
+      });
+    });
   }
 
-  componentDidMount(){
-    if (['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(location.host)) { // 任加敏.我爱你
+  isRjm() {
+    return (
+      ["xn--boqs2g85v.xn--6qq986b3xl", "任加敏.我爱你", "jiamin.ren"].includes(
+        location.host
+      ) || location.search.includes("rjm")
+    );
+  }
+
+  componentDidMount() {
+    if (this.isRjm()) {
+      // 任加敏.我爱你
       this.loadRjm();
-      document.title = '任加敏.我爱你';
+      document.title = "任加敏.我爱你";
     }
   }
 
   render() {
     const { RjmComp } = this.state;
-    if (['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(location.host)) { // 任加敏.我爱你
+    if (this.isRjm()) {
+      // 任加敏.我爱你
       return RjmComp ? <RjmComp /> : null;
     }
     return (
@@ -101,14 +114,14 @@ export default class App extends Component {
           <div className="main">
             <div className="mainContent">
               {navs.map(nav => {
-                return <Route
-                  exact
-                  key={nav.url}
-                  path={nav.url}
-                  render={props =>
-                    this.checkAndRender(nav.component, props)
-                  }
-                />
+                return (
+                  <Route
+                    exact
+                    key={nav.url}
+                    path={nav.url}
+                    render={props => this.checkAndRender(nav.component, props)}
+                  />
+                );
               })}
               {/* <Route exact path="/" render={(props) => this.checkAndrender(Home, props)} />
               <Route path="/home" render={(props) => this.checkAndrender(Home, props)} />
@@ -126,8 +139,6 @@ export default class App extends Component {
     );
   }
 }
-
-
 
 class Bundle extends Component {
   state = {
