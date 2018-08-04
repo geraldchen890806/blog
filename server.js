@@ -1,29 +1,29 @@
 /* eslint-disable */
 var isDev = process.env.NODE_ENV !== "production";
 var webpack = require("webpack");
-var compression = require('compression')
+var compression = require("compression");
 var express = require("express");
-var http = require('http');
-var https = require('https');
-var fs = require('fs');
+var http = require("http");
+var https = require("https");
+var fs = require("fs");
 var path = require("path");
 var app = express();
 var favicon = require("serve-favicon");
 if (!isDev) {
-  app.use(compression())
+  app.use(compression());
 }
-app.use(function(req, res, next) {
-  if(['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(req.headers.host)) {
-    return next();
-  }
-  if (!/https/.test(req.protocol) && process.env.SSLPORT) {
-    res.redirect("https://" + req.headers.host + req.url);
-  } else {
-    return next();
-  }
-});
-app.use(express.static(__dirname +'/static'));
-app.use('/img', express.static(__dirname + '/img'));
+// app.use(function(req, res, next) {
+//   if(['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(req.headers.host)) {
+//     return next();
+//   }
+//   if (!/https/.test(req.protocol) && process.env.SSLPORT) {
+//     res.redirect("https://" + req.headers.host + req.url);
+//   } else {
+//     return next();
+//   }
+// });
+app.use(express.static(__dirname + "/static"));
+app.use("/img", express.static(__dirname + "/img"));
 app.use("/mp", express.static(__dirname + "/mp"));
 app.use("/.well-known", express.static(__dirname + "/.well-known"));
 app.use(
@@ -39,8 +39,8 @@ if (!isDev) {
     });
   });
 } else {
-  app.use('/vender', express.static(__dirname + '/vender'));
-  app.use('/manifest.json', express.static(__dirname + '/manifest.json'));
+  app.use("/vender", express.static(__dirname + "/vender"));
+  app.use("/manifest.json", express.static(__dirname + "/manifest.json"));
   var config = require("./webpack.config");
   var compiler = webpack(config);
   app.use(
@@ -70,19 +70,31 @@ httpServer.listen(process.env.PORT || 3022, function(err) {
     console.log(err);
     return;
   }
-  console.log('HTTP Server is running on: http://localhost:%s', process.env.PORT || 3022);
+  console.log(
+    "HTTP Server is running on: http://localhost:%s",
+    process.env.PORT || 3022
+  );
 });
 
-if(!isDev && process.env.SSLPORT){
-  var privateKey  = fs.readFileSync(__dirname + '/sslforfree/private.key', 'utf8');
-  var certificate = fs.readFileSync(__dirname + '/sslforfree/certificate.crt', 'utf8');
-  var credentials = {key: privateKey, cert: certificate};
+if (!isDev && process.env.SSLPORT) {
+  var privateKey = fs.readFileSync(
+    __dirname + "/sslforfree/private.key",
+    "utf8"
+  );
+  var certificate = fs.readFileSync(
+    __dirname + "/sslforfree/certificate.crt",
+    "utf8"
+  );
+  var credentials = { key: privateKey, cert: certificate };
   var httpsServer = https.createServer(credentials, app);
   httpsServer.listen(process.env.SSLPORT || 3021, function(err) {
     if (err) {
       console.log(err);
       return;
     }
-    console.log('HTTPS Server is running on: https://localhost:%s', process.env.SSLPORT || 3021);
+    console.log(
+      "HTTPS Server is running on: https://localhost:%s",
+      process.env.SSLPORT || 3021
+    );
   });
 }
