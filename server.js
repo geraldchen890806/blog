@@ -20,7 +20,7 @@ app.get("*", function(req, res) {
     root: static_path
   });
 });
-  
+
 // app.use(function(req, res, next) {
 //   if(['xn--boqs2g85v.xn--6qq986b3xl','任加敏.我爱你', 'jiamin.ren'].includes(req.headers.host)) {
 //     return next();
@@ -72,18 +72,18 @@ app.get("*", function(req, res) {
 //   });
 // }
 
-// var httpServer = http.createServer(app);
+var httpServer = http.createServer(app);
 
-// httpServer.listen(process.env.PORT || 3022, function(err) {
-//   if (err) {
-//     console.log(err);
-//     return;
-//   }
-//   console.log(
-//     "HTTP Server is running on: http://localhost:%s",
-//     process.env.PORT || 3022
-//   );
-// });
+httpServer.listen(process.env.PORT || 3022, function(err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(
+    "HTTP Server is running on: http://localhost:%s",
+    process.env.PORT || 3022
+  );
+});
 
 // if (!isDev && process.env.SSLPORT) {
 //   var privateKey = fs.readFileSync(
