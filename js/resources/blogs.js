@@ -84,6 +84,8 @@ import blog40 from "./blog40_react-router4";
 import blog41 from "./blog41_pwa";
 // blog42_通过polyfill了解JS
 import blog42 from "./blog42_通过polyfill了解JS";
+// blog43_webpack4
+import blog43 from "./blog43_webpack4";
 
 export default [
   blog0,
@@ -128,5 +130,6 @@ export default [
   blog39,
   blog40,
   blog41,
-  blog42
+  blog42,
+  blog43
 ].reverse();
