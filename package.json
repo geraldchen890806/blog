@@ -8,7 +8,7 @@
     "start": "node server.js",
     "deploy": "export NODE_ENV=production && webpack --config webpack.config.production.js && npm start",
     "package": "NODE_ENV=production && webpack -p --config ./webpack.config.production.js --progress",
-    "forever": "export NODE_ENV=production PORT=80 SSLPORT=443 && `npm bin`/webpack --config webpack.config.production.js && forever start server.js",
+    "forever": "export NODE_ENV=production PORT=80 SSLPORT=443 && forever start server.js",
     "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config webpack.config.production.js && npm start",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern api -- ."
   },
