@@ -2,4 +2,5 @@ sslforfree
 node_modules
 .DS_Store
 .vscode
+static
 package-lock.json
