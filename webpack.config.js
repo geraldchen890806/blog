@@ -5,18 +5,15 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  mode: "development",
   devtool: "source-map",
   entry: {
-    app: [
-      "eventsource-polyfill",
-      "webpack-hot-middleware/client",
-      "./js/index"
-    ]
+    app: ["eventsource-polyfill", "webpack-hot-middleware/client", "./js/index"]
   },
   output: {
     filename: "main.[hash].js",
     path: path.join(__dirname, "static"),
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    chunkFilename: "[name].[chunkhash].chunk.js",
     publicPath: "/"
   },
   plugins: [
@@ -31,8 +28,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: true,
-    }),
+      __DEVTOOLS__: true
+    })
   ],
   resolve: {
     alias: {
@@ -48,39 +45,39 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        use: ['babel-loader?cacheDirectory'],
+        use: ["babel-loader?cacheDirectory"],
         exclude: /node_modules/,
-        include: path.join(__dirname, 'js')
+        include: path.join(__dirname, "js")
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'raw-loader'],
+        use: ["style-loader", "raw-loader"],
         include: __dirname
       },
       {
         test: /\.less$/,
         use: [
-          'style-loader',
-          'css-loader',
-          'less-loader'
+          "style-loader",
+          "css-loader",
+          { loader: "less-loader", options: { javascriptEnabled: true } }
         ],
         include: __dirname
       },
       {
         test: /\.(jpeg|png|jpg|gif|pdf|mp3|ogg|wav)$/,
-        use: ['file-loader?name=[path][name].[ext]']
+        use: ["file-loader?name=[path][name].[ext]"]
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=10000&mimetype=application/font-woff']
+        use: ["url-loader?limit=10000&mimetype=application/font-woff"]
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader']
+        use: ["file-loader"]
       },
       {
         test: /\.md$/,
-        loader: ["html-loader", 'markdown-loader']
+        loader: ["raw-loader"]
       }
     ]
   }

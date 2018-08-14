@@ -2,25 +2,26 @@
 var path = require("path");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CopyWebpackPlugin = require("copy-webpack-plugin");
-var OfflinePlugin = require('offline-plugin');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var OfflinePlugin = require("offline-plugin");
+var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
+  mode: "production",
   entry: {
-    main: ['babel-polyfill', "./js/index"],
+    main: "./js/index"
   },
   output: {
     filename: "main.[chunkHash].js",
     path: path.join(__dirname, "/static"),
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    chunkFilename: "[name].[chunkhash].chunk.js",
     publicPath: "/"
   },
   resolve: {
-    modules: ['node_modules'],
+    modules: ["node_modules"],
     alias: {
       business: process.cwd(),
       js: path.resolve("js"),
@@ -30,46 +31,44 @@ module.exports = {
     },
     extensions: [".js"]
   },
+  optimization: {
+    splitChunks: {
+      chunks: "async",
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: "~",
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  },
   plugins: [
     // new BundleAnalyzerPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'main',
-      children: true,
-      async: true,
-      minChunks: function(module) {
-        return module.context && module.context.indexOf('node_modules') !== -1;
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'main',
-      async: 'chunk-vendor',
-      children: true,
-      minChunks: function(module, count) {
-        return count >= 2;
-      }
-    }),
 
-    new ExtractTextPlugin("css/main.[contentHash].css"),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.optimize\.css$/g,
+      cssProcessor: require("cssnano"),
+      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
+      canPrint: true
+    }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: "index.html"
-    }),
-    new UglifyJSPlugin({
-      // 最紧凑的输出
-      beautify: false,
-      // 删除所有的注释
-      comments: false,
-      compress: {
-        // 在UglifyJs删除没有用到的代码时不输出警告
-        warnings: false,
-        // 删除所有的 `console` 语句
-        // 还可以兼容ie浏览器
-        drop_console: true,
-        // 内嵌定义了但是只用到一次的变量
-        collapse_vars: true,
-        // 提取出出现多次但是没有定义成变量去引用的静态值
-        reduce_vars: true
-      }
     }),
     new CopyWebpackPlugin([
       {
@@ -89,14 +88,14 @@ module.exports = {
     }),
     new OfflinePlugin({
       relativePaths: false,
-      publicPath: '/',
+      publicPath: "/",
       ServiceWorker: {
         events: true
       },
       caches: {
-        main: [':rest:'],
+        main: [":rest:"],
 
-        additional: ['*.chunk.js']
+        additional: ["*.chunk.js"]
       },
       AppCache: false
     })
@@ -106,13 +105,13 @@ module.exports = {
       {
         test: /\.js$/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             plugins: [
               [
-                'import',
+                "import",
                 {
-                  libraryName: 'antd',
+                  libraryName: "antd",
                   style: true
                 }
               ]
@@ -120,37 +119,44 @@ module.exports = {
           }
         },
         exclude: /node_modules/,
-        include: path.join(__dirname, 'js')
+        include: path.join(__dirname, "js")
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'raw-loader'],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          "css-loader"
+        ],
         include: __dirname
       },
       {
         test: /\.less$/,
         use: [
-          'style-loader',
-          'css-loader',
-          'less-loader'
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          "css-loader",
+          { loader: "less-loader", options: { javascriptEnabled: true } }
         ],
         include: __dirname
       },
       {
         test: /\.(jpeg|png|jpg|gif|pdf|mp3|ogg|wav)$/,
-        use: ['file-loader?name=[path][name].[ext]']
+        use: ["file-loader?name=[path][name].[ext]"]
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=10000&mimetype=application/font-woff']
+        use: ["url-loader?limit=10000&mimetype=application/font-woff"]
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader']
+        use: ["file-loader"]
       },
       {
         test: /\.md$/,
-        loader: ["html-loader", 'markdown-loader']
+        loader: ["raw-loader"]
       }
     ]
   }

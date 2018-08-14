@@ -65,14 +65,14 @@ if (!isDev) {
 
 var httpServer = http.createServer(app);
 
-httpServer.listen(process.env.PORT || 3022, function(err) {
+httpServer.listen(process.env.PORT || 4000, function(err) {
   if (err) {
     console.log(err);
     return;
   }
   console.log(
     "HTTP Server is running on: http://localhost:%s",
-    process.env.PORT || 3022
+    process.env.PORT || 4000
   );
 });
 

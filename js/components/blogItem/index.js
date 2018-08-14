@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import propTypes from 'prop-types';
-import styled from 'styled-components';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-import 'intersection-observer';
+import React, { Component } from "react";
+import propTypes from "prop-types";
+import styled from "styled-components";
+import moment from "moment";
+import { Link } from "react-router-dom";
+import "intersection-observer";
 
 export default class BlogItem extends Component {
   state = {
-    Content: null,
-  }
+    Content: null
+  };
 
   componentDidMount() {
     if (this.observer) {
@@ -18,15 +18,15 @@ export default class BlogItem extends Component {
 
   observer = (() =>
     new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0] && entries[0].intersectionRatio > 0) {
           this.forceImport();
         }
       },
       {
         root: null,
-        rootMargin: '0px',
-        threshold: [0],
+        rootMargin: "0px",
+        threshold: [0]
       }
     ))();
 
@@ -42,9 +42,9 @@ export default class BlogItem extends Component {
   load() {
     const { blog } = this.props;
     if (blog.load) {
-      blog.load().then((mod) => {
+      blog.load().then(mod => {
         this.setState({
-          Content: mod.default ? mod.default : mod,
+          Content: mod.default ? mod.default : mod
         });
       });
     }
@@ -52,12 +52,17 @@ export default class BlogItem extends Component {
 
   render() {
     const { Content } = this.state;
-    const { blog, isDetail } = this.props;
+    let { blog, isDetail } = this.props;
     return (
-      <BlogDiv className={`article ${isDetail ? 'isDetail' : ''}`} innerRef={(c) => (this.blog = c)}>
+      <BlogDiv
+        className={`article ${isDetail ? "isDetail" : ""}`}
+        innerRef={c => (this.blog = c)}
+      >
         <header>
           <h1>
-            <Link className="article-title" to={`/blog/${blog.url}`}>{blog.title}</Link>
+            <Link className="article-title" to={`/blog/${blog.url}`}>
+              {blog.title}
+            </Link>
           </h1>
         </header>
         <div className="content markdown-body">
@@ -65,12 +70,15 @@ export default class BlogItem extends Component {
         </div>
         <footer>
           <ul>
-            {blog.tags.map((tag, i) =>
-              (<li key={i}>
-                <Link className="article-title" to={`/tag/${tag}`}>#{tag}</Link>
-              </li>))}
+            {blog.tags.map((tag, i) => (
+              <li key={i}>
+                <Link className="article-title" to={`/tag/${tag}`}>
+                  #{tag}
+                </Link>
+              </li>
+            ))}
           </ul>
-          {moment(blog.date).format('YYYY-MM-DD')}
+          {moment(blog.date).format("YYYY-MM-DD")}
         </footer>
       </BlogDiv>
     );
@@ -78,7 +86,7 @@ export default class BlogItem extends Component {
 }
 
 BlogItem.propTypes = {
-  blog: propTypes.object,
+  blog: propTypes.object
 };
 
 const BlogDiv = styled.div`
@@ -105,7 +113,8 @@ const BlogDiv = styled.div`
       top: 40px;
       right: 10px;
     }
-    a.article-delete, a.article-edit {
+    a.article-delete,
+    a.article-edit {
       padding-left: 10px;
       color: #777;
       display: inline-block;
@@ -148,7 +157,7 @@ const BlogDiv = styled.div`
     }
   }
   .comments {
-    border-top: 1px solid #CCC;
+    border-top: 1px solid #ccc;
     padding: 5px;
     .comment {
       padding: 10px 30px;
@@ -186,7 +195,8 @@ const BlogDiv = styled.div`
         padding: 0 15px 0 0;
         vertical-align: top;
       }
-      .in-email, .in-name {
+      .in-email,
+      .in-name {
         padding: 0 0 20px;
         input {
           padding: 5px;
@@ -199,7 +209,8 @@ const BlogDiv = styled.div`
         .editor {
           width: 668px;
           display: inline-block;
-          .preview, textarea {
+          .preview,
+          textarea {
             height: 200px;
           }
         }
