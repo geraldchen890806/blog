@@ -2,24 +2,24 @@
 import blog0 from "./blog0_js实现排列组合数组";
 // js repeat
 import blog1 from "./blog1_js repeat";
-// node forever
-import blog2 from "./blog2_node forever";
-// git shell error in windows
-import blog3 from "./blog3_git shell error in windows";
+// // node forever
+// import blog2 from "./blog2_node forever";
+// // git shell error in windows
+// import blog3 from "./blog3_git shell error in windows";
 // once
 import blog4 from "./blog4_once";
 // ES6生成器（Generator）以及co
 import blog5 from "./blog5_ES6生成器（Generator）以及co";
-// txt 复制换行
-import blog6 from "./blog6_txt 复制换行";
-// node中使用markdown
-import blog7 from "./blog7_node中使用markdown";
-// window.showModalDialog 与 window.open
-import blog8 from "./blog8_window.showModalDialog 与 window.open";
-// node中使用markdown--highlight.js
-import blog9 from "./blog9_node中使用markdown--highlight.js";
-// js 解析xml 兼容ie与其他。。。
-import blog10 from "./blog10_js 解析xml 兼容ie与其他。。。";
+// // txt 复制换行
+// import blog6 from "./blog6_txt 复制换行";
+// // node中使用markdown
+// import blog7 from "./blog7_node中使用markdown";
+// // window.showModalDialog 与 window.open
+// import blog8 from "./blog8_window.showModalDialog 与 window.open";
+// // node中使用markdown--highlight.js
+// import blog9 from "./blog9_node中使用markdown--highlight.js";
+// // js 解析xml 兼容ie与其他。。。
+// import blog10 from "./blog10_js 解析xml 兼容ie与其他。。。";
 // js运算符 “==” 与 “===”
 import blog11 from "./blog11_js运算符 “==” 与 “===”";
 // js 去重
@@ -90,15 +90,15 @@ import blog43 from "./blog43_webpack4";
 export default [
   blog0,
   blog1,
-  blog2,
-  blog3,
+  // blog2,
+  // blog3,
   blog4,
   blog5,
-  blog6,
-  blog7,
-  blog8,
-  blog9,
-  blog10,
+  // blog6,
+  // blog7,
+  // blog8,
+  // blog9,
+  // blog10,
   blog11,
   blog12,
   blog13,
