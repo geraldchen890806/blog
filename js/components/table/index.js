@@ -1,5 +1,7 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectGlobal } from 'styled-components';
 import _ from 'lodash';
 import { Tooltip } from 'antd';
 import ResizableTable from './resizableTable';
@@ -28,7 +30,12 @@ export default class TableAntd extends React.Component {
   constructor(props) {
     super(props);
     const {
-      width, columns, columnWidthsPreference, onSortChange, showEllipsis, expandIconColumnIndex,
+      width,
+      columns,
+      columnWidthsPreference,
+      onSortChange,
+      showEllipsis,
+      expandIconColumnIndex,
     } = this.props;
     const res = resetColumnWidth({
       columns,
@@ -46,7 +53,11 @@ export default class TableAntd extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      columns, columnWidthsPreference, showEllipsis, expandIconColumnIndex, width,
+      columns,
+      columnWidthsPreference,
+      showEllipsis,
+      expandIconColumnIndex,
+      width,
     } = nextProps;
     let stateColumnWidthsPreference = this.state.columnWidthsPreference;
     let stateColumns = this.state.columns;
@@ -74,7 +85,9 @@ export default class TableAntd extends React.Component {
   addDataSourceDepth = (data, depth) =>
     data.map((d) => {
       d._depth = depth;
-      d.children = _.isEmpty(d.children) ? null : this.addDataSourceDepth(d.children, depth + 1);
+      d.children = _.isEmpty(d.children)
+        ? null
+        : this.addDataSourceDepth(d.children, depth + 1);
       return d;
     });
 
@@ -106,7 +119,10 @@ export default class TableAntd extends React.Component {
 }
 
 const _render = ({
-  column, showEllipsis, columnIndex, expandIconColumnIndex,
+  column,
+  showEllipsis,
+  columnIndex,
+  expandIconColumnIndex,
 }) => (text, record, index, width) => {
   let html;
   if (column.render) {
@@ -116,8 +132,11 @@ const _render = ({
   }
   let title = html;
   if (showEllipsis) {
-    const treeStep = !!record._depth && columnIndex === expandIconColumnIndex ? (record._depth - 1) * 20 + 30 : 0;
-    let maxWidth = width - 14 - treeStep; // 14 为td padding (12 inline-block多使用2px)
+    const treeStep =
+      !!record._depth && columnIndex === expandIconColumnIndex
+        ? (record._depth - 1) * 20 + 30
+        : 0;
+    let maxWidth = width - 22 - treeStep; // 22 为td padding (20 inline-block多使用2px)
     if (maxWidth < 0) {
       maxWidth = 0;
     }
@@ -127,6 +146,7 @@ const _render = ({
         style={{
           display: 'inline-block',
           verticalAlign: 'top',
+          width: '100%',
           maxWidth,
         }}
       >
@@ -153,7 +173,16 @@ const _render = ({
       title = '';
     }
     return (
-      <Tooltip placement="topLeft" mouseEnterDelay={0.5} title={title}>
+      <Tooltip
+        placement="topLeft"
+        mouseEnterDelay={0.5}
+        title={title}
+        overlayStyle={{
+          maxWidth: 300,
+          ...column.tooltipRenderStyle,
+        }}
+        overlayClassName="tableAntd-tooltip"
+      >
         {html}
       </Tooltip>
     );
@@ -162,7 +191,11 @@ const _render = ({
 };
 
 export const resetColumnWidth = ({
-  columns, showEllipsis, expandIconColumnIndex, columnWidthsPreference, width,
+  columns,
+  showEllipsis,
+  expandIconColumnIndex,
+  columnWidthsPreference,
+  width,
 }) => {
   let step = 1;
   if (width && _.isEmpty(columnWidthsPreference)) {
@@ -175,9 +208,12 @@ export const resetColumnWidth = ({
       title: column.title || column.column,
       dataIndex: column.dataIndex || column.key,
       render: _render({
-        column, showEllipsis, columnIndex: index, expandIconColumnIndex,
+        column,
+        showEllipsis,
+        columnIndex: index,
+        expandIconColumnIndex,
       }),
-      className: column.className || column.tdClass,
+      className: column.className || column.tdClass || 'left',
       titleRender: column.titleRender || column.columnRender,
       width: parseInt(column.width * step, 10),
     })),
@@ -196,7 +232,7 @@ TableAntd.propTypes = {
   pagination: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   expandIconColumnIndex: PropTypes.number,
   width: PropTypes.number,
-  bordered: PropTypes.number,
+  bordered: PropTypes.bool,
 };
 
 TableAntd.defaultProps = {
@@ -206,5 +242,13 @@ TableAntd.defaultProps = {
   draggable: true,
   pagination: false,
   expandIconColumnIndex: 0,
-  bordered: true,
+  bordered: false,
 };
+
+injectGlobal`
+  .tableAntd-tooltip {
+    .ant-tooltip-inner {
+      max-width: inherit;
+    }
+  }
+`;

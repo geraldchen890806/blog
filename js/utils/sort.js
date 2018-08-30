@@ -1,14 +1,19 @@
-
+/* eslint-disable */
 
 function sortData(data, obj) {
-  let column = obj.column || {},
-    key = obj.key,
-    dir = obj.dir;
+  const column = obj.column || {};
+
+  const key = obj.key;
+
+  const dir = obj.dir;
   if (column.sortMutlItem) {
     _.map(data, (d) => {
       d.sortMutlItem1 = column.sortParse ? column.sortParse(d[key], d) : d[key];
       const mutlItem2 = self.options.indexColumns[column.sortMutlItem];
-      d.sortMutlItem2 = (mutlItem2 && mutlItem2.sortParse) ? mutlItem2.sortParse(d[column.sortMutlItem], d) : d[column.sortMutlItem];
+      d.sortMutlItem2 =
+        mutlItem2 && mutlItem2.sortParse
+          ? mutlItem2.sortParse(d[column.sortMutlItem], d)
+          : d[column.sortMutlItem];
 
       return d;
     });

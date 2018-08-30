@@ -17,7 +17,7 @@
   "lint-staged": {
     "linters": {
       "*.js": [
-        "eslint --fix"
+        "eslint --ignore-path .gitignore --fix"
       ]
     },
     "ignore": []
@@ -31,6 +31,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "offline-plugin": "^5.0.5",
+    "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "react": "^16.4.2",
     "react-audio-player": "^0.10.0",

@@ -1,65 +1,63 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Route } from "react-router-dom";
-import queryString from "query-string";
-import { ConnectedRouter } from "react-router-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+import queryString from 'query-string';
+import { ConnectedRouter } from 'react-router-redux';
 
-import history from "js/redux/middleware/history";
+import history from 'js/redux/middleware/history';
+
+import Header from './header';
+import Side from './side';
 
 const navs = [
   {
-    url: "/",
-    component: () => import(/* webpackChunkName: "home" */ "js/apps/home")
+    url: '/',
+    component: () => import(/* webpackChunkName: "home" */ 'js/apps/home'),
   },
   {
-    url: "/home",
-    component: () => import(/* webpackChunkName: "home" */ "js/apps/home")
+    url: '/home',
+    component: () => import(/* webpackChunkName: "home" */ 'js/apps/home'),
   },
   {
-    url: "/recommend",
-    component: () =>
-      import(/* webpackChunkName: "Recommend" */ "js/apps/recommend")
+    url: '/recommend',
+    component: () => import(/* webpackChunkName: "Recommend" */ 'js/apps/recommend'),
   },
   {
-    url: "/blog/:id",
-    component: () => import(/* webpackChunkName: "Blog" */ "js/apps/blog/view")
+    url: '/blog/:id',
+    component: () => import(/* webpackChunkName: "Blog" */ 'js/apps/blog/view'),
   },
   {
-    url: "/tag/:tag",
-    component: () => import(/* webpackChunkName: "Tag" */ "js/apps/tag")
-  }
+    url: '/tag/:tag',
+    component: () => import(/* webpackChunkName: "Tag" */ 'js/apps/tag'),
+  },
 ];
 
-import Header from "./header";
-import Side from "./side";
-
-let globalComponents = {};
-
-@connect(state => ({
-  ...state.common
+const globalComponents = {};
+@connect((state) => ({
+  ...state.common,
 }))
 export default class App extends Component {
   checkAndRender = (Comp, props) => {
     const {
       history: { location = {} },
-      match = {}
+      match = {},
     } = props;
     const nProps = {
       ...props,
       history: {
         ...location,
-        query: queryString.parse(location.search)
+        query: queryString.parse(location.search),
       },
       params: {
-        ...match.params
+        ...match.params,
       },
       routeParams: {
-        ...match.params
+        ...match.params,
       },
       location: {
         ...props.location,
-        query: queryString.parse(location.search)
-      }
+        query: queryString.parse(location.search),
+      },
     };
     if (_.isFunction(Comp) && !Comp.propTypes) {
       return (
@@ -78,18 +76,18 @@ export default class App extends Component {
   state = {};
 
   loadRjm() {
-    import(/* webpackChunkName: "Rjm" */ "js/apps/rjm").then(mod => {
+    import(/* webpackChunkName: "Rjm" */ 'js/apps/rjm').then((mod) => {
       this.setState({
-        RjmComp: mod.default ? mod.default : mod
+        RjmComp: mod.default ? mod.default : mod,
       });
     });
   }
 
   isRjm() {
     return (
-      ["xn--boqs2g85v.xn--6qq986b3xl", "任加敏.我爱你", "jiamin.ren"].includes(
+      ['xn--boqs2g85v.xn--6qq986b3xl', '任加敏.我爱你', 'jiamin.ren'].includes(
         location.host
-      ) || location.search.includes("rjm")
+      ) || location.search.includes('rjm')
     );
   }
 
@@ -97,7 +95,7 @@ export default class App extends Component {
     if (this.isRjm()) {
       // 任加敏.我爱你
       this.loadRjm();
-      document.title = "任加敏.我爱你";
+      document.title = '任加敏.我爱你';
     }
   }
 
@@ -113,16 +111,14 @@ export default class App extends Component {
           <Header />
           <div className="main">
             <div className="mainContent">
-              {navs.map(nav => {
-                return (
-                  <Route
-                    exact
-                    key={nav.url}
-                    path={nav.url}
-                    render={props => this.checkAndRender(nav.component, props)}
-                  />
-                );
-              })}
+              {navs.map((nav) => (
+                <Route
+                  exact
+                  key={nav.url}
+                  path={nav.url}
+                  render={(props) => this.checkAndRender(nav.component, props)}
+                />
+              ))}
               {/* <Route exact path="/" render={(props) => this.checkAndrender(Home, props)} />
               <Route path="/home" render={(props) => this.checkAndrender(Home, props)} />
               <Route path="/recommend" render={(props) => this.checkAndrender(Recommend, props)} />
@@ -142,7 +138,7 @@ export default class App extends Component {
 
 class Bundle extends Component {
   state = {
-    mod: null
+    mod: null,
   };
 
   componentWillMount() {
@@ -158,31 +154,31 @@ class Bundle extends Component {
   load(props) {
     if (globalComponents[props.pathname]) {
       this.setState({
-        mod: globalComponents[props.pathname]
+        mod: globalComponents[props.pathname],
       });
       return;
     }
     this.setState({
-      mod: null
+      mod: null,
     });
 
     // import
     if (props.load.then) {
-      props.load.then(mod => {
+      props.load.then((mod) => {
         globalComponents[props.pathname] = mod.default ? mod.default : mod;
         this.setState({
-          mod: mod.default ? mod.default : mod
+          mod: mod.default ? mod.default : mod,
         });
       });
       return;
     }
 
     // bundle loader
-    props.load(mod => {
+    props.load((mod) => {
       globalComponents[props.pathname] = mod.default ? mod.default : mod;
       this.setState({
         // handle both es imports and cjs
-        mod: mod.default ? mod.default : mod
+        mod: mod.default ? mod.default : mod,
       });
     });
   }

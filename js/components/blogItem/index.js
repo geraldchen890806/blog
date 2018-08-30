@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import propTypes from "prop-types";
-import styled from "styled-components";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import "intersection-observer";
+import React, { Component } from 'react';
+import propTypes from 'prop-types';
+import styled from 'styled-components';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+import 'intersection-observer';
 
 export default class BlogItem extends Component {
   state = {
-    Content: null
+    Content: null,
   };
 
   componentDidMount() {
@@ -16,19 +16,18 @@ export default class BlogItem extends Component {
     }
   }
 
-  observer = (() =>
-    new IntersectionObserver(
-      entries => {
-        if (entries[0] && entries[0].intersectionRatio > 0) {
-          this.forceImport();
-        }
-      },
-      {
-        root: null,
-        rootMargin: "0px",
-        threshold: [0]
+  observer = (() => new IntersectionObserver(
+    (entries) => {
+      if (entries[0] && entries[0].intersectionRatio > 0) {
+        this.forceImport();
       }
-    ))();
+    },
+    {
+      root: null,
+      rootMargin: '0px',
+      threshold: [0],
+    }
+  ))();
 
   forceImport = () => {
     if (this.importDone) return;
@@ -42,9 +41,9 @@ export default class BlogItem extends Component {
   load() {
     const { blog } = this.props;
     if (blog.load) {
-      blog.load().then(mod => {
+      blog.load().then((mod) => {
         this.setState({
-          Content: mod.default ? mod.default : mod
+          Content: mod.default ? mod.default : mod,
         });
       });
     }
@@ -52,11 +51,11 @@ export default class BlogItem extends Component {
 
   render() {
     const { Content } = this.state;
-    let { blog, isDetail } = this.props;
+    const { blog, isDetail } = this.props;
     return (
       <BlogDiv
-        className={`article ${isDetail ? "isDetail" : ""}`}
-        innerRef={c => (this.blog = c)}
+        className={`article ${isDetail ? 'isDetail' : ''}`}
+        innerRef={(c) => (this.blog = c)}
       >
         <header>
           <h1>
@@ -73,12 +72,13 @@ export default class BlogItem extends Component {
             {blog.tags.map((tag, i) => (
               <li key={i}>
                 <Link className="article-title" to={`/tag/${tag}`}>
-                  #{tag}
+                  #
+                  {tag}
                 </Link>
               </li>
             ))}
           </ul>
-          {moment(blog.date).format("YYYY-MM-DD")}
+          {moment(blog.date).format('YYYY-MM-DD')}
         </footer>
       </BlogDiv>
     );
@@ -86,7 +86,7 @@ export default class BlogItem extends Component {
 }
 
 BlogItem.propTypes = {
-  blog: propTypes.object
+  blog: propTypes.object,
 };
 
 const BlogDiv = styled.div`

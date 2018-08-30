@@ -1,5 +1,3 @@
-
-
 import _ from 'lodash';
 const timers = {};
 
@@ -16,8 +14,8 @@ export function clearTimer(key) {
   if (cur && cur.timer) {
     clearTimeout(cur.timer);
   }
-  if (cur && cur.ajax) {
-    cur.ajax.abort && cur.ajax.abort();
+  if (cur && cur.ajax && cur.ajax.abort) {
+    cur.ajax.abort();
   }
   return cur;
 }

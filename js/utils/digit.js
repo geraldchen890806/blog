@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 
 define(() => {
   /*
@@ -35,7 +35,9 @@ define(() => {
     if (typeof value !== 'number') {
       value = Number(value);
       if (isNaN(value)) {
-        console.error('format(): 1st parameter should be a number(or string of number)!');
+        console.error(
+          'format(): 1st parameter should be a number(or string of number)!'
+        );
         return false;
       }
     }
@@ -68,7 +70,10 @@ define(() => {
     let valueParts;
     if (formatString.indexOf(',') !== -1) {
       valueParts = output.split('.');
-      valueParts[0] = valueParts[0].replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g, '$1,');
+      valueParts[0] = valueParts[0].replace(
+        /(\d{1,3})(?=(\d{3})+(?:$|\D))/g,
+        '$1,'
+      );
       output = valueParts.join('.');
     }
 
@@ -143,7 +148,7 @@ define(() => {
      *
      */
   function formatter(formatString, compare) {
-    return function (value) {
+    return function(value) {
       return format(value, formatString, compare);
     };
   }

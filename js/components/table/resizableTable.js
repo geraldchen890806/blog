@@ -1,4 +1,6 @@
+/* eslint-disable */
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import { Table } from 'antd';
 import styled from 'styled-components';
@@ -11,14 +13,29 @@ const TABLE = styled(Table)`
   }
   .react-resizable-handle {
     cursor: ew-resize;
-    width: 8px;
-  }
-  .ant-table-column-sorter {
-    margin-left: 3px;
+    height: 32px;
+    width: 2px;
+    background: none;
+    border-right: 1px solid #fff;
   }
   .ant-spin-container {
     .ant-table {
       min-height: ${(props) => `${props.minHeight}px` || 'auto'};
+    }
+  }
+  .ant-table .ant-table-row {
+    .ant-table-row-expand-icon {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border: 1px solid #ccc;
+    }
+    .ant-table-row-collapsed:after,
+    .ant-table-row-expanded:after {
+      color: #ccc;
+      position: relative;
+      top: -2px;
+      font-weight: normal;
     }
   }
 `;
@@ -42,9 +59,20 @@ export default class ResizableTable extends React.Component {
     this.handleResize = _.debounce(this.handleResize, 150);
   }
 
+  componentDidMount() {
+    this.tableElem = findDOMNode(this.table);
+    this.width = this.tableElem && this.tableElem.offsetWidth;
+  }
+
   handleResize = (key, e, { size }) => {
-    const columnWidthsPreference = this.state.columnWidthsPreference || this.props.columnWidthsPreference || {};
-    const newColPre = { ...columnWidthsPreference, [key]: size.width };
+    const columnWidthsPreference =
+      this.state.columnWidthsPreference ||
+      this.props.columnWidthsPreference ||
+      {};
+    const newColPre = {
+      ...columnWidthsPreference,
+      [key]: _.max([size.width, 45]),
+    };
     const { onSaveWidthsPreference } = this.props;
     if (onSaveWidthsPreference) {
       onSaveWidthsPreference(newColPre);
@@ -60,13 +88,13 @@ export default class ResizableTable extends React.Component {
       sort,
       columnWidthsPreference = {},
       onSortChange,
-      lineHeight = 28,
+      lineHeight,
       draggable,
       minHeight,
       className,
       ...reset
     } = this.props;
-    const newColumns = columns.map((item) => {
+    let newColumns = columns.map((item) => {
       let dir;
       if (sort && sort.key === item.dataIndex) {
         dir = sort.dir;
@@ -75,7 +103,9 @@ export default class ResizableTable extends React.Component {
       }
 
       if (item.draggable && !item.width) {
-        throw new Error('允许的自定义列宽（draggable === true）的默认列宽（width）不能为空！');
+        throw new Error(
+          '允许的自定义列宽（draggable === true）的默认列宽（width）不能为空！'
+        );
       }
 
       let titleContent;
@@ -84,34 +114,37 @@ export default class ResizableTable extends React.Component {
       } else {
         titleContent = item.title || item.column;
       }
-      const sortFlag = (!item.hasOwnProperty('sort') || item.sort) && onSortChange;
+      const sortFlag =
+        (!item.hasOwnProperty('sort') || item.sort) && onSortChange;
       const customSort = item.sorter;
-      const width = columnWidthsPreference[item.dataIndex] || (item.width && parseInt(item.width, 10));
+      const width =
+        columnWidthsPreference[item.dataIndex] ||
+        (item.width && parseInt(item.width, 10));
       let titleParams = {};
       if (!disabledEllipsis) {
         titleParams = {
           className: 'ellipsis',
           style: draggable
             ? {
-              width: width - 5 - (customSort ? 25 : 0), // 5:rightPadding
-              padding: '0 2px',
-              // cursor: sortFlag ? 'pointer' : 'text',
-              display: 'inline-block',
-              verticalAlign: 'top',
-              height: lineHeight,
-            }
-            : {},
+                width: width - 2 - (customSort ? 15 : 0) - 20, // 2:inline-block padding, 20: padding
+                padding: '0',
+                cursor: sortFlag ? 'pointer' : 'text',
+                display: 'inline-block',
+                verticalAlign: 'top',
+                height: lineHeight,
+              }
+            : { maxWidth: width - 2 - (customSort ? 15 : 0) - 20 },
         };
       }
       const title = (
         <div key={item.dataIndex} {...titleParams}>
           <span
-            style={{ cursor: sortFlag ? 'pointer' : 'text' }}
             onClick={() => {
               if (!sortFlag) return;
+              const nextDir = !dir ? 'DESC' : dir === 'ASC' ? '' : 'ASC';
               this.props.onSortChange({
-                key: item.dataIndex,
-                dir: dir === 'DESC' ? 'ASC' : 'DESC',
+                key: nextDir ? item.dataIndex : '',
+                dir: nextDir,
                 column: item,
               });
             }}
@@ -119,10 +152,20 @@ export default class ResizableTable extends React.Component {
             {titleContent}
             {(sortFlag && (
               <div className="ant-table-column-sorter">
-                <span className={`ant-table-column-sorter-up ${dir === 'ASC' ? 'on' : 'off'}`} title="↑">
+                <span
+                  className={`ant-table-column-sorter-up ${
+                    dir === 'ASC' ? 'on' : 'off'
+                  }`}
+                  title="↑"
+                >
                   <i className="anticon anticon-caret-up" />
                 </span>
-                <span className={`ant-table-column-sorter-down ${dir === 'DESC' ? 'on' : 'off'}`} title="↓">
+                <span
+                  className={`ant-table-column-sorter-down ${
+                    dir === 'DESC' ? 'on' : 'off'
+                  }`}
+                  title="↓"
+                >
                   <i className="anticon anticon-caret-down" />
                 </span>
               </div>
@@ -139,16 +182,30 @@ export default class ResizableTable extends React.Component {
           width,
           onResize: (e, obj) => this.handleResize(item.dataIndex, e, obj),
         }),
-        render: (text, record, index) => (item.render ? item.render(text, record, index, width) : text),
+        render: (text, record, index) =>
+          item.render ? item.render(text, record, index, width) : text,
         title,
       };
     });
 
     const totalWidth = _.sumBy(newColumns, (d) => d.width);
 
+    let fixedRightColumns = _.filter(newColumns, (d) => d.fixed === 'right');
+    if (!_.isEmpty(fixedRightColumns)) {
+      const leftColumns = _.filter(newColumns, (d) => d.fixed !== 'right');
+      if (this.width && totalWidth < this.width) {
+        fixedRightColumns = fixedRightColumns.map((d) => ({
+          ...d,
+          fixed: false,
+        }));
+      }
+      newColumns = leftColumns.concat(fixedRightColumns);
+    }
+
     return (
       <TABLE
-        minHeight={minHeight || scroll.y + 30}
+        ref={(c) => (this.table = c)}
+        minHeight={minHeight || scroll.y + lineHeight + 1}
         className={`${draggable && 'enableResize'} ${className}`}
         dataSource={dataSource}
         components={draggable ? this.components : {}}
@@ -156,7 +213,7 @@ export default class ResizableTable extends React.Component {
         {...reset}
         scroll={{
           ...scroll,
-          x: _.has(scroll, 'x') ? scroll.x : totalWidth,
+          x: 'x' in scroll ? scroll.x : totalWidth,
         }}
       />
     );
@@ -176,12 +233,11 @@ ResizableTable.propTypes = {
   minHeight: PropTypes.number,
   columnWidthsPreference: PropTypes.object,
   onSaveWidthsPreference: PropTypes.func,
+  classname: PropTypes.string,
 };
 
 const ResizableTitle = (props) => {
-  const {
-    onResize, width, dataIndex, ...restProps
-  } = props;
+  const { onResize, width, dataIndex, ...restProps } = props;
   if (!width) {
     return <th key={dataIndex} {...restProps} />;
   }
@@ -197,4 +253,9 @@ ResizableTitle.propTypes = {
   onResize: PropTypes.func.isRequired,
   width: PropTypes.number,
   dataIndex: PropTypes.string,
+  className: PropTypes.string,
+};
+
+ResizableTable.defaultProps = {
+  lineHeight: 32,
 };

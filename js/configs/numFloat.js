@@ -1,14 +1,14 @@
-
+/* eslint-disable */
 
 define(() => {
   /**
-         * Decimal adjustment of a number.
-         *
-         * @param   {String}    type    The type of adjustment.
-         * @param   {Number}    value   The number.
-         * @param   {Integer}   exp     The exponent (the 10 logarithm of the adjustment base).
-         * @returns {Number}            The adjusted value.
-         */
+   * Decimal adjustment of a number.
+   *
+   * @param   {String}    type    The type of adjustment.
+   * @param   {Number}    value   The number.
+   * @param   {Integer}   exp     The exponent (the 10 logarithm of the adjustment base).
+   * @returns {Number}            The adjusted value.
+   */
   function decimalAdjust(type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
@@ -22,53 +22,59 @@ define(() => {
     }
     // Shift
     value = value.toString().split('e');
-    value = Math[type](+(`${value[0]}e${value[1] ? (+value[1] - exp) : -exp}`));
+    value = Math[type](+`${value[0]}e${value[1] ? +value[1] - exp : -exp}`);
     // Shift back
     value = value.toString().split('e');
-    return +(`${value[0]}e${value[1] ? (+value[1] + exp) : exp}`);
+    return +`${value[0]}e${value[1] ? +value[1] + exp : exp}`;
   }
 
   // Decimal round
   if (!Math.round10) {
-    Math.round10 = function (value, exp) {
+    Math.round10 = function(value, exp) {
       return decimalAdjust('round', value, exp);
     };
   }
   // Decimal floor
   if (!Math.floor10) {
-    Math.floor10 = function (value, exp) {
+    Math.floor10 = function(value, exp) {
       return decimalAdjust('floor', value, exp);
     };
   }
   // Decimal ceil
   if (!Math.ceil10) {
-    Math.ceil10 = function (value, exp) {
+    Math.ceil10 = function(value, exp) {
       return decimalAdjust('ceil', value, exp);
     };
   }
 
   Number.prototype.toFixedB = function toFixed(precision) {
-    let multiplier = Math.pow(10, precision + 1),
-      wholeNumber = Math.floor(this * multiplier);
-    return (Math.round(wholeNumber / 10) * 10 / multiplier).toFixed(precision);
+    const multiplier = Math.pow(10, precision + 1);
+
+    const wholeNumber = Math.floor(this * multiplier);
+    return ((Math.round(wholeNumber / 10) * 10) / multiplier).toFixed(
+      precision
+    );
   };
 
-  Number.prototype.toFixed10 = function (precision) {
+  Number.prototype.toFixed10 = function(precision) {
     return Math.round10(this, -precision).toFixed(precision);
   };
 
   /**
-     ** 加法函数，用来得到精确的加法结果
-     ** 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
-     ** 调用：accAdd(arg1,arg2)
-     ** 返回值：arg1加上arg2的精确结果
-     * */
+   ** 加法函数，用来得到精确的加法结果
+   ** 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+   ** 调用：accAdd(arg1,arg2)
+   ** 返回值：arg1加上arg2的精确结果
+   * */
 
   function accAdd(arg1, arg2) {
-    let r1,
-      r2,
-      m,
-      c;
+    let r1;
+
+    let r2;
+
+    let m;
+
+    let c;
     try {
       r1 = arg1.toString().split('.')[1].length;
     } catch (e) {
@@ -98,20 +104,23 @@ define(() => {
   }
 
   // 给Number类型增加一个add方法，调用起来更加方便。
-  Number.prototype.add = function (arg) {
+  Number.prototype.add = function(arg) {
     return accAdd(arg, this);
   };
   /**
-     ** 减法函数，用来得到精确的减法结果
-     ** 说明：javascript的减法结果会有误差，在两个浮点数相减的时候会比较明显。这个函数返回较为精确的减法结果。
-     ** 调用：accSub(arg1,arg2)
-     ** 返回值：arg1加上arg2的精确结果
-     * */
+   ** 减法函数，用来得到精确的减法结果
+   ** 说明：javascript的减法结果会有误差，在两个浮点数相减的时候会比较明显。这个函数返回较为精确的减法结果。
+   ** 调用：accSub(arg1,arg2)
+   ** 返回值：arg1加上arg2的精确结果
+   * */
   function accSub(arg1, arg2) {
-    let r1,
-      r2,
-      m,
-      n;
+    let r1;
+
+    let r2;
+
+    let m;
+
+    let n;
     try {
       r1 = arg1.toString().split('.')[1].length;
     } catch (e) {
@@ -123,49 +132,57 @@ define(() => {
       r2 = 0;
     }
     m = Math.pow(10, Math.max(r1, r2)); // last modify by deeka //动态控制精度长度
-    n = (r1 >= r2) ? r1 : r2;
+    n = r1 >= r2 ? r1 : r2;
     return Number(((arg1 * m - arg2 * m) / m).toFixed10(n));
   }
 
   // 给Number类型增加一个mul方法，调用起来更加方便。
-  Number.prototype.sub = function (arg) {
+  Number.prototype.sub = function(arg) {
     return accSub(arg, this);
   };
 
   /**
-     ** 乘法函数，用来得到精确的乘法结果
-     ** 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
-     ** 调用：accMul(arg1,arg2)
-     ** 返回值：arg1乘以 arg2的精确结果
-     * */
+   ** 乘法函数，用来得到精确的乘法结果
+   ** 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+   ** 调用：accMul(arg1,arg2)
+   ** 返回值：arg1乘以 arg2的精确结果
+   * */
   function accMul(arg1, arg2) {
-    let m = 0,
-      s1 = arg1.toString(),
-      s2 = arg2.toString();
+    let m = 0;
+
+    const s1 = arg1.toString();
+
+    const s2 = arg2.toString();
     try {
       m += s1.split('.')[1].length;
     } catch (e) {}
     try {
       m += s2.split('.')[1].length;
     } catch (e) {}
-    return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m);
+    return (
+      (Number(s1.replace('.', '')) * Number(s2.replace('.', ''))) /
+      Math.pow(10, m)
+    );
   }
 
-  Number.prototype.mul = function (arg) {
+  Number.prototype.mul = function(arg) {
     return accMul(arg, this);
   };
 
   /**
-     ** 除法函数，用来得到精确的除法结果
-     ** 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
-     ** 调用：accDiv(arg1,arg2)
-     ** 返回值：arg1除以arg2的精确结果
-     * */
+   ** 除法函数，用来得到精确的除法结果
+   ** 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
+   ** 调用：accDiv(arg1,arg2)
+   ** 返回值：arg1除以arg2的精确结果
+   * */
   function accDiv(arg1, arg2) {
-    let t1 = 0,
-      t2 = 0,
-      r1,
-      r2;
+    let t1 = 0;
+
+    let t2 = 0;
+
+    let r1;
+
+    let r2;
     try {
       t1 = arg1.toString().split('.')[1].length;
     } catch (e) {}
@@ -178,7 +195,7 @@ define(() => {
   }
 
   // 给Number类型增加一个div方法，调用起来更加方便。
-  Number.prototype.div = function (arg) {
+  Number.prototype.div = function(arg) {
     return accDiv(this, arg);
   };
 });

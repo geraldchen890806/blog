@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import middleware from './middleware';
 import reducer from './reducers';
@@ -9,10 +11,15 @@ if (__DEVELOPMENT__) {
     applyMiddleware.apply(this, middleware),
     // Provides support for DevTools:
     // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
-    (typeof window === 'object' && window.devToolsExtension && window.devToolsExtension()) || ((r) => { return r;})
+    (typeof window === 'object' &&
+      window.devToolsExtension &&
+      window.devToolsExtension()) ||
+      ((r) => r)
   )(createStore);
 } else {
-  finalCreateStore = compose(applyMiddleware.apply(this, middleware))(createStore);
+  finalCreateStore = compose(applyMiddleware.apply(this, middleware))(
+    createStore
+  );
 }
 
 export const store = finalCreateStore(reducer);

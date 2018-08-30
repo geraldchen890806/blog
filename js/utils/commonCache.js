@@ -1,5 +1,7 @@
-const cache = {};
+/* eslint-disable */
 
+import $ from 'jquery';
+const cache = {};
 
 export function getCache(url, ajaxConfig) {
   return new Promise((resolve, reject) => {
