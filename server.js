@@ -1,66 +1,66 @@
 /* eslint-disable */
-var isDev = process.env.NODE_ENV !== "production";
-var webpack = require("webpack");
-var compression = require("compression");
-var express = require("express");
-var http = require("http");
-var https = require("https");
-var fs = require("fs");
-var path = require("path");
+var isDev = process.env.NODE_ENV !== 'production';
+var webpack = require('webpack');
+var compression = require('compression');
+var express = require('express');
+var http = require('http');
+var https = require('https');
+var fs = require('fs');
+var path = require('path');
 var app = express();
-var favicon = require("serve-favicon");
+var favicon = require('serve-favicon');
 if (!isDev) {
   app.use(compression());
 }
 app.use(function(req, res, next) {
   if (
-    ["xn--boqs2g85v.xn--6qq986b3xl", "任加敏.我爱你", "jiamin.ren"].includes(
+    ['xn--boqs2g85v.xn--6qq986b3xl', '任加敏.我爱你', 'jiamin.ren'].includes(
       req.headers.host
     )
   ) {
     return next();
   }
   if (!/https/.test(req.protocol) && process.env.SSLPORT) {
-    res.redirect("https://" + req.headers.host + req.url);
+    res.redirect('https://' + req.headers.host + req.url);
   } else {
     return next();
   }
 });
-app.use(express.static(__dirname + "/static"));
-app.use("/img", express.static(__dirname + "/img"));
-app.use("/mp", express.static(__dirname + "/mp"));
-app.use("/.well-known", express.static(__dirname + "/.well-known"));
+app.use(express.static(__dirname + '/static'));
+app.use('/img', express.static(__dirname + '/img'));
+app.use('/mp', express.static(__dirname + '/mp'));
+app.use('/.well-known', express.static(__dirname + '/.well-known'));
 app.use(
-  "/MP_verify_JDni6b15rFNM6wto.txt",
-  express.static(__dirname + "/mp/MP_verify_JDni6b15rFNM6wto.txt")
+  '/MP_verify_JDni6b15rFNM6wto.txt',
+  express.static(__dirname + '/mp/MP_verify_JDni6b15rFNM6wto.txt')
 );
 if (!isDev) {
-  app.use(favicon(__dirname + "/favicon.ico"));
+  app.use(favicon(__dirname + '/favicon.ico'));
   var static_path = path.join(__dirname);
-  app.get("*", function(req, res) {
-    res.sendFile("/static/index.html", {
-      root: static_path
+  app.get('*', function(req, res) {
+    res.sendFile('/static/index.html', {
+      root: static_path,
     });
   });
 } else {
-  app.use("/vender", express.static(__dirname + "/vender"));
-  app.use("/manifest.json", express.static(__dirname + "/manifest.json"));
-  var config = require("./webpack.config");
+  app.use('/vender', express.static(__dirname + '/vender'));
+  app.use('/manifest.json', express.static(__dirname + '/manifest.json'));
+  var config = require('./webpack.config');
   var compiler = webpack(config);
   app.use(
-    require("webpack-dev-middleware")(compiler, {
-      noInfo: true,
-      publicPath: config.output.publicPath
+    require('webpack-dev-middleware')(compiler, {
+      // noInfo: true,
+      publicPath: config.output.publicPath,
     })
   );
-  app.use(require("webpack-hot-middleware")(compiler));
-  app.use("/", function(req, res, next) {
-    var filename = path.join(compiler.outputPath, "index.html");
+  app.use(require('webpack-hot-middleware')(compiler));
+  app.use('/', function(req, res, next) {
+    var filename = path.join(compiler.outputPath, 'index.html');
     compiler.outputFileSystem.readFile(filename, function(err, result) {
       if (err) {
         return next(err);
       }
-      res.set("Content-Type", "text/html");
+      res.set('Content-Type', 'text/html');
       res.send(result);
       res.end();
     });
@@ -75,19 +75,19 @@ httpServer.listen(process.env.PORT || 4000, function(err) {
     return;
   }
   console.log(
-    "HTTP Server is running on: http://localhost:%s",
+    'HTTP Server is running on: http://localhost:%s',
     process.env.PORT || 4000
   );
 });
 
 if (!isDev && process.env.SSLPORT) {
   var privateKey = fs.readFileSync(
-    __dirname + "/sslforfree/private.key",
-    "utf8"
+    __dirname + '/sslforfree/private.key',
+    'utf8'
   );
   var certificate = fs.readFileSync(
-    __dirname + "/sslforfree/certificate.crt",
-    "utf8"
+    __dirname + '/sslforfree/certificate.crt',
+    'utf8'
   );
   var credentials = { key: privateKey, cert: certificate };
   var httpsServer = https.createServer(credentials, app);
@@ -97,7 +97,7 @@ if (!isDev && process.env.SSLPORT) {
       return;
     }
     console.log(
-      "HTTPS Server is running on: https://localhost:%s",
+      'HTTPS Server is running on: https://localhost:%s',
       process.env.SSLPORT || 3021
     );
   });
