@@ -17,7 +17,7 @@
   "lint-staged": {
     "linters": {
       "*.js": [
-        "eslint --ignore-path .gitignore --ignore-pattern static --fix"
+        "eslint --fix"
       ]
     },
     "ignore": []
@@ -25,6 +25,7 @@
   "pre-commit": "lint:staged",
   "dependencies": {
     "antd": "^3.8.1",
+    "axios": "^0.18.0",
     "github-markdown-css": "^2.10.0",
     "history": "^4.7.2",
     "intersection-observer": "0.5.0",
@@ -44,7 +45,8 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "serve-favicon": "^2.5.0",
-    "styled-components": "^3.4.2"
+    "styled-components": "^3.4.2",
+    "superagent": "^3.8.3"
   },
   "devDependencies": {
     "autoprefixer-loader": "3.2.0",

@@ -35,9 +35,7 @@ exports.sqlBlogs = function (callback) {
 
       scripts(res);
 
-      res = res
-      .filter((v, i) => !!v)
-      .reverse();
+      res = res.filter((v, i) => !!v).reverse();
       callback(res);
     }
   );

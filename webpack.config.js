@@ -2,37 +2,36 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    app: [
-      'eventsource-polyfill',
-      'webpack-hot-middleware/client',
-      './js/index',
-    ],
+    app: ['eventsource-polyfill', 'webpack-hot-middleware/client', './js/index']
   },
   output: {
     filename: 'main.[hash].js',
     path: path.join(__dirname, 'static'),
     chunkFilename: '[name].[chunkhash].chunk.js',
-    publicPath: '/',
+    publicPath: '/'
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     // new webpack.DllReferencePlugin({
     //   context: path.join(__dirname, 'vender'),
     //   manifest: path.join(__dirname, 'dll.json')
     // }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.dev.html',
+      template: 'index.dev.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: true,
-    }),
+      __DEVTOOLS__: true
+    })
   ],
   resolve: {
     alias: {
@@ -40,9 +39,9 @@ module.exports = {
       js: path.resolve('js'),
       img: path.resolve('img'),
       resources: path.resolve('js/resources'),
-      apps: path.resolve('js/apps'),
+      apps: path.resolve('js/apps')
     },
-    extensions: ['.js'],
+    extensions: ['.js']
   },
   module: {
     rules: [
@@ -50,38 +49,38 @@ module.exports = {
         test: /\.js$/,
         use: ['babel-loader?cacheDirectory'],
         exclude: /node_modules/,
-        include: path.join(__dirname, 'js'),
+        include: path.join(__dirname, 'js')
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'raw-loader'],
-        include: __dirname,
+        include: __dirname
       },
       {
         test: /\.less$/,
         use: [
           'style-loader',
           'css-loader',
-          { loader: 'less-loader', options: { javascriptEnabled: true } },
+          { loader: 'less-loader', options: { javascriptEnabled: true } }
         ],
-        include: __dirname,
+        include: __dirname
       },
       {
         test: /\.(jpeg|png|jpg|gif|pdf|mp3|ogg|wav)$/,
-        use: ['file-loader?name=[path][name].[ext]'],
+        use: ['file-loader?name=[path][name].[ext]']
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['url-loader?limit=10000&mimetype=application/font-woff'],
+        use: ['url-loader?limit=10000&mimetype=application/font-woff']
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader'],
+        use: ['file-loader']
       },
       {
         test: /\.md$/,
-        loader: ['raw-loader'],
-      },
-    ],
-  },
+        loader: ['raw-loader']
+      }
+    ]
+  }
 };

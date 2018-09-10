@@ -86,6 +86,10 @@ import blog41 from './blog41_pwa';
 import blog42 from './blog42_通过polyfill了解JS';
 // blog43_webpack4
 import blog43 from './blog43_webpack4';
+// blog44_npm高效但非常用命令整理
+import blog44 from './blog44_npm高效但非常用命令整理';
+// blog45_通过npm pre-commit添加代码校验
+import blog45 from './blog45_通过npm pre-commit添加代码校验';
 
 export default [
   blog0,
@@ -132,4 +136,6 @@ export default [
   blog41,
   blog42,
   blog43,
+  blog44,
+  blog45,
 ].reverse();
