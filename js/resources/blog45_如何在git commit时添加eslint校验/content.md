@@ -58,10 +58,17 @@ package.json
   "lint-staged": {
     "linters": {
       "*.js": [
-        "eslint --ignore-path .gitignore --ignore-pattern static --fix"
+        "eslint --ignore-path .gitignore --fix"
       ]
     },
     "ignore": []
   },
   "pre-commit": "lint:staged",
 ```
+
+注：
+
+1. git hook 有很多，commit-msg post-commit 等等
+2. 项目有 eslint 配置
+3. 例子中只校验 js 文件，有需求可以添加其他文件类型（给 lint-staged 点赞）
+4. --ignore-path .gitignore（建议使用，特殊需求使用.eslintignore）
