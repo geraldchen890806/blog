@@ -88,8 +88,8 @@ import blog42 from './blog42_通过polyfill了解JS';
 import blog43 from './blog43_webpack4';
 // blog44_npm高效但非常用命令整理
 import blog44 from './blog44_npm高效但非常用命令整理';
-// blog45_通过npm pre-commit添加代码校验
-import blog45 from './blog45_通过npm pre-commit添加代码校验';
+// blog45_如何在git commit时添加eslint校验
+import blog45 from './blog45_如何在git commit时添加eslint校验';
 
 export default [
   blog0,
