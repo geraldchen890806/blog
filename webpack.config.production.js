@@ -7,7 +7,8 @@ var OfflinePlugin = require('offline-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'production',
@@ -57,7 +58,7 @@ module.exports = {
   plugins: [
     // new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
