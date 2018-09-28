@@ -34,6 +34,7 @@ app.use(
   '/MP_verify_JDni6b15rFNM6wto.txt',
   express.static(__dirname + '/mp/MP_verify_JDni6b15rFNM6wto.txt')
 );
+
 if (!isDev) {
   app.use(favicon(__dirname + '/favicon.ico'));
   var static_path = path.join(__dirname);

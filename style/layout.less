@@ -6,11 +6,11 @@
   left: 0;
   height: 50px;
   overflow: hidden;
-  background: #fff;
   z-index: 1;
+  background: #f2f2f2;
   .container {
-    width: 1080px;
     margin: 0 auto;
+    width: 800px;
     h3 {
       float: left;
       padding: 0 0 0 5px;
@@ -43,11 +43,13 @@
   .main {
     .mainContent {
       width: 800px;
-      float: left;
-      margin-right: 10px;
+      margin: 0 auto;
       min-height: 100%;
     }
     .mainSide {
+      position: fixed;
+      top: 70px;
+      left: calc(50% + 410px);
       display: block;
       overflow: hidden;
       height: 800px;

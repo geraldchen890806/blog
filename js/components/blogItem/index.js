@@ -70,7 +70,7 @@ export default class BlogItem extends Component {
         <footer>
           <ul>
             {blog.tags.map((tag, i) => (
-              <li key={i}>
+              <li key={tag}>
                 <Link className="article-title" to={`/tag/${tag}`}>
                   #
                   {tag}
@@ -90,13 +90,17 @@ BlogItem.propTypes = {
 };
 
 const BlogDiv = styled.div`
-  margin: 0 0 30px;
+  margin: 2px 2px 20px;
   background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
   border: 1px solid #ddd;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  box-shadow: 0 2px 8px 0 rgba(182, 186, 189, 0.3);
+  &:hover {
+    box-shadow: 0 2px 10px 0 rgba(21, 114, 206, 0.36);
+  }
   header {
     padding: 20px 20px 0;
     position: relative;
