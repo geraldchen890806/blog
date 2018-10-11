@@ -1,6 +1,7 @@
 const { Notification } = window || {};
 
 export default (options) => {
+  if (!Notification) return;
   if (Notification.permission === 'granted') {
     doNotification(options);
   } else if (Notification.permission !== 'denied') {
