@@ -8,7 +8,7 @@
     "start": "export NODE_ENV=development && node server.js",
     "deploy": "export NODE_ENV=production && webpack --config webpack.config.production.js && npm start",
     "package": "NODE_ENV=production && webpack-cli -p --config ./webpack.config.production.js --progress",
-    "forever": "cp -r staticPro static && export NODE_ENV=production PORT=80 SSLPORT=443 && forever start server.js",
+    "forever": "rm -rf static && cp -r staticPro static && export NODE_ENV=production PORT=80 SSLPORT=443 && forever start server.js",
     "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config webpack.config.production.js && npm start",
     "lint:eslint": "eslint --ignore-path .eslintignore",
     "lint:staged": "lint-staged"
