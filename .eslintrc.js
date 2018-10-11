@@ -13,6 +13,7 @@ module.exports = {
     sourceType: 'module',
     ecmaFeatures: {
       experimentalDecorators: true,
+      legacyDecorators: true,
       jsx: true,
     },
   },

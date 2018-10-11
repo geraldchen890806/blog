@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
-import _ from 'lodash';
 // import wxShare from 'js/utils/wxShare';
 
 @connect((state) => ({
@@ -12,7 +12,8 @@ import _ from 'lodash';
 export default class Blog extends Component {
   render() {
     const { blogs, match = {} } = this.props;
-    const cur = _.find(blogs, { url: _.get(match, 'params.id')});
+
+    const cur = _.find(blogs, { url: _.get(match, 'params.id') });
     let blogTpl;
     if (cur) {
       blogTpl = <BlogItem key={cur.title} blog={cur} isDetail />;
@@ -30,5 +31,5 @@ export default class Blog extends Component {
 
 Blog.propTypes = {
   blogs: propTypes.array,
-  routeParams: propTypes.object,
+  match: propTypes.object,
 };

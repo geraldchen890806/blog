@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import queryString from 'query-string';
 import { ConnectedRouter } from 'react-router-redux';
 
 import history from 'js/redux/middleware/history';
+import notification from 'js/utils/notification';
+import icon from 'img/icon.png';
 
 import Header from './header';
 import Side from './side';
@@ -95,12 +98,26 @@ export default class App extends Component {
     );
   }
 
+  checkNotification() {
+    const { blogs } = this.props;
+    const blog = _.first(blogs);
+    notification({
+      title: '点击查看最新文章',
+      body: blog.title,
+      icon,
+      callback: () => {
+        history.push(`/blog/${blog.url}`);
+      },
+    });
+  }
+
   componentDidMount() {
     if (this.isRjm()) {
       // 任加敏.我爱你
       this.loadRjm();
       document.title = '任加敏.我爱你';
     }
+    this.checkNotification();
   }
 
   render() {
