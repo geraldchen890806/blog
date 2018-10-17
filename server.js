@@ -14,9 +14,12 @@ if (!isDev) {
 }
 app.use(function(req, res, next) {
   if (
-    ['xn--boqs2g85v.xn--6qq986b3xl', '任加敏.我爱你', 'jiamin.ren'].includes(
-      req.headers.host
-    )
+    [
+      'xn--boqs2g85v.xn--6qq986b3xl',
+      '任加敏.我爱你',
+      'jiamin.ren',
+      'renjiamin.com',
+    ].includes(req.headers.host)
   ) {
     return next();
   }
