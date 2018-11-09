@@ -12,14 +12,6 @@ var favicon = require('serve-favicon');
 if (!isDev) {
   app.use(compression());
 }
-app.use(express.static(__dirname + '/static'));
-app.use('/img', express.static(__dirname + '/img'));
-app.use('/mp', express.static(__dirname + '/mp'));
-app.use('/.well-known', express.static(__dirname + '/.well-known'));
-app.use(
-  '/MP_verify_JDni6b15rFNM6wto.txt',
-  express.static(__dirname + '/mp/MP_verify_JDni6b15rFNM6wto.txt')
-);
 app.use(function(req, res, next) {
   if (
     [
@@ -37,6 +29,15 @@ app.use(function(req, res, next) {
     return next();
   }
 });
+app.use(express.static(__dirname + '/static'));
+app.use('/img', express.static(__dirname + '/img'));
+app.use('/mp', express.static(__dirname + '/mp'));
+app.use('/.well-known', express.static(__dirname + '/.well-known'));
+app.use(
+  '/MP_verify_JDni6b15rFNM6wto.txt',
+  express.static(__dirname + '/mp/MP_verify_JDni6b15rFNM6wto.txt')
+);
+
 if (!isDev) {
   app.use(favicon(__dirname + '/favicon.ico'));
   var static_path = path.join(__dirname);
