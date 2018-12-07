@@ -53,8 +53,14 @@ if (!isDev) {
   var compiler = webpack(config);
   app.use(
     require('webpack-dev-middleware')(compiler, {
-      // noInfo: true,
+      noInfo: true,
       publicPath: config.output.publicPath,
+      stats: {
+        colors: true,
+        assets: false,
+        modules: false,
+        children: false,
+      },
     })
   );
   app.use(require('webpack-hot-middleware')(compiler));
