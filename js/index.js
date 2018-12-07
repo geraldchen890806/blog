@@ -10,6 +10,8 @@ import 'github-markdown-css/github-markdown.css';
 
 import App from 'js/containers';
 
+import './crypto';
+
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
 // we do not want it installed
@@ -19,6 +21,7 @@ import { store } from './redux/store';
 if (module.hot) {
   module.hot.accept();
 }
+
 render(
   <Provider store={store}>
     <App />
