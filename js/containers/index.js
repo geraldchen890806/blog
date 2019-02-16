@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import _ from 'lodash';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import queryString from 'query-string';
@@ -101,14 +102,20 @@ export default class App extends Component {
   checkNotification() {
     const { blogs } = this.props;
     const blog = _.first(blogs);
-    notification({
-      title: '点击查看最新文章',
-      body: blog.title,
-      icon,
-      callback: () => {
-        history.push(`/blog/${blog.url}`);
-      },
-    });
+    if (
+      moment()
+        .subtract(1, 'month')
+        .format('YYYY-MM-DD') < blog.date
+    ) {
+      notification({
+        title: '点击查看最新文章',
+        body: blog.title,
+        icon,
+        callback: () => {
+          history.push(`/blog/${blog.url}`);
+        },
+      });
+    }
   }
 
   componentDidMount() {
