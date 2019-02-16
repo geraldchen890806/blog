@@ -1,5 +1,3 @@
-## 升级 webpack4
-
 推荐 2 个命令
 
 - [npm check](https://segmentfault.com/a/1190000011085967)
