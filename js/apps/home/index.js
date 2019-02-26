@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
 // import wxShare from 'js/utils/wxShare';
 
-@connect(
-  (state) => ({
-    blogs: state.common.blogs,
-  })
-)
+@connect((state) => ({
+  blogs: state.common.blogs,
+}))
 export default class Home extends Component {
   // componentDidMount() {
   //   wxShare({
@@ -19,7 +17,16 @@ export default class Home extends Component {
   // }
   render() {
     const { blogs } = this.props;
-    return <div className="homePage">{blogs.map((blog, i) => <BlogItem key={i} blog={blog} />)}</div>;
+    console.log(blogs);
+    return (
+      <div className="homePage">
+        {blogs
+          .filter((b) => !b.hide)
+          .map((blog, i) => (
+            <BlogItem key={blog.title} blog={blog} />
+          ))}
+      </div>
+    );
   }
 }
 
