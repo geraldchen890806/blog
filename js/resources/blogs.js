@@ -146,6 +146,6 @@ export default [
   blog44,
   blog45,
   blog46,
-  // blog48,
+  blog48,
   blog49,
 ].reverse();

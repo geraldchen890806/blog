@@ -1,7 +1,5 @@
-import createHistory from 'history/createBrowserHistory';
-const history = createHistory();
-history.listen(() => {
-  // location is an object like window.location
-  // console.log(action, location.pathname, location.state);
-});
+/** Copyright © 2013-2019 DataYes, All Rights Reserved. */
+
+import history from 'js/utils/history';
+
 export default history;

@@ -2,10 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
+@connect((state) => ({
+  ...state.common,
+}))
 export default class Side extends PureComponent {
   render() {
-    const { blogs } = this.props;
+    const { blogs = [] } = this.props;
     const tags = _.uniq(_.reduce(blogs, (re, b) => re.concat(b.tags), []));
     return (
       <div className="mainSide">

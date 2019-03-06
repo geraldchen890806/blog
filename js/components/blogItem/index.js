@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom';
 import 'intersection-observer';
 
 export default class BlogItem extends Component {
+
+  blog = React.createRef();
+
   state = {
     Content: null,
   };
 
   componentDidMount() {
     if (this.observer) {
-      this.observer.observe(this.blog);
+      this.observer.observe(this.blog.current);
     }
   }
 
@@ -32,7 +35,7 @@ export default class BlogItem extends Component {
   forceImport = () => {
     if (this.importDone) return;
     if (this.observer) {
-      this.observer.unobserve(this.blog);
+      this.observer.unobserve(this.blog.current);
     }
     this.importDone = true;
     this.load();
@@ -55,7 +58,7 @@ export default class BlogItem extends Component {
     return (
       <BlogDiv
         className={`article ${isDetail ? 'isDetail' : ''}`}
-        innerRef={(c) => (this.blog = c)}
+        ref={this.blog}
       >
         <header>
           <h1>

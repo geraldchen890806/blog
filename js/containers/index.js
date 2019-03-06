@@ -1,15 +1,7 @@
-import React, { Component } from 'react';
-import Loadable from 'react-loadable';
+import React, { Component, lazy, Suspense } from 'react';
 import _ from 'lodash';
-import moment from 'moment';
-import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import queryString from 'query-string';
-import { ConnectedRouter } from 'react-router-redux';
-
-import history from 'js/redux/middleware/history';
 import notification from 'js/utils/notification';
-import icon from 'img/icon.png';
 
 import Header from './header';
 import Side from './side';
@@ -17,70 +9,27 @@ import Side from './side';
 const navs = [
   {
     url: '/',
-    component: Loadable({
-      loader: () => import(/* webpackChunkName: "home" */ 'js/apps/home'),
-      loading: () => null,
-    }),
+    component: lazy(() => import('js/apps/home')),
   },
   {
     url: '/home',
-    component: Loadable({
-      loader: () => import(/* webpackChunkName: "home" */ 'js/apps/home'),
-      loading: () => null,
-    }),
+    component: lazy(() => import('js/apps/home')),
   },
   {
     url: '/recommend',
-    component: Loadable({
-      loader: () => import(/* webpackChunkName: "Recommend" */ 'js/apps/recommend'),
-      loading: () => null,
-    }),
+    component: lazy(() => import(/* webpackChunkName: "Recommend" */ 'js/apps/recommend')),
   },
   {
     url: '/blog/:id',
-    component: Loadable({
-      loader: () => import(/* webpackChunkName: "Blog" */ 'js/apps/blog/view'),
-      loading: () => null,
-    }),
+    component: lazy(() => import('js/apps/blog/view')),
   },
   {
     url: '/tag/:tag',
-    component: Loadable({
-      loader: () => import(/* webpackChunkName: "Tag" */ 'js/apps/tag'),
-      loading: () => null,
-    }),
+    component: lazy(() => import(/* webpackChunkName: "Tag" */ 'js/apps/tag')),
   },
 ];
 
-@connect((state) => ({
-  ...state.common,
-}))
 export default class App extends Component {
-  checkAndRender = (Comp, props) => {
-    const {
-      history: { location = {} },
-      match = {},
-    } = props;
-    const nProps = {
-      ...props,
-      history: {
-        ...location,
-        query: queryString.parse(location.search),
-      },
-      params: {
-        ...match.params,
-      },
-      routeParams: {
-        ...match.params,
-      },
-      location: {
-        ...props.location,
-        query: queryString.parse(location.search),
-      },
-    };
-    return <Comp {...nProps} />;
-  };
-
   state = {};
 
   loadRjm() {
@@ -133,33 +82,26 @@ export default class App extends Component {
       // 任加敏.我爱你
       return RjmComp ? <RjmComp /> : null;
     }
+    console.log('sas');
     return (
-      <ConnectedRouter history={history}>
-        <div>
-          <Header />
-          <div className="main">
-            <div className="mainContent">
-              {navs.map((nav) => (
-                <Route
-                  exact
-                  key={nav.url}
-                  path={nav.url}
-                  render={(props) => this.checkAndRender(nav.component, props)}
-                />
-              ))}
-              {/* <Route exact path="/" render={(props) => this.checkAndrender(Home, props)} />
-              <Route path="/home" render={(props) => this.checkAndrender(Home, props)} />
-              <Route path="/recommend" render={(props) => this.checkAndrender(Recommend, props)} />
-              <Route path="/about" render={(props) => this.checkAndrender(About, props)} />
-              <Route path="/blog/new" render={(props) => this.checkAndrender(BlogNew, props)} />
-              <Route path="/blog/:id" render={(props) => this.checkAndrender(Blog, props)} />
-              <Route path="/blog/:id/edit" render={(props) => this.checkAndrender(BlogNew, props)} />
-              <Route path="/tag/:tag" render={(props) => this.checkAndrender(Tag, props)} /> */}
-            </div>
-            <Side {...this.props} />
+      <div>
+        <Header />
+        <div className="main">
+          <div className="mainContent">
+            <Suspense fallback={<>1</>}>
+              <>
+                {navs.map(({ url, component }) => {
+                  console.log(component);
+                  return (
+                    <Route exact key={url} path={url} component={component} />
+                  );
+                })}
+              </>
+            </Suspense>
           </div>
+          <Side {...this.props} />
         </div>
-      </ConnectedRouter>
+      </div>
     );
   }
 }

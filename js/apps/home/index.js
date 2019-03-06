@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
+import queryString from 'query-string';
 // import wxShare from 'js/utils/wxShare';
-
 @connect((state) => ({
   blogs: state.common.blogs,
 }))

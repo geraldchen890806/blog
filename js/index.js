@@ -2,7 +2,8 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-
+import { ConnectedRouter } from 'connected-react-router';
+import history from 'js/utils/history';
 import './configs/index';
 import '../style/main.less';
 
@@ -17,14 +18,14 @@ import './crypto';
 // we do not want it installed
 import runtime from 'offline-plugin/runtime';
 import { store } from './redux/store';
-
 if (module.hot) {
   module.hot.accept();
 }
-
 render(
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );

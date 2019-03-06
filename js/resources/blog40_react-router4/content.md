@@ -5,16 +5,17 @@
 
 #### 使用到的包 react-router可以删除了
 ```js
-"query-string": "^4.3.4",
-"react-router-dom": "4.1.1",
-"react-router-redux": "5.0.0-alpha.6"
+"query-string": "5.1.1",
+"react-router": "4.3.1",
+"react-router-dom": "4.3.1",
+"connected-react-router": "5.0.1",
 ```
 
 #### app.js(route)
 ```js
 import { Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { store } from 'js/redux/store'; //创建store
 import history from 'js/redux/middleware/history'; //因为多个地方使用history
 export default class App extends Component {
@@ -89,6 +90,7 @@ export default history;
 
 ```js
 import { routerMiddleware } from 'react-router-redux';
+import { routerReducer } from 'connected-react-router';
 const store = createStore(
   combineReducers({
     ...reducers,

@@ -1,5 +1,5 @@
 export default {
-  title: 'Iterator',
+  title: '前端概念汇总',
   url: '前端概念汇总',
   tags: ['js', 'es6'],
   date: '2019-02-16',
