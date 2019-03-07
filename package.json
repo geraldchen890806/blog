@@ -9,7 +9,7 @@
     "build:dll": "webpack-cli --display-chunks --color --config ./webpack.config.dll.js  --hide-modules",
     "start": "export NODE_ENV=development && node server.js",
     "deploy": "export NODE_ENV=production && webpack --config webpack.config.production.js && npm start",
-    "build": "NODE_ENV=production && webpack-cli -p --config ./webpack.config.production.js --progress",
+    "build": "rm -rf staticPro && NODE_ENV=production && webpack-cli -p --config ./webpack.config.production.js --progress",
     "forever": "rm -rf static && cp -r staticPro static && export NODE_ENV=production PORT=80 SSLPORT=443 && forever start server.js",
     "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config webpack.config.production.js && npm start",
     "lint:eslint": "eslint --ignore-path .eslintignore",

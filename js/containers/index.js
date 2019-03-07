@@ -8,11 +8,7 @@ import Side from './side';
 
 const navs = [
   {
-    url: '/',
-    component: lazy(() => import('js/apps/home')),
-  },
-  {
-    url: '/home',
+    url: ['/', '/home', '/all'],
     component: lazy(() => import('js/apps/home')),
   },
   {
@@ -82,20 +78,16 @@ export default class App extends Component {
       // 任加敏.我爱你
       return RjmComp ? <RjmComp /> : null;
     }
-    console.log('sas');
     return (
       <div>
         <Header />
         <div className="main">
           <div className="mainContent">
-            <Suspense fallback={<>1</>}>
+            <Suspense fallback={<></>}>
               <>
-                {navs.map(({ url, component }) => {
-                  console.log(component);
-                  return (
-                    <Route exact key={url} path={url} component={component} />
-                  );
-                })}
+                {navs.map(({ url, component }) => (
+                  <Route exact key={url} path={url} component={component} />
+                ))}
               </>
             </Suspense>
           </div>

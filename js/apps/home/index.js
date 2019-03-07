@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
-import queryString from 'query-string';
 // import wxShare from 'js/utils/wxShare';
 @connect((state) => ({
   blogs: state.common.blogs,
@@ -16,11 +15,14 @@ export default class Home extends Component {
   //   });
   // }
   render() {
-    const { blogs } = this.props;
+    const {
+      blogs,
+      location: { pathname },
+    } = this.props;
     return (
       <div className="homePage">
         {blogs
-          .filter((b) => !b.hide)
+          .filter((b) => !b.hide || pathname.includes('/all'))
           .map((blog, i) => (
             <BlogItem key={blog.title} blog={blog} />
           ))}
@@ -31,4 +33,5 @@ export default class Home extends Component {
 
 Home.propTypes = {
   blogs: propTypes.array,
+  location: propTypes.object,
 };
