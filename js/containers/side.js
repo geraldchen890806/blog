@@ -20,13 +20,16 @@ export default class Side extends PureComponent {
         <div id="recent">
           <h4 className="title">最新文章</h4>
           <ul>
-            {blogs.slice(0, 5).map((blog) => (
-              <li key={blog.title}>
-                <Link className="article-title" to={`/blog/${blog.url}`}>
-                  {blog.title}
-                </Link>
-              </li>
-            ))}
+            {blogs
+              .filter((d) => !d.hide)
+              .slice(0, 5)
+              .map((blog) => (
+                <li key={blog.title}>
+                  <Link className="article-title" to={`/blog/${blog.url}`}>
+                    {blog.title}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </div>
         <div id="tags" className="item">
