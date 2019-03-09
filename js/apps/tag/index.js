@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import BlogItem from 'js/components/blogItem';
 import _ from 'lodash';
 
-@connect(
-  (state) => ({
-    blogs: state.common.blogs,
-  })
-)
+@connect((state) => ({
+  blogs: state.common.blogs,
+}))
 export default class Tag extends Component {
   render() {
     const { blogs, match } = this.props;
-    const tag = match.params.tag;
-    const curBlogs = _.filter(blogs, (blog) => blog.tags.includes(tag));
+    const { tag } = match.params;
+    const curBlogs = _.filter(blogs, (blog) => !blog.hide && blog.tags.includes(tag));
     return (
       <div className="homePage">
-        {curBlogs.map((blog) => <BlogItem key={blog.title} blog={blog} />)}
+        {curBlogs.map((blog) => (
+          <BlogItem key={blog.title} blog={blog} />
+        ))}
       </div>
     );
   }
