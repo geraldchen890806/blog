@@ -1,3 +1,4 @@
+### Generator特性
 我想关注生成器的应该都会知道tj大神的co模块，下面是我在学习co时的一点心得
 
 举个例子：
@@ -26,11 +27,12 @@
   
   5.var res = yield 2这句是指，这一段逻辑返回2，在下一次调用g.next(3)时，res = 3。换句话说，这句只执行了后面半段就暂停了，等到再次调用g.next()时才会将参数赋给res并继续执行下面的逻辑
     
+### co
 tj大神的co模块就是建立在这些特性上的
 
     function * genFn(){
       console.log('start');
-      var s = yield function test(fn) {
+      var s = yield function fetchBaidu(fn) {
         $.get("http://www.baidu.com", fn)
       }
       console.log("s", s.statusCode)
@@ -56,9 +58,11 @@ tj大神的co模块就是建立在这些特性上的
     s 200
     done
     
-这里的ret.value(p) 就是运行test函数并且将p作为参数。那么test函数就会是这样的
+这里的ret.value(p) 就是运行fetchBaidu函数并且将p作为参数。
 
-    function test(fn){
+实际fetchBaidu函数就会是这样的
+```
+    function fetchBaidu(fn){
         $.get("http://www.baidu.com", function(err, args) {
           if (gen.next) {
             var ret = gen.next(args);
@@ -71,7 +75,7 @@ tj大神的co模块就是建立在这些特性上的
           }
         })
     }
-    
+```
 根据生成器的特性，第一次调用gen.next()时会返回test函数，这时ret.value == test，然后使用ret.value(p)调用test函数，在get的callback里运行gen.next，并将get返回值赋值给ret
 
     
