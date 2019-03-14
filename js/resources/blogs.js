@@ -90,8 +90,10 @@ import blog43 from './blog43_webpack4';
 import blog44 from './blog44_npm高效但非常用命令整理';
 // blog45_如何在git commit时添加eslint校验
 import blog45 from './blog45_如何在git commit时添加eslint校验';
-// blog45_blog46_Iterator
+// blog46_Iterator
 import blog46 from './blog46_Iterator';
+// blog47_module
+import blog47 from './blog47_module';
 // blog48_前端概念汇总
 import blog48 from './blog48_前端概念汇总';
 // blog49_前端概念汇总
@@ -146,6 +148,7 @@ export default [
   blog44,
   blog45,
   blog46,
+  blog47,
   blog48,
   blog49,
 ].reverse();
