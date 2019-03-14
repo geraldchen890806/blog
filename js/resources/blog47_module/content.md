@@ -1,5 +1,6 @@
 ### CommonJS (nodejs)
   同步加载，适合服务器端使用
+
   模块输出的是一个值的拷贝
 ```
   // foo.js
@@ -51,6 +52,7 @@
 ```
 ### CMD (seajs)
   CMD则是依赖就近，用的时候再require
+
   AMD和CMD最大的区别是对依赖模块的执行时机处理不同，而不是加载的时机或者方式不同，二者皆为异步加载模块。
 
 ```
@@ -61,6 +63,7 @@
 ```
 ### ES6 import/export
   模块输出的是值的引用, 编译时输出接口
+
   CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成
 
 ```
@@ -71,3 +74,10 @@
   export default foo;
   foo = 11;
 ```
+
+#### 参考:
+  (ECMAScript 6 入门)[http://es6.ruanyifeng.com/#docs/module]
+
+  (浅析JS模块规范：AMD，CMD，CommonJS)[https://www.jianshu.com/p/09ffac7a3b2c]
+
+  (使用 AMD、CommonJS 及 ES Harmony 编写模块化的 JavaScript)[http://justineo.github.io/singles/writing-modular-js/]
