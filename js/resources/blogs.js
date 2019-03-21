@@ -98,7 +98,10 @@ import blog47 from './blog47_module';
 import blog48 from './blog48_前端概念汇总';
 // blog49_前端概念汇总
 import blog49 from './blog49_aws';
-
+// blog50_go学习笔记
+import blog50 from './blog50_go学习笔记';
+// blog50_js作用域
+import blog51 from './blog51_函数作用域和块作用域';
 
 export default [
   blog0,
@@ -151,4 +154,6 @@ export default [
   blog47,
   blog48,
   blog49,
+  blog50,
+  blog51,
 ].reverse();
