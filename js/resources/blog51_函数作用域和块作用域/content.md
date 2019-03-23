@@ -31,7 +31,8 @@ function foo() {
 foo();
 ```
 
-#### 比较2个代码
+#### 比较 2 个代码
+
 ```
 var a = 2;
 
@@ -67,8 +68,8 @@ console.log( a ); // 2
 
 IIFE 的 2 种特殊应用场景：
 
-1.重置undefined
-  // es3中undefined可以赋值，es5才做了修正,变为只读
+1.重置 undefined
+// es3 中 undefined 可以赋值，es5 才做了修正,变为只读
 
 ```
 undefined = true; // 给其他代码挖了一个大坑!绝对不要这样做!
@@ -110,18 +111,27 @@ setTimeout(function() {
 2. 函数需要引用自身时只能使用已经过期的 arguments.callee 引用
 3. 匿名函数省略了对于代码可读性/可理解性很重要的函数名
 
-
-
-
 下面介绍除了函数作用域（属于这个函数的全部变量都可以在整个函数的范围内使用及复用）外的另一个作用域单元
 
 ## 块作用域
+
 1.with
 
 2.try/catch 的 catch 分句会创建一个块作用域
+```
+{
+  try {
+    throw undefined;
+  } catch (a) { 
+    a = 2;
+    console.log( a );
+  }
+}
+```
 
 3.let
 // let 关键字可以将变量绑定到所在的任意作用域中(通常是 { 为其声明的变量隐式地劫持了所在的块作用域。
+
 ```
 if (true) {
   {
@@ -140,3 +150,16 @@ console.log('i3', i);
 4.const
 
 // 块作用域非常有用的原因和闭包及回收内存垃圾的回收机制相关
+
+```
+function process(data) {
+// 在这里做点有趣的事情
+}
+var someReallyBigData = { .. };
+process( someReallyBigData );
+var btn = document.getElementById( "my_button" );
+btn.addEventListener( "click", function click(evt) {
+  console.log("button clicked");
+}, /*capturingPhase=*/false );
+```
+click 函数的点击回调并不需要 someReallyBigData 变量。理论上这意味着当 process(..) 执 行后，在内存中占用大量空间的数据结构就可以被垃圾回收了。但是，由于 click 函数形成 了一个覆盖整个作用域的闭包，JavaScript 引擎极有可能依然保存着这个结构(取决于具体 实现)。
