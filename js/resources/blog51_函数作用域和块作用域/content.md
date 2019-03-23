@@ -129,13 +129,12 @@ if (true) {
     var s = 11;
     console.log('i1', i);
   }
-  let p = 1;
   console.log('i2', i);
-  console.log('p', p);
+  console.log('s1', s);
 }
 
-console.log('s', s);
-console.log(i);
+console.log('s2', s);
+console.log('i3', i);
 ```
 
 4.const
