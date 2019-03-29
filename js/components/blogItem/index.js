@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 import 'intersection-observer';
 
 export default class BlogItem extends Component {
-
   blog = React.createRef();
 
   state = {
@@ -72,7 +70,7 @@ export default class BlogItem extends Component {
         </div>
         <footer>
           <ul>
-            {blog.tags.map((tag, i) => (
+            {blog.tags.map((tag) => (
               <li key={tag}>
                 <Link className="article-title" to={`/tag/${tag}`}>
                   #
@@ -81,7 +79,7 @@ export default class BlogItem extends Component {
               </li>
             ))}
           </ul>
-          {moment(blog.date).format('YYYY-MM-DD')}
+          {blog.date}
         </footer>
       </BlogDiv>
     );
@@ -90,6 +88,7 @@ export default class BlogItem extends Component {
 
 BlogItem.propTypes = {
   blog: propTypes.object,
+  isDetail: propTypes.bool,
 };
 
 const BlogDiv = styled.div`

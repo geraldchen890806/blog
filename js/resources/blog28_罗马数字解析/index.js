@@ -3,6 +3,6 @@ export default {
   title: '罗马数字解析',
   url: '罗马数字解析',
   tags: ['js', 'codewars'],
-  date: 'March 26, 2015',
+  date: '2015-03-26',
   load: () => import(/* webpackChunkName: "blog28_罗马数字解析" */ './view'),
 };

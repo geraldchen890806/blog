@@ -2,6 +2,6 @@ export default {
   title: 'git shell error in windows',
   url: 'git-shell-error-in-windows',
   tags: ['git'],
-  date: 'October 8, 2014',
+  date: '2014-10-08',
   load: () => import(/* webpackChunkName: "blog3_gitShellErrorInWindows" */ './view'),
 };
