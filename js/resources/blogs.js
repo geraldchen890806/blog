@@ -82,8 +82,8 @@ import blog39 from './blog39_es7-rest-spread';
 import blog40 from './blog40_react-router4';
 // blog40_pwa
 import blog41 from './blog41_pwa';
-// blog42_通过polyfill了解JS
-import blog42 from './blog42_通过polyfill了解JS';
+// blog42_polyfill-Number.isNaN
+import blog42 from './blog42_polyfill-Number.isNaN';
 // blog43_webpack4
 import blog43 from './blog43_webpack4';
 // blog44_npm高效但非常用命令整理
@@ -102,7 +102,8 @@ import blog49 from './blog49_aws';
 import blog50 from './blog50_go学习笔记';
 // blog50_js作用域
 import blog51 from './blog51_函数作用域和块作用域';
-
+// blog52_polyfill-Object.is
+import blog52 from './blog52_polyfill-Object.is';
 export default [
   blog0,
   blog1,
@@ -156,4 +157,5 @@ export default [
   blog49,
   blog50,
   blog51,
+  blog52,
 ].reverse();
