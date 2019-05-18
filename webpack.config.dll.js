@@ -22,7 +22,6 @@ module.exports = {
       'react',
       'react-audio-player',
       'react-dom',
-      'react-loadable',
       'react-markdown',
       'react-redux',
       'react-router',

@@ -93,3 +93,19 @@ fmt.Println("第三个数字是: ", numbers["three"]) // 读取数据
 ```
 
 #### make、new操作
+
+
+#### 小技巧
+1. 字符串大写
+```
+func main() {
+    x := "hello!"
+    for i := 0; i < len(x); i++ {
+        x := x[i]
+        if x != '!' {
+            x := x + 'A' - 'a'
+            fmt.Printf("%c", x) // "HELLO"
+        }
+    }
+}
+```

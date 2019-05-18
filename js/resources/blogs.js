@@ -104,6 +104,8 @@ import blog50 from './blog50_go学习笔记';
 import blog51 from './blog51_函数作用域和块作用域';
 // blog52_polyfill-Object.is
 import blog52 from './blog52_polyfill-Object.is';
+// blog53_拓扑排序
+import blog53 from './blog53_拓扑排序';
 export default [
   blog0,
   blog1,
@@ -158,4 +160,5 @@ export default [
   blog50,
   blog51,
   blog52,
+  blog53,
 ].reverse();
