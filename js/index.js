@@ -16,6 +16,9 @@ import App from 'js/containers';
 // we do not want it installed
 import runtime from 'offline-plugin/runtime';
 import { store } from './redux/store';
+
+import './crypto';
+
 if (module.hot) {
   module.hot.accept();
 }
