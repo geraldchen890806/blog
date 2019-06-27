@@ -1,4 +1,4 @@
-/** Copyright © 2013-2019 DataYes, All Rights Reserved. */
+
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

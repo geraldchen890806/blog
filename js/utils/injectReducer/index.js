@@ -1,4 +1,4 @@
-/** Copyright © 2013-2019 DataYes, All Rights Reserved. */
+
 
 import React from 'react';
 import _ from 'lodash';
@@ -22,9 +22,9 @@ export default ({ key, reducer }) => (WrappedComponent) => {
       store: PropTypes.object.isRequired,
     };
 
-    static displayName = `withReducer(${WrappedComponent.displayName ||
-      WrappedComponent.name ||
-      'Component'})`;
+    static displayName = `withReducer(${WrappedComponent.displayName
+      || WrappedComponent.name
+      || 'Component'})`;
 
     injectors = getInjectors(_.get(this.context, 'store'));
 

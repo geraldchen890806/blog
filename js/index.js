@@ -7,8 +7,6 @@ import history from 'js/utils/history';
 import './configs/index';
 import '../style/main.less';
 
-import 'github-markdown-css/github-markdown.css';
-
 import App from 'js/containers';
 
 // Install ServiceWorker and AppCache in the end since

@@ -1,4 +1,4 @@
-/** Copyright © 2013-2019 DataYes, All Rights Reserved. */
+
 
 import { AES, enc } from 'crypto-js';
 export const aes_encrypt = (plainText, key, iv) => {

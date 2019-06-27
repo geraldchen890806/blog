@@ -1,4 +1,4 @@
-/** Copyright © 2013-2019 DataYes, All Rights Reserved. */
+
 
 import { isNumber } from 'js/utils/numberUtils';
 import _ from 'lodash';

@@ -1,4 +1,4 @@
-/** Copyright © 2013-2019 DataYes, All Rights Reserved. */
+
 
 import _ from 'lodash';
 
@@ -18,8 +18,8 @@ export function toFixed2Percent(data, n, str) {
     return (_.isNumber(data) && data.toFixed(n)) || (str === '' ? '' : '-');
   }
   return (
-    (_.isNumber(data) && `${(data * 100).toFixed(2)}%`) ||
-    (str === '' ? '' : '-')
+    (_.isNumber(data) && `${(data * 100).toFixed(2)}%`)
+    || (str === '' ? '' : '-')
   );
 }
 

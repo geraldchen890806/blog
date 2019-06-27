@@ -3,5 +3,5 @@ import ReactMarkdown from 'react-markdown';
 import text from './content.md';
 
 export default function () {
-  return <ReactMarkdown source={text} htmlMode="raw" />;
+  return <ReactMarkdown source={text} escapeHtml={false} />;
 }
