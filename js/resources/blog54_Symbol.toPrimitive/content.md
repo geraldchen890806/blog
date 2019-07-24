@@ -45,20 +45,42 @@ console.log(obj2 + ""); // "true"  -- hint 参数值是 "default"
 
 ### 然后我们看下 [] + {} == {} + []
 
-1、{} + [] == 0
+1、`{} + [] == 0`
 
 其实{}只是一个代码块
 
-{} + [] → + [] → + ([]).valueOf() → + "" → 0
+```
+{} + [] =>
+[] =>
+([]).valueOf() =>
++ "" =>
+0
+```
 
-2、[] + {} == "[object Object]"
+2、`[] + {} == "[object Object]"`
 
-([]).valueOf() + ({}).valueOf() → [] + {} → ([]).toString() + ({}).toString → "" + "[object Object]" → "[object Object]"
+```
+([]).valueOf() + ({}).valueOf() =>
+[] + {} =>
+([]).toString() + ({}).toString =>
+"" + "[object Object]" =>
+"[object Object]"
+```
 
-3、[] + {} == {} + []
+3、`[] + {} == {} + []`
 
 解析为 "[object Object]" == "[object Object]"
 
-4、{} + [] != [] + {} 注：[chrome 中 {} + [] == [] + {}](https://stackoverflow.com/questions/36438034/why-is-no-longer-nan-in-chrome-console?noredirect=1&lq=1)
+4、`{} + [] != [] + {}` 注：[chrome 中 {} + [] == [] + {}](https://stackoverflow.com/questions/36438034/why-is-no-longer-nan-in-chrome-console?noredirect=1&lq=1)
 
-{} + [] != [] + {} → + [] != [] + {} → 0 != "[object Object]"
+```
+{} + [] != [] + {} =>
++ [] != [] + {} =>
+0 != "[object Object]"
+```
+
+参考:
+
+[Symbol.toPrimitive](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toPrimitive)
+
+[JS 加法运算全解析](https://www.jianshu.com/p/f4f2a57b0cfd)
