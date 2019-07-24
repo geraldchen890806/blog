@@ -106,6 +106,8 @@ import blog51 from './blog51_函数作用域和块作用域';
 import blog52 from './blog52_polyfill-Object.is';
 // blog53_拓扑排序
 import blog53 from './blog53_拓扑排序';
+// blog55_Symbol.toPrimitive
+import blog54 from './blog54_Symbol.toPrimitive';
 export default [
   blog0,
   blog1,
@@ -161,4 +163,5 @@ export default [
   blog51,
   blog52,
   blog53,
+  blog54,
 ].reverse();
