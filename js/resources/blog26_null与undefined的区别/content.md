@@ -68,8 +68,18 @@ console.log(test.a); // undefined
 4. 函数没有返回值时，默认返回 undefined。
 
 ```
-function test(){}
+function test() {}
 test(); //undefined
 ```
+
+5. 解构赋值时，undefined会使用默认值
+
+```
+const s = { a: null }
+const { a = 'a', b = 'b' } = s;
+console.log(a, b); // null 'b'
+
+```
+
 
 参考 http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html
