@@ -3,5 +3,5 @@ export default {
   url: 'Symbol.toPrimitive',
   tags: ['js'],
   date: '2019-07-24',
-  load: () => import(/* webpackChunkName: "blog54_[]+{}" */ './view'),
+  load: () => import(/* webpackChunkName: "blog54_Symbol.toPrimitive" */ './view'),
 };
