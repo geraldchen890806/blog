@@ -7,7 +7,7 @@
 ```
 ### 4. 修改使用ssh登录 
 ```
-  ~ sudu su
+  ~ sudo su
   ~ vim /etc/ssh/sshd_config
     Port 22 => Port 1234
     PasswordAuthentication no => PasswordAuthentication yes

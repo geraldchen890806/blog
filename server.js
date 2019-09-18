@@ -1,56 +1,36 @@
+
+
 /* eslint-disable */
 var isDev = process.env.NODE_ENV !== 'production';
 var webpack = require('webpack');
-var compression = require('compression');
 var express = require('express');
-var http = require('http');
-var https = require('https');
-var fs = require('fs');
 var path = require('path');
 var app = express();
-var favicon = require('serve-favicon');
-if (!isDev) {
-  app.use(compression());
-}
-app.use(function(req, res, next) {
-  if (
-    [
-      'xn--boqs2g85v.xn--6qq986b3xl',
-      '任加敏.我爱你',
-      'jiamin.ren',
-      'renjiamin.com',
-    ].includes(req.headers.host)
-  ) {
-    return next();
-  }
-  if (!/https/.test(req.protocol) && process.env.SSLPORT) {
-    res.redirect('https://' + req.headers.host + req.url);
-  } else {
-    return next();
-  }
-});
-app.use(express.static(__dirname + '/static'));
-app.use('/img', express.static(__dirname + '/img'));
-app.use('/mp', express.static(__dirname + '/mp'));
-app.use('/.well-known', express.static(__dirname + '/.well-known'));
-app.use(
-  '/MP_verify_JDni6b15rFNM6wto.txt',
-  express.static(__dirname + '/mp/MP_verify_JDni6b15rFNM6wto.txt')
-);
 
 if (!isDev) {
-  app.use(favicon(__dirname + '/favicon.ico'));
-  var static_path = path.join(__dirname);
-  app.get('*', function(req, res) {
-    res.sendFile('/static/index.html', {
-      root: static_path,
+  var static_path = path.join(__dirname, 'build');
+
+  app
+    .use(express.static(static_path))
+    .get('*', function(req, res) {
+      res.sendFile('./index.html', {
+        root: static_path,
+      });
+    })
+    .listen(process.env.PORT || 3000, function(err) {
+      if (err) {
+        console.log(err);
+      }
+      console.log('Listening at localhost:3000');
     });
-  });
-} else {
-  app.use('/vender', express.static(__dirname + '/vender'));
-  app.use('/manifest.json', express.static(__dirname + '/manifest.json'));
-  var config = require('./webpack.config');
+}
+
+if (isDev) {
+  var config = require('./config/webpack.config');
   var compiler = webpack(config);
+  app.use('/static/img', express.static(__dirname + '/img'));
+  app.use('/node_modules/vender-dll', express.static(__dirname + '/node_modules/vender-dll'));
+
   app.use(
     require('webpack-dev-middleware')(compiler, {
       noInfo: true,
@@ -63,32 +43,30 @@ if (!isDev) {
       },
     })
   );
+
   app.use(require('webpack-hot-middleware')(compiler));
-  app.use('/', function(req, res, next) {
+
+  app.get('*', function(req, res, next) {
     var filename = path.join(compiler.outputPath, 'index.html');
     compiler.outputFileSystem.readFile(filename, function(err, result) {
       if (err) {
         return next(err);
       }
-      res.set('Content-Type', 'text/html');
+      res.set('content-type', 'text/html');
       res.send(result);
       res.end();
     });
   });
+
+  app.listen(process.env.PORT || 3000, '0.0.0.0', function(err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log('Listening at localhost:' + (process.env.PORT || 3000));
+  });
 }
 
-var httpServer = http.createServer(app);
-
-httpServer.listen(process.env.PORT || 4000, function(err) {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(
-    'HTTP Server is running on: http://localhost:%s',
-    process.env.PORT || 4000
-  );
-});
 
 if (!isDev && process.env.SSLPORT) {
   var privateKey = fs.readFileSync(

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import iconPng from 'img/icon.png';
 
 @connect((state) => ({
   ...state.common,
@@ -14,7 +15,7 @@ export default class Side extends PureComponent {
     return (
       <div className="mainSide">
         <div id="info">
-          <img alt="" src="/img/icon.png" />
+          <img alt="" src={iconPng} />
           <div>geraldchen890806@gmail.com</div>
         </div>
         <div id="recent">
