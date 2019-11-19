@@ -36,6 +36,14 @@ export default class App extends Component {
     });
   }
 
+  loadBg() {
+    import(/* webpackChunkName: "bgDice" */ 'js/apps/bgDice').then((mod) => {
+      this.setState({
+        BgDice: mod.default ? mod.default : mod,
+      });
+    });
+  }
+
   isRjm() {
     return (
       ['xn--boqs2g85v.xn--6qq986b3xl', '任加敏.我爱你', 'jiamin.ren'].includes(
@@ -69,14 +77,20 @@ export default class App extends Component {
       this.loadRjm();
       document.title = '任加敏.我爱你';
     }
+    if (window.location.href.includes('bg')) {
+      this.loadBg();
+    }
     this.checkNotification();
   }
 
   render() {
-    const { RjmComp } = this.state;
+    const { RjmComp, BgDice } = this.state;
     if (this.isRjm()) {
       // 任加敏.我爱你
       return RjmComp ? <RjmComp /> : null;
+    }
+    if (window.location.href.includes('bg')) {
+      return BgDice ? <BgDice /> : null;
     }
     return (
       <div>

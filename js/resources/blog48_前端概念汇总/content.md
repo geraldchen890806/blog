@@ -6,7 +6,7 @@
 
 如果它看起来像只鸭子，叫起来像鸭子，那它一定就是只鸭子。
 
-### http hppts
+### http https
 
 HTTP 协议（HyperText Transfer Protocol，超文本传输协议）,运行在 TCP 之上，明文传输，客户端与服务器端都无法验证对方的身份
 https 身披 SSL( Secure Socket Layer )外壳的 HTTP，运行于 SSL 上，SSL 运行于 TCP 之上， 是添加了加密和认证机制的 HTTP。
@@ -42,6 +42,21 @@ http2 引入了多路复用的技术，这个技术可以只通过一个 TCP 连
 [Web 实时推送](https://juejin.im/post/5c20e5766fb9a049b13e387b)
 
 [浏览器与 Node 的事件循环(Event Loop)有何区别?](https://juejin.im/post/5c337ae06fb9a049bc4cd218)
+
+### css
+  [灵活运用CSS开发技巧](https://juejin.im/post/5d4d0ec651882549594e7293)
+  1. 使用attr()抓取data-*
+  2. position: sticky
+  3. 使用text-align-last对齐两端文本
+  4. 使用writing-mode排版竖文
+  5. 使用object-fit规定图像尺寸 // background-size
+  6. 使用transform描绘1px边框
+  7. 使用letter-spacing排版倒序文本
+  8. 使用:valid和:invalid校验表单 (pattern)
+  9. 使用:focus-within分发冒泡响应
+  10. 使用filter开启悼念模式
+  11. 滚动指示器
+  12. 加载指示器
 
 ### 面试
 
