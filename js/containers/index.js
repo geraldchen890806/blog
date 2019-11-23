@@ -23,6 +23,14 @@ const navs = [
     url: '/tag/:tag',
     component: lazy(() => import(/* webpackChunkName: "Tag" */ 'js/apps/tag')),
   },
+  {
+    url: '/tag/:tag',
+    component: lazy(() => import(/* webpackChunkName: "Tag" */ 'js/apps/tag')),
+  },
+  {
+    url: '/qrcode',
+    component: lazy(() => import(/* webpackChunkName: "qrcode" */ 'js/apps/qrcode')),
+  },
 ];
 
 export default class App extends Component {
