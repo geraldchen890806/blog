@@ -11,28 +11,31 @@ export default class Type2 extends React.PureComponent {
     num: 1,
     ratio: 1,
     results: new Array(93).fill('').map((d, i) => ({ i: i + 3, result: [] })),
-  }
+  };
 
   run = () => {
     const { flag, results } = this.state;
     if (flag) {
-      this.setState({
-        results: results.map(({ i, result }) => {
-          const newResult = this.doItem(result, i);
-          const eosReturn = _.sumBy(newResult, 'eosReturn');
-          return {
-            i,
-            eosReturn,
-            result: newResult,
-          };
-        }),
-      }, () => {
-        setTimeout(() => {
-          this.run();
-        }, 2000);
-      });
+      this.setState(
+        {
+          results: results.map(({ i, result }) => {
+            const newResult = this.doItem(result, i);
+            const eosReturn = _.sumBy(newResult, 'eosReturn');
+            return {
+              i,
+              eosReturn,
+              result: newResult,
+            };
+          }),
+        },
+        () => {
+          setTimeout(() => {
+            this.run();
+          }, 1000);
+        }
+      );
     }
-  }
+  };
 
   doItem = (array, start) => {
     let r = array;
@@ -41,15 +44,18 @@ export default class Type2 extends React.PureComponent {
       r = this.do(r, ratio, num, start);
     }
     return r;
-  }
+  };
 
   do = (array = [], ratio, num, start) => {
     const cNum = num;
     const item = createData({
-      i: start, length: 1, num: cNum, ratio,
+      i: start,
+      length: 1,
+      num: cNum,
+      ratio,
     });
     return array.concat(item);
-  }
+  };
 
   render() {
     const {
@@ -62,26 +68,36 @@ export default class Type2 extends React.PureComponent {
       <StyledType3>
         <div>
           投注金额：
-          <Input style={{ width: 200 }} value={num} onChange={(e) => this.setState({ num: e.target.value })} />
+          <Input
+            style={{ width: 200 }}
+            value={num}
+            onChange={(e) => this.setState({ num: e.target.value })}
+          />
         </div>
         <div>
           人品加成：
-          <Input style={{ width: 200 }} value={ratio} onChange={(e) => this.setState({ ratio: e.target.value })} />
+          <Input
+            style={{ width: 200 }}
+            value={ratio}
+            onChange={(e) => this.setState({ ratio: e.target.value })}
+          />
         </div>
         <div>
           投注次数：
           {totalNum}
         </div>
         <div>
-          VIP奖励：
-          EOS：
-          {`${vip.eos} + ${vip.rebate}`}
-          {'   '}
+          VIP奖励： EOS：
+          {`${digit.format(vip.eos, '0.####')}`}
+          {'    '}
           BG：
-          {vip.bg}
-          {'   '}
-          invite：
-          {vip.invite}
+          {digit.format(vip.bg, '0.####')}
+          {'    '}
+          返利：
+          {digit.format(vip.rebate, '0.####')}
+          <br />
+          推荐奖励：
+          {digit.format(vip.invite, '0.####')}
         </div>
         <div>
           <Button
@@ -94,7 +110,12 @@ export default class Type2 extends React.PureComponent {
           <Button
             style={{ margin: '0 10px' }}
             onClick={() => {
-              this.setState({ flag: !flag, results: new Array(93).fill('').map((d, i) => ({ i: i + 3, result: [] })) });
+              this.setState({
+                flag: !flag,
+                results: new Array(93)
+                  .fill('')
+                  .map((d, i) => ({ i: i + 3, result: [] })),
+              });
             }}
           >
             重置
@@ -115,14 +136,10 @@ export default class Type2 extends React.PureComponent {
             const sumBg = digit.format(_.sumBy(result, 'bgReturn'), '0.0000');
             return (
               <li key={i} className={`${sumReturn > 0 ? 'green' : 'red'}`}>
-                <div className="title">
-                  {i}
-                </div>
+                <div className="title">{i}</div>
                 <div>
                   盈利EOS：
-                  <b>
-                    {sumReturn}
-                  </b>
+                  <b>{sumReturn}</b>
                 </div>
                 <div>
                   挖矿BG：
@@ -132,7 +149,6 @@ export default class Type2 extends React.PureComponent {
             );
           })}
         </ul>
-
       </StyledType3>
     );
   }

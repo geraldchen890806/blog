@@ -88,16 +88,17 @@ export const getVipAward = (num) => {
     eos: 0.5 * 2,
     bg: 100 * 2,
   }];
-  const filterData = _.filter(DATA, (d) => num >= d.num);
+  const filterData = _.filter(DATA, (d) => num > d.num);
   return {
     eos: _.sumBy(filterData, (d) => d.eos),
     bg: _.sumBy(filterData, (d) => d.bg),
-    rebate: _.reduce(filterData, (re, d, i) => {
+    rebate: _.reduce(filterData.reverse(), (re, d, i) => {
       const next = filterData[i + 1];
       let max = num;
       if (next) {
         max = next.num;
       }
+      console.log(max, d.num);
       return re + (max - d.num) * d.ratio;
     }, 0),
     invite: num * 0.0012,
