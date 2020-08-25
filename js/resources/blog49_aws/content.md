@@ -38,3 +38,9 @@
 ```
 ### 7. 电脑安装[ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG/releases/)
 ### 8. chrome安装SwitchyOmega
+
+<!-- 
+### 1.https://www.sslforfree.com/create?generate&domains=chenguangliang.com%20www.chenguangliang.com
+### 2.文件放到/usr/share/nginx/html/.well-known/acme-challenge 确保访问
+### 3./etc/nginx/certificate.crt || private.key
+### 4.nginx -s reload -->
