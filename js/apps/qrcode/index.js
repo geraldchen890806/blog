@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
 import styled from 'styled-components';
 import QRCode from 'qrcode.react';
 
@@ -7,6 +7,10 @@ export default class PC extends React.PureComponent {
   state = {
     value: '',
   };
+
+  componentDidMount() {
+    this.setState({ value: localStorage.getItem('qrcode') || '' });
+  }
 
   render() {
     const { value } = this.state;
@@ -20,9 +24,20 @@ export default class PC extends React.PureComponent {
             this.setState({ value: e.target.value });
           }}
         />
+        <Button
+          style={{ margin: '10px 0' }}
+          type="primary"
+          onClick={() => {
+            localStorage.setItem('qrcode', value);
+          }}
+        >
+          存储
+        </Button>
         <div className="con">
           <div className="qrCodeBox">
-            {datas.map((d) => <QRCode size={280} value={d} includeMargin />)}
+            {datas.map((d) => (
+              <QRCode size={280} value={d} includeMargin />
+            ))}
           </div>
         </div>
       </StyledDiv>
