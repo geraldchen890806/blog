@@ -13,7 +13,9 @@
     "forever": "rm -rf static && cp -r staticPro static && export NODE_ENV=production PORT=80 SSLPORT=443 && forever start server.js",
     "testSW": "export NODE_ENV=production PORT=3022 SSLPORT=3021 && `npm bin`/webpack --config ./config/webpack.config.production.js && npm start",
     "lint:eslint": "eslint --ignore-path .eslintignore",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "nginx:start": "cp -r /root/blog/build/* /usr/share/nginx/html/ && nginx",
+    "nginx:reload": "cp -r /root/blog/build/* /usr/share/nginx/html/ && nginx -s reload"
   },
   "license": "MIT",
   "lint-staged": {
