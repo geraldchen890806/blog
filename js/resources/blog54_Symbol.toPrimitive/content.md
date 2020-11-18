@@ -43,9 +43,31 @@ console.log(obj2 + ""); // "true"  -- hint 参数值是 "default"
 
 3、在其他情况时，所有运算元都会转换为原始数据类型的“数字”类型值，然后作数字的相加。
 
-### 然后我们看下 [] + {} == {} + []
+### 然后我们看下 [] + {} == {} + [] 与 {} + [] != [] + {}
 
-1、`{} + [] == 0`
+1、`[] + {} == "[object Object]"`
+
+```
+[] + {} =>
+([]).valueOf() + ({}).valueOf() =>
+([]).toString() + ({}).toString =>
+"" + "[object Object]" =>
+"[object Object]"
+```
+
+2、`[] + {} == {} + []`
+
+解析为 "[object Object]" == "[object Object]"
+
+3、`{} + [] != [] + {}` 注：[chrome 中 {} + [] == [] + {}](https://stackoverflow.com/questions/36438034/why-is-no-longer-nan-in-chrome-console?noredirect=1&lq=1)
+
+```
+{} + [] != [] + {} =>
++ [] != [] + {} =>
+0 != "[object Object]"
+```
+
+4、`{} + [] == 0`
 
 其实{}只是一个代码块
 
@@ -55,28 +77,6 @@ console.log(obj2 + ""); // "true"  -- hint 参数值是 "default"
 ([]).valueOf() =>
 + "" =>
 0
-```
-
-2、`[] + {} == "[object Object]"`
-
-```
-([]).valueOf() + ({}).valueOf() =>
-[] + {} =>
-([]).toString() + ({}).toString =>
-"" + "[object Object]" =>
-"[object Object]"
-```
-
-3、`[] + {} == {} + []`
-
-解析为 "[object Object]" == "[object Object]"
-
-4、`{} + [] != [] + {}` 注：[chrome 中 {} + [] == [] + {}](https://stackoverflow.com/questions/36438034/why-is-no-longer-nan-in-chrome-console?noredirect=1&lq=1)
-
-```
-{} + [] != [] + {} =>
-+ [] != [] + {} =>
-0 != "[object Object]"
 ```
 
 参考:
