@@ -31,6 +31,10 @@ const navs = [
     url: '/qrcode',
     component: lazy(() => import(/* webpackChunkName: "qrcode" */ 'js/apps/qrcode')),
   },
+  {
+    url: '/1inch',
+    component: lazy(() => import(/* webpackChunkName: "1inch" */ 'js/apps/inch')),
+  },
 ];
 
 export default class App extends Component {
