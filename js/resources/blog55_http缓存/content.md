@@ -67,10 +67,12 @@ disk cache：资源在磁盘中，毫秒级读取时间
 1. 如果在 Cache-Control 响应头设置了 "max-age" 或者 "s-max-age" 指令，那么 Expires 头会被忽略
 2. Cache-Control: no-cache 表示不启用强缓存，Cache-Control: no-store 禁止使用缓存
 3. 如果同时使用 Etag 和 Last-Modified，那需要都满足条件
-4. Ctrl + F5 / Cammand + Shift + r 会忽略强缓存，使用协商缓存验证资源
-5. 一般情况设置 html 不缓存，以及时相应更新
-6. 实测 firefox 只使用协商缓存，忽略强缓存；chrome 中有强缓存优化，如果未明确禁止强缓存则会触发强缓存
-7. Pragma: no-cache，http1.0 标准，所有浏览器支持
+4. url输入使用强缓存 （200）
+5. F5, 右键刷新，点击刷新按钮 会忽略强缓存，使用协商缓存验证资源 （304）
+6. Ctrl + F5 / Cammand + Shift + r 不使用缓存 (Cache-Control: no-cache)
+7. 一般情况设置 html 不缓存，以及时相应更新
+8. 实测 firefox 只使用协商缓存，忽略强缓存；chrome 中有强缓存优化，如果未明确禁止强缓存则会触发强缓存
+9. Pragma: no-cache，http1.0 标准，所有浏览器支持
 
    Cache-Control 不存在的时候，它的行为与 Cache-Control: no-cache 一致，表示需跟服务器验证缓存（使用协商缓存）
    基本废弃了，建议只在需要兼容 HTTP/1.0 客户端的场合下应用。
