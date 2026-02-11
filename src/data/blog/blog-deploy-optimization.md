@@ -4,7 +4,7 @@ pubDatetime: 2026-02-11T21:00:00+08:00
 title: 博客部署流程优化：从服务器构建到本地构建的进化
 slug: blog-deploy-optimization
 featured: true
-draft: true
+draft: false
 tags:
   - 运维
   - 前端工程化
