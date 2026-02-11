@@ -1,0 +1,23 @@
+export const SITE = {
+  website: "https://chenguangliang.com/",
+  author: "陈广亮",
+  profile: "https://chenguangliang.com/",
+  desc: "陈广亮的技术博客 - 前端开发、JavaScript、Web 技术分享",
+  title: "陈广亮的技术博客",
+  ogImage: "astropaper-og.jpg",
+  lightAndDarkMode: true,
+  postPerIndex: 4,
+  postPerPage: 8,
+  scheduledPostMargin: 15 * 60 * 1000,
+  showArchives: true,
+  showBackButton: true,
+  editPost: {
+    enabled: false,
+    text: "",
+    url: "",
+  },
+  dynamicOgImage: true,
+  dir: "ltr",
+  lang: "zh-CN",
+  timezone: "Asia/Shanghai",
+} as const;
