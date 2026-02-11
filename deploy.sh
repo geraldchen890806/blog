@@ -16,7 +16,7 @@ fi
 
 # 部署到服务器
 echo "🚚 部署到服务器..."
-rsync -avz --delete -e "ssh" dist/ vultr-blog:/var/www/chenguangliang.com/
+sshpass -p 'datayes@123' rsync -avz --delete -e "ssh -p 34567 -o StrictHostKeyChecking=no" dist/ root@45.63.22.102:/var/www/chenguangliang.com/
 
 # 检查部署是否成功
 if [ $? -eq 0 ]; then
