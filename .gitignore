@@ -1,5 +1,5 @@
 # build output
-dist/
+# dist/ -- 注释掉，允许提交构建产物到 GitHub
 
 # generated types
 .astro/
