@@ -1,0 +1,148 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<Layout title="CSV 转 JSON | 在线工具">
+  <Header />
+  <main id="main-content" class="app-layout pb-12">
+    <nav class="breadcrumb my-4 text-sm opacity-70">
+      <a href="/" class="hover:text-accent">首页</a>
+      <span class="mx-1">&gt;</span>
+      <a href="/tools" class="hover:text-accent">工具</a>
+      <span class="mx-1">&gt;</span>
+      <span>CSV 转 JSON</span>
+    </nav>
+    <h1 class="mb-2 text-2xl font-semibold sm:text-3xl">📊 CSV 转 JSON</h1>
+    <p class="mb-6 italic opacity-80">将 CSV 数据实时转换为 JSON 格式。</p>
+
+    <div class="mb-4 flex flex-wrap items-center gap-4">
+      <label class="flex items-center gap-2 text-sm">
+        分隔符：
+        <input
+          id="delimiter"
+          type="text"
+          value=","
+          maxlength="5"
+          class="w-16 rounded border border-border bg-transparent px-2 py-1 text-center focus:border-accent focus:outline-none"
+        />
+      </label>
+      <label
+        class="cursor-pointer rounded border border-border px-3 py-1 text-sm hover:border-accent"
+      >
+        上传 CSV 文件
+        <input id="csv-file" type="file" accept=".csv,.tsv,.txt" class="hidden" />
+      </label>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div>
+        <label class="mb-1 block text-sm font-medium">CSV 输入</label>
+        <textarea
+          id="csv-input"
+          rows="16"
+          placeholder="name,age,city&#10;Alice,30,Beijing&#10;Bob,25,Shanghai"
+          class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
+        ></textarea>
+      </div>
+      <div>
+        <div class="mb-1 flex items-center justify-between">
+          <label class="text-sm font-medium">JSON 输出</label>
+          <button
+            id="btn-copy"
+            class="rounded border border-border px-3 py-0.5 text-sm hover:border-accent"
+          >复制</button>
+        </div>
+        <textarea
+          id="json-output"
+          rows="16"
+          readonly
+          class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
+        ></textarea>
+      </div>
+    </div>
+    <p id="csv-error" class="mt-2 hidden text-sm text-red-500"></p>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  function init() {
+    const csvInput = document.getElementById("csv-input") as HTMLTextAreaElement;
+    const jsonOutput = document.getElementById("json-output") as HTMLTextAreaElement;
+    const delimiter = document.getElementById("delimiter") as HTMLInputElement;
+    const csvFile = document.getElementById("csv-file") as HTMLInputElement;
+    const btnCopy = document.getElementById("btn-copy")!;
+    const csvError = document.getElementById("csv-error")!;
+
+    function convert() {
+      const sep = delimiter.value || ",";
+      const text = csvInput.value.trim();
+      if (!text) {
+        jsonOutput.value = "";
+        csvError.classList.add("hidden");
+        return;
+      }
+      try {
+        const lines = text.split(/\r?\n/).filter(l => l.trim());
+        if (lines.length < 1) { jsonOutput.value = "[]"; return; }
+        const headers = parseLine(lines[0], sep);
+        const result = lines.slice(1).map(line => {
+          const vals = parseLine(line, sep);
+          const obj: Record<string, string> = {};
+          headers.forEach((h, i) => { obj[h] = vals[i] ?? ""; });
+          return obj;
+        });
+        jsonOutput.value = JSON.stringify(result, null, 2);
+        csvError.classList.add("hidden");
+      } catch (e: any) {
+        csvError.textContent = e.message;
+        csvError.classList.remove("hidden");
+      }
+    }
+
+    function parseLine(line: string, sep: string): string[] {
+      const result: string[] = [];
+      let current = "";
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (inQuotes) {
+          if (ch === '"' && line[i + 1] === '"') { current += '"'; i++; }
+          else if (ch === '"') { inQuotes = false; }
+          else { current += ch; }
+        } else {
+          if (ch === '"') { inQuotes = true; }
+          else if (line.substring(i, i + sep.length) === sep) { result.push(current.trim()); current = ""; i += sep.length - 1; }
+          else { current += ch; }
+        }
+      }
+      result.push(current.trim());
+      return result;
+    }
+
+    csvInput.addEventListener("input", convert);
+    delimiter.addEventListener("input", convert);
+
+    csvFile.addEventListener("change", () => {
+      const file = csvFile.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => { csvInput.value = reader.result as string; convert(); };
+      reader.readAsText(file);
+    });
+
+    btnCopy.addEventListener("click", () => {
+      navigator.clipboard.writeText(jsonOutput.value);
+      btnCopy.textContent = "已复制!";
+      setTimeout(() => (btnCopy.textContent = "复制"), 1500);
+    });
+
+    // Initial convert if there's content
+    convert();
+  }
+
+  init();
+  document.addEventListener("astro:after-swap", init);
+</script>

@@ -1,0 +1,169 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<Layout title="二维码生成/解析 | 在线工具">
+  <Header />
+  <main id="main-content" class="app-layout pb-12">
+    <nav class="breadcrumb my-4 text-sm opacity-70">
+      <a href="/" class="hover:text-accent">首页</a>
+      <span class="mx-1">&gt;</span>
+      <a href="/tools" class="hover:text-accent">工具</a>
+      <span class="mx-1">&gt;</span>
+      <span>二维码</span>
+    </nav>
+    <h1 class="mb-2 text-2xl font-semibold sm:text-3xl">🔲 二维码生成 / 解析</h1>
+    <p class="mb-8 italic opacity-80">生成或识别二维码，纯前端实现。</p>
+
+    <!-- Tabs -->
+    <div class="mb-6 flex gap-4 border-b border-border">
+      <button id="tab-gen" class="tab-btn border-b-2 border-accent px-4 py-2 font-medium text-accent">生成</button>
+      <button id="tab-scan" class="tab-btn px-4 py-2 font-medium opacity-60 hover:opacity-100">解析</button>
+    </div>
+
+    <!-- Generate Panel -->
+    <div id="panel-gen">
+      <div class="flex flex-col gap-4">
+        <textarea
+          id="qr-input"
+          rows="3"
+          placeholder="输入文本或 URL..."
+          class="w-full rounded-lg border border-border bg-transparent p-3 focus:border-accent focus:outline-none"
+        ></textarea>
+        <button
+          id="btn-generate"
+          class="w-fit rounded-lg bg-accent px-6 py-2 font-medium text-white hover:opacity-90"
+        >生成二维码</button>
+        <div id="qr-output" class="flex flex-col items-center gap-4">
+          <canvas id="qr-canvas" class="hidden rounded-lg border border-border"></canvas>
+          <button id="btn-download" class="hidden rounded-lg border border-border px-4 py-2 hover:border-accent">
+            下载图片
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scan Panel -->
+    <div id="panel-scan" class="hidden">
+      <div class="flex flex-col gap-4">
+        <label
+          class="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border p-8 transition-colors hover:border-accent"
+        >
+          <span class="mb-2 text-4xl">📷</span>
+          <span class="opacity-70">点击上传二维码图片</span>
+          <input id="qr-file" type="file" accept="image/*" class="hidden" />
+        </label>
+        <div id="scan-result" class="hidden rounded-lg border border-border p-4">
+          <p class="mb-1 text-sm font-medium opacity-60">识别结果：</p>
+          <p id="scan-text" class="break-all font-mono"></p>
+          <button id="btn-copy-scan" class="mt-2 rounded border border-border px-3 py-1 text-sm hover:border-accent">
+            复制
+          </button>
+        </div>
+        <p id="scan-error" class="hidden text-red-500"></p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  import QRCode from "qrcode";
+  import jsQR from "jsqr";
+
+  function init() {
+    // Tabs
+    const tabGen = document.getElementById("tab-gen")!;
+    const tabScan = document.getElementById("tab-scan")!;
+    const panelGen = document.getElementById("panel-gen")!;
+    const panelScan = document.getElementById("panel-scan")!;
+
+    function switchTab(active: "gen" | "scan") {
+      const isGen = active === "gen";
+      panelGen.classList.toggle("hidden", !isGen);
+      panelScan.classList.toggle("hidden", isGen);
+      tabGen.classList.toggle("border-accent", isGen);
+      tabGen.classList.toggle("text-accent", isGen);
+      tabGen.classList.toggle("border-b-2", isGen);
+      tabGen.classList.toggle("opacity-60", !isGen);
+      tabScan.classList.toggle("border-accent", !isGen);
+      tabScan.classList.toggle("text-accent", !isGen);
+      tabScan.classList.toggle("border-b-2", !isGen);
+      tabScan.classList.toggle("opacity-60", isGen);
+    }
+
+    tabGen.addEventListener("click", () => switchTab("gen"));
+    tabScan.addEventListener("click", () => switchTab("scan"));
+
+    // Generate
+    const qrInput = document.getElementById("qr-input") as HTMLTextAreaElement;
+    const btnGenerate = document.getElementById("btn-generate")!;
+    const qrCanvas = document.getElementById("qr-canvas") as HTMLCanvasElement;
+    const btnDownload = document.getElementById("btn-download")!;
+
+    btnGenerate.addEventListener("click", async () => {
+      const text = qrInput.value.trim();
+      if (!text) return;
+      await QRCode.toCanvas(qrCanvas, text, {
+        width: 256,
+        margin: 2,
+        color: {
+          dark: document.documentElement.getAttribute("data-theme") === "dark" ? "#ffffff" : "#000000",
+          light: "#00000000",
+        },
+      });
+      qrCanvas.classList.remove("hidden");
+      btnDownload.classList.remove("hidden");
+    });
+
+    btnDownload.addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.download = "qrcode.png";
+      link.href = qrCanvas.toDataURL();
+      link.click();
+    });
+
+    // Scan
+    const qrFile = document.getElementById("qr-file") as HTMLInputElement;
+    const scanResult = document.getElementById("scan-result")!;
+    const scanText = document.getElementById("scan-text")!;
+    const scanError = document.getElementById("scan-error")!;
+    const btnCopyScan = document.getElementById("btn-copy-scan")!;
+
+    qrFile.addEventListener("change", () => {
+      const file = qrFile.files?.[0];
+      if (!file) return;
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        const code = jsQR(imageData.data, img.width, img.height);
+        if (code) {
+          scanText.textContent = code.data;
+          scanResult.classList.remove("hidden");
+          scanError.classList.add("hidden");
+        } else {
+          scanError.textContent = "未能识别二维码，请尝试其他图片。";
+          scanError.classList.remove("hidden");
+          scanResult.classList.add("hidden");
+        }
+      };
+      img.src = URL.createObjectURL(file);
+    });
+
+    btnCopyScan.addEventListener("click", () => {
+      navigator.clipboard.writeText(scanText.textContent || "");
+      btnCopyScan.textContent = "已复制!";
+      setTimeout(() => (btnCopyScan.textContent = "复制"), 1500);
+    });
+  }
+
+  init();
+  document.addEventListener("astro:after-swap", init);
+</script>
