@@ -15,7 +15,7 @@ import Footer from "@/components/Footer.astro";
       <span>CSV 转 JSON</span>
     </nav>
     <h1 class="mb-2 text-2xl font-semibold sm:text-3xl">📊 CSV 转 JSON</h1>
-    <p class="mb-6 italic opacity-80">将 CSV 数据实时转换为 JSON 格式。</p>
+    <p class="mb-6 italic opacity-80">将 CSV 数据转换为 JSON 格式。首列为 key 时自动按列生成多个 JSON 文件。</p>
 
     <div class="mb-4 flex flex-wrap items-center gap-4">
       <label class="flex items-center gap-2 text-sm">
@@ -42,24 +42,35 @@ import Footer from "@/components/Footer.astro";
         <textarea
           id="csv-input"
           rows="16"
-          placeholder="name,age,city&#10;Alice,30,Beijing&#10;Bob,25,Shanghai"
+          placeholder="key,en,tw&#10;logout,Logout,登出&#10;login,Login,登入"
           class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
         ></textarea>
       </div>
       <div>
-        <div class="mb-1 flex items-center justify-between">
-          <label class="text-sm font-medium">JSON 输出</label>
-          <button
-            id="btn-copy"
-            class="rounded border border-border px-3 py-0.5 text-sm hover:border-accent"
-          >复制</button>
+        <div id="json-output-area">
+          <div class="mb-1 flex items-center justify-between">
+            <label class="text-sm font-medium">JSON 输出</label>
+            <div class="flex gap-2">
+              <button
+                id="btn-copy"
+                class="rounded border border-border px-3 py-0.5 text-sm hover:border-accent"
+              >复制</button>
+              <button
+                id="btn-download-all"
+                class="hidden rounded border border-border px-3 py-0.5 text-sm hover:border-accent"
+              >全部下载</button>
+            </div>
+          </div>
+          <!-- Single JSON output (normal mode) -->
+          <textarea
+            id="json-output"
+            rows="16"
+            readonly
+            class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
+          ></textarea>
+          <!-- Multi JSON output (key mode) -->
+          <div id="multi-json-output" class="hidden space-y-4"></div>
         </div>
-        <textarea
-          id="json-output"
-          rows="16"
-          readonly
-          class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
-        ></textarea>
       </div>
     </div>
     <p id="csv-error" class="mt-2 hidden text-sm text-red-500"></p>
@@ -71,16 +82,25 @@ import Footer from "@/components/Footer.astro";
   function init() {
     const csvInput = document.getElementById("csv-input") as HTMLTextAreaElement;
     const jsonOutput = document.getElementById("json-output") as HTMLTextAreaElement;
+    const multiJsonOutput = document.getElementById("multi-json-output")!;
     const delimiter = document.getElementById("delimiter") as HTMLInputElement;
     const csvFile = document.getElementById("csv-file") as HTMLInputElement;
     const btnCopy = document.getElementById("btn-copy")!;
+    const btnDownloadAll = document.getElementById("btn-download-all")!;
     const csvError = document.getElementById("csv-error")!;
+
+    let currentMode = "normal"; // "normal" or "key"
+    let keyModeData: Record<string, string> = {}; // filename -> json string
 
     function convert() {
       const sep = delimiter.value || ",";
       const text = csvInput.value.trim();
       if (!text) {
         jsonOutput.value = "";
+        multiJsonOutput.innerHTML = "";
+        multiJsonOutput.classList.add("hidden");
+        jsonOutput.classList.remove("hidden");
+        btnDownloadAll.classList.add("hidden");
         csvError.classList.add("hidden");
         return;
       }
@@ -88,18 +108,105 @@ import Footer from "@/components/Footer.astro";
         const lines = text.split(/\r?\n/).filter(l => l.trim());
         if (lines.length < 1) { jsonOutput.value = "[]"; return; }
         const headers = parseLine(lines[0], sep);
-        const result = lines.slice(1).map(line => {
-          const vals = parseLine(line, sep);
-          const obj: Record<string, string> = {};
-          headers.forEach((h, i) => { obj[h] = vals[i] ?? ""; });
-          return obj;
-        });
-        jsonOutput.value = JSON.stringify(result, null, 2);
+
+        // Check if first column header is "key" (case-insensitive)
+        if (headers[0].toLowerCase() === "key" && headers.length > 1) {
+          convertKeyMode(lines, headers, sep);
+        } else {
+          convertNormalMode(lines, headers, sep);
+        }
         csvError.classList.add("hidden");
       } catch (e: any) {
         csvError.textContent = e.message;
         csvError.classList.remove("hidden");
       }
+    }
+
+    function convertNormalMode(lines: string[], headers: string[], sep: string) {
+      currentMode = "normal";
+      keyModeData = {};
+      jsonOutput.classList.remove("hidden");
+      multiJsonOutput.classList.add("hidden");
+      multiJsonOutput.innerHTML = "";
+      btnDownloadAll.classList.add("hidden");
+
+      const result = lines.slice(1).map(line => {
+        const vals = parseLine(line, sep);
+        const obj: Record<string, string> = {};
+        headers.forEach((h, i) => { obj[h] = vals[i] ?? ""; });
+        return obj;
+      });
+      jsonOutput.value = JSON.stringify(result, null, 2);
+    }
+
+    function convertKeyMode(lines: string[], headers: string[], sep: string) {
+      currentMode = "key";
+      keyModeData = {};
+      jsonOutput.classList.add("hidden");
+      multiJsonOutput.classList.remove("hidden");
+      btnDownloadAll.classList.remove("hidden");
+
+      // Parse data rows
+      const dataRows = lines.slice(1).map(line => parseLine(line, sep));
+
+      // Generate one JSON per column (skip first column which is "key")
+      const htmlParts: string[] = [];
+      for (let col = 1; col < headers.length; col++) {
+        const filename = headers[col] + ".json";
+        const obj: Record<string, string> = {};
+        for (const row of dataRows) {
+          const key = row[0]?.trim();
+          if (key) {
+            obj[key] = row[col] ?? "";
+          }
+        }
+        const jsonStr = JSON.stringify(obj, null, 2);
+        keyModeData[filename] = jsonStr;
+
+        htmlParts.push(`
+          <div class="rounded-lg border border-border p-3">
+            <div class="mb-2 flex items-center justify-between">
+              <span class="font-mono text-sm font-semibold text-accent">[ ${filename} ]</span>
+              <div class="flex gap-2">
+                <button data-copy="${filename}" class="rounded border border-border px-2 py-0.5 text-xs hover:border-accent">复制</button>
+                <button data-download="${filename}" class="rounded border border-border px-2 py-0.5 text-xs hover:border-accent">下载</button>
+              </div>
+            </div>
+            <pre class="overflow-x-auto whitespace-pre-wrap font-mono text-sm opacity-90">${escapeHtml(jsonStr)}</pre>
+          </div>
+        `);
+      }
+      multiJsonOutput.innerHTML = htmlParts.join("");
+
+      // Bind copy/download buttons
+      multiJsonOutput.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const fname = (btn as HTMLElement).dataset.copy!;
+          navigator.clipboard.writeText(keyModeData[fname]);
+          btn.textContent = "已复制!";
+          setTimeout(() => (btn.textContent = "复制"), 1500);
+        });
+      });
+      multiJsonOutput.querySelectorAll("[data-download]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const fname = (btn as HTMLElement).dataset.download!;
+          downloadFile(fname, keyModeData[fname]);
+        });
+      });
+    }
+
+    function downloadFile(filename: string, content: string) {
+      const blob = new Blob([content], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str: string): string {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
     function parseLine(line: string, sep: string): string[] {
@@ -134,12 +241,23 @@ import Footer from "@/components/Footer.astro";
     });
 
     btnCopy.addEventListener("click", () => {
-      navigator.clipboard.writeText(jsonOutput.value);
+      if (currentMode === "normal") {
+        navigator.clipboard.writeText(jsonOutput.value);
+      } else {
+        // Copy all JSON files concatenated
+        const all = Object.entries(keyModeData).map(([f, j]) => `// ${f}\n${j}`).join("\n\n");
+        navigator.clipboard.writeText(all);
+      }
       btnCopy.textContent = "已复制!";
       setTimeout(() => (btnCopy.textContent = "复制"), 1500);
     });
 
-    // Initial convert if there's content
+    btnDownloadAll.addEventListener("click", () => {
+      Object.entries(keyModeData).forEach(([filename, content]) => {
+        downloadFile(filename, content);
+      });
+    });
+
     convert();
   }
 
