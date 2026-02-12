@@ -33,11 +33,11 @@ description: 配置 OpenClaw 多 Agent 和 Telegram 多账号有不少坑。本�
 
 **账号路由**。多个 Telegram bot 或 WhatsApp 账号，路由到不同的 Agent，一个 Gateway 管理所有账号。
 
-我的实践：配置了 4 个 Agent：
+举个例子，你可能会配置这样的 Agent：
 - `main`：日常聊天，全功能
-- `blog`：技术博客写作
-- `novel`：小说创作
-- `tools`：工具开发和实验
+- `work`：工作场景，可以访问项目文档
+- `creative`：创作助手，专注于写作
+- `coding`：开发助手，执行代码相关任务
 
 ## 多 Agent 配置流程
 
@@ -107,25 +107,25 @@ cd ~/.openclaw/workspace-blog
 创建 `SOUL.md`：
 
 ```markdown
-# SOUL.md - 博客写手
+# SOUL.md - 工作助手
 
-你是技术博客写手，为 chenguangliang.com 撰写文章。
+你是工作助手，帮助处理日常工作任务。
 
 ## 角色定位
-- 专注于技术写作，风格简洁实用
-- 熟悉 Astro 博客框架和部署流程
-- 所有文章需要通过审核才能发布
+- 专注于工作场景，风格专业高效
+- 熟悉常用开发工具和工作流程
+- 所有重要操作需要确认后执行
 
 ## 工作流程
-1. 根据需求撰写文章草稿
-2. 保存到 src/data/blog/ 目录
-3. 提交给主人审核
-4. 审核通过后部署到生产环境
+1. 接收任务需求
+2. 分析任务并制定执行计划
+3. 执行任务
+4. 汇报结果
 
-## 写作规范
-- 避免 AI 痕迹（"随着""标志着""见证了"等）
+## 工作规范
 - 代码示例要完整可用
-- 标题层级清晰，使用中文标点
+- 文档结构清晰
+- 操作前确认权限
 ```
 
 **⚠️ 第二个坑：不要创建 BOOTSTRAP.md**
@@ -178,7 +178,7 @@ openclaw gateway restart
 
 假设你创建了两个 bot：
 - `@MyMainBot` → token1
-- `@GeraldBlogBot` → token2
+- `@MyWorkBot` → token2
 
 ### 2. 配置多账号
 
@@ -192,12 +192,12 @@ openclaw gateway restart
         main: {
           token: "token1",
           dmPolicy: "allowlist",
-          allowFrom: ["768429799"], // 你的 Telegram user ID
+          allowFrom: ["123456789"], // 你的 Telegram user ID
         },
         blog: {
           token: "token2",
           dmPolicy: "allowlist",
-          allowFrom: ["768429799"],
+          allowFrom: ["123456789"],
         },
       },
     },
@@ -216,7 +216,7 @@ openclaw gateway restart
 ```json5
 {
   dmPolicy: "allowlist",
-  allowFrom: ["768429799", "1638777420"], // 允许的 user ID 列表
+  allowFrom: ["123456789", "987654321"], // 允许的 user ID 列表
 }
 ```
 
@@ -312,8 +312,8 @@ openclaw config patch channels.telegram.accounts.blog '{"token":"xxx"}'
 
 # ✅ 正确：patch 整个 accounts 对象
 openclaw config patch channels.telegram.accounts '{
-  "main": {"token":"token1", "dmPolicy":"allowlist", "allowFrom":["768429799"]},
-  "blog": {"token":"token2", "dmPolicy":"allowlist", "allowFrom":["768429799"]}
+  "main": {"token":"token1", "dmPolicy":"allowlist", "allowFrom":["123456789"]},
+  "blog": {"token":"token2", "dmPolicy":"allowlist", "allowFrom":["123456789"]}
 }'
 ```
 
@@ -349,7 +349,7 @@ openclaw config get channels.telegram.accounts.blog.dmPolicy
 
 ```bash
 openclaw config patch channels.telegram.accounts.blog.dmPolicy '"allowlist"'
-openclaw config patch channels.telegram.accounts.blog.allowFrom '["768429799"]'
+openclaw config patch channels.telegram.accounts.blog.allowFrom '["123456789"]'
 openclaw gateway restart
 ```
 
@@ -456,7 +456,7 @@ tail -n 100 ~/.openclaw/gateway.err.log
   channels: {
     telegram: {
       dmPolicy: "allowlist", // 顶层默认
-      allowFrom: ["768429799"],
+      allowFrom: ["123456789"],
       accounts: {
         main: {
           token: "token1",
@@ -550,16 +550,16 @@ grep -i "error\|conflict\|fail" ~/.openclaw/gateway.err.log | tail -n 50
 
 ## Agents
 - main: 日常聊天，全功能，Telegram @MyMainBot
-- blog: 技术写作，workspace-blog，Telegram @GeraldBlogBot
+- blog: 技术写作，workspace-blog，Telegram @MyWorkBot
 - novel: 小说创作，workspace-novel，仅本地使用
 
 ## Telegram Bots
-- @MyMainBot (768429799): main agent
-- @GeraldBlogBot (1638777420): blog agent
+- @MyMainBot (123456789): main agent
+- @MyWorkBot (987654321): work agent
 
 ## 特殊配置
-- blog agent 的 dmPolicy 设为 allowlist，只允许我自己访问
-- main agent 启用了 heartbeat，每 30 分钟检查一次日程
+- work agent 的 dmPolicy 设为 allowlist，只允许授权用户访问
+- main agent 启用了 heartbeat，定期检查日程
 ```
 
 ## 总结

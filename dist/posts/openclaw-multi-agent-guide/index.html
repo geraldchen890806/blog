@@ -206,12 +206,12 @@ About
 <li><strong>Tool Policy</strong>：限制某些 Agent 的工具权限（比如家庭助手不能执行 shell 命令）</li>
 </ul>
 <p><strong>账号路由</strong>。多个 Telegram bot 或 WhatsApp 账号，路由到不同的 Agent，一个 Gateway 管理所有账号。</p>
-<p>我的实践：配置了 4 个 Agent：</p>
+<p>举个例子，你可能会配置这样的 Agent：</p>
 <ul>
 <li><code>main</code>：日常聊天，全功能</li>
-<li><code>blog</code>：技术博客写作</li>
-<li><code>novel</code>：小说创作</li>
-<li><code>tools</code>：工具开发和实验</li>
+<li><code>work</code>：工作场景，可以访问项目文档</li>
+<li><code>creative</code>：创作助手，专注于写作</li>
+<li><code>coding</code>：开发助手，执行代码相关任务</li>
 </ul>
 <h2 id="多-agent-配置流程">多 Agent 配置流程</h2>
 <h3 id="1-创建-agent">1. 创建 Agent</h3>
@@ -253,25 +253,25 @@ About
 <p>每个 Agent 的 workspace 下创建 <code>SOUL.md</code>，定义它的角色：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">cd</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/workspace-blog</span></span></code></pre>
 <p>创建 <code>SOUL.md</code>：</p>
-<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># SOUL.md - 博客写手</span></span>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># SOUL.md - 工作助手</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">你是技术博客写手，为 chenguangliang.com 撰写文章。</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">你是工作助手，帮助处理日常工作任务。</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 角色定位</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 专注于技术写作，风格简洁实用</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 熟悉 Astro 博客框架和部署流程</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 所有文章需要通过审核才能发布</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 专注于工作场景，风格专业高效</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 熟悉常用开发工具和工作流程</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 所有重要操作需要确认后执行</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 工作流程</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 根据需求撰写文章草稿</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 保存到 src/data/blog/ 目录</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 提交给主人审核</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 审核通过后部署到生产环境</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 接收任务需求</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 分析任务并制定执行计划</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 执行任务</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 汇报结果</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 写作规范</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 避免 AI 痕迹（"随着""标志着""见证了"等）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 工作规范</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 代码示例要完整可用</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 标题层级清晰，使用中文标点</span></span></code></pre>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 文档结构清晰</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 操作前确认权限</span></span></code></pre>
 <p><strong>⚠️ 第二个坑：不要创建 BOOTSTRAP.md</strong></p>
 <p>如果你手动创建了 <code>BOOTSTRAP.md</code>，Agent 会一直卡在 bootstrapping 状态！</p>
 <p><strong>为什么？</strong></p>
@@ -303,7 +303,7 @@ About
 <p>假设你创建了两个 bot：</p>
 <ul>
 <li><code>@MyMainBot</code> → token1</li>
-<li><code>@GeraldBlogBot</code> → token2</li>
+<li><code>@MyWorkBot</code> → token2</li>
 </ul>
 <h3 id="2-配置多账号">2. 配置多账号</h3>
 <p>编辑 <code>~/.openclaw/openclaw.json</code>（或用 <code>openclaw config patch</code>）：</p>
@@ -314,12 +314,12 @@ About
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">        main</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          token</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">token1</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          dmPolicy</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">allowlist</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
-<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">768429799</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // 你的 Telegram user ID</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">123456789</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // 你的 Telegram user ID</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">        }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">        blog</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          token</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">token2</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          dmPolicy</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">allowlist</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
-<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">768429799</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">123456789</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">        }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
@@ -331,7 +331,7 @@ About
 <p>明确设置 <code>dmPolicy: "allowlist"</code>，并配置 <code>allowFrom</code> 列表：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">  dmPolicy</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">allowlist</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
-<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">  allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">768429799</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">1638777420</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // 允许的 user ID 列表</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">  allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">123456789</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">987654321</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // 允许的 user ID 列表</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
 <p>获取你的 Telegram user ID：给 <a href="https://t.me/userinfobot">@userinfobot</a> 发消息。</p>
 <h3 id="3-配置路由规则">3. 配置路由规则</h3>
@@ -394,8 +394,8 @@ About
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># ✅ 正确：patch 整个 accounts 对象</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> config</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> patch</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> channels.telegram.accounts</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">{</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "main": {"token":"token1", "dmPolicy":"allowlist", "allowFrom":["768429799"]},</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "blog": {"token":"token2", "dmPolicy":"allowlist", "allowFrom":["768429799"]}</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "main": {"token":"token1", "dmPolicy":"allowlist", "allowFrom":["123456789"]},</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "blog": {"token":"token2", "dmPolicy":"allowlist", "allowFrom":["123456789"]}</span></span>
 <span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">}</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
 <p>同样适用于 <code>bindings</code>、<code>agents.list</code> 等数组或对象。</p>
 <p><strong>最佳实践：</strong></p>
@@ -413,7 +413,7 @@ About
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> config</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> get</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> channels.telegram.accounts.blog.dmPolicy</span></span></code></pre>
 <p>如果是 <code>pairing</code> 或未设置，改成 <code>allowlist</code>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> config</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> patch</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> channels.telegram.accounts.blog.dmPolicy</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">"allowlist"</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> config</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> patch</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> channels.telegram.accounts.blog.allowFrom</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">["768429799"]</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> config</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> patch</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> channels.telegram.accounts.blog.allowFrom</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">["123456789"]</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> gateway</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> restart</span></span></code></pre>
 <p><strong>可能的原因 2：Telegram 409 冲突</strong></p>
 <p><strong>症状：</strong> 日志中有 <code>getUpdates conflict (409)</code> 错误。</p>
@@ -475,7 +475,7 @@ About
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">  channels</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">    telegram</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">      dmPolicy</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">allowlist</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // 顶层默认</span></span>
-<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">      allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">768429799</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">      allowFrom</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">123456789</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">      accounts</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">        main</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
 <span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">          token</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">token1</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
@@ -552,16 +552,16 @@ About
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Agents</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> main: 日常聊天，全功能，Telegram @MyMainBot</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> blog: 技术写作，workspace-blog，Telegram @GeraldBlogBot</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> blog: 技术写作，workspace-blog，Telegram @MyWorkBot</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> novel: 小说创作，workspace-novel，仅本地使用</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Telegram Bots</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> @MyMainBot (768429799): main agent</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> @GeraldBlogBot (1638777420): blog agent</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> @MyMainBot (123456789): main agent</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> @MyWorkBot (987654321): work agent</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 特殊配置</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> blog agent 的 dmPolicy 设为 allowlist，只允许我自己访问</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> main agent 启用了 heartbeat，每 30 分钟检查一次日程</span></span></code></pre>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> work agent 的 dmPolicy 设为 allowlist，只允许授权用户访问</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> main agent 启用了 heartbeat，定期检查日程</span></span></code></pre>
 <h2 id="总结">总结</h2>
 <p>OpenClaw 多 Agent 配置不复杂，但有几个容易踩的坑：</p>
 <ol>
