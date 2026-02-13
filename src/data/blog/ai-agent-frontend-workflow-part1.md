@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-02-13T18:00:00+08:00
+pubDatetime: 2026-02-13T11:00:00+08:00
 title: AI Agent 前端工作流（一）：理解 Agent 与组件自动生成实战
 slug: ai-agent-frontend-workflow-part1
 featured: true
