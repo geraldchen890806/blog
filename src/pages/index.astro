@@ -116,3 +116,26 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     }
   });
 </script>
+
+<script>
+  function checkReadStatus() {
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    const postCards = document.querySelectorAll('.post-card');
+    
+    postCards.forEach(card => {
+      const postPath = card.getAttribute('data-post-path');
+      if (readPosts.includes(postPath)) {
+        const badge = card.querySelector('.read-badge');
+        if (badge) {
+          badge.classList.remove('hidden');
+        }
+      }
+    });
+  }
+  
+  // Run on page load
+  checkReadStatus();
+  
+  // Run after Astro page transitions
+  document.addEventListener('astro:page-load', checkReadStatus);
+</script>
