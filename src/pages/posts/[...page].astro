@@ -37,7 +37,10 @@ const { page } = Astro.props;
       
       postCards.forEach(card => {
         const postPath = card.getAttribute('data-post-path');
-        if (readPosts.includes(postPath)) {
+        // Check both with and without trailing slash for compatibility
+        const isRead = readPosts.includes(postPath) || readPosts.includes(postPath + '/');
+        
+        if (isRead) {
           const badge = card.querySelector('.read-badge');
           if (badge) {
             badge.classList.remove('hidden');

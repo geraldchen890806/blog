@@ -2,265 +2,41 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+
+const redirectUrl = "https://anyfreetools.com/tools/csv-to-json";
 ---
 
-<Layout title="CSV 转 JSON | 在线工具">
+<Layout title="CSV 转 JSON - 跳转中 | 陈广亮的技术博客">
   <Header />
-  <main id="main-content" class="app-layout pb-12">
-    <nav class="breadcrumb my-4 text-sm opacity-70">
-      <a href="/" class="hover:text-accent">首页</a>
-      <span class="mx-1">&gt;</span>
-      <a href="/tools" class="hover:text-accent">工具</a>
-      <span class="mx-1">&gt;</span>
-      <span>CSV 转 JSON</span>
-    </nav>
-    <h1 class="mb-2 text-2xl font-semibold sm:text-3xl">📊 CSV 转 JSON</h1>
-    <p class="mb-6 italic opacity-80">将 CSV 数据转换为 JSON 格式。首列为 key 时自动按列生成多个 JSON 文件。</p>
-
-    <div class="mb-4 flex flex-wrap items-center gap-4">
-      <label class="flex items-center gap-2 text-sm">
-        分隔符：
-        <input
-          id="delimiter"
-          type="text"
-          value=","
-          maxlength="5"
-          class="w-16 rounded border border-border bg-transparent px-2 py-1 text-center focus:border-accent focus:outline-none"
-        />
-      </label>
-      <label
-        class="cursor-pointer rounded border border-border px-3 py-1 text-sm hover:border-accent"
+  <main class="app-layout flex min-h-[60vh] flex-col items-center justify-center text-center">
+    <div class="max-w-md">
+      <span class="text-6xl mb-6 block">📊</span>
+      <h1 class="text-2xl font-bold mb-4">CSV 转 JSON 工具已迁移</h1>
+      <p class="text-lg opacity-80 mb-6">
+        此工具已迁移到独立工具站，3秒后自动跳转...
+      </p>
+      <a
+        href={redirectUrl}
+        class="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-medium text-white transition-all hover:opacity-90"
       >
-        上传 CSV 文件
-        <input id="csv-file" type="file" accept=".csv,.tsv,.txt" class="hidden" />
-      </label>
+        <span>立即跳转</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14" />
+          <path d="M13 18l6-6" />
+          <path d="M13 6l6 6" />
+        </svg>
+      </a>
+      <p class="mt-6 text-sm opacity-60">
+        或返回 <a href="/tools" class="text-accent hover:underline">工具列表</a>
+      </p>
     </div>
-
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <div>
-        <label class="mb-1 block text-sm font-medium">CSV 输入</label>
-        <textarea
-          id="csv-input"
-          rows="16"
-          placeholder="key,en,tw&#10;logout,Logout,登出&#10;login,Login,登入"
-          class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
-        ></textarea>
-      </div>
-      <div>
-        <div id="json-output-area">
-          <div class="mb-1 flex items-center justify-between">
-            <label class="text-sm font-medium">JSON 输出</label>
-            <div class="flex gap-2">
-              <button
-                id="btn-copy"
-                class="rounded border border-border px-3 py-0.5 text-sm hover:border-accent"
-              >复制</button>
-              <button
-                id="btn-download-all"
-                class="hidden rounded border border-border px-3 py-0.5 text-sm hover:border-accent"
-              >全部下载</button>
-            </div>
-          </div>
-          <!-- Single JSON output (normal mode) -->
-          <textarea
-            id="json-output"
-            rows="16"
-            readonly
-            class="w-full resize-y rounded-lg border border-border bg-transparent p-3 font-mono text-sm focus:border-accent focus:outline-none"
-          ></textarea>
-          <!-- Multi JSON output (key mode) -->
-          <div id="multi-json-output" class="hidden space-y-4"></div>
-        </div>
-      </div>
-    </div>
-    <p id="csv-error" class="mt-2 hidden text-sm text-red-500"></p>
   </main>
   <Footer />
 </Layout>
 
-<script>
-  function init() {
-    const csvInput = document.getElementById("csv-input") as HTMLTextAreaElement;
-    const jsonOutput = document.getElementById("json-output") as HTMLTextAreaElement;
-    const multiJsonOutput = document.getElementById("multi-json-output")!;
-    const delimiter = document.getElementById("delimiter") as HTMLInputElement;
-    const csvFile = document.getElementById("csv-file") as HTMLInputElement;
-    const btnCopy = document.getElementById("btn-copy")!;
-    const btnDownloadAll = document.getElementById("btn-download-all")!;
-    const csvError = document.getElementById("csv-error")!;
-
-    let currentMode = "normal"; // "normal" or "key"
-    let keyModeData: Record<string, string> = {}; // filename -> json string
-
-    function convert() {
-      const sep = delimiter.value || ",";
-      const text = csvInput.value.trim();
-      if (!text) {
-        jsonOutput.value = "";
-        multiJsonOutput.innerHTML = "";
-        multiJsonOutput.classList.add("hidden");
-        jsonOutput.classList.remove("hidden");
-        btnDownloadAll.classList.add("hidden");
-        csvError.classList.add("hidden");
-        return;
-      }
-      try {
-        const lines = text.split(/\r?\n/).filter(l => l.trim());
-        if (lines.length < 1) { jsonOutput.value = "[]"; return; }
-        const headers = parseLine(lines[0], sep);
-
-        // Check if first column header is "key" (case-insensitive)
-        if (headers[0].toLowerCase() === "key" && headers.length > 1) {
-          convertKeyMode(lines, headers, sep);
-        } else {
-          convertNormalMode(lines, headers, sep);
-        }
-        csvError.classList.add("hidden");
-      } catch (e: any) {
-        csvError.textContent = e.message;
-        csvError.classList.remove("hidden");
-      }
-    }
-
-    function convertNormalMode(lines: string[], headers: string[], sep: string) {
-      currentMode = "normal";
-      keyModeData = {};
-      jsonOutput.classList.remove("hidden");
-      multiJsonOutput.classList.add("hidden");
-      multiJsonOutput.innerHTML = "";
-      btnDownloadAll.classList.add("hidden");
-
-      const result = lines.slice(1).map(line => {
-        const vals = parseLine(line, sep);
-        const obj: Record<string, string> = {};
-        headers.forEach((h, i) => { obj[h] = vals[i] ?? ""; });
-        return obj;
-      });
-      jsonOutput.value = JSON.stringify(result, null, 2);
-    }
-
-    function convertKeyMode(lines: string[], headers: string[], sep: string) {
-      currentMode = "key";
-      keyModeData = {};
-      jsonOutput.classList.add("hidden");
-      multiJsonOutput.classList.remove("hidden");
-      btnDownloadAll.classList.remove("hidden");
-
-      // Parse data rows
-      const dataRows = lines.slice(1).map(line => parseLine(line, sep));
-
-      // Generate one JSON per column (skip first column which is "key")
-      const htmlParts: string[] = [];
-      for (let col = 1; col < headers.length; col++) {
-        const filename = headers[col] + ".json";
-        const obj: Record<string, string> = {};
-        for (const row of dataRows) {
-          const key = row[0]?.trim();
-          if (key) {
-            obj[key] = row[col] ?? "";
-          }
-        }
-        const jsonStr = JSON.stringify(obj, null, 2);
-        keyModeData[filename] = jsonStr;
-
-        htmlParts.push(`
-          <div class="rounded-lg border border-border p-3">
-            <div class="mb-2 flex items-center justify-between">
-              <span class="font-mono text-sm font-semibold text-accent">[ ${filename} ]</span>
-              <div class="flex gap-2">
-                <button data-copy="${filename}" class="rounded border border-border px-2 py-0.5 text-xs hover:border-accent">复制</button>
-                <button data-download="${filename}" class="rounded border border-border px-2 py-0.5 text-xs hover:border-accent">下载</button>
-              </div>
-            </div>
-            <pre class="overflow-x-auto whitespace-pre-wrap font-mono text-sm opacity-90">${escapeHtml(jsonStr)}</pre>
-          </div>
-        `);
-      }
-      multiJsonOutput.innerHTML = htmlParts.join("");
-
-      // Bind copy/download buttons
-      multiJsonOutput.querySelectorAll("[data-copy]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const fname = (btn as HTMLElement).dataset.copy!;
-          navigator.clipboard.writeText(keyModeData[fname]);
-          btn.textContent = "已复制!";
-          setTimeout(() => (btn.textContent = "复制"), 1500);
-        });
-      });
-      multiJsonOutput.querySelectorAll("[data-download]").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const fname = (btn as HTMLElement).dataset.download!;
-          downloadFile(fname, keyModeData[fname]);
-        });
-      });
-    }
-
-    function downloadFile(filename: string, content: string) {
-      const blob = new Blob([content], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function escapeHtml(str: string): string {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    function parseLine(line: string, sep: string): string[] {
-      const result: string[] = [];
-      let current = "";
-      let inQuotes = false;
-      for (let i = 0; i < line.length; i++) {
-        const ch = line[i];
-        if (inQuotes) {
-          if (ch === '"' && line[i + 1] === '"') { current += '"'; i++; }
-          else if (ch === '"') { inQuotes = false; }
-          else { current += ch; }
-        } else {
-          if (ch === '"') { inQuotes = true; }
-          else if (line.substring(i, i + sep.length) === sep) { result.push(current.trim()); current = ""; i += sep.length - 1; }
-          else { current += ch; }
-        }
-      }
-      result.push(current.trim());
-      return result;
-    }
-
-    csvInput.addEventListener("input", convert);
-    delimiter.addEventListener("input", convert);
-
-    csvFile.addEventListener("change", () => {
-      const file = csvFile.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => { csvInput.value = reader.result as string; convert(); };
-      reader.readAsText(file);
-    });
-
-    btnCopy.addEventListener("click", () => {
-      if (currentMode === "normal") {
-        navigator.clipboard.writeText(jsonOutput.value);
-      } else {
-        // Copy all JSON files concatenated
-        const all = Object.entries(keyModeData).map(([f, j]) => `// ${f}\n${j}`).join("\n\n");
-        navigator.clipboard.writeText(all);
-      }
-      btnCopy.textContent = "已复制!";
-      setTimeout(() => (btnCopy.textContent = "复制"), 1500);
-    });
-
-    btnDownloadAll.addEventListener("click", () => {
-      Object.entries(keyModeData).forEach(([filename, content]) => {
-        downloadFile(filename, content);
-      });
-    });
-
-    convert();
-  }
-
-  init();
-  document.addEventListener("astro:after-swap", init);
+<script define:vars={{ redirectUrl }}>
+  // Auto redirect after 3 seconds
+  setTimeout(() => {
+    window.location.href = redirectUrl;
+  }, 3000);
 </script>

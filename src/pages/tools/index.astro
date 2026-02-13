@@ -3,34 +3,78 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Main from "@/layouts/Main.astro";
+
+const tools = [
+  {
+    name: "二维码生成器",
+    icon: "📱",
+    description: "快速生成和解析二维码。支持文本、URL、Wi-Fi 等多种格式，一键下载高清图片。",
+    url: "https://anyfreetools.com/tools/qrcode",
+  },
+  {
+    name: "AES 加密解密",
+    icon: "🔐",
+    description: "安全的 AES 加密工具。支持 AES-128/192/256 加密算法，保护您的敏感数据。",
+    url: "https://anyfreetools.com/tools/aes",
+  },
+  {
+    name: "CSV 转 JSON",
+    icon: "📊",
+    description: "轻松转换 CSV 数据为 JSON 格式。支持自定义分隔符、文件上传和批量处理。",
+    url: "https://anyfreetools.com/tools/csv-to-json",
+  },
+];
 ---
 
 <Layout title="在线工具 | 陈广亮的技术博客">
   <Header />
-  <Main pageTitle="在线工具" pageDesc="一些实用的在线小工具，纯前端实现，无需后端。">
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+  <Main pageTitle="实用在线工具" pageDesc="精选常用工具，无需安装，打开浏览器即用。">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {tools.map(tool => (
+        <a
+          href={tool.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group rounded-lg border border-border p-6 transition-all hover:border-accent hover:shadow-lg"
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-4xl">{tool.icon}</span>
+            <h2 class="text-xl font-semibold group-hover:text-accent">
+              {tool.name}
+            </h2>
+          </div>
+          <p class="text-sm opacity-75 leading-relaxed">
+            {tool.description}
+          </p>
+          <div class="mt-4 flex items-center text-sm text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+            <span>立即使用</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1">
+              <path d="M5 12h14" />
+              <path d="M13 18l6-6" />
+              <path d="M13 6l6 6" />
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
       <a
-        href="/tools/qrcode"
-        class="group rounded-lg border border-border p-6 transition-all hover:border-accent"
+        href="https://anyfreetools.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-medium text-white transition-all hover:opacity-90"
       >
-        <h2 class="text-xl font-semibold group-hover:text-accent">
-          🔲 二维码工具
-        </h2>
-        <p class="mt-2 text-sm opacity-80">
-          生成和解析二维码。输入文本生成二维码图片，或上传图片识别二维码内容。
-        </p>
+        <span>查看全部工具</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          <polyline points="15 3 21 3 21 9" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+        </svg>
       </a>
-      <a
-        href="/tools/csv-to-json"
-        class="group rounded-lg border border-border p-6 transition-all hover:border-accent"
-      >
-        <h2 class="text-xl font-semibold group-hover:text-accent">
-          📊 CSV 转 JSON
-        </h2>
-        <p class="mt-2 text-sm opacity-80">
-          将 CSV 数据转换为 JSON 格式，支持自定义分隔符、文件上传和一键复制。
-        </p>
-      </a>
+      <p class="mt-4 text-sm opacity-60">
+        更多实用工具持续更新中...
+      </p>
     </div>
   </Main>
   <Footer />
