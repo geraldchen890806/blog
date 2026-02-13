@@ -282,4 +282,18 @@ const nextPost =
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    const postId = window.location.pathname;
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
 </script>

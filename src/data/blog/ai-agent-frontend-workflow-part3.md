@@ -613,5 +613,3 @@ const result = await aiAgent.generate(requirement, sanitizedContext);
 ---
 
 **关于作者**：陈广亮，全栈工程师，AI 工程化实践者，专注于将 AI 技术落地到实际开发工作流中。本文所有代码和案例均来自真实项目经验。
-
-如果这篇文章对你有帮助，欢迎分享给你的团队！有任何问题，欢迎在评论区讨论。

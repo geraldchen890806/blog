@@ -383,5 +383,3 @@ make run
 ---
 
 _系列完结。感谢阅读。如果这个系列对你有帮助，欢迎分享给更多开发者。_
-
-_有问题或建议，欢迎在评论区讨论，或者 Twitter 上找我：[@chenguangliang](https://twitter.com/chenguangliang)_
