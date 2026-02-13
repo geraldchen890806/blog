@@ -487,7 +487,8 @@ Back To Top
 
   /* Mark post as read */
   function markPostAsRead() {
-    const postId = window.location.pathname;
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
     const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
     
     if (!readPosts.includes(postId)) {
