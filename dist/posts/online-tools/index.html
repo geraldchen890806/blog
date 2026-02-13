@@ -32,7 +32,7 @@
       })();
     </script><style>:where([data-astro-image]){object-fit:var(--fit);object-position:var(--pos);height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}
 </style>
-<link rel="stylesheet" href="/_astro/about.CPIQ-nCz.css">
+<link rel="stylesheet" href="/_astro/about.Cp8PzNo7.css">
 <style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
 </style><style>[data-astro-transition-scope="astro-fam6wyqg-1"] { view-transition-name: \535A\5BA2\4E0A\7EBF\4E24\6B3E\5B9E\7528\5728\7EBF\5DE5\5177\FF1A\4E8C\7EF4\7801\751F\6210\5668-csv-\8F6C-json; }@layer astro { ::view-transition-old(\535A\5BA2\4E0A\7EBF\4E24\6B3E\5B9E\7528\5728\7EBF\5DE5\5177\FF1A\4E8C\7EF4\7801\751F\6210\5668-csv-\8F6C-json) { 
 	animation-duration: 180ms;
@@ -213,7 +213,7 @@ About
 <li><strong>离线可用</strong> — 加载完页面后断网也能正常使用</li>
 <li><strong>响应快</strong> — 没有网络请求，转换是实时的</li>
 </ol>
-<p>后续还会陆续增加更多实用工具，有什么需求欢迎留言！</p>
+<p>后续还会陆续增加更多实用工具。</p>
 <p>👉 <a href="/tools">立即使用</a></p> </article> <hr class="my-8 border-dashed">  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/tags/工具/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 工具 </a> </li><li> <a href="/tags/前端/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 前端 </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
 Back To Top
 </span> </button> </div> <script data-astro-rerun>
@@ -388,4 +388,18 @@ Back To Top
   document.addEventListener("astro:after-swap", () =>
     window.scrollTo({ left: 0, top: 0, behavior: "instant" })
   );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    const postId = window.location.pathname;
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
 </script>
