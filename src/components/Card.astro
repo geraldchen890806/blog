@@ -25,10 +25,10 @@ const postPath = getPath(id, filePath);
   >
     <Heading
       style={{ viewTransitionName: slugifyStr(title.replaceAll(".", "-")) }}
-      class="flex items-center gap-2"
+      class="inline"
     >
       {title}
-      <span class="read-badge hidden text-sm font-normal opacity-60">(已读)</span>
+      <span class="read-badge hidden ml-2 text-xs font-normal opacity-40 text-gray-500">✓</span>
     </Heading>
   </a>
   <Datetime {...props} />

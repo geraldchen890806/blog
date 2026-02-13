@@ -204,6 +204,12 @@ echo "  • 部署分支: main"
 echo "  • 部署commit: $DEPLOYED_COMMIT"
 echo "  • 网站地址: https://chenguangliang.com"
 echo ""
+
+# ==================== 社交媒体发布工作流 ====================
+# 检测新文章并生成摘要
+bash /Users/geraldchen/ai/blog/scripts/post-deploy-workflow.sh
+
+echo ""
 echo "✅ 建议手动访问网站确认内容已更新："
 echo "   https://chenguangliang.com"
 echo ""
