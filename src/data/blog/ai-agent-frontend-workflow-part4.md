@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-02-15T18:00:00+08:00
+pubDatetime: 2026-02-15T14:00:00+08:00
 title: AI Agent 前端工作流（四）：未来展望与开源工具全景
 slug: ai-agent-frontend-workflow-part4
 featured: true
