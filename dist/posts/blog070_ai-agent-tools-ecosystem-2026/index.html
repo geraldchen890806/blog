@@ -1,0 +1,1137 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/"><meta name="generator" content="Astro v5.17.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>2026年 AI Agent 开发工具生态全景 | 陈广亮的技术博客</title><meta name="title" content="2026年 AI Agent 开发工具生态全景 | 陈广亮的技术博客"><meta name="description" content="从 Claude Code CLI 到 OpenClaw，从 everything-claude-code 35.6k⭐ 项目看 AI Agent 配置体系演进。Skill 机制、Hooks、Rules 全解析，附跨工具借鉴指南。"><meta name="author" content="陈广亮"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="陈广亮的技术博客"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="2026年 AI Agent 开发工具生态全景 | 陈广亮的技术博客"><meta property="og:description" content="从 Claude Code CLI 到 OpenClaw，从 everything-claude-code 35.6k⭐ 项目看 AI Agent 配置体系演进。Skill 机制、Hooks、Rules 全解析，附跨工具借鉴指南。"><meta property="og:url" content="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/"><meta property="og:image" content="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-02-18T12:30:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/"><meta property="twitter:title" content="2026年 AI Agent 开发工具生态全景 | 陈广亮的技术博客"><meta property="twitter:description" content="从 Claude Code CLI 到 OpenClaw，从 everything-claude-code 35.6k⭐ 项目看 AI Agent 配置体系演进。Skill 机制、Hooks、Rules 全解析，附跨工具借鉴指南。"><meta property="twitter:image" content="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"2026年 AI Agent 开发工具生态全景 | 陈广亮的技术博客","image":"https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/index.png","datePublished":"2026-02-18T12:30:00.000Z","author":[{"@type":"Person","name":"陈广亮","url":"https://chenguangliang.com/"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="陈广亮的技术博客" href="https://chenguangliang.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><style>:where([data-astro-image]){object-fit:var(--fit);object-position:var(--pos);height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}
+</style>
+<link rel="stylesheet" href="/_astro/about.CdPuuyx6.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-fam6wyqg-1"] { view-transition-name: _2026-\5E74-ai-agent-\5F00\53D1\5DE5\5177\751F\6001\5168\666F; }@layer astro { ::view-transition-old(_2026-\5E74-ai-agent-\5F00\53D1\5DE5\5177\751F\6001\5168\666F) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(_2026-\5E74-ai-agent-\5F00\53D1\5DE5\5177\751F\6001\5168\666F) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(_2026-\5E74-ai-agent-\5F00\53D1\5DE5\5177\751F\6001\5168\666F) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(_2026-\5E74-ai-agent-\5F00\53D1\5DE5\5177\751F\6001\5168\666F) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai-agent; }@layer astro { ::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: claude-code; }@layer astro { ::view-transition-old(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: openclaw; }@layer astro { ::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: cursor; }@layer astro { ::view-transition-old(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-6"] { view-transition-name: \5F00\53D1\5DE5\5177; }@layer astro { ::view-transition-old(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-7"] { view-transition-name: \6700\4F73\5B9E\8DF5; }@layer astro { ::view-transition-old(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> 陈广亮的技术博客 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/tools">
+工具
+</a> </li> <li class="col-span-2"> <a href="/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function s(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const c=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",c?"false":"true"),e.setAttribute("aria-label",c?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}s();document.addEventListener("astro:after-swap",s);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-transition-scope="astro-fam6wyqg-1"> 2026年 AI Agent 开发工具生态全景 </h1> <div class="my-2 flex items-center gap-2"> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-02-18T12:30:00.000Z">18 Feb, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden">|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <h2 id="引言">引言</h2>
+<p>2026 年初，AI Agent 开发工具生态正在经历爆发式增长。Claude Code CLI、OpenClaw、Cursor 等工具各有定位，而社区驱动的配置项目（如 everything-claude-code）已经累积 35.6k+ ⭐，成为开发者提升 AI 辅助效率的重要参考。</p>
+<p>但这个生态也带来了困惑：<strong>这些工具的本质差异是什么？如何选型？不同工具的配置能互相借鉴吗？</strong></p>
+<p>本文将深入对比三大主流工具，解构 everything-claude-code 的配置体系，并给出跨工具借鉴的实用指南。</p>
+<hr>
+<h2 id="一ai-agent-工具的三种形态">一、AI Agent 工具的三种形态</h2>
+<h3 id="1-claude-code-cli专注代码的极简工具">1. Claude Code CLI：专注代码的极简工具</h3>
+<p><strong>定位</strong>：Anthropic 官方终端 AI 编程搭档。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>用完即走</strong>：无会话记忆，每次对话独立</li>
+<li><strong>模型单一</strong>：只用 Claude 系列（Sonnet/Opus/Haiku）</li>
+<li><strong>专注编码</strong>：工具集仅限文件读写、Shell 执行、Git 操作</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>快速原型开发</li>
+<li>一次性代码生成任务</li>
+<li>不需要上下文积累的独立问题</li>
+</ul>
+<p><strong>核心配置文件</strong>：</p>
+<ul>
+<li><code>~/.claude/settings.json</code>：全局配置</li>
+<li><code>.claude/CLAUDE.md</code>：项目级提示词</li>
+<li><code>.claude/agents/*.md</code>：子代理定义</li>
+<li><code>.claude/skills/*/SKILL.md</code>：技能定义</li>
+</ul>
+<h3 id="2-openclaw247-运行的全能私人助手">2. OpenClaw：24/7 运行的全能私人助手</h3>
+<p><strong>定位</strong>：通过聊天应用（Telegram/Discord/Slack 等）交互的全能型 AI 助手。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>持续在线</strong>：24/7 运行，支持定时任务和心跳检查</li>
+<li><strong>长期记忆</strong>：维护 MEMORY.md 和每日日志</li>
+<li><strong>多模型支持</strong>：可切换 Claude、GPT、Gemini 等</li>
+<li><strong>全场景覆盖</strong>：不仅限于编码，支持邮件、日程、通知、文档等</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>需要跨会话记忆的长期项目</li>
+<li>多任务并行管理（代码 + 邮件 + 日程）</li>
+<li>团队协作中的 Bot 助手</li>
+</ul>
+<p><strong>核心配置文件</strong>：</p>
+<ul>
+<li><code>~/.openclaw/workspace-*/AGENTS.md</code>：角色定义</li>
+<li><code>~/.openclaw/workspace-*/SOUL.md</code>：个性化设定</li>
+<li><code>~/.openclaw/workspace-*/TOOLS.md</code>：工具使用记录</li>
+<li><code>~/.openclaw/workspace-*/MEMORY.md</code>：长期记忆（主会话专用）</li>
+</ul>
+<h3 id="3-cursorai-原生-ide">3. Cursor：AI 原生 IDE</h3>
+<p><strong>定位</strong>：集成 AI 能力的代码编辑器，基于 VS Code 深度定制。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li><strong>IDE 集成</strong>：直接在编辑器中调用 AI，无需切换终端</li>
+<li><strong>项目上下文</strong>：自动索引代码库，提供精准补全</li>
+<li><strong>配置简化</strong>：通过 <code>.cursorrules</code> 文件配置规则</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>习惯 VS Code 工作流的开发者</li>
+<li>需要实时代码补全和内联建议</li>
+<li>偏好图形化界面的用户</li>
+</ul>
+<p><strong>核心配置文件</strong>：</p>
+<ul>
+<li><code>.cursorrules</code>：项目级规则</li>
+<li>项目文档（作为上下文）</li>
+</ul>
+<hr>
+<h2 id="二everything-claude-code配置体系的集大成者">二、everything-claude-code：配置体系的集大成者</h2>
+<p><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a>（35.6k ⭐）是 Anthropic 黑客松获奖者整理的 Claude Code 完整配置合集，经过 10+ 个月实战打磨。</p>
+<h3 id="核心组件解析">核心组件解析</h3>
+<h4 id="1-agents子代理角色分工">1. <strong>Agents（子代理）</strong>：角色分工</h4>
+<p>子代理是针对特定任务的专家，通过委托机制减轻主会话负担。</p>
+<p><strong>典型代理</strong>：</p>
+<ul>
+<li><code>planner.md</code>：功能规划，生成实现蓝图</li>
+<li><code>code-reviewer.md</code>：代码质量和安全审查</li>
+<li><code>security-reviewer.md</code>：OWASP Top 10 漏洞扫描</li>
+<li><code>tdd-guide.md</code>：强制测试驱动开发流程</li>
+<li><code>build-error-resolver.md</code>：修复编译错误</li>
+</ul>
+<p><strong>代理定义示例</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: code-reviewer</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Reviews code for quality, security, and maintainability</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">tools: ["Read", "Grep", "Glob", "Bash"]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">model: opus</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">You are a senior code reviewer with 15+ years of experience...</span></span></code></pre>
+<p><strong>关键点</strong>：</p>
+<ul>
+<li><strong>工具限制</strong>：每个代理只开放必需工具（避免权限泄露）</li>
+<li><strong>模型选择</strong>：复杂任务用 Opus，简单任务用 Sonnet/Haiku</li>
+</ul>
+<h4 id="2-skills技能按需激活的专业知识">2. <strong>Skills（技能）</strong>：按需激活的专业知识</h4>
+<p><strong>Skill 是什么？</strong></p>
+<ul>
+<li><strong>不是简单的提示词模板</strong>：而是包含完整工作流、决策树、脚本的文件夹</li>
+<li><strong>按需激活</strong>：Claude 通过 LLM 推理判断何时调用（不是关键词匹配）</li>
+<li><strong>可包含资源</strong>：如 Anthropic 官方 PDF Skill 自带 Python 解析脚本</li>
+</ul>
+<p><strong>核心 Skills</strong>：</p>
+<ol>
+<li>
+<p><strong>continuous-learning</strong>：自动从会话提取编码模式</p>
+<ul>
+<li>识别重复的代码风格偏好</li>
+<li>生成 Instinct 文件（信心评分机制）</li>
+<li>支持跨会话学习</li>
+</ul>
+</li>
+<li>
+<p><strong>strategic-compact</strong>：对抗上下文窗口限制</p>
+<ul>
+<li>在逻辑断点建议 <code>/compact</code>（而非等到 95% 自动压缩）</li>
+<li>避免压缩时丢失关键变量名和文件路径</li>
+</ul>
+</li>
+<li>
+<p><strong>tdd-workflow</strong>：测试驱动开发</p>
+<ul>
+<li>强制先写测试，再写实现</li>
+<li>80% 覆盖率检查</li>
+<li>RED-GREEN-REFACTOR 循环</li>
+</ul>
+</li>
+<li>
+<p><strong>verification-loop</strong>：持续验证</p>
+<ul>
+<li>每次变更后自动运行测试</li>
+<li>失败时回滚并重试</li>
+</ul>
+</li>
+</ol>
+<p><strong>Skill 文件结构</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>skills/</span></span>
+<span class="line"><span>└── pdf-processing/</span></span>
+<span class="line"><span>    ├── SKILL.md          # 工作流描述</span></span>
+<span class="line"><span>    ├── parse_pdf.py      # 解析脚本</span></span>
+<span class="line"><span>    └── examples/</span></span>
+<span class="line"><span>        └── sample.pdf</span></span></code></pre>
+<p><strong>SKILL.md 示例</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: pdf-processing</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Extract and analyze content from PDF files</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">triggers: ["PDF", "document", "extract"]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## When to Use</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">User mentions working with PDF files, extracting tables, or analyzing documents.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Use parse_pdf.py to extract raw text</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Identify structure (headers, tables, paragraphs)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Return structured data</span></span></code></pre>
+<h4 id="3-hooks钩子工具调用前后的自动化">3. <strong>Hooks（钩子）</strong>：工具调用前后的自动化</h4>
+<p>Hooks 在工具执行前后自动触发脚本，实现”无感知”的自动化。</p>
+<p><strong>典型 Hooks</strong>：</p>
+<ol>
+<li><strong>文件保存时检查 console.log</strong>：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "matcher"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">tool == </span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">Edit</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6"> &#x26;&#x26; tool_input.file_path matches </span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"\\</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">.(ts|tsx|js|jsx)$</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "hooks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">command</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">grep -n 'console</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\\</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">.log' </span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">$file_path</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6"> &#x26;&#x26; echo '[Hook] Remove console.log' >&#x26;2</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="2">
+<li><strong>会话结束自动保存状态</strong>：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "event"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">Stop</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "hooks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">command</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">node scripts/hooks/session-end.js</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="3">
+<li><strong>会话开始加载上下文</strong>：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "event"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">SessionStart</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "hooks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">command</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">node scripts/hooks/session-start.js</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>Hook 触发时机</strong>：</p>
+<ul>
+<li><code>PreToolUse</code>：工具执行前</li>
+<li><code>PostToolUse</code>：工具执行后</li>
+<li><code>Stop</code>：会话结束时</li>
+<li><code>SessionStart</code>/<code>SessionEnd</code>：会话生命周期</li>
+</ul>
+<h4 id="4-commands斜杠命令快捷操作">4. <strong>Commands（斜杠命令）</strong>：快捷操作</h4>
+<p>Commands 是预定义的任务流程，一条命令触发完整工作流。</p>
+<p><strong>常用命令</strong>：</p>
+<ul>
+<li><code>/plan "Add user authentication"</code>：生成功能实现计划</li>
+<li><code>/tdd</code>：启动测试驱动开发流程</li>
+<li><code>/code-review</code>：审查刚写的代码</li>
+<li><code>/build-fix</code>：修复编译错误</li>
+<li><code>/e2e</code>：生成端到端测试</li>
+<li><code>/learn</code>：从当前会话提取模式到 Skills</li>
+</ul>
+<p><strong>命令定义示例</strong>（/tdd）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: tdd</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Enforce test-driven development workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">You are now in TDD mode. Follow this strict process:</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> User describes a feature</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> You write a FAILING test first (RED)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Ask user to confirm test fails</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Write MINIMAL code to pass (GREEN)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">5.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Refactor if needed (IMPROVE)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">6.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Verify 80%+ coverage</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Never write implementation before tests.</span></span></code></pre>
+<h4 id="5-rules规则始终生效的约束">5. <strong>Rules（规则）</strong>：始终生效的约束</h4>
+<p>Rules 是强制性规则，每次对话自动加载。</p>
+<p><strong>规则分类</strong>（多语言架构）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>rules/</span></span>
+<span class="line"><span>├── common/              # 通用规则（任何语言都适用）</span></span>
+<span class="line"><span>│   ├── coding-style.md  # 不可变性、文件组织</span></span>
+<span class="line"><span>│   ├── git-workflow.md  # Commit 格式、PR 流程</span></span>
+<span class="line"><span>│   ├── testing.md       # TDD、80% 覆盖率</span></span>
+<span class="line"><span>│   ├── security.md      # 不许硬编码密钥</span></span>
+<span class="line"><span>│   └── performance.md   # 模型选择、上下文管理</span></span>
+<span class="line"><span>├── typescript/          # TypeScript 专属规则</span></span>
+<span class="line"><span>├── python/              # Python 专属规则</span></span>
+<span class="line"><span>└── golang/              # Go 专属规则</span></span></code></pre>
+<p><strong>安装规则</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 只安装需要的语言</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 仅 TS/JS 规则</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> python</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # 仅 Python 规则</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> python</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> golang</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 多语言</span></span></code></pre>
+<p><strong>关键规则示例</strong>：</p>
+<ul>
+<li><strong>Security</strong>：禁止硬编码 API 密钥、数据库密码</li>
+<li><strong>Testing</strong>：所有功能必须有 80%+ 测试覆盖率</li>
+<li><strong>Git</strong>：Commit 格式必须符合 Conventional Commits</li>
+<li><strong>Performance</strong>：每个项目最多 10 个 MCP Server</li>
+</ul>
+<h4 id="6-mcp-配置外部服务集成">6. <strong>MCP 配置</strong>：外部服务集成</h4>
+<p>MCP（Model Context Protocol）允许 Claude Code 调用外部服务 API。</p>
+<p><strong>常用 MCP Servers</strong>：</p>
+<ul>
+<li><code>github</code>：GitHub API（PR、Issue、Actions）</li>
+<li><code>supabase</code>：Supabase 数据库操作</li>
+<li><code>vercel</code>：Vercel 部署</li>
+<li><code>railway</code>：Railway 服务管理</li>
+</ul>
+<p><strong>⚠️ 关键警告</strong>：</p>
+<ul>
+<li><strong>不要同时启用太多 MCP</strong>：每个 MCP 工具描述占用 token，200k 上下文可能缩到 70k</li>
+<li><strong>每个项目最多 10 个 MCP</strong>，最多 80 个工具</li>
+<li><strong>按项目禁用不用的 MCP</strong>：</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// .claude/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "disabledMcpServers"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">supabase</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">railway</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">vercel</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<hr>
+<h2 id="三skill-机制llm-推理驱动的按需专家">三、Skill 机制：LLM 推理驱动的按需专家</h2>
+<h3 id="skill-vs-prompt-vs-rules">Skill vs Prompt vs Rules</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>Rules</th><th>Prompt</th><th>Skill</th></tr></thead><tbody><tr><td><strong>生效时机</strong></td><td>每次对话自动加载</td><td>用户手动输入</td><td>AI 自动判断何时需要</td></tr><tr><td><strong>内容</strong></td><td>强制约束</td><td>一次性指令</td><td>完整工作流 + 资源</td></tr><tr><td><strong>示例</strong></td><td>”禁止硬编码密钥"</td><td>"用 React 写一个登录页"</td><td>"处理 PDF 时的完整流程”</td></tr></tbody></table>
+<h3 id="skill-的工作原理">Skill 的工作原理</h3>
+<ol>
+<li>
+<p><strong>用户提问</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>"帮我从这个 PDF 提取表格数据"</span></span></code></pre>
+</li>
+<li>
+<p><strong>Claude 推理</strong>：</p>
+<ul>
+<li>识别关键词：“PDF”、“提取”、“表格”</li>
+<li>匹配到 <code>pdf-processing</code> Skill 的 <code>triggers</code> 字段</li>
+<li>自动加载 SKILL.md 内容到上下文</li>
+</ul>
+</li>
+<li>
+<p><strong>执行工作流</strong>：</p>
+<ul>
+<li>调用 <code>parse_pdf.py</code> 脚本</li>
+<li>按 SKILL.md 定义的步骤处理</li>
+<li>返回结构化数据</li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么-skill-不是简单的-prompt">为什么 Skill 不是简单的 Prompt？</h3>
+<p><strong>传统 Prompt</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请帮我处理 PDF 文件，提取表格数据</span></span></code></pre>
+<p><strong>Skill 机制</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># SKILL.md</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">当用户提到 PDF 时：</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 先检查文件格式（扫描版 vs 文本版）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 如果是扫描版，提示用户需要 OCR</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 文本版则用 parse_pdf.py 提取</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 识别表格边界（通过坐标和空白行）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">5.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 转换为 CSV/JSON 格式</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">6.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 验证数据完整性</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># 附带脚本</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">parse_pdf.py：150 行 Python 代码，处理各种边界情况</span></span></code></pre>
+<p><strong>差异</strong>：</p>
+<ul>
+<li>Prompt 只是一次性指令，Skill 是可复用的专业知识库</li>
+<li>Skill 包含决策树、错误处理、脚本资源</li>
+<li>Skill 跨会话生效（不需要每次重复）</li>
+</ul>
+<hr>
+<h2 id="四跨工具借鉴指南">四、跨工具借鉴指南</h2>
+<h3 id="1-claude-code-用户">1. Claude Code 用户</h3>
+<p><strong>直接使用 everything-claude-code</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 安装插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/plugin</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> marketplace</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> affaan-m/everything-claude-code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/plugin</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> everything-claude-code@everything-claude-code</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 安装规则（必需手动）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clone</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> https://github.com/affaan-m/everything-claude-code.git</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">cd</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> everything-claude-code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 或 python、golang</span></span></code></pre>
+<p><strong>建议</strong>：</p>
+<ul>
+<li>从核心 Skills 开始（continuous-learning、tdd-workflow）</li>
+<li>不要全盘照搬，按需启用</li>
+<li>定期用 <code>/cost</code> 监控 token 消耗</li>
+</ul>
+<h3 id="2-cursor-用户">2. Cursor 用户</h3>
+<p><strong>无法直接使用插件</strong>，但可以借鉴思路：</p>
+<ol>
+<li><strong>Rules → .cursorrules</strong>：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># .cursorrules</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Coding Style</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Prefer immutability</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> No console.log in production</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Testing</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 80%+ coverage required</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Write tests before implementation</span></span></code></pre>
+<ol start="2">
+<li>
+<p><strong>Skills → 项目文档</strong>：</p>
+<ul>
+<li>把 SKILL.md 内容放入项目 <code>docs/</code> 目录</li>
+<li>Cursor 会自动索引为上下文</li>
+</ul>
+</li>
+<li>
+<p><strong>Hooks → 无等价物</strong>：</p>
+<ul>
+<li>Cursor 不支持 Hooks</li>
+<li>可以用 Git Hooks 或 CI 替代</li>
+</ul>
+</li>
+</ol>
+<p><strong>Cursor 专属配置</strong>：</p>
+<ul>
+<li>everything-claude-code 提供了预翻译的 <code>.cursor/</code> 目录</li>
+<li>使用 <code>./install.sh --target cursor typescript</code></li>
+</ul>
+<h3 id="3-openclaw-用户">3. OpenClaw 用户</h3>
+<p><strong>OpenClaw 已内置类似 Skill 机制</strong>：</p>
+<ul>
+<li>配置路径：<code>~/.openclaw/workspace-*/skills/</code></li>
+<li>工作原理与 Claude Code 相同</li>
+</ul>
+<p><strong>借鉴方式</strong>：</p>
+<ol>
+<li><strong>复制 Skill 文件夹</strong>：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cp</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> everything-claude-code/skills/tdd-workflow</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">      ~/.openclaw/workspace-main/skills/</span></span></code></pre>
+<ol start="2">
+<li>
+<p><strong>改写 Rules</strong>：</p>
+<ul>
+<li>OpenClaw 的约束写在 <code>AGENTS.md</code> 中</li>
+<li>把 <code>rules/common/*.md</code> 的内容整合进去</li>
+</ul>
+</li>
+<li>
+<p><strong>Hooks → Cron Jobs</strong>：</p>
+<ul>
+<li>OpenClaw 不支持工具级 Hooks</li>
+<li>用 Cron Jobs 替代（定时任务）</li>
+</ul>
+</li>
+</ol>
+<p><strong>OpenClaw 独有优势</strong>：</p>
+<ul>
+<li>支持多模型（Claude + GPT + Gemini）</li>
+<li>可通过 Telegram 发送提醒和报告</li>
+<li>跨会话长期记忆</li>
+</ul>
+<hr>
+<h2 id="五最佳实践避坑指南">五、最佳实践：避坑指南</h2>
+<h3 id="1-token-优化">1. Token 优化</h3>
+<p><strong>问题</strong>：Claude Code 使用成本高，容易触及每日限额。</p>
+<p><strong>解决方案</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// ~/.claude/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "model"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">sonnet</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 默认用 Sonnet，60% 成本降低</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "env"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "MAX_THINKING_TOKENS"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">10000</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 限制思考 token</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">50</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 50% 时压缩上下文</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>日常命令</strong>：</p>
+<ul>
+<li><code>/model sonnet</code>：大部分任务</li>
+<li><code>/model opus</code>：复杂架构、深度调试</li>
+<li><code>/clear</code>：任务切换时清空上下文（免费）</li>
+<li><code>/compact</code>：逻辑断点手动压缩（质量更高）</li>
+</ul>
+<h3 id="2-mcp-管理">2. MCP 管理</h3>
+<p><strong>问题</strong>：开启所有 MCP Server 后，200k 上下文缩到 70k。</p>
+<p><strong>原因</strong>：每个 MCP 工具描述占用大量 token。</p>
+<p><strong>解决方案</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// 项目级配置 .claude/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "disabledMcpServers"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">supabase</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">railway</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">vercel</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>规则</strong>：</p>
+<ul>
+<li>每个项目最多 10 个 MCP</li>
+<li>总工具数不超过 80 个</li>
+</ul>
+<h3 id="3-skill-选择">3. Skill 选择</h3>
+<p><strong>问题</strong>：安装所有 Skills 后，Claude 推理变慢。</p>
+<p><strong>原因</strong>：每次对话都要扫描所有 Skill 的 <code>triggers</code>。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li><strong>按项目启用</strong>：后端项目不需要 <code>frontend-patterns</code></li>
+<li><strong>定期清理</strong>：删除不用的 Skills</li>
+</ul>
+<h3 id="4-hooks-的性能影响">4. Hooks 的性能影响</h3>
+<p><strong>问题</strong>：每次工具调用都触发 Hook，速度变慢。</p>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li><strong>只用必要 Hooks</strong>：如 <code>console.log</code> 检查</li>
+<li><strong>避免复杂脚本</strong>：Hook 脚本应 &#x3C;100ms</li>
+<li><strong>异步执行</strong>：用后台进程而非阻塞式命令</li>
+</ul>
+<h3 id="5-压缩时机">5. 压缩时机</h3>
+<p><strong>错误做法</strong>：</p>
+<ul>
+<li>等到 95% 自动压缩（可能丢失关键变量名）</li>
+</ul>
+<p><strong>正确做法</strong>（strategic-compact）：</p>
+<ul>
+<li>研究阶段结束 → <code>/compact</code> → 开始实现</li>
+<li>完成里程碑 → <code>/compact</code> → 开始下一个</li>
+<li>调试完成 → <code>/compact</code> → 继续功能开发</li>
+</ul>
+<h3 id="6-多语言规则安装">6. 多语言规则安装</h3>
+<p><strong>问题</strong>：安装所有语言规则后，上下文污染。</p>
+<p><strong>解决方案</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 只安装需要的语言</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 前端项目</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> python</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # Python 项目</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> golang</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # Go 项目</span></span></code></pre>
+<hr>
+<h2 id="六工具对比表">六、工具对比表</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>维度</th><th>Claude Code CLI</th><th>OpenClaw</th><th>Cursor</th></tr></thead><tbody><tr><td><strong>运行方式</strong></td><td>终端命令</td><td>24/7 后台服务</td><td>IDE 集成</td></tr><tr><td><strong>交互界面</strong></td><td>CLI</td><td>聊天应用（Telegram等）</td><td>图形化编辑器</td></tr><tr><td><strong>会话记忆</strong></td><td>❌ 无记忆</td><td>✅ 长期记忆（MEMORY.md）</td><td>⚠️ 项目级上下文</td></tr><tr><td><strong>模型支持</strong></td><td>Claude 系列</td><td>Claude + GPT + Gemini</td><td>Claude + GPT + 自研</td></tr><tr><td><strong>技能机制</strong></td><td>✅ SKILL.md</td><td>✅ skills/ 目录</td><td>⚠️ 需手动配置文档</td></tr><tr><td><strong>Hooks</strong></td><td>✅ hooks.json</td><td>❌ 无（用 Cron 替代）</td><td>❌ 无</td></tr><tr><td><strong>MCP 集成</strong></td><td>✅ 原生支持</td><td>✅ 支持</td><td>⚠️ 部分支持</td></tr><tr><td><strong>成本</strong></td><td>按 API 调用计费</td><td>按 API 调用计费</td><td>订阅制（$20/月起）</td></tr><tr><td><strong>适用场景</strong></td><td>快速原型、一次性任务</td><td>长期项目、多任务管理</td><td>IDE 重度用户</td></tr></tbody></table>
+<hr>
+<h2 id="七选型建议">七、选型建议</h2>
+<h3 id="选择-claude-code-cli如果你">选择 Claude Code CLI，如果你：</h3>
+<ul>
+<li>只需要代码生成，不需要跨会话记忆</li>
+<li>习惯终端工作流</li>
+<li>想要完全控制配置（Agents/Skills/Hooks）</li>
+</ul>
+<h3 id="选择-openclaw如果你">选择 OpenClaw，如果你：</h3>
+<ul>
+<li>需要 24/7 运行的私人助手</li>
+<li>管理多个任务（代码 + 邮件 + 日程 + 通知）</li>
+<li>通过 Telegram 等聊天应用交互</li>
+<li>需要跨会话长期记忆</li>
+</ul>
+<h3 id="选择-cursor如果你">选择 Cursor，如果你：</h3>
+<ul>
+<li>深度依赖 VS Code 工作流</li>
+<li>更喜欢图形化界面</li>
+<li>需要实时代码补全和内联建议</li>
+<li>不想折腾配置文件</li>
+</ul>
+<hr>
+<h2 id="八未来展望">八、未来展望</h2>
+<h3 id="1-配置标准化">1. 配置标准化</h3>
+<p>目前 Claude Code、OpenClaw、Cursor 的配置格式各不相同，社区正在推动标准化：</p>
+<ul>
+<li><strong>Universal Config Format</strong>：一份配置，多工具通用</li>
+<li><strong>Skill 互操作性</strong>：不同工具共享同一套 Skills</li>
+</ul>
+<h3 id="2-多代理协作">2. 多代理协作</h3>
+<p>everything-claude-code 已实现多代理协作（<code>/multi-plan</code>、<code>/multi-execute</code>），未来会有更复杂的编排：</p>
+<ul>
+<li><strong>自动任务拆解</strong>：主代理分解任务，子代理并行执行</li>
+<li><strong>跨工具协作</strong>：Claude Code 生成代码 → OpenClaw 部署 → Cursor 审查</li>
+</ul>
+<h3 id="3-成本优化">3. 成本优化</h3>
+<p>随着 Anthropic 推出 Haiku 3.5 等更便宜模型，工具会自动选择最优模型：</p>
+<ul>
+<li><strong>智能降级</strong>：简单任务用 Haiku，复杂任务用 Opus</li>
+<li><strong>分层计费</strong>：按任务类型动态切换模型</li>
+</ul>
+<h3 id="4-skill-市场">4. Skill 市场</h3>
+<p>类似 VS Code 插件市场，未来可能出现 Skill 市场：</p>
+<ul>
+<li><strong>一键安装</strong>：<code>/skill install react-patterns</code></li>
+<li><strong>社区共享</strong>：开发者贡献 Skills，获得收益分成</li>
+</ul>
+<hr>
+<h2 id="总结">总结</h2>
+<p>AI Agent 开发工具生态在 2026 年已经相当成熟，但选择合适的工具、配置合理的工作流仍需深入理解各工具的差异。</p>
+<p><strong>核心要点</strong>：</p>
+<ol>
+<li><strong>Claude Code CLI</strong>：极简、专注代码、无记忆</li>
+<li><strong>OpenClaw</strong>：全能、24/7、长期记忆</li>
+<li><strong>Cursor</strong>：IDE 集成、图形化、实时补全</li>
+</ol>
+<p><strong>everything-claude-code 的价值</strong>：</p>
+<ul>
+<li>提供了经过实战验证的配置体系</li>
+<li>Skill 机制让 AI 变成”按需专家”</li>
+<li>Hooks 实现了”无感知”自动化</li>
+</ul>
+<p><strong>跨工具借鉴</strong>：</p>
+<ul>
+<li>Claude Code 用户可直接安装插件</li>
+<li>Cursor 用户需改写为 <code>.cursorrules</code> 和文档</li>
+<li>OpenClaw 用户可复制 Skills 并改写 Hooks</li>
+</ul>
+<p><strong>最佳实践</strong>：</p>
+<ul>
+<li>Token 优化：默认 Sonnet，复杂任务用 Opus</li>
+<li>MCP 管理：每个项目最多 10 个</li>
+<li>压缩时机：逻辑断点手动 <code>/compact</code></li>
+</ul>
+<p>无论选择哪个工具，<strong>从小范围开始</strong>，逐步扩展配置，才能找到最适合自己的工作流。</p>
+<hr>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code GitHub</a></li>
+<li><a href="https://code.claude.com/docs">Claude Code 官方文档</a></li>
+<li><a href="https://docs.openclaw.ai">OpenClaw 官方文档</a></li>
+<li><a href="https://cursor.com">Cursor IDE</a></li>
+</ul> </article> <hr class="my-8 border-dashed">  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/claude-code/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Claude Code </a> </li><li> <a href="/tags/openclaw/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> OpenClaw </a> </li><li> <a href="/tags/cursor/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Cursor </a> </li><li> <a href="/tags/开发工具/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-6"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 开发工具 </a> </li><li> <a href="/tags/最佳实践/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-7"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 最佳实践 </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed"> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/posts/ai-agent-frontend-workflow-part4" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>Next Post</span> <div class="text-sm text-accent/85">AI Agent 前端工作流（四）：未来展望与开源工具全景</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html> <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>
