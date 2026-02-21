@@ -98,7 +98,7 @@ skill-folder/
 
 **Skill**（安装一次，永久可用）：
 ```bash
-npx clawhub install obra/pr-reviewer
+npx skills add obra/pr-reviewer
 ```
 
 AI 自动执行：拉取 PR → 检查 lint → 运行测试 → 扫描安全漏洞 → 生成报告
@@ -121,6 +121,8 @@ AI 自动执行：拉取 PR → 检查 lint → 运行测试 → 扫描安全漏
 - ✅ 一键安装（`npx skills add <owner/repo>`）
 - ✅ 实时排行榜（按安装量、趋势、热度）
 - ✅ 搜索功能（按名称、标签、描述）
+
+**注**：skills.sh 提供统一的 `npx skills` CLI，支持安装到多种 AI 工具（使用 `-a` 参数指定目标）。
 
 **热门 Skills Top 10**（截至 2026-02-21）：
 
@@ -181,8 +183,8 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 | **Windsurf** | ✅ 兼容 | 手动复制到 `.windsurf/` |
 | **Cline** | ✅ 兼容 | VS Code 插件配置 |
 | **Goose** | ✅ 兼容 | 参考文档 |
-| **Amp Code** | ✅ 原生支持 | ClawHub CLI |
-| **Roo Code** | ✅ 原生支持 | ClawHub CLI |
+| **Amp Code** | ✅ 原生支持 | 官方 CLI |
+| **Roo Code** | ✅ 原生支持 | 官方 CLI |
 
 ### 2. OpenClaw — Skills 的最佳载体
 
@@ -192,7 +194,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 - **三层 Skills 优先级**：
   - Workspace（项目级）> Local（用户级）> Bundled（内置）
 - **自动加载**：放入 `~/.openclaw/skills/` 或 `<project>/skills/` 即可
-- **ClawHub CLI**：官方 Skills 管理工具
+- **官方 CLI 支持**：`npx skills add <skill> -a openclaw` 一键安装
 - **Skills 发现**：内置 `find-skills` Skill，AI 自动推荐
 
 **安装 OpenClaw**：
@@ -213,23 +215,35 @@ openclaw --version
 
 ## 四、如何安装和使用 Skills
 
-### 1. 方法一：ClawHub CLI（推荐）
+### 1. 方法一：官方 CLI（推荐）
 
 **安装 Skills**：
 ```bash
 # 通用格式
-npx clawhub@latest install <owner>/<repo>/<skill-name>
+npx skills add <owner>/<repo>/<skill-name>
 
 # 示例：安装 SEO 审计 Skill
-npx clawhub install coreyhaines31/marketingskills/seo-audit
+npx skills add coreyhaines31/marketingskills/seo-audit
 
 # 简写（如果仓库只有一个 Skill）
-npx clawhub install coreyhaines31/marketingskills
+npx skills add coreyhaines31/marketingskills
+
+# 指定安装到特定 AI 工具（-a 参数）
+npx skills add <owner>/<repo> -a codex      # 安装到 Codex
+npx skills add <owner>/<repo> -a claude     # 安装到 Claude Code
+npx skills add <owner>/<repo> -a openclaw   # 安装到 OpenClaw
+npx skills add <owner>/<repo> -a cursor     # 安装到 Cursor
 ```
 
 **查看已安装 Skills**：
 ```bash
-ls ~/.openclaw/skills/
+# 查看所有已安装的 Skills
+npx skills list
+
+# 或直接查看文件夹
+ls ~/.openclaw/skills/  # OpenClaw
+ls ~/.claude/skills/    # Claude Code
+ls ~/.codex/skills/     # Codex
 ```
 
 **使用 Skill**：
@@ -319,53 +333,53 @@ Workspace Skills > Global Skills > Bundled Skills
 **① vercel-react-best-practices**（153.3K 安装）
 - **用途**：React 项目最佳实践
 - **功能**：组件设计、性能优化、状态管理
-- **安装**：`npx clawhub install vercel-labs/agent-skills/vercel-react-best-practices`
+- **安装**：`npx skills add vercel-labs/agent-skills/vercel-react-best-practices`
 
 **② web-design-guidelines**（116.1K 安装）
 - **用途**：Web 设计规范
 - **功能**：布局、排版、颜色、响应式设计
-- **安装**：`npx clawhub install vercel-labs/agent-skills/web-design-guidelines`
+- **安装**：`npx skills add vercel-labs/agent-skills/web-design-guidelines`
 
 **③ frontend-design**（86.4K 安装）
 - **用途**：前端设计模式
 - **功能**：UI 组件库、设计系统、Tailwind CSS
-- **安装**：`npx clawhub install anthropics/skills/frontend-design`
+- **安装**：`npx skills add anthropics/skills/frontend-design`
 
 ### 2. 浏览器自动化
 
 **① agent-browser**（50.2K 安装）
 - **用途**：浏览器自动化
 - **功能**：页面导航、点击、表单填写、截图
-- **安装**：`npx clawhub install vercel-labs/agent-browser`
+- **安装**：`npx skills add vercel-labs/agent-browser`
 
 **② browser-use**（35.4K 安装）
 - **用途**：浏览器控制
 - **功能**：Playwright/Puppeteer 封装
-- **安装**：`npx clawhub install browser-use/browser-use`
+- **安装**：`npx skills add browser-use/browser-use`
 
 ### 3. 营销 & SEO
 
 **① seo-audit**（23.4K 安装）
 - **用途**：网站 SEO 审计
 - **功能**：标题、描述、关键词、链接分析
-- **安装**：`npx clawhub install coreyhaines31/marketingskills/seo-audit`
+- **安装**：`npx skills add coreyhaines31/marketingskills/seo-audit`
 
 **② copywriting**（17.6K 安装）
 - **用途**：营销文案撰写
 - **功能**：标题、广告语、邮件模板
-- **安装**：`npx clawhub install coreyhaines31/marketingskills/copywriting`
+- **安装**：`npx skills add coreyhaines31/marketingskills/copywriting`
 
 **③ content-strategy**（11.2K 安装）
 - **用途**：内容策略规划
 - **功能**：主题研究、受众分析、发布计划
-- **安装**：`npx clawhub install coreyhaines31/marketingskills/content-strategy`
+- **安装**：`npx skills add coreyhaines31/marketingskills/content-strategy`
 
 ### 4. 开发工具
 
 **① skill-creator**（41.9K 安装）
 - **用途**：创建自己的 Skills
 - **功能**：Skill 模板、结构指南、发布流程
-- **安装**：`npx clawhub install anthropics/skills/skill-creator`
+- **安装**：`npx skills add anthropics/skills/skill-creator`
 
 **② github**（OpenClaw 内置）
 - **用途**：GitHub 操作
@@ -375,19 +389,19 @@ Workspace Skills > Global Skills > Bundled Skills
 **③ pdf**（18.2K 安装）
 - **用途**：PDF 文档处理
 - **功能**：提取文本、合并、拆分、编辑
-- **安装**：`npx clawhub install anthropics/skills/pdf`
+- **安装**：`npx skills add anthropics/skills/pdf`
 
 ### 5. AI & LLMs
 
 **① mcp-builder**（11.2K 安装）
 - **用途**：构建 MCP (Model Context Protocol) 服务器
 - **功能**：MCP 服务开发、工具集成
-- **安装**：`npx clawhub install anthropics/skills/mcp-builder`
+- **安装**：`npx skills add anthropics/skills/mcp-builder`
 
 **② claude-optimised**（热门）
 - **用途**：优化 CLAUDE.md 配置文件
 - **功能**：提示词优化、上下文管理
-- **安装**：`npx clawhub install hexnickk/claude-optimised`
+- **安装**：`npx skills add hexnickk/claude-optimised`
 
 ---
 
@@ -570,9 +584,9 @@ git commit -m "Add my-first-skill"
 git push origin main
 ```
 
-**步骤 5：发布到 ClawHub**
+**步骤 5：发布到 skills.sh**
 ```bash
-npx clawhub publish my-first-skill
+npx skills publish my-first-skill
 ```
 
 **验证发布**：
@@ -780,7 +794,7 @@ curl https://blog.example.com | grep "200 OK"
 **解决方案**：安装 `seo-audit` Skill
 
 ```bash
-npx clawhub install coreyhaines31/marketingskills/seo-audit
+npx skills add coreyhaines31/marketingskills/seo-audit
 ```
 
 **使用**：
@@ -817,7 +831,7 @@ Meta 描述：
 **解决方案**：安装 `pdf` Skill
 
 ```bash
-npx clawhub install anthropics/skills/pdf
+npx skills add anthropics/skills/pdf
 ```
 
 **使用**：
@@ -839,7 +853,7 @@ AI Agent Skills 生态正在快速发展，它们将 AI 从"通用助手"升级�
 **关键要点**：
 - ✅ **Skills 是什么**：可复用的知识包，扩展 AI 能力
 - ✅ **哪里找 Skills**：skills.sh（官方）+ awesome-openclaw-skills（精选）
-- ✅ **如何安装**：ClawHub CLI / 手动 / 粘贴链接
+- ✅ **如何安装**：官方 CLI（`npx skills add`）/ 手动 / 粘贴链接
 - ✅ **如何创建**：SKILL.md + 脚本 + 参考资料
 - ✅ **安全注意**：审查代码、使用沙盒、定期更新
 
@@ -849,7 +863,7 @@ AI Agent Skills 生态正在快速发展，它们将 AI 从"通用助手"升级�
 3. 体验 AI 从助手到专家的能力跃升
 4. 创建你自己的第一个 Skill
 
-AI Agent 的未来不是更大的模型，而是更丰富的 Skills 生态。**Skills 让 AI 拥有超能力，而你，可以成为赋予它超能力的人**。
+Skills 生态正在扩大，7 万+ 可用能力包等你挖掘。装上几个实用 Skill，你的 AI 助手就不再是只会写代码的工具人——它能审计 SEO、处理 PDF、自动化部署，真正成为工作中的得力助手。
 
 ---
 
