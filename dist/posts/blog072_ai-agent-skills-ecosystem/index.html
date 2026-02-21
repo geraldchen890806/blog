@@ -425,7 +425,7 @@ About
 <p><strong>普通提示词</strong>（每次都要重新输入）：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>帮我审查这个 PR，检查：代码风格、测试覆盖、安全问题、性能优化</span></span></code></pre>
 <p><strong>Skill</strong>（安装一次，永久可用）：</p>
-<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> obra/pr-reviewer</span></span></code></pre>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> obra/pr-reviewer</span></span></code></pre>
 <p>AI 自动执行：拉取 PR → 检查 lint → 运行测试 → 扫描安全漏洞 → 生成报告</p>
 <hr>
 <h2 id="二skills-生态全景">二、Skills 生态全景</h2>
@@ -444,6 +444,7 @@ About
 <li>✅ 实时排行榜（按安装量、趋势、热度）</li>
 <li>✅ 搜索功能（按名称、标签、描述）</li>
 </ul>
+<p><strong>注</strong>：skills.sh 提供统一的 <code>npx skills</code> CLI，支持安装到多种 AI 工具（使用 <code>-a</code> 参数指定目标）。</p>
 <p><strong>热门 Skills Top 10</strong>（截至 2026-02-21）：</p>
 
 
@@ -604,7 +605,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 
 
 
-<table><thead><tr><th>工具</th><th>Skills 支持</th><th>安装方式</th></tr></thead><tbody><tr><td><strong>Claude Code</strong></td><td>✅ 原生支持</td><td><code>~/.claude/skills/</code></td></tr><tr><td><strong>Codex (OpenAI)</strong></td><td>✅ 原生支持</td><td><code>~/.codex/skills/</code></td></tr><tr><td><strong>OpenClaw</strong></td><td>✅ 原生支持</td><td><code>~/.openclaw/skills/</code></td></tr><tr><td><strong>Cursor</strong></td><td>✅ 兼容</td><td>手动复制到 <code>.cursor/</code></td></tr><tr><td><strong>Windsurf</strong></td><td>✅ 兼容</td><td>手动复制到 <code>.windsurf/</code></td></tr><tr><td><strong>Cline</strong></td><td>✅ 兼容</td><td>VS Code 插件配置</td></tr><tr><td><strong>Goose</strong></td><td>✅ 兼容</td><td>参考文档</td></tr><tr><td><strong>Amp Code</strong></td><td>✅ 原生支持</td><td>ClawHub CLI</td></tr><tr><td><strong>Roo Code</strong></td><td>✅ 原生支持</td><td>ClawHub CLI</td></tr></tbody></table>
+<table><thead><tr><th>工具</th><th>Skills 支持</th><th>安装方式</th></tr></thead><tbody><tr><td><strong>Claude Code</strong></td><td>✅ 原生支持</td><td><code>~/.claude/skills/</code></td></tr><tr><td><strong>Codex (OpenAI)</strong></td><td>✅ 原生支持</td><td><code>~/.codex/skills/</code></td></tr><tr><td><strong>OpenClaw</strong></td><td>✅ 原生支持</td><td><code>~/.openclaw/skills/</code></td></tr><tr><td><strong>Cursor</strong></td><td>✅ 兼容</td><td>手动复制到 <code>.cursor/</code></td></tr><tr><td><strong>Windsurf</strong></td><td>✅ 兼容</td><td>手动复制到 <code>.windsurf/</code></td></tr><tr><td><strong>Cline</strong></td><td>✅ 兼容</td><td>VS Code 插件配置</td></tr><tr><td><strong>Goose</strong></td><td>✅ 兼容</td><td>参考文档</td></tr><tr><td><strong>Amp Code</strong></td><td>✅ 原生支持</td><td>官方 CLI</td></tr><tr><td><strong>Roo Code</strong></td><td>✅ 原生支持</td><td>官方 CLI</td></tr></tbody></table>
 <h3 id="2-openclaw--skills-的最佳载体">2. OpenClaw — Skills 的最佳载体</h3>
 <p><strong>OpenClaw</strong> 是一个本地运行的 AI 助手平台，对 Skills 的支持最完善：</p>
 <p><strong>特点</strong>：</p>
@@ -615,7 +616,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 </ul>
 </li>
 <li><strong>自动加载</strong>：放入 <code>~/.openclaw/skills/</code> 或 <code>&#x3C;project>/skills/</code> 即可</li>
-<li><strong>ClawHub CLI</strong>：官方 Skills 管理工具</li>
+<li><strong>官方 CLI 支持</strong>：<code>npx skills add &#x3C;skill> -a openclaw</code> 一键安装</li>
 <li><strong>Skills 发现</strong>：内置 <code>find-skills</code> Skill，AI 自动推荐</li>
 </ul>
 <p><strong>安装 OpenClaw</strong>：</p>
@@ -628,18 +629,30 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --version</span></span></code></pre>
 <hr>
 <h2 id="四如何安装和使用-skills">四、如何安装和使用 Skills</h2>
-<h3 id="1-方法一clawhub-cli推荐">1. 方法一：ClawHub CLI（推荐）</h3>
+<h3 id="1-方法一官方-cli推荐">1. 方法一：官方 CLI（推荐）</h3>
 <p><strong>安装 Skills</strong>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 通用格式</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub@latest</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">skill-nam</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">e</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">skill-nam</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">e</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 示例：安装 SEO 审计 Skill</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills/seo-audit</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills/seo-audit</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 简写（如果仓库只有一个 Skill）</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills</span></span></code></pre>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 指定安装到特定 AI 工具（-a 参数）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> codex</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # 安装到 Codex</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> claude</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # 安装到 Claude Code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> openclaw</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   # 安装到 OpenClaw</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cursor</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # 安装到 Cursor</span></span></code></pre>
 <p><strong>查看已安装 Skills</strong>：</p>
-<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/</span></span></code></pre>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 查看所有已安装的 Skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 或直接查看文件夹</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # OpenClaw</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.claude/skills/</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">    # Claude Code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.codex/skills/</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # Codex</span></span></code></pre>
 <p><strong>使用 Skill</strong>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 启动 OpenClaw</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span></span>
@@ -705,58 +718,58 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <ul>
 <li><strong>用途</strong>：React 项目最佳实践</li>
 <li><strong>功能</strong>：组件设计、性能优化、状态管理</li>
-<li><strong>安装</strong>：<code>npx clawhub install vercel-labs/agent-skills/vercel-react-best-practices</code></li>
+<li><strong>安装</strong>：<code>npx skills add vercel-labs/agent-skills/vercel-react-best-practices</code></li>
 </ul>
 <p><strong>② web-design-guidelines</strong>（116.1K 安装）</p>
 <ul>
 <li><strong>用途</strong>：Web 设计规范</li>
 <li><strong>功能</strong>：布局、排版、颜色、响应式设计</li>
-<li><strong>安装</strong>：<code>npx clawhub install vercel-labs/agent-skills/web-design-guidelines</code></li>
+<li><strong>安装</strong>：<code>npx skills add vercel-labs/agent-skills/web-design-guidelines</code></li>
 </ul>
 <p><strong>③ frontend-design</strong>（86.4K 安装）</p>
 <ul>
 <li><strong>用途</strong>：前端设计模式</li>
 <li><strong>功能</strong>：UI 组件库、设计系统、Tailwind CSS</li>
-<li><strong>安装</strong>：<code>npx clawhub install anthropics/skills/frontend-design</code></li>
+<li><strong>安装</strong>：<code>npx skills add anthropics/skills/frontend-design</code></li>
 </ul>
 <h3 id="2-浏览器自动化">2. 浏览器自动化</h3>
 <p><strong>① agent-browser</strong>（50.2K 安装）</p>
 <ul>
 <li><strong>用途</strong>：浏览器自动化</li>
 <li><strong>功能</strong>：页面导航、点击、表单填写、截图</li>
-<li><strong>安装</strong>：<code>npx clawhub install vercel-labs/agent-browser</code></li>
+<li><strong>安装</strong>：<code>npx skills add vercel-labs/agent-browser</code></li>
 </ul>
 <p><strong>② browser-use</strong>（35.4K 安装）</p>
 <ul>
 <li><strong>用途</strong>：浏览器控制</li>
 <li><strong>功能</strong>：Playwright/Puppeteer 封装</li>
-<li><strong>安装</strong>：<code>npx clawhub install browser-use/browser-use</code></li>
+<li><strong>安装</strong>：<code>npx skills add browser-use/browser-use</code></li>
 </ul>
 <h3 id="3-营销--seo">3. 营销 &#x26; SEO</h3>
 <p><strong>① seo-audit</strong>（23.4K 安装）</p>
 <ul>
 <li><strong>用途</strong>：网站 SEO 审计</li>
 <li><strong>功能</strong>：标题、描述、关键词、链接分析</li>
-<li><strong>安装</strong>：<code>npx clawhub install coreyhaines31/marketingskills/seo-audit</code></li>
+<li><strong>安装</strong>：<code>npx skills add coreyhaines31/marketingskills/seo-audit</code></li>
 </ul>
 <p><strong>② copywriting</strong>（17.6K 安装）</p>
 <ul>
 <li><strong>用途</strong>：营销文案撰写</li>
 <li><strong>功能</strong>：标题、广告语、邮件模板</li>
-<li><strong>安装</strong>：<code>npx clawhub install coreyhaines31/marketingskills/copywriting</code></li>
+<li><strong>安装</strong>：<code>npx skills add coreyhaines31/marketingskills/copywriting</code></li>
 </ul>
 <p><strong>③ content-strategy</strong>（11.2K 安装）</p>
 <ul>
 <li><strong>用途</strong>：内容策略规划</li>
 <li><strong>功能</strong>：主题研究、受众分析、发布计划</li>
-<li><strong>安装</strong>：<code>npx clawhub install coreyhaines31/marketingskills/content-strategy</code></li>
+<li><strong>安装</strong>：<code>npx skills add coreyhaines31/marketingskills/content-strategy</code></li>
 </ul>
 <h3 id="4-开发工具">4. 开发工具</h3>
 <p><strong>① skill-creator</strong>（41.9K 安装）</p>
 <ul>
 <li><strong>用途</strong>：创建自己的 Skills</li>
 <li><strong>功能</strong>：Skill 模板、结构指南、发布流程</li>
-<li><strong>安装</strong>：<code>npx clawhub install anthropics/skills/skill-creator</code></li>
+<li><strong>安装</strong>：<code>npx skills add anthropics/skills/skill-creator</code></li>
 </ul>
 <p><strong>② github</strong>（OpenClaw 内置）</p>
 <ul>
@@ -768,20 +781,20 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <ul>
 <li><strong>用途</strong>：PDF 文档处理</li>
 <li><strong>功能</strong>：提取文本、合并、拆分、编辑</li>
-<li><strong>安装</strong>：<code>npx clawhub install anthropics/skills/pdf</code></li>
+<li><strong>安装</strong>：<code>npx skills add anthropics/skills/pdf</code></li>
 </ul>
 <h3 id="5-ai--llms">5. AI &#x26; LLMs</h3>
 <p><strong>① mcp-builder</strong>（11.2K 安装）</p>
 <ul>
 <li><strong>用途</strong>：构建 MCP (Model Context Protocol) 服务器</li>
 <li><strong>功能</strong>：MCP 服务开发、工具集成</li>
-<li><strong>安装</strong>：<code>npx clawhub install anthropics/skills/mcp-builder</code></li>
+<li><strong>安装</strong>：<code>npx skills add anthropics/skills/mcp-builder</code></li>
 </ul>
 <p><strong>② claude-optimised</strong>（热门）</p>
 <ul>
 <li><strong>用途</strong>：优化 CLAUDE.md 配置文件</li>
 <li><strong>功能</strong>：提示词优化、上下文管理</li>
-<li><strong>安装</strong>：<code>npx clawhub install hexnickk/claude-optimised</code></li>
+<li><strong>安装</strong>：<code>npx skills add hexnickk/claude-optimised</code></li>
 </ul>
 <hr>
 <h2 id="六如何创建自己的-skill">六、如何创建自己的 Skill</h2>
@@ -942,8 +955,8 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> commit</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Add my-first-skill</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> push</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> origin</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> main</span></span></code></pre>
-<p><strong>步骤 5：发布到 ClawHub</strong></p>
-<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> publish</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-first-skill</span></span></code></pre>
+<p><strong>步骤 5：发布到 skills.sh</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> publish</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-first-skill</span></span></code></pre>
 <p><strong>验证发布</strong>：</p>
 <ul>
 <li>访问 <a href="https://skills.sh/">https://skills.sh/</a></li>
@@ -1126,7 +1139,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <h3 id="案例-2seo-审计报告">案例 2：SEO 审计报告</h3>
 <p><strong>场景</strong>：需要定期审计网站 SEO 状况。</p>
 <p><strong>解决方案</strong>：安装 <code>seo-audit</code> Skill</p>
-<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills/seo-audit</span></span></code></pre>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills/seo-audit</span></span></code></pre>
 <p><strong>使用</strong>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>> 审计这个页面的 SEO：https://example.com/blog/post-1</span></span>
 <span class="line"><span></span></span>
@@ -1154,7 +1167,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <h3 id="案例-3pdf-批量处理">案例 3：PDF 批量处理</h3>
 <p><strong>场景</strong>：需要从 100 个 PDF 提取文本并合并。</p>
 <p><strong>解决方案</strong>：安装 <code>pdf</code> Skill</p>
-<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clawhub</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> anthropics/skills/pdf</span></span></code></pre>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> anthropics/skills/pdf</span></span></code></pre>
 <p><strong>使用</strong>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>> 提取 ./invoices/ 文件夹下所有 PDF 的文本，合并到 all_invoices.txt</span></span>
 <span class="line"><span></span></span>
@@ -1169,7 +1182,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <ul>
 <li>✅ <strong>Skills 是什么</strong>：可复用的知识包，扩展 AI 能力</li>
 <li>✅ <strong>哪里找 Skills</strong>：skills.sh（官方）+ awesome-openclaw-skills（精选）</li>
-<li>✅ <strong>如何安装</strong>：ClawHub CLI / 手动 / 粘贴链接</li>
+<li>✅ <strong>如何安装</strong>：官方 CLI（<code>npx skills add</code>）/ 手动 / 粘贴链接</li>
 <li>✅ <strong>如何创建</strong>：SKILL.md + 脚本 + 参考资料</li>
 <li>✅ <strong>安全注意</strong>：审查代码、使用沙盒、定期更新</li>
 </ul>
@@ -1180,7 +1193,7 @@ Skills.sh 上有 7 万+ Skills，质量参差不齐。Awesome 列表通过人工
 <li>体验 AI 从助手到专家的能力跃升</li>
 <li>创建你自己的第一个 Skill</li>
 </ol>
-<p>AI Agent 的未来不是更大的模型，而是更丰富的 Skills 生态。<strong>Skills 让 AI 拥有超能力，而你，可以成为赋予它超能力的人</strong>。</p>
+<p>Skills 生态正在扩大，7 万+ 可用能力包等你挖掘。装上几个实用 Skill，你的 AI 助手就不再是只会写代码的工具人——它能审计 SEO、处理 PDF、自动化部署，真正成为工作中的得力助手。</p>
 <hr>
 <h2 id="参考资料">参考资料</h2>
 <ul>
