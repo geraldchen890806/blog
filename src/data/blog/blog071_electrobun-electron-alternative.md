@@ -4,6 +4,7 @@ pubDatetime: 2026-02-21T11:00:00+08:00
 description: '12MB vs 150MB，14KB 增量更新，TypeScript 全栈开发。electrobun 如何用 Bun + Zig 重新定义桌面应用开发？技术架构、性能对比、实战指南全解析。'
 category: 'Frontend'
 tags: ['桌面应用', 'Electron', 'TypeScript', 'Bun', 'Zig', '跨平台', '开发工具']
+featured: true
 ---
 
 ## 引言：Electron 的困境
