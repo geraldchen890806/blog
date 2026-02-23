@@ -1,0 +1,201 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+// 只显示 H2 和 H3 标题
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+{tocHeadings.length > 0 && (
+  <aside class="toc-container">
+    <div class="toc-wrapper">
+      <h2 class="toc-title">目录</h2>
+      <nav class="toc-nav">
+        <ul class="toc-list">
+          {tocHeadings.map(heading => (
+            <li 
+              class:list={[
+                "toc-item",
+                `toc-level-${heading.depth}`
+              ]}
+            >
+              <a 
+                href={`#${heading.slug}`}
+                class="toc-link"
+                data-heading-id={heading.slug}
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </aside>
+)}
+
+<style>
+  .toc-container {
+    position: sticky;
+    top: 5rem;
+    height: fit-content;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: var(--color-card);
+  }
+
+  .toc-wrapper {
+    min-width: 200px;
+  }
+
+  .toc-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text-base);
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item {
+    margin: 0.5rem 0;
+  }
+
+  .toc-level-2 {
+    padding-left: 0;
+  }
+
+  .toc-level-3 {
+    padding-left: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .toc-link {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.2s ease;
+    line-height: 1.5;
+  }
+
+  .toc-link:hover {
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
+    background: var(--color-fill);
+  }
+
+  .toc-link.active {
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  /* 移动端隐藏目录 */
+  @media (max-width: 1024px) {
+    .toc-container {
+      display: none;
+    }
+  }
+
+  /* 滚动条样式 */
+  .toc-container::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .toc-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .toc-container::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+
+  .toc-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+  }
+</style>
+
+<script>
+  function initTableOfContents() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('h2[id], h3[id]');
+    
+    if (tocLinks.length === 0 || headings.length === 0) return;
+
+    // 高亮当前章节
+    function highlightCurrent() {
+      let currentHeading = null;
+      const scrollPosition = window.scrollY + 100; // 偏移量
+
+      headings.forEach(heading => {
+        const headingTop = (heading as HTMLElement).offsetTop;
+        if (scrollPosition >= headingTop) {
+          currentHeading = heading;
+        }
+      });
+
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (currentHeading && link.getAttribute('data-heading-id') === currentHeading.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // 平滑滚动
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.slice(1);
+        if (targetId) {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // 更新 URL hash
+            history.pushState(null, '', `#${targetId}`);
+          }
+        }
+      });
+    });
+
+    // 监听滚动事件
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          highlightCurrent();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // 初始化高亮
+    highlightCurrent();
+  }
+
+  // 页面加载时初始化
+  document.addEventListener('DOMContentLoaded', initTableOfContents);
+  
+  // Astro View Transitions 支持
+  document.addEventListener('astro:page-load', initTableOfContents);
+</script>
