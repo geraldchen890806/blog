@@ -1,0 +1,1051 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/posts/openclaw-memory-best-practices/"><meta name="generator" content="Astro v5.17.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>AI Agent 记忆系统实战：OpenClaw Memory 最佳实践 | 陈广亮的技术博客</title><meta name="title" content="AI Agent 记忆系统实战：OpenClaw Memory 最佳实践 | 陈广亮的技术博客"><meta name="description" content="深入解析 OpenClaw 的记忆系统架构，从文件结构到检索优化，提供可落地的 AI Agent 记忆管理最佳实践"><meta name="author" content="陈广亮"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="陈广亮的技术博客"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="AI Agent 记忆系统实战：OpenClaw Memory 最佳实践 | 陈广亮的技术博客"><meta property="og:description" content="深入解析 OpenClaw 的记忆系统架构，从文件结构到检索优化，提供可落地的 AI Agent 记忆管理最佳实践"><meta property="og:url" content="https://chenguangliang.com/posts/openclaw-memory-best-practices/"><meta property="og:image" content="https://chenguangliang.com/posts/openclaw-memory-best-practices/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-02-23T10:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/posts/openclaw-memory-best-practices/"><meta property="twitter:title" content="AI Agent 记忆系统实战：OpenClaw Memory 最佳实践 | 陈广亮的技术博客"><meta property="twitter:description" content="深入解析 OpenClaw 的记忆系统架构，从文件结构到检索优化，提供可落地的 AI Agent 记忆管理最佳实践"><meta property="twitter:image" content="https://chenguangliang.com/posts/openclaw-memory-best-practices/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI Agent 记忆系统实战：OpenClaw Memory 最佳实践 | 陈广亮的技术博客","image":"https://chenguangliang.com/posts/openclaw-memory-best-practices/index.png","datePublished":"2026-02-23T10:00:00.000Z","author":[{"@type":"Person","name":"陈广亮","url":"https://chenguangliang.com/"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="陈广亮的技术博客" href="https://chenguangliang.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><style>:where([data-astro-image]){object-fit:var(--fit);object-position:var(--pos);height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}
+</style>
+<link rel="stylesheet" href="/_astro/about.CdPuuyx6.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-fam6wyqg-1"] { view-transition-name: ai-agent-\8BB0\5FC6\7CFB\7EDF\5B9E\6218\FF1A-open-claw-memory-\6700\4F73\5B9E\8DF5; }@layer astro { ::view-transition-old(ai-agent-\8BB0\5FC6\7CFB\7EDF\5B9E\6218\FF1A-open-claw-memory-\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent-\8BB0\5FC6\7CFB\7EDF\5B9E\6218\FF1A-open-claw-memory-\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent-\8BB0\5FC6\7CFB\7EDF\5B9E\6218\FF1A-open-claw-memory-\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent-\8BB0\5FC6\7CFB\7EDF\5B9E\6218\FF1A-open-claw-memory-\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai-agent; }@layer astro { ::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: memory; }@layer astro { ::view-transition-old(memory) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(memory) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(memory) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(memory) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: context-management; }@layer astro { ::view-transition-old(context-management) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(context-management) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(context-management) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(context-management) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: openclaw; }@layer astro { ::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-6"] { view-transition-name: llm; }@layer astro { ::view-transition-old(llm) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(llm) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(llm) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(llm) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> 陈广亮的技术博客 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/tools">
+工具
+</a> </li> <li class="col-span-2"> <a href="/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function s(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const c=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",c?"false":"true"),e.setAttribute("aria-label",c?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}s();document.addEventListener("astro:after-swap",s);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-transition-scope="astro-fam6wyqg-1"> AI Agent 记忆系统实战：OpenClaw Memory 最佳实践 </h1> <div class="my-2 flex items-center gap-2"> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-02-23T10:00:00.000Z">23 Feb, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden">|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <h2 id="引言ai-agent-为什么需要记忆">引言：AI Agent 为什么需要记忆？</h2>
+<p>与 AI 助手对话时，你可能遇到过这些问题：</p>
+<ul>
+<li>聊了几轮后，它忘记了开头你说的需求</li>
+<li>每次重启都要重新解释一遍你的偏好</li>
+<li>无法记住上周的决策，导致重复提问</li>
+</ul>
+<p>这不是 AI 模型本身的问题，而是<strong>上下文管理</strong>的挑战。语言模型的工作记忆（context window）是有限的，通常在 32k-200k tokens 之间。一旦对话变长，早期信息就会被挤出窗口。</p>
+<p>OpenClaw 的解决方案很直接：<strong>文件就是记忆</strong>。所有需要持久化的信息都写入 Markdown 文件，模型只”记住”写在磁盘上的内容。这套机制看似简单，实际上蕴含了深思熟虑的设计。</p>
+<p>本文将系统讲解 OpenClaw 的 memory 机制，从架构原理到实战配置，帮助你构建高效的 AI Agent 记忆系统。</p>
+<h2 id="openclaw-memory-架构解析">OpenClaw Memory 架构解析</h2>
+<h3 id="三层记忆模型">三层记忆模型</h3>
+<p>OpenClaw 的记忆系统可以类比人类的记忆结构：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Context（工作记忆）</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Compaction（短期记忆）</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Memory Files（长期记忆）</span></span></code></pre>
+<p><strong>工作记忆（Context）</strong>：当前会话中模型能”看到”的所有内容，包括系统提示词、对话历史、工具调用结果。这部分受 context window 限制，token 用完就需要压缩。</p>
+<p><strong>短期记忆（Compaction）</strong>：当工作记忆接近上限时，OpenClaw 会自动将旧对话总结成摘要，压缩后的内容保存到会话历史中。类似人类的短期记忆，保留要点但丢弃细节。</p>
+<p><strong>长期记忆（Memory Files）</strong>：持久化的 Markdown 文件，存储决策、偏好、教训等需要长期保留的信息。这是唯一跨会话存在的记忆层。</p>
+<h3 id="核心文件结构">核心文件结构</h3>
+<p>OpenClaw 使用固定的文件布局来组织记忆：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>~/.openclaw/workspace/</span></span>
+<span class="line"><span>├── MEMORY.md                    # 策略性长期记忆（仅主会话）</span></span>
+<span class="line"><span>├── memory/</span></span>
+<span class="line"><span>│   ├── 2026-02-20.md           # 每日日志</span></span>
+<span class="line"><span>│   ├── 2026-02-21.md</span></span>
+<span class="line"><span>│   └── 2026-02-22.md</span></span>
+<span class="line"><span>├── AGENTS.md                    # Agent 行为规范</span></span>
+<span class="line"><span>├── SOUL.md                      # 人格与语气</span></span>
+<span class="line"><span>├── TOOLS.md                     # 工具使用笔记</span></span>
+<span class="line"><span>├── USER.md                      # 用户信息</span></span>
+<span class="line"><span>└── HEARTBEAT.md                 # 心跳检查清单</span></span></code></pre>
+<p><strong>MEMORY.md</strong>：策展的长期记忆，存储重要决策、用户偏好、经验教训。只在私聊（main session）中加载，不会在群组对话中暴露。</p>
+<p><strong>memory/YYYY-MM-DD.md</strong>：按日期组织的操作日志，记录当天的任务、问题、临时决策。默认会话启动时读取今天和昨天的日志，提供近期上下文。</p>
+<p><strong>AGENTS.md</strong>：定义 Agent 的工作方式，比如”部署前必须确认”、“敏感操作需要授权”等规则。每次会话启动都会加载。</p>
+<p><strong>SOUL.md</strong>：Agent 的人格设定，决定语气、风格、边界。如果你希望 Agent 更正式或更随意，在这里定义。</p>
+<p><strong>TOOLS.md</strong>：工具使用的本地笔记，比如服务器 SSH 配置、常用命令、API 凭据位置。这是<strong>用户自己维护</strong>的，不影响工具可用性（那由配置文件控制）。</p>
+<p>这些文件在每次对话启动时自动注入到系统提示词的”Project Context”部分。大文件会被截断（默认单文件 20,000 字符，总量 150,000 字符），可通过 <code>agents.defaults.bootstrapMaxChars</code> 调整。</p>
+<h3 id="两个记忆工具">两个记忆工具</h3>
+<p>OpenClaw 提供两个工具让 Agent 访问记忆文件：</p>
+<p><strong>memory_search</strong>：语义检索，支持自然语言查询。例如”上周关于服务器配置的决策”，会返回相关片段及其文件位置和行号。</p>
+<p><strong>memory_get</strong>：精确读取，指定文件路径和行范围。通常在 <code>memory_search</code> 后使用，获取完整上下文。</p>
+<p>这两个工具由 memory 插件提供（默认是 <code>memory-core</code>），可以通过 <code>plugins.slots.memory = "none"</code> 禁用。</p>
+<h2 id="context-管理让-agent-高效工作">Context 管理：让 Agent 高效工作</h2>
+<h3 id="system-prompt-构建流程">System Prompt 构建流程</h3>
+<p>每次 Agent 执行任务时，OpenClaw 都会重新构建系统提示词（system prompt）。这个提示词包含：</p>
+<ol>
+<li><strong>工具列表与描述</strong>：Agent 能调用哪些工具（exec、read、write、browser 等）</li>
+<li><strong>Skills 元数据</strong>：已安装的技能名称、描述、文件位置（不包含具体内容，按需读取）</li>
+<li><strong>工作区位置</strong>：当前工作目录</li>
+<li><strong>时间信息</strong>：UTC 时间 + 用户时区转换后的本地时间</li>
+<li><strong>运行时元数据</strong>：主机信息、模型名称、thinking 模式</li>
+<li><strong>Project Context</strong>：注入的工作区文件（AGENTS.md、SOUL.md 等）</li>
+</ol>
+<p>工具部分有两个开销来源：</p>
+<ul>
+<li><strong>工具列表文本</strong>：你在系统提示词中看到的”Available tools: read, write, exec…”</li>
+<li><strong>工具 schemas（JSON）</strong>：工具的参数定义，发送给模型但不显示为文本，仍然计入 token</li>
+</ul>
+<p>某些工具的 schema 很大，比如 <code>browser</code> 可能占 2,400+ tokens，<code>exec</code> 占 1,500+ tokens。如果你的 Agent 不需要某些工具，可以通过工具策略（tool policy）禁用它们以节省 tokens。</p>
+<h3 id="context-监控命令">Context 监控命令</h3>
+<p>OpenClaw 提供几个命令帮你了解 context 使用情况：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/status</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">          # 快速查看 token 使用、会话状态</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/context</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">    # 注入文件列表 + 大小统计</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/context</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> detail</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 详细分解：skills、tools、files 的 token 开销</span></span></code></pre>
+<p>示例输出（<code>/context list</code>）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>🧠 Context breakdown</span></span>
+<span class="line"><span>Workspace: /Users/yourname/.openclaw/workspace</span></span>
+<span class="line"><span>Bootstrap max/file: 20,000 chars</span></span>
+<span class="line"><span>System prompt (run): 38,412 chars (~9,603 tok)</span></span>
+<span class="line"><span>  (Project Context: 23,901 chars (~5,976 tok))</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Injected workspace files:</span></span>
+<span class="line"><span>- AGENTS.md: OK | raw 1,742 chars (~436 tok) | injected 1,742 chars (~436 tok)</span></span>
+<span class="line"><span>- SOUL.md: OK | raw 912 chars (~228 tok) | injected 912 chars (~228 tok)</span></span>
+<span class="line"><span>- TOOLS.md: TRUNCATED | raw 54,210 chars (~13,553 tok) | injected 20,962 chars (~5,241 tok)</span></span>
+<span class="line"><span>- MEMORY.md: OK | raw 3,500 chars (~875 tok) | injected 3,500 chars (~875 tok)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Skills list: 2,184 chars (~546 tok) (12 skills)</span></span>
+<span class="line"><span>Tool schemas (JSON): 31,988 chars (~7,997 tok)</span></span>
+<span class="line"><span>Session tokens (cached): 14,250 total / ctx=32,000</span></span></code></pre>
+<p>注意 <code>TOOLS.md</code> 被截断了。如果你的工具笔记太长，考虑拆分或清理过时内容。</p>
+<h3 id="compaction-机制">Compaction 机制</h3>
+<p>当会话接近 context window 上限时，OpenClaw 会触发<strong>自动压缩（auto-compaction）</strong>：</p>
+<ol>
+<li>将早期对话总结为摘要</li>
+<li>保留最近的消息（默认保留后半部分）</li>
+<li>摘要写入会话历史，未来请求会用它替代原始消息</li>
+</ol>
+<p>压缩前，OpenClaw 可以执行<strong>静默的 memory flush</strong>：提醒 Agent 将重要信息写入 <code>memory/</code> 文件，然后再压缩。这个机制确保关键决策不会因压缩而丢失。</p>
+<p>配置示例：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">agents</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">defaults</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">compaction</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">reserveTokensFloor</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 20000</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">memoryFlush</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">enabled</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">softThresholdTokens</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 4000</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">systemPrompt</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Session nearing compaction. Store durable memories now.</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">prompt</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Write any lasting notes to memory/YYYY-MM-DD.md; reply with NO_REPLY if nothing to store.</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>当 <code>当前token数 > (context window - 20000 - 4000)</code> 时，触发 flush。Agent 会收到提示，写入记忆后回复 <code>NO_REPLY</code>（用户不可见）。</p>
+<p>你也可以手动压缩：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/compact Focus on decisions and open questions</span></span></code></pre>
+<p>这会立即执行压缩，可选地提供指令来引导摘要重点。</p>
+<p><strong>Compaction vs Session Pruning</strong>：</p>
+<ul>
+<li>Compaction：总结旧对话，<strong>持久化</strong>到 JSONL 历史文件</li>
+<li>Session Pruning：仅从当前请求中移除旧的<strong>工具调用结果</strong>，不修改历史文件</li>
+</ul>
+<p>Pruning 是临时的、per-request 的优化；Compaction 是永久的历史重写。</p>
+<h2 id="实战构建高效的记忆系统">实战：构建高效的记忆系统</h2>
+<h3 id="文件分层策略">文件分层策略</h3>
+<p>基于我管理博客 Agent 的实战经验，这里是推荐的文件分层：</p>
+<p><strong>MEMORY.md</strong>：策略性决策、长期偏好、重要教训</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># MEMORY.md - 长期记忆</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 部署流程</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 每次部署必须经过确认（2026-02-13 教训：未确认导致错误配置上线）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 部署前检查：git diff → 总结改动 → 等待"确认"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 部署后验证：检查网站访问 + 关键页面</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 写作质量标准</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> humanizer 评分目标：45+ 优秀，35-44 良好</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 避免 AI 夸张词汇："标志着""见证了""激动人心"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 公式化结尾必须改为具体陈述</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 用户偏好</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Telegram 主号：123456789（日常联系、审核确认）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 博客部署路径：/Users/yourname/ai/blog</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 社交媒体推文格式：描述 + URL + 标签（≤280字符）</span></span></code></pre>
+<p><strong>memory/YYYY-MM-DD.md</strong>：当日操作日志、临时任务</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># 2026-02-23 博客 Agent 工作日志</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## blog074 写作 (18:00)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 文章：《OpenClaw Memory 最佳实践》</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 预计字数：6000-7000</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 状态：大纲完成，正在撰写</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 技术调研</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 读取 OpenClaw 官方文档：memory.md、context.md、compaction.md</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 关键发现：混合检索（Vector + BM25）可提高精度</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 待测试：时间衰减功能（halfLifeDays=30）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 下一步</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 完成 blog074 初稿</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 5点自我校验</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 提交部署审核</span></span></code></pre>
+<p><strong>TOOLS.md</strong>：部署规则、工具配置</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># TOOLS.md - 工具使用笔记</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 部署规则（强制执行）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">每次部署前必须：</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478"> `git status`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 显示改动列表</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478"> `git diff`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 显示关键改动内容</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 总结改动，等待大人回复"确认"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 确认后才能执行 build 和部署</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 服务器配置</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 服务器：example-server.com:22</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 部署路径：/var/www/html/</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 快速部署：</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`cd ~/blog &#x26;&#x26; ./deploy.sh`</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 社交媒体发布</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 推文生成：</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`node scripts/generate-tweet.js`</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 发布到 X：</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`node scripts/publish-to-x.js`</span></span></code></pre>
+<p><strong>AGENTS.md</strong>：行为规范和工作流</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># AGENTS.md - Agent 工作规范</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 每次会话启动</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 读 SOUL.md（人格）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 读 USER.md（用户信息）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 读 memory/今天.md + memory/昨天.md（近期上下文）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit"> **</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:bold">仅主会话</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">：读 MEMORY.md（长期记忆）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 写入规则</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> "记住这个" → 立即写入 memory/YYYY-MM-DD.md</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 重要决策 → 更新 MEMORY.md</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 不要"心中记着"，没有心智笔记！</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 安全规则</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 部署操作必须确认</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 不外泄私人信息（IP、密码、Telegram ID）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478"> `trash`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 优于 </span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`rm`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">（可恢复）</span></span></code></pre>
+<h3 id="写入规则什么时候写什么">写入规则：什么时候写什么</h3>
+<p><strong>写入 MEMORY.md 的内容</strong>：</p>
+<ul>
+<li>✅ 用户偏好（联系方式、工作时间、语言习惯）</li>
+<li>✅ 策略性决策（“以后部署都要确认”）</li>
+<li>✅ 经验教训（“2026-02-13 配置错误导致服务中断”）</li>
+<li>✅ 长期项目状态（“博客系列文章进度 3/10”）</li>
+</ul>
+<p><strong>写入 memory/YYYY-MM-DD.md 的内容</strong>：</p>
+<ul>
+<li>✅ 当日任务与进展</li>
+<li>✅ 临时决策（“今天先跳过测试，明天补”）</li>
+<li>✅ 技术调研笔记</li>
+<li>✅ 待办事项</li>
+</ul>
+<p><strong>不要写入记忆文件的内容</strong>：</p>
+<ul>
+<li>❌ 敏感凭据（API key、密码）→ 用 <code>~/.openclaw/credentials/</code></li>
+<li>❌ 临时计算结果（“3 + 5 = 8”）→ 下次重新计算即可</li>
+<li>❌ 工具输出的原始日志 → 太长，写总结即可</li>
+</ul>
+<p><strong>核心原则</strong>：如果你希望 Agent 在下次会话中记住，就<strong>必须写文件</strong>。所谓的”心智笔记”不存在，文件是唯一的真相。</p>
+<h3 id="检索优化混合搜索--时间衰减">检索优化：混合搜索 + 时间衰减</h3>
+<p>OpenClaw 的 memory_search 支持多种检索策略，推荐配置：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">agents</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">defaults</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">memorySearch</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">provider</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">openai</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 或 gemini、local</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">model</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">text-embedding-3-small</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">query</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">hybrid</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">            "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">enabled</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">            "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">vectorWeight</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 0.7</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">    // 语义匹配权重</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">            "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">textWeight</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 0.3</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      // 关键词匹配权重</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">            "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">candidateMultiplier</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 4</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">            "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">mmr</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">              "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">enabled</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      // 去重</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">              "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">lambda</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 0.7         </span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">//</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">=最大多样性，</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">=最大相关性</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">            }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">            "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">temporalDecay</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">              "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">enabled</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      // 时间衰减</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">              "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">halfLifeDays</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 30    </span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">//</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 30</span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">天后分数减半</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">            }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">          }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>混合检索</strong>：结合向量相似度（semantic）和 BM25 关键词匹配（lexical）。</p>
+<ul>
+<li>向量擅长”语义相同但措辞不同”：比如查询”Mac 主机”能匹配到”运行 gateway 的机器”</li>
+<li>BM25 擅长精确 token：比如查询 commit hash <code>a828e60</code> 或代码符号 <code>memorySearch.query.hybrid</code></li>
+</ul>
+<p>混合检索取两者之长，公式：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>finalScore = 0.7 × vectorScore + 0.3 × textScore</span></span></code></pre>
+<p><strong>MMR（Maximal Marginal Relevance）</strong>：去重机制，避免返回内容相似的多个片段。</p>
+<p>假设查询”服务器配置”，你的日志中有三条几乎相同的记录：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>memory/2026-02-10.md  → "配置 Nginx，监听 443 端口"</span></span>
+<span class="line"><span>memory/2026-02-08.md  → "配置 Nginx，监听端口 443"</span></span>
+<span class="line"><span>memory/2026-02-05.md  → "启用 Nginx SSL"</span></span></code></pre>
+<p>不开 MMR：前两条都会返回（冗余）<br>
+开启 MMR（lambda=0.7）：只返回第一条和第三条（多样性更好）</p>
+<p><strong>时间衰减</strong>：让近期记忆的分数更高，旧记忆逐渐淡化。</p>
+<p>公式：<code>decayedScore = score × e^(-λ × ageInDays)</code>，其中 <code>λ = ln(2) / halfLifeDays</code>。</p>
+<p>假设 halfLifeDays=30：</p>
+<ul>
+<li>今天的笔记：100% 分数</li>
+<li>7天前：~84%</li>
+<li>30天前：50%</li>
+<li>90天前：12.5%</li>
+<li>180天前：~1.6%</li>
+</ul>
+<p><strong>永久文件不衰减</strong>：<code>MEMORY.md</code> 和非日期格式的文件（如 <code>memory/projects.md</code>）永远保持原始分数。</p>
+<p>实际效果举例，查询”服务器部署流程”：</p>
+<p>不开衰减：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>1. memory/2025-09-15.md  (score: 0.91)  ← 148天前，但匹配度高</span></span>
+<span class="line"><span>2. memory/2026-02-23.md  (score: 0.82)  ← 今天</span></span>
+<span class="line"><span>3. MEMORY.md             (score: 0.80)</span></span></code></pre>
+<p>开启衰减（halfLife=30）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>1. memory/2026-02-23.md  (score: 0.82 × 1.00 = 0.82)  ← 今天</span></span>
+<span class="line"><span>2. MEMORY.md             (score: 0.80 × 1.00 = 0.80)  ← 永久文件</span></span>
+<span class="line"><span>3. memory/2025-09-15.md  (score: 0.91 × 0.03 = 0.03)  ← 旧记录淡化</span></span></code></pre>
+<p>旧笔记虽然语义匹配好，但因为过时被降权，最新信息排到前面。</p>
+<h3 id="隐私与安全">隐私与安全</h3>
+<p><strong>MEMORY.md 仅主会话加载</strong></p>
+<p>OpenClaw 默认只在私聊（main session）中加载 <code>MEMORY.md</code>，群组对话中不会注入。这避免了在公共场合暴露私人信息。</p>
+<p>如果你有多个 Agent（比如主 Agent、博客 Agent、工具 Agent），可以为每个 Agent 配置独立的 workspace：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">agents</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">main</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">workspace</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">~/.openclaw/workspace-main</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">blog</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">workspace</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">~/.openclaw/workspace-blog</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>这样不同 Agent 的记忆完全隔离，不会互相干扰。</p>
+<p><strong>敏感数据分离</strong></p>
+<p>不要把 API key、密码、SSH 私钥写入 workspace 文件。正确做法：</p>
+<ul>
+<li>API key：存储在 <code>~/.openclaw/credentials/</code> 或环境变量</li>
+<li>服务器密码：使用 SSH key 认证，或存储在密码管理器</li>
+<li>配置引用：在 TOOLS.md 中只写位置，不写具体值</li>
+</ul>
+<p>示例（TOOLS.md）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 服务器配置</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> SSH key：~/.ssh/id_blog_server</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> API key：存储在环境变量 BLOG_API_KEY</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 数据库密码：1Password vault "Blog Infrastructure"</span></span></code></pre>
+<p><strong>版本控制注意事项</strong></p>
+<p>建议用 Git 备份 workspace（私有仓库），但要排除敏感文件：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span># .gitignore</span></span>
+<span class="line"><span>.DS_Store</span></span>
+<span class="line"><span>.env</span></span>
+<span class="line"><span>**/*.key</span></span>
+<span class="line"><span>**/*.pem</span></span>
+<span class="line"><span>**/secrets*</span></span>
+<span class="line"><span>~/.openclaw/credentials/</span></span></code></pre>
+<p>即使是私有仓库，也不应该提交真实凭据。</p>
+<h2 id="高级技巧heartbeat-与自动化">高级技巧：Heartbeat 与自动化</h2>
+<h3 id="heartbeat-机制">Heartbeat 机制</h3>
+<p>OpenClaw 支持定期心跳检查（heartbeat），让 Agent 主动执行周期性任务。</p>
+<p>配置方式（在 <code>~/.openclaw/openclaw.json</code> 中）：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">cron</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">jobs</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">name</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">博客心跳检查</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">schedule</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> { </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">kind</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">every</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">everyMs</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 1800000 }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 30分钟</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">payload</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> { </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">kind</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">systemEvent</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">text</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Read HEARTBEAT.md if it exists. Follow it strictly. If nothing needs attention, reply HEARTBEAT_OK.</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">sessionTarget</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">main</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    ]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>HEARTBEAT.md 示例：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># HEARTBEAT.md</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 每日检查（轮流执行）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:bold">周一、三、五</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 检查博客网站可访问性</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 检查 GitHub 仓库同步状态</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 生成技术博客内容提案（发给用户确认）</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:bold">周二、四、六</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 监控技术趋势（HN、Reddit）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 收集有趣的技术话题</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:bold">周日</span><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#C5E478;--shiki-dark-font-weight:inherit">**</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 周报：本周网站访问情况</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 内容规划：下周博客主题建议</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">只有当有具体任务需要注意时才会发送消息，否则保持 HEARTBEAT_OK</span></span></code></pre>
+<p>Agent 会在心跳时读取 HEARTBEAT.md，执行对应任务。如果没事做，回复 <code>HEARTBEAT_OK</code>（静默）。</p>
+<p><strong>记录检查状态</strong></p>
+<p>为了避免重复检查，可以在 workspace 中维护状态文件：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// memory/heartbeat-state.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "lastChecks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "email"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1708675200</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "calendar"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1708660800</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "website"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1708689600</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>Agent 在心跳时读取这个文件，判断是否需要重新检查。</p>
+<h3 id="memory-flush-自动化">Memory Flush 自动化</h3>
+<p>前面提到的 compaction memory flush 是自动触发的，配置示例：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">agents</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">defaults</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">compaction</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">memoryFlush</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">enabled</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">softThresholdTokens</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 4000</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">systemPrompt</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Session nearing compaction. Store durable memories now.</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">          "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">prompt</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Pre-compaction memory flush. Store durable memories now (use memory/YYYY-MM-DD.md; create memory/ if needed). IMPORTANT: If the file already exists, APPEND new content only and do not overwrite existing entries. If nothing to store, reply with NO_REPLY.</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">        }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>当会话接近压缩阈值时，Agent 会收到提示，将重要信息写入 memory 文件，然后回复 <code>NO_REPLY</code>。用户完全无感知。</p>
+<p>你也可以在 HEARTBEAT.md 中定期回顾近期日志，更新 MEMORY.md：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 每周任务（周日）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 读取过去7天的 memory/YYYY-MM-DD.md</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 提取重要决策和教训</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 更新 MEMORY.md 中的相关章节</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 删除 MEMORY.md 中过时的信息</span></span></code></pre>
+<p>这相当于人类定期回顾日记，将短期记忆转化为长期记忆。</p>
+<h3 id="跨会话协作多-agent-场景">跨会话协作（多 Agent 场景）</h3>
+<p>如果你有多个 Agent 分工协作，可以用 OpenClaw 的 session 工具：</p>
+<ul>
+<li><code>sessions_list</code>：列出所有活跃会话</li>
+<li><code>sessions_send</code>：向另一个会话发送消息</li>
+<li><code>sessions_spawn</code>：创建子 Agent 执行隔离任务</li>
+<li><code>subagents</code>：管理子 Agent（list、steer、kill）</li>
+</ul>
+<p>示例场景：主 Agent 处理敏感任务（部署、支付），博客 Agent 处理写作，工具 Agent 处理数据抓取。</p>
+<p>主 Agent 可以通过 <code>sessions_send</code> 委派任务：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>sessions_send(sessionKey="agent:blog:telegram:123456", message="写一篇关于 OpenClaw Memory 的文章")</span></span></code></pre>
+<p>博客 Agent 完成后，通过 <code>sessions_send</code> 返回结果。</p>
+<p>这种架构的好处：</p>
+<ul>
+<li>隔离性：每个 Agent 有独立的 workspace 和记忆</li>
+<li>安全性：敏感信息只在主 Agent 的 MEMORY.md 中</li>
+<li>专业性：每个 Agent 可以加载不同的 skills 和配置</li>
+</ul>
+<h2 id="常见问题与解决方案">常见问题与解决方案</h2>
+<h3 id="1-检索不准确">1. 检索不准确</h3>
+<p><strong>症状</strong>：<code>memory_search</code> 返回无关结果，或漏掉明显相关的内容。</p>
+<p><strong>可能原因</strong>：</p>
+<ul>
+<li>纯向量检索在精确 token（ID、代码符号）上较弱</li>
+<li>嵌入模型与查询语言不匹配（比如用英文模型检索中文）</li>
+<li>索引未更新（文件修改后未重新索引）</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>启用混合检索（Vector + BM25）：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">memorySearch</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">query</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">hybrid</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">enabled</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">vectorWeight</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 0.7</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">textWeight</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 0.3</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="2">
+<li>
+<p>检查嵌入模型：如果主要使用中文，考虑用多语言模型（如 <code>text-embedding-3-small</code>）或本地 GGUF 模型。</p>
+</li>
+<li>
+<p>手动触发重新索引：修改 <code>memorySearch.model</code> 配置，OpenClaw 会自动检测到变化并重建索引。</p>
+</li>
+</ol>
+<h3 id="2-context-爆满">2. Context 爆满</h3>
+<p><strong>症状</strong>：<code>/status</code> 显示 token 接近上限，对话开始变慢或报错。</p>
+<p><strong>可能原因</strong>：</p>
+<ul>
+<li>TOOLS.md 太长（常见！）</li>
+<li>Skills 列表过多</li>
+<li>会话历史积累太多工具调用结果</li>
+<li>大文件频繁注入</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>
+<p>清理 TOOLS.md：删除过时配置，只保留当前需要的内容。或拆分到多个文件（只注入主文件）。</p>
+</li>
+<li>
+<p>禁用不需要的工具：通过 tool policy 限制可用工具。</p>
+</li>
+<li>
+<p>手动压缩：</p>
+</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/compact Focus on decisions and current tasks</span></span></code></pre>
+<ol start="4">
+<li>调整 bootstrap 限制：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">agents</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">defaults</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">bootstrapMaxChars</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 15000</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      // 单文件限制</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">bootstrapTotalMaxChars</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 100000 </span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">//</span><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF"> 总量限制</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="5">
+<li>启用 session pruning：自动移除旧的工具调用结果（不影响对话文本）。</li>
+</ol>
+<h3 id="3-记忆丢失">3. 记忆丢失</h3>
+<p><strong>症状</strong>：Agent 忘记之前的决策或用户偏好。</p>
+<p><strong>可能原因</strong>：</p>
+<ul>
+<li>信息没有写入文件，只在 context 中</li>
+<li>写入了 <code>memory/YYYY-MM-DD.md</code>，但已经超过”今天+昨天”的加载范围</li>
+<li>写入了 MEMORY.md，但在群组会话中（不加载 MEMORY.md）</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>检查文件是否存在：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cat</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/workspace/MEMORY.md</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cat</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/workspace/memory/2026-02-23.md</span></span></code></pre>
+<ol start="2">
+<li>测试 memory_search：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>memory_search("部署确认规则")</span></span></code></pre>
+<p>如果搜不到，说明没写入或索引未更新。</p>
+<ol start="3">
+<li>
+<p>确保在主会话中操作：如果你在群组中提到重要信息，Agent 可能无法访问 MEMORY.md。切换到私聊，或明确要求 Agent 写入 daily log。</p>
+</li>
+<li>
+<p>定期回顾 MEMORY.md：在 HEARTBEAT.md 中设置周任务，让 Agent 定期从 daily log 中提取重要信息更新到 MEMORY.md。</p>
+</li>
+</ol>
+<h3 id="4-隐私泄露">4. 隐私泄露</h3>
+<p><strong>症状</strong>：在群组中暴露了不该公开的信息（IP 地址、API key、个人 Telegram ID）。</p>
+<p><strong>可能原因</strong>：</p>
+<ul>
+<li>MEMORY.md 在群组中被加载（配置错误）</li>
+<li>Agent 在回复时引用了隐私文件的内容</li>
+<li>文件本身包含敏感信息（不应该存在）</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li>确认 MEMORY.md 加载范围：默认应该只在主会话加载。检查配置：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">agents</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">defaults</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      // 确保没有覆盖默认行为</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="2">
+<li>在 AGENTS.md 中添加隐私规则：</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## 隐私保护</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 不暴露真实 IP、密码、API key</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 群组对话中不引用 MEMORY.md 内容</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 示例数据用占位符（example.com、192.0.2.1）</span></span></code></pre>
+<ol start="3">
+<li>
+<p>审查 workspace 文件：确保 TOOLS.md 和其他公共文件中没有敏感信息。</p>
+</li>
+<li>
+<p>使用环境变量或 credentials 目录存储敏感数据，而不是写入 workspace。</p>
+</li>
+</ol>
+<h2 id="qmd-backend实验性的高级检索可选">QMD Backend：实验性的高级检索（可选）</h2>
+<p>OpenClaw 支持用 <a href="https://github.com/tobi/qmd">QMD</a> 替代内置的 SQLite 索引器。QMD 是一个本地优先的搜索引擎，结合了 BM25、向量检索和重排序（reranking）。</p>
+<p><strong>启用 QMD</strong>：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json5"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">  "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">memory</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">backend</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">qmd</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">    "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">qmd</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">includeDefaultMemory</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF"> true</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">update</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> { </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">interval</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">5m</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">debounceMs</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 15000 }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">limits</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> { </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">maxResults</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 6</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">timeoutMs</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 4000 }</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">      "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">paths</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">        { </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">name</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">docs</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">path</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">~/notes</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">pattern</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">**/*.md</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      ]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>更强的重排序能力（语义相关性更高）</li>
+<li>可以索引 workspace 之外的文件</li>
+<li>支持会话历史索引（<code>sessions.enabled = true</code>）</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要单独安装 QMD CLI（<code>bun install -g qmd</code>）</li>
+<li>首次检索可能触发 GGUF 模型下载（较慢）</li>
+<li>增加维护复杂度</li>
+</ul>
+<p>对大多数用户，默认的内置 SQLite 检索已经足够。只有在以下情况考虑 QMD：</p>
+<ul>
+<li>你有大量笔记（数万条）需要高精度检索</li>
+<li>你需要索引多个目录（workspace + 其他文档库）</li>
+<li>你愿意投入时间调试和优化</li>
+</ul>
+<h2 id="总结与资源">总结与资源</h2>
+<p>OpenClaw 的记忆系统核心思想很简单：<strong>文件就是记忆</strong>。但在这个简单原则之上，有丰富的机制来优化检索、管理 context、保护隐私。</p>
+<p><strong>核心原则</strong>：</p>
+<ol>
+<li><strong>写下来！</strong> 不要依赖”心智笔记”，文件是唯一的真相</li>
+<li><strong>分层管理</strong>：MEMORY.md（长期） + memory/日志（短期） + AGENTS.md（规则）</li>
+<li><strong>定期回顾</strong>：通过 heartbeat 或手动，从 daily log 提炼到 MEMORY.md</li>
+<li><strong>隐私第一</strong>：敏感数据分离，MEMORY.md 只在主会话加载</li>
+</ol>
+<p><strong>推荐配置</strong>：</p>
+<ul>
+<li>混合检索（Vector 70% + BM25 30%）</li>
+<li>时间衰减（halfLifeDays=30）</li>
+<li>MMR 去重（lambda=0.7）</li>
+<li>Memory flush（compaction 前自动存储）</li>
+</ul>
+<p><strong>下一步行动</strong>：</p>
+<ol>
+<li>检查你的 workspace 文件结构，是否遵循最佳实践</li>
+<li>运行 <code>/context detail</code> 看看哪些部分占用 token 最多</li>
+<li>启用混合检索和时间衰减，观察检索质量是否提升</li>
+<li>在 HEARTBEAT.md 中设置周任务，让 Agent 定期整理记忆</li>
+</ol>
+<p><strong>相关资源</strong>：</p>
+<ul>
+<li><a href="https://docs.openclaw.ai">OpenClaw 官方文档</a></li>
+<li><a href="https://docs.openclaw.ai/concepts/memory">Memory 概念详解</a></li>
+<li><a href="https://docs.openclaw.ai/concepts/context">Context 管理指南</a></li>
+<li><a href="https://github.com/openclaw/openclaw">GitHub: OpenClaw</a></li>
+</ul>
+<hr>
+<p>如果你在使用 OpenClaw 记忆系统时遇到问题，欢迎在 <a href="https://discord.com/invite/clawd">Discord 社区</a> 讨论。这套机制仍在快速演进，你的反馈可能影响未来的设计方向。</p>
+<p>最后，记住：AI Agent 不是魔法，它只是软件。好的记忆管理不是让 Agent”更聪明”，而是让它<strong>更可靠</strong>。当你能清楚地看到 Agent 记住了什么、为什么记住，你就能真正信任它来处理重要任务。</p> </article> <hr class="my-8 border-dashed">  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/memory/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Memory </a> </li><li> <a href="/tags/context-management/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Context Management </a> </li><li> <a href="/tags/openclaw/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> OpenClaw </a> </li><li> <a href="/tags/llm/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-6"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> LLM </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/posts/openclaw-memory-best-practices/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/posts/openclaw-memory-best-practices/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/posts/openclaw-memory-best-practices/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/posts/openclaw-memory-best-practices/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/posts/openclaw-memory-best-practices/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/posts/openclaw-memory-best-practices/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed"> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/posts/blog073_build-ai-dev-assistant" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>Next Post</span> <div class="text-sm text-accent/85">从命令行到对话式编程：用 AI Agent 构建个人开发助手</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html> <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>
