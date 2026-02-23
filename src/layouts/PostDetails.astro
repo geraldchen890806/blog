@@ -175,14 +175,14 @@ const nextPost =
 
 <style>
   .post-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    align-items: start;
+    position: relative;
+    width: 100%;
   }
 
   .post-content {
-    min-width: 0; /* 防止内容溢出 */
+    width: 100%;
+    max-width: var(--app-layout-max-width, 1024px);
+    margin: 0 auto;
   }
 
   .post-sidebar {
@@ -191,19 +191,29 @@ const nextPost =
 
   /* 大屏幕显示目录 */
   @media (min-width: 1280px) {
-    .post-layout {
-      grid-template-columns: 1fr 280px;
-    }
-
     .post-sidebar {
       display: block;
+      position: fixed;
+      right: max(2rem, calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 300px));
+      top: 5rem;
+      width: 240px;
+      max-height: calc(100vh - 8rem);
     }
   }
 
   /* 超大屏幕 */
   @media (min-width: 1536px) {
-    .post-layout {
-      grid-template-columns: 1fr 320px;
+    .post-sidebar {
+      right: max(2rem, calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 320px));
+      width: 260px;
+    }
+  }
+
+  /* 超超大屏幕 */
+  @media (min-width: 1920px) {
+    .post-sidebar {
+      right: max(3rem, calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 360px));
+      width: 280px;
     }
   }
 </style>
