@@ -270,6 +270,7 @@ About
 <p>这不是 AI 模型本身的问题，而是<strong>上下文管理</strong>的挑战。语言模型的工作记忆（context window）是有限的，通常在 32k-200k tokens 之间。一旦对话变长，早期信息就会被挤出窗口。</p>
 <p>OpenClaw 的解决方案很直接：<strong>文件就是记忆</strong>。所有需要持久化的信息都写入 Markdown 文件，模型只”记住”写在磁盘上的内容。这套机制看似简单，实际上蕴含了深思熟虑的设计。</p>
 <p>本文将系统讲解 OpenClaw 的 memory 机制，从架构原理到实战配置，帮助你构建高效的 AI Agent 记忆系统。</p>
+<p><strong>实用建议</strong>：如果你正在使用 OpenClaw，可以将这篇文章直接发给你的 Agent，让它根据文中的最佳实践优化自己的记忆管理。文末有具体的执行步骤。</p>
 <h2 id="openclaw-memory-架构解析">OpenClaw Memory 架构解析</h2>
 <h3 id="三层记忆模型">三层记忆模型</h3>
 <p>OpenClaw 的记忆系统可以类比人类的记忆结构：</p>
@@ -827,6 +828,27 @@ About
 <li>你需要索引多个目录（workspace + 其他文档库）</li>
 <li>你愿意投入时间调试和优化</li>
 </ul>
+<h2 id="让你的-agent-应用这些最佳实践">让你的 Agent 应用这些最佳实践</h2>
+<p><strong>如果你在使用 OpenClaw</strong>，可以让你的 Agent 立即优化它的记忆管理。将这篇文章发给它，并要求执行以下步骤：</p>
+<p><strong>步骤 1：检查当前配置</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请运行 /context detail，检查我的 workspace 文件结构和 token 使用情况，告诉我哪些地方需要优化。</span></span></code></pre>
+<p><strong>步骤 2：应用推荐配置</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请根据这篇文章的建议，帮我优化 memory 配置：</span></span>
+<span class="line"><span>1. 启用混合检索（Vector 70% + BM25 30%）</span></span>
+<span class="line"><span>2. 启用时间衰减（halfLifeDays=30）</span></span>
+<span class="line"><span>3. 启用 MMR 去重（lambda=0.7）</span></span>
+<span class="line"><span>4. 启用 Memory flush（compaction 前自动存储）</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>优化后告诉我具体改了什么。</span></span></code></pre>
+<p><strong>步骤 3：整理 workspace 文件</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请按照文章中的文件分层策略，帮我整理 workspace：</span></span>
+<span class="line"><span>1. 检查 MEMORY.md 是否包含策略性信息</span></span>
+<span class="line"><span>2. 将近期操作日志移到 memory/YYYY-MM-DD.md</span></span>
+<span class="line"><span>3. 清理 TOOLS.md 中的过时内容</span></span>
+<span class="line"><span>4. 在 AGENTS.md 中添加记忆写入规则</span></span></code></pre>
+<p><strong>步骤 4：设置定期回顾</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请在 HEARTBEAT.md 中设置周任务，让我定期回顾 daily logs 并更新 MEMORY.md。</span></span></code></pre>
+<p>这些步骤不需要你手动配置文件，让 Agent 自己完成即可。执行后，你的 Agent 会有更可靠的记忆管理，不会忘记重要信息，也不会因为 context 爆满而变慢。</p>
 <h2 id="总结与资源">总结与资源</h2>
 <p>OpenClaw 的记忆系统核心思想很简单：<strong>文件就是记忆</strong>。但在这个简单原则之上，有丰富的机制来优化检索、管理 context、保护隐私。</p>
 <p><strong>核心原则</strong>：</p>
@@ -843,13 +865,6 @@ About
 <li>MMR 去重（lambda=0.7）</li>
 <li>Memory flush（compaction 前自动存储）</li>
 </ul>
-<p><strong>下一步行动</strong>：</p>
-<ol>
-<li>检查你的 workspace 文件结构，是否遵循最佳实践</li>
-<li>运行 <code>/context detail</code> 看看哪些部分占用 token 最多</li>
-<li>启用混合检索和时间衰减，观察检索质量是否提升</li>
-<li>在 HEARTBEAT.md 中设置周任务，让 Agent 定期整理记忆</li>
-</ol>
 <p><strong>相关资源</strong>：</p>
 <ul>
 <li><a href="https://docs.openclaw.ai">OpenClaw 官方文档</a></li>
