@@ -1,8 +1,8 @@
 ---
 title: 为什么 AI Agent 会忽略你的"铁律"？两次真实事故的深度复盘
 author: 陈广亮
-pubDatetime: 2026-02-23T21:00:00+08:00
-slug: why-ai-agents-ignore-rules
+pubDatetime: 2026-02-23T19:00:00+08:00
+slug: blog075_why-ai-agents-ignore-rules
 featured: true
 draft: false
 tags:
