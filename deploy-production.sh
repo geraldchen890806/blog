@@ -51,6 +51,27 @@ git pull origin main
 echo -e "${GREEN}✅ 远程代码已同步${NC}"
 echo ""
 
+# 1.4 检查博客文件命名规范
+echo "🔍 检查博客文件命名规范..."
+if ! ./scripts/check-blog-naming.sh; then
+    echo -e "${RED}❌ 发现不符合命名规范的文件${NC}"
+    echo ""
+    echo "请运行以下命令修复："
+    echo "  ./scripts/check-blog-naming.sh --fix"
+    echo ""
+    read -p "是否自动修复？(y/N) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        ./scripts/check-blog-naming.sh --fix
+        echo -e "${GREEN}✅ 文件命名已修复${NC}"
+    else
+        echo -e "${RED}❌ 部署已取消，请手动修复后重试${NC}"
+        exit 1
+    fi
+fi
+echo -e "${GREEN}✅ 文件命名规范检查通过${NC}"
+echo ""
+
 # ==================== 阶段2：本地构建 ====================
 echo "📋 阶段2：本地构建"
 echo ""
