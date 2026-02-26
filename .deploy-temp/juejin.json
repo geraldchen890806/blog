@@ -1,0 +1,5 @@
+{
+  "highlights": "复盘两个真实生产事故：配置管理的单次确认失控、部署管道第三次重复违规。深度分析 AI Agent 系统性忽略规则的 6 个根本原因：上下文优先级冲突、语义歧义、对话惯性等。提供 5 种可落地的解决方案：清单化规则、工具级授权令牌、违规反思机制。附实战代码示例。",
+  "path": "/Users/geraldchen/ai/juejin/为什么 AI Agent 会忽略你的\\\"铁律\\\"？两次真实事故的深度复盘.md",
+  "postPath": "/Users/geraldchen/ai/blog/src/data/blog/blog075_why-ai-agents-ignore-rules.md"
+}
