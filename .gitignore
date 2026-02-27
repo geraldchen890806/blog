@@ -26,3 +26,6 @@ pnpm-debug.log*
 # pagefind
 
 public/pagefind
+# 部署临时文件
+.deploy-temp/
+.last-deploy-commit

@@ -6,6 +6,7 @@ set -e
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
+RED='\033[0;31m'
 NC='\033[0m'
 
 echo ""
@@ -30,44 +31,37 @@ echo "$NEW_POSTS" | while read post; do
 done
 echo ""
 
-# 为每篇新文章生成摘要
-echo "$NEW_POSTS" | while read post; do
-    if [ -z "$post" ]; then
-        continue
-    fi
-    
-    POST_PATH="/Users/geraldchen/ai/blog/$post"
-    
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "📝 处理文章: $(basename $post)"
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo ""
-    
-    # 生成摘要
-    node /Users/geraldchen/ai/twitter/generate-post-summary.cjs "$POST_PATH"
-    
-    if [ $? -eq 0 ]; then
-        echo ""
-        echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo -e "${BLUE}⏸️  等待大人确认...${NC}"
-        echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        echo ""
-        echo "📋 请查看上方生成的推文和掘金摘要"
-        echo ""
-        echo "确认后输入以下命令发布："
-        echo -e "${GREEN}  node /Users/geraldchen/ai/twitter/publish-to-social.cjs${NC}"
-        echo ""
-        echo "如需修改，请编辑文件后重新生成："
-        echo "  node /Users/geraldchen/ai/twitter/generate-post-summary.cjs $POST_PATH"
-        echo ""
-    else
-        echo -e "${RED}❌ 摘要生成失败${NC}"
-    fi
-done
-
 # 记录本次部署的commit
 CURRENT_COMMIT=$(git rev-parse HEAD)
 echo "$CURRENT_COMMIT" > /Users/geraldchen/ai/blog/.last-deploy-commit
-echo ""
 echo "📌 已记录部署commit: $CURRENT_COMMIT"
 echo ""
+
+# Agent 模式提示
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo -e "${BLUE}🤖 Agent 模式：需要 Agent 生成社交媒体摘要${NC}"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# 输出第一篇新文章路径（通常只有一篇）
+FIRST_POST=$(echo "$NEW_POSTS" | head -n 1)
+POST_PATH="/Users/geraldchen/ai/blog/$FIRST_POST"
+
+echo "📋 新文章路径:"
+echo "   $POST_PATH"
+echo ""
+echo -e "${YELLOW}⏸️  等待 Agent 执行以下操作：${NC}"
+echo ""
+echo "   1️⃣  读取文章内容"
+echo "   2️⃣  生成推文（≤280字符，含URL和标签）"
+echo "   3️⃣  生成推文核心内容（~80-100字）"
+echo "   4️⃣  生成掘金摘要（复用推文核心内容）"
+echo "   5️⃣  写入 .deploy-temp/summary.json 和 juejin.json"
+echo "   6️⃣  通过 Telegram 发送确认消息给大人"
+echo "   7️⃣  等待大人回复\"确认\""
+echo "   8️⃣  执行 publish-to-social.cjs 发布"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+exit 0
