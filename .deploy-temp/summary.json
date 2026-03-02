@@ -1,7 +1,0 @@
-{
-  "tweet": "为什么 AI Agent 会系统性地忽略你的\"铁律\"？\n\n复盘两个真实生产事故：\n• 配置管理的\"单次确认\"失控\n• 部署管道第三次重复违规\n\n根本原因：上下文优先级冲突、语义歧义、对话惯性\n\n解决方案：清单化规则、工具级授权令牌、违规反思机制\n\nhttps://chenguangliang.com/posts/blog075_why-ai-agents-ignore-rules/\n\n#AIAgent #Safety #Production #BestPractices",
-  "article": {
-    "title": "为什么 AI Agent 会忽略你的\"铁律\"？两次真实事故的深度复盘",
-    "url": "https://chenguangliang.com/posts/blog075_why-ai-agents-ignore-rules/"
-  }
-}
