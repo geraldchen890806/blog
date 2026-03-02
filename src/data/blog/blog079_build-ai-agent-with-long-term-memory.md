@@ -123,11 +123,30 @@ Embedding 是将文本转换为向量的过程，直接影响检索质量：
 **成本对比**：
 
 ```text
-假设每天存储 100 条记忆：
-- OpenAI: 100 条 × 50 tokens/条 × $0.02 / 1M ≈ $0.0001/天 ≈ $0.036/年
-- 本地模型：免费，但需要 GPU（可选）
+假设每天存储 100 条记忆，每天检索 50 次，运行 1 年：
 
-结论：OpenAI 成本可忽略，优先选择
+OpenAI Embeddings + Chroma（本地）：
+- 存储 Embedding：36,500 条 × 50 tokens = 1.825M tokens
+  → $0.02 / 1M × 1.825 = $0.0365
+- 检索 Embedding：18,250 次 × 20 tokens = 365K tokens
+  → $0.02 / 1M × 0.365 = $0.0073
+- 向量存储（Chroma 本地）：免费（磁盘占用 ~224 MB）
+- 总成本：~$0.044/年（几乎免费）
+
+OpenAI Embeddings + Pinecone（托管）：
+- Embedding API：$0.044/年（同上）
+- 向量存储：0.037M 向量 × $70/M ≈ $2.59/月 ≈ $31/年
+- 总成本：~$31/年
+
+本地模型（全免费）：
+- Embedding：免费（但需要 GPU，推荐 sentence-transformers）
+- 向量存储：免费（Chroma 本地）
+- 成本：$0，但需要自己维护模型
+
+结论：
+- 低成本方案：OpenAI + Chroma 本地（$0.044/年）
+- 零运维方案：OpenAI + Pinecone（$31/年）
+- 完全自托管：本地模型 + Chroma（$0，需要技术能力）
 ```
 
 ### 记忆检索策略
@@ -301,7 +320,7 @@ class LongTermMemory {
         // 计算与已选择项的最大相似度
         const maxSimilarity = Math.max(
           ...selected.map(s => 
-            this.cosineSimilarity(
+            this.jaccardSimilarity(
               candidate.document.pageContent,
               s.document.pageContent
             )
@@ -323,12 +342,13 @@ class LongTermMemory {
     return selected;
   }
   
-  private cosineSimilarity(text1: string, text2: string): number {
-    // 简化实现：使用字符级相似度
+  private jaccardSimilarity(text1: string, text2: string): number {
+    // Jaccard 相似度：交集 / 并集
     const set1 = new Set(text1.toLowerCase().split(""));
     const set2 = new Set(text2.toLowerCase().split(""));
     const intersection = new Set([...set1].filter(x => set2.has(x)));
-    return intersection.size / Math.sqrt(set1.size * set2.size);
+    const union = new Set([...set1, ...set2]);
+    return intersection.size / union.size;
   }
 }
 
@@ -881,6 +901,174 @@ class EmbeddingCache {
 // 节省：30% API 调用
 ```
 
+### 错误处理与降级策略
+
+生产环境必须处理各种异常情况：向量数据库连接失败、Embedding API 限流等。
+
+**1. 完整的错误处理实现**
+
+```typescript
+class RobustLongTermMemory {
+  private vectorStore: Chroma;
+  private fallbackMode: boolean = false;
+  private localCache: Map<string, Memory[]> = new Map();
+  private retryQueue: Memory[] = [];
+  
+  async store(memory: Memory): Promise<void> {
+    try {
+      // 尝试存储到向量数据库
+      const doc = new Document({
+        pageContent: memory.content,
+        metadata: {
+          type: memory.type,
+          timestamp: Date.now(),
+          importance: memory.importance || 1.0,
+          tags: memory.tags || []
+        }
+      });
+      
+      await this.vectorStore.addDocuments([doc]);
+      
+      // 成功后退出 fallback 模式
+      if (this.fallbackMode) {
+        console.log("向量存储已恢复，退出 fallback 模式");
+        this.fallbackMode = false;
+        await this.processRetryQueue();
+      }
+    } catch (error) {
+      console.error("向量存储失败，启用 fallback 模式:", error);
+      
+      // 降级策略：存入本地缓存
+      this.fallbackMode = true;
+      const key = `fallback_${Date.now()}`;
+      this.localCache.set(key, [memory]);
+      
+      // 加入重试队列
+      this.retryQueue.push(memory);
+      
+      // 异步重试（5 秒后）
+      setTimeout(() => this.retryStore(memory), 5000);
+    }
+  }
+  
+  async retrieve(query: string, options?: RetrievalOptions): Promise<Memory[]> {
+    // 如果在 fallback 模式，使用本地缓存
+    if (this.fallbackMode) {
+      console.warn("使用 fallback 缓存检索");
+      return this.fallbackRetrieve(query, options?.limit || 5);
+    }
+    
+    try {
+      const results = await this.vectorStore.similaritySearchWithScore(
+        query,
+        options?.limit || 5
+      );
+      
+      return this.processResults(results);
+    } catch (error) {
+      console.error("向量检索失败，降级到本地缓存:", error);
+      this.fallbackMode = true;
+      return this.fallbackRetrieve(query, options?.limit || 5);
+    }
+  }
+  
+  private fallbackRetrieve(query: string, limit: number): Memory[] {
+    // 简单的关键词匹配（降级方案）
+    const allMemories = Array.from(this.localCache.values()).flat();
+    const keywords = query.toLowerCase().split(/\s+/);
+    
+    return allMemories
+      .filter(m => 
+        keywords.some(kw => m.content.toLowerCase().includes(kw))
+      )
+      .slice(0, limit);
+  }
+  
+  private async retryStore(memory: Memory): Promise<void> {
+    try {
+      await this.store(memory);
+      console.log("重试存储成功");
+      
+      // 从重试队列移除
+      const index = this.retryQueue.indexOf(memory);
+      if (index > -1) {
+        this.retryQueue.splice(index, 1);
+      }
+    } catch (error) {
+      console.error("重试存储失败，保留在缓存中");
+    }
+  }
+  
+  private async processRetryQueue(): Promise<void> {
+    console.log(`处理重试队列，共 ${this.retryQueue.length} 条记忆`);
+    
+    for (const memory of this.retryQueue) {
+      await this.retryStore(memory);
+    }
+  }
+  
+  private processResults(
+    results: Array<{ document: Document; score: number }>
+  ): Memory[] {
+    return results.map(r => ({
+      content: r.document.pageContent,
+      type: r.document.metadata.type,
+      score: r.score,
+      timestamp: r.document.metadata.timestamp,
+      tags: r.document.metadata.tags
+    }));
+  }
+}
+```
+
+**2. 健康检查与自动恢复**
+
+```typescript
+class MemoryHealthMonitor {
+  private isHealthy: boolean = true;
+  private lastCheckTime: number = 0;
+  private checkInterval: number = 60 * 1000; // 1 分钟
+  
+  async checkHealth(memory: RobustLongTermMemory): Promise<boolean> {
+    const now = Date.now();
+    
+    if (now - this.lastCheckTime < this.checkInterval) {
+      return this.isHealthy;
+    }
+    
+    try {
+      // 测试写入
+      await memory.store({
+        content: "health_check_test",
+        type: "episodic",
+        timestamp: now
+      });
+      
+      // 测试读取
+      await memory.retrieve("health_check_test", { limit: 1 });
+      
+      this.isHealthy = true;
+      this.lastCheckTime = now;
+      return true;
+    } catch (error) {
+      console.error("健康检查失败:", error);
+      this.isHealthy = false;
+      this.lastCheckTime = now;
+      return false;
+    }
+  }
+}
+```
+
+**降级策略总结**：
+
+| 故障类型 | 降级方案 | 恢复机制 |
+|---------|---------|---------|
+| 向量数据库不可用 | 本地缓存（关键词匹配） | 定时重试 + 自动同步 |
+| Embedding API 限流 | 使用缓存的 embedding | 指数退避重试 |
+| 磁盘空间不足 | 自动清理旧记忆 | 监控 + 告警 |
+| 检索超时 | 返回缓存结果 | 减小检索范围 |
+
 ### 隐私与安全
 
 **1. 敏感信息过滤**
@@ -1093,29 +1281,111 @@ await assistant.handleUserMessage("上次部署出了什么问题？");
 
 ### 1. 自适应遗忘机制
 
-不是所有记忆都需要永久保存：
+不是所有记忆都需要永久保存，需要定期清理低价值记忆：
 
 ```typescript
 class AdaptiveForgetfulness {
+  private memory: LongTermMemory;
+  private retentionPolicy = {
+    minImportance: 1.5,        // 重要度 < 1.5 可删除
+    maxAge: 90,                // 最多保留 90 天
+    maxCount: 10000,           // 最多保留 10000 条
+    accessThreshold: 30        // 30 天内未访问可删除
+  };
+  
   async pruneMemories(): Promise<void> {
-    const threshold = Date.now() - 90 * 24 * 60 * 60 * 1000; // 90 天前
+    console.log("开始记忆清理...");
     
-    const oldMemories = await this.memory.retrieve("", {
-      limit: 1000
+    // 1. 获取所有记忆（分批获取避免内存溢出）
+    const allMemories = await this.getAllMemories();
+    console.log(`总记忆数：${allMemories.length}`);
+    
+    // 2. 筛选待删除的记忆
+    const now = Date.now();
+    const ageThreshold = now - this.retentionPolicy.maxAge * 24 * 60 * 60 * 1000;
+    const accessThreshold = now - this.retentionPolicy.accessThreshold * 24 * 60 * 60 * 1000;
+    
+    const toDelete = allMemories.filter(m => {
+      // 重要记忆不删除
+      if (m.importance && m.importance >= this.retentionPolicy.minImportance) {
+        return false;
+      }
+      
+      // 过于陈旧（超过 90 天）
+      if (m.timestamp && m.timestamp < ageThreshold) {
+        return true;
+      }
+      
+      // 长时间未访问（30 天内未访问）
+      if (m.lastAccessed && m.lastAccessed < accessThreshold) {
+        return true;
+      }
+      
+      return false;
     });
     
-    for (const m of oldMemories) {
-      // 重要记忆不删除
-      if (m.importance && m.importance > 1.5) continue;
+    // 3. 如果总数超过限制，删除最旧的
+    if (allMemories.length > this.retentionPolicy.maxCount) {
+      const excess = allMemories.length - this.retentionPolicy.maxCount;
+      const sorted = allMemories
+        .filter(m => !toDelete.includes(m))
+        .sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
       
-      // 最近访问过的不删除
-      if (m.timestamp! > threshold) continue;
-      
-      // 删除低价值的旧记忆
-      await this.deleteMemory(m);
+      toDelete.push(...sorted.slice(0, excess));
     }
+    
+    // 4. 执行删除
+    console.log(`待删除记忆数：${toDelete.length}`);
+    for (const memory of toDelete) {
+      await this.deleteMemory(memory.id);
+    }
+    
+    console.log(`清理完成，删除了 ${toDelete.length} 条记忆`);
+    console.log(`剩余记忆数：${allMemories.length - toDelete.length}`);
+  }
+  
+  private async getAllMemories(): Promise<Memory[]> {
+    // 分批获取所有记忆（避免一次性加载过多）
+    const batchSize = 1000;
+    const allMemories: Memory[] = [];
+    let offset = 0;
+    
+    while (true) {
+      const batch = await this.memory.vectorStore.getDocuments({
+        offset,
+        limit: batchSize
+      });
+      
+      if (batch.length === 0) break;
+      
+      allMemories.push(...batch.map(doc => ({
+        id: doc.id,
+        content: doc.pageContent,
+        type: doc.metadata.type,
+        timestamp: doc.metadata.timestamp,
+        importance: doc.metadata.importance,
+        lastAccessed: doc.metadata.lastAccessed,
+        tags: doc.metadata.tags
+      })));
+      
+      offset += batchSize;
+      
+      if (batch.length < batchSize) break;
+    }
+    
+    return allMemories;
+  }
+  
+  private async deleteMemory(id: string): Promise<void> {
+    await this.memory.vectorStore.delete({ ids: [id] });
   }
 }
+
+// 使用示例：定时清理
+setInterval(async () => {
+  const forgetter = new AdaptiveForgetfulness();
+  await forgetter.pruneMemories();
+}, 7 * 24 * 60 * 60 * 1000); // 每周清理一次
 ```
 
 ### 2. 跨 Agent 记忆共享
