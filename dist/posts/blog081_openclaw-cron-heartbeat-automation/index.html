@@ -320,7 +320,7 @@ About
 <ul>
 <li>在主会话中执行（有完整上下文）</li>
 <li>灵活的检查逻辑（可批量处理多个检查）</li>
-<li>轻量级（HEARTBEAT_OK 不计费）</li>
+<li>轻量级（HEARTBEAT_OK 响应成本极低，仅少量 output tokens）</li>
 <li>可访问会话历史和记忆</li>
 </ul>
 <p><strong>适用场景</strong>：</p>
@@ -371,7 +371,7 @@ About
 
 
 
-<table><thead><tr><th>维度</th><th>Cron Job</th><th>Heartbeat</th></tr></thead><tbody><tr><td>时间精度</td><td>精确（秒级）</td><td>宽松（分钟级）</td></tr><tr><td>上下文</td><td>无（隔离会话）</td><td>有（主会话）</td></tr><tr><td>批量操作</td><td>需要多个 job</td><td>一次 poll 搞定</td></tr><tr><td>API 成本</td><td>每次都调用</td><td>可选择性响应</td></tr><tr><td>结果投递</td><td>灵活（announce/webhook）</td><td>直接回复</td></tr><tr><td>适合频率</td><td>低频（小时/天）</td><td>高频（分钟）</td></tr></tbody></table>
+<table><thead><tr><th>维度</th><th>Cron Job</th><th>Heartbeat</th></tr></thead><tbody><tr><td>时间精度</td><td>精确（分钟级，cron 表达式）</td><td>宽松（分钟级）</td></tr><tr><td>上下文</td><td>无（隔离会话）</td><td>有（主会话）</td></tr><tr><td>批量操作</td><td>需要多个 job</td><td>一次 poll 搞定</td></tr><tr><td>API 成本</td><td>每次都调用</td><td>可选择性响应</td></tr><tr><td>结果投递</td><td>灵活（announce/webhook）</td><td>直接回复</td></tr><tr><td>适合频率</td><td>低频（小时/天）</td><td>高频（分钟）</td></tr></tbody></table>
 <p><strong>经验法则</strong>：</p>
 <ul>
 <li>✅ <strong>Cron</strong>：准时很重要（提醒、报告、定时任务）</li>
@@ -669,7 +669,7 @@ About
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 查看特定任务的执行历史</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> runs</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --jobId</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">job-i</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span></code></pre>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> runs</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --id</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">job-i</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span></code></pre>
 <p><strong>状态字段</strong>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
 <span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "state"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
@@ -690,10 +690,10 @@ About
 </ul>
 <h4 id="手动触发">手动触发</h4>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 立即执行（不等下次计划时间）</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> run</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --jobId</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">job-i</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> run</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">job-i</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 强制执行（忽略上次状态）</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> run</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --jobId</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">job-i</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --mode</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> force</span></span></code></pre>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 仅在到期时执行</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> run</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">job-i</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --due</span></span></code></pre>
 <p><strong>适用场景</strong>：</p>
 <ul>
 <li>调试新任务</li>
@@ -701,6 +701,9 @@ About
 <li>测试配置变更</li>
 </ul>
 <h4 id="错误处理策略">错误处理策略</h4>
+<blockquote>
+<p><strong>说明</strong>：以下 TypeScript 代码为概念示例，展示设计思路。实际使用时需要根据具体环境调整 import 和上下文。</p>
+</blockquote>
 <p><strong>策略 1：优雅降级</strong></p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="typescript"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// Message 中包含降级逻辑</span></span>
 <span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> message</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#22863A;--shiki-dark:#D6DEEB"> `</span></span>
@@ -1061,7 +1064,7 @@ About
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --json</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> jq</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">.jobs[] | select(.state.consecutiveErrors > 3)</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 检查上次执行时间（超过 24 小时未执行）</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --json</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> jq</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">.jobs[] | select(.state.lastRunAtMs &#x3C; (now - 86400000))</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --json</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> jq</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">.jobs[] | select(.state.lastRunAtMs &#x3C; (now * 1000 - 86400000))</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
 <p><strong>自动告警</strong>：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
 <span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "name"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">每日系统巡查</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
@@ -1112,7 +1115,7 @@ About
 <span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "model"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">anthropic/claude-haiku-3-5</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
-<p><strong>成本</strong>：Haiku ≈ $0.25/1M tokens（Sonnet 的 1/12）</p>
+<p><strong>成本</strong>：Haiku ≈ $0.25/1M input tokens（截至 2026 年 3 月，具体以 Anthropic 官网定价为准）</p>
 <p><strong>场景 2：复杂分析</strong></p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
 <span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "payload"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
@@ -1277,50 +1280,28 @@ About
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># create-cron-jobs.sh</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 博客内容提案</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;&#x3C;</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD"> 'EOF'</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">{</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "name": "博客内容提案生成",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "agentId": "blog",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "schedule": {</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "kind": "cron",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "expr": "0 10 * * 1,3,5",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "tz": "Asia/Shanghai"</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  },</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "sessionTarget": "isolated",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "payload": {</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "kind": "agentTurn",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "message": "生成技术博客提案...",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "timeoutSeconds": 300</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  },</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "delivery": {</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "mode": "announce",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "to": "telegram:YOUR_TELEGRAM_ID"</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  }</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">}</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">EOF</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --name</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">博客内容提案生成</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --agent</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> blog</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --cron</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">0 10 * * 1,3,5</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --tz</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Asia/Shanghai</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --session</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> isolated</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --message</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">生成技术博客提案...</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --timeout-seconds</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 300</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --announce</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --to</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">telegram:YOUR_TELEGRAM_ID</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 技术趋势监控</span></span>
-<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;&#x3C;</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD"> 'EOF'</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">{</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "name": "技术趋势监控",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "agentId": "blog",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "schedule": {</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "kind": "cron",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "expr": "0 9 * * 2,4,6",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "tz": "Asia/Shanghai"</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  },</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "sessionTarget": "isolated",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "payload": {</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "kind": "agentTurn",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "message": "监控技术趋势...",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "timeoutSeconds": 600</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  },</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "delivery": {</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "mode": "announce",</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    "to": "telegram:YOUR_TELEGRAM_ID"</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  }</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">}</span></span>
-<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">EOF</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --name</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">技术趋势监控</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --agent</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> blog</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --cron</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">0 9 * * 2,4,6</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --tz</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Asia/Shanghai</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --session</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> isolated</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --message</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">监控技术趋势...</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --timeout-seconds</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 600</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --announce</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  --to</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">telegram:YOUR_TELEGRAM_ID</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">echo</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">✅ Cron jobs 创建完成</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span></span></code></pre>
@@ -1345,7 +1326,7 @@ About
 <span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478">NOW</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">$(</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">date</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> +%s</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cron</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --json</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> jq</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --arg</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> now</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478">$NOW</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span></span>
 <span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  .jobs[] |</span></span>
-<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  select(.state.lastRunAtMs &#x3C; ($now | tonumber - 86400) * 1000) |</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  select(.state.lastRunAtMs &#x3C; ($now | tonumber * 1000 - 86400000)) |</span></span>
 <span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">  "\(.name): 上次执行 \(($now | tonumber * 1000 - .state.lastRunAtMs) / 3600000 | floor) 小时前"</span></span>
 <span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
 <span class="line"></span>
@@ -1417,8 +1398,8 @@ About
 <hr>
 <p><strong>相关阅读</strong>：</p>
 <ul>
-<li><a href="https://example.com/posts/openclaw-getting-started/">OpenClaw 入门实战：5分钟搭建你的自托管 AI 助手</a> - OpenClaw 基础使用指南</li>
-<li><a href="https://example.com/posts/blog074_openclaw-memory-best-practices/">AI Agent 记忆系统实战：OpenClaw Memory 最佳实践</a> - Memory 系统配合自动化使用</li>
+<li><a href="https://chenguangliang.com/posts/openclaw-getting-started/">OpenClaw 入门实战：5分钟搭建你的自托管 AI 助手</a> - OpenClaw 基础使用指南</li>
+<li><a href="https://chenguangliang.com/posts/blog074_openclaw-memory-best-practices/">AI Agent 记忆系统实战：OpenClaw Memory 最佳实践</a> - Memory 系统配合自动化使用</li>
 </ul>
 <p><strong>延伸阅读</strong>：</p>
 <ul>
