@@ -1,10 +1,10 @@
 ---
-// Appreciation component - 赞赏入口（隐晦风格）
+// Appreciation component - 赞赏入口
 ---
 
 <div class="appreciation-wrapper" data-pagefind-ignore>
   <button id="appreciation-toggle" class="appreciation-btn" aria-expanded="false">
-    ☕ Buy me a coffee
+    ☕ 觉得有帮助？请作者喝杯咖啡
   </button>
   <div id="appreciation-panel" class="appreciation-panel" hidden>
     <img
@@ -23,23 +23,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
   }
 
   .appreciation-btn {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 0.8rem;
-    color: var(--color-text-muted, #999);
-    opacity: 0.6;
+    font-size: 0.95rem;
+    color: #3b82f6;
     transition: opacity 0.2s;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 1rem;
     font-family: inherit;
+    font-weight: 500;
   }
 
   .appreciation-btn:hover {
-    opacity: 1;
+    opacity: 0.75;
+    text-decoration: underline;
   }
 
   .appreciation-panel {
