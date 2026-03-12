@@ -1,23 +1,28 @@
 ---
-// Appreciation component - 赞赏入口 (ETH/EVM)
+// Appreciation component - 赞赏弹窗 (ETH/EVM)
 ---
 
 <div class="appreciation-wrapper" data-pagefind-ignore>
-  <button id="appreciation-toggle" class="appreciation-btn" aria-expanded="false">
+  <button id="appreciation-toggle" class="appreciation-btn">
     ☕ 觉得有帮助？请作者喝杯咖啡
   </button>
-  <div id="appreciation-panel" class="appreciation-panel" hidden>
-    <img
-      src="/assets/eth-reward.jpg"
-      alt="Ethereum Donation QR Code"
-      class="appreciation-qr"
-      loading="lazy"
-      width="240"
-      height="320"
-    />
-    <div class="appreciation-address">
-      <code id="eth-address">0x320B48341e92D120276ff960F347EAe840bd4d6D</code>
-      <button id="copy-address" class="copy-btn" title="Copy address">📋</button>
+
+  <!-- 遮罩 + 弹窗 -->
+  <div id="appreciation-overlay" class="appreciation-overlay" hidden>
+    <div class="appreciation-modal">
+      <button id="appreciation-close" class="modal-close" aria-label="Close">&times;</button>
+      <div class="modal-icon">◇</div>
+      <h3 class="modal-title">请作者喝杯咖啡 ☕</h3>
+      <p class="modal-subtitle">如果这篇文章对你有帮助</p>
+      <img
+        src="/assets/eth-reward.jpg"
+        alt="Ethereum Donation QR Code"
+        class="modal-qr"
+        loading="lazy"
+      />
+      <code class="modal-address" id="eth-address">0x320B48341e92D120276ff960F347EAe840bd4d6D</code>
+      <button id="copy-address" class="copy-btn">复制地址</button>
+      <p class="modal-note">支持 ETH / ERC-20 代币</p>
     </div>
   </div>
 </div>
@@ -25,8 +30,7 @@
 <style>
   .appreciation-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
     margin: 1.5rem 0;
   }
 
@@ -36,10 +40,10 @@
     cursor: pointer;
     font-size: 0.95rem;
     color: #3b82f6;
-    transition: opacity 0.2s;
     padding: 0.5rem 1rem;
     font-family: inherit;
     font-weight: 500;
+    transition: opacity 0.2s;
   }
 
   .appreciation-btn:hover {
@@ -47,67 +51,145 @@
     text-decoration: underline;
   }
 
-  .appreciation-panel {
-    margin-top: 0.75rem;
-    text-align: center;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .appreciation-qr {
-    max-width: 240px;
-    border-radius: 8px;
-  }
-
-  .appreciation-address {
-    margin-top: 0.5rem;
+  /* 遮罩层 */
+  .appreciation-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
   }
 
-  .appreciation-address code {
-    font-size: 0.7rem;
+  /* 弹窗 */
+  .appreciation-modal {
+    position: relative;
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+    padding: 0.25rem;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover {
+    color: #333;
+  }
+
+  .modal-icon {
+    font-size: 1.5rem;
+    color: #627eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 0.25rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0 0 1.25rem;
+  }
+
+  .modal-qr {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 4px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .modal-address {
+    display: block;
+    font-size: 0.65rem;
+    color: #888;
     word-break: break-all;
-    color: var(--color-text-muted, #666);
+    margin: 1rem 0 0.75rem;
+    line-height: 1.4;
   }
 
   .copy-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.4rem 1.2rem;
     font-size: 0.85rem;
-    padding: 0.15rem 0.3rem;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    cursor: pointer;
+    color: #333;
+    font-family: inherit;
+    transition: all 0.2s;
   }
 
   .copy-btn:hover {
-    opacity: 1;
+    border-color: #627eea;
+    color: #627eea;
+  }
+
+  .modal-note {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin: 0.75rem 0 0;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-8px); }
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
 
 <script is:inline>
-  document.getElementById('appreciation-toggle')?.addEventListener('click', function() {
-    const panel = document.getElementById('appreciation-panel');
-    if (!panel) return;
-    const expanded = this.getAttribute('aria-expanded') === 'true';
-    this.setAttribute('aria-expanded', String(!expanded));
-    panel.hidden = expanded;
-  });
+  (function() {
+    const toggle = document.getElementById('appreciation-toggle');
+    const overlay = document.getElementById('appreciation-overlay');
+    const closeBtn = document.getElementById('appreciation-close');
+    const copyBtn = document.getElementById('copy-address');
+    const addr = document.getElementById('eth-address');
 
-  document.getElementById('copy-address')?.addEventListener('click', function() {
-    const addr = document.getElementById('eth-address')?.textContent;
-    if (addr) {
-      navigator.clipboard.writeText(addr).then(() => {
-        this.textContent = '✅';
-        setTimeout(() => { this.textContent = '📋'; }, 1500);
-      });
-    }
-  });
+    function open() { if (overlay) overlay.hidden = false; }
+    function close() { if (overlay) overlay.hidden = true; }
+
+    toggle?.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    overlay?.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
+    });
+
+    copyBtn?.addEventListener('click', function() {
+      if (addr) {
+        navigator.clipboard.writeText(addr.textContent).then(function() {
+          copyBtn.textContent = '已复制 ✓';
+          setTimeout(function() { copyBtn.textContent = '复制地址'; }, 1500);
+        });
+      }
+    });
+  })();
 </script>
