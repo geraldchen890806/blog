@@ -1,0 +1,70 @@
+---
+// Appreciation component - 赞赏入口（隐晦风格）
+---
+
+<div class="appreciation-wrapper" data-pagefind-ignore>
+  <button id="appreciation-toggle" class="appreciation-btn" aria-expanded="false">
+    ☕ Buy me a coffee
+  </button>
+  <div id="appreciation-panel" class="appreciation-panel" hidden>
+    <img
+      src="/assets/wechat-reward.jpg"
+      alt="WeChat Reward QR Code"
+      class="appreciation-qr"
+      loading="lazy"
+      width="240"
+      height="320"
+    />
+  </div>
+</div>
+
+<style>
+  .appreciation-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+  }
+
+  .appreciation-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #999);
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    padding: 0.25rem 0.5rem;
+    font-family: inherit;
+  }
+
+  .appreciation-btn:hover {
+    opacity: 1;
+  }
+
+  .appreciation-panel {
+    margin-top: 0.75rem;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .appreciation-qr {
+    max-width: 240px;
+    border-radius: 8px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script is:inline>
+  document.getElementById('appreciation-toggle')?.addEventListener('click', function() {
+    const panel = document.getElementById('appreciation-panel');
+    if (!panel) return;
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', String(!expanded));
+    panel.hidden = expanded;
+  });
+</script>
