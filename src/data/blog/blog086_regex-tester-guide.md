@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-03-15T10:00:00+08:00
-title: 工具指南 #3：在线正则表达式测试 — 写正则不再靠猜
+title: 在线正则表达式测试：从基础匹配到进阶调试
 slug: blog086_regex-tester-guide
 featured: true
 draft: false
