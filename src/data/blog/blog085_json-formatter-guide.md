@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-03-14T10:00:00+08:00
-title: 在线 JSON 格式化：语法校验、美化压缩与 JSONPath 查询
+title: 工具指南2-在线JSON格式化工具
 slug: blog085_json-formatter-guide
 featured: true
 draft: false
