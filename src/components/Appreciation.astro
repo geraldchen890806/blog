@@ -167,29 +167,34 @@
 </style>
 
 <script is:inline>
-  (function() {
-    const toggle = document.getElementById('appreciation-toggle');
-    const overlay = document.getElementById('appreciation-overlay');
-    const closeBtn = document.getElementById('appreciation-close');
-    const copyBtn = document.getElementById('copy-address');
-    const addr = document.getElementById('eth-address');
+  function initAppreciation() {
+    var toggle = document.getElementById('appreciation-toggle');
+    var overlay = document.getElementById('appreciation-overlay');
+    var closeBtn = document.getElementById('appreciation-close');
+    var copyBtn = document.getElementById('copy-address');
+    var addr = document.getElementById('eth-address');
+
+    if (!toggle || toggle._bound) return;
+    toggle._bound = true;
 
     function open() { if (overlay) overlay.hidden = false; }
     function close() { if (overlay) overlay.hidden = true; }
 
-    toggle?.addEventListener('click', open);
-    closeBtn?.addEventListener('click', close);
-    overlay?.addEventListener('click', function(e) {
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', function(e) {
       if (e.target === overlay) close();
     });
 
-    copyBtn?.addEventListener('click', function() {
-      if (addr) {
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function() {
         navigator.clipboard.writeText(addr.textContent).then(function() {
           copyBtn.textContent = '已复制 ✓';
           setTimeout(function() { copyBtn.textContent = '复制地址'; }, 1500);
         });
-      }
-    });
-  })();
+      });
+    }
+  }
+  initAppreciation();
+  document.addEventListener('astro:page-load', initAppreciation);
 </script>

@@ -897,31 +897,36 @@ About
 <p>如果你在使用 AI Agent 时也遇到过”规则被忽略”的问题，欢迎在评论区分享你的经验和解决方案。</p> </article> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/safety/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Safety </a> </li><li> <a href="/tags/production/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Production </a> </li><li> <a href="/tags/best-practices/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Best Practices </a> </li> </ul> <div class="appreciation-wrapper" data-pagefind-ignore data-astro-cid-iocheen3> <button id="appreciation-toggle" class="appreciation-btn" data-astro-cid-iocheen3>
 ☕ 觉得有帮助？请作者喝杯咖啡
 </button> <!-- 遮罩 + 弹窗 --> <div id="appreciation-overlay" class="appreciation-overlay" hidden data-astro-cid-iocheen3> <div class="appreciation-modal" data-astro-cid-iocheen3> <button id="appreciation-close" class="modal-close" aria-label="Close" data-astro-cid-iocheen3>&times;</button> <div class="modal-icon" data-astro-cid-iocheen3>◇</div> <h3 class="modal-title" data-astro-cid-iocheen3>请作者喝杯咖啡 ☕</h3> <p class="modal-subtitle" data-astro-cid-iocheen3>如果这篇文章对你有帮助</p> <img src="/assets/eth-reward.jpg" alt="Ethereum Donation QR Code" class="modal-qr" loading="lazy" data-astro-cid-iocheen3> <code class="modal-address" id="eth-address" data-astro-cid-iocheen3>0x320B48341e92D120276ff960F347EAe840bd4d6D</code> <button id="copy-address" class="copy-btn" data-astro-cid-iocheen3>复制地址</button> <p class="modal-note" data-astro-cid-iocheen3>支持 ETH / ERC-20 代币</p> </div> </div> </div>  <script>
-  (function() {
-    const toggle = document.getElementById('appreciation-toggle');
-    const overlay = document.getElementById('appreciation-overlay');
-    const closeBtn = document.getElementById('appreciation-close');
-    const copyBtn = document.getElementById('copy-address');
-    const addr = document.getElementById('eth-address');
+  function initAppreciation() {
+    var toggle = document.getElementById('appreciation-toggle');
+    var overlay = document.getElementById('appreciation-overlay');
+    var closeBtn = document.getElementById('appreciation-close');
+    var copyBtn = document.getElementById('copy-address');
+    var addr = document.getElementById('eth-address');
+
+    if (!toggle || toggle._bound) return;
+    toggle._bound = true;
 
     function open() { if (overlay) overlay.hidden = false; }
     function close() { if (overlay) overlay.hidden = true; }
 
-    toggle?.addEventListener('click', open);
-    closeBtn?.addEventListener('click', close);
-    overlay?.addEventListener('click', function(e) {
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', function(e) {
       if (e.target === overlay) close();
     });
 
-    copyBtn?.addEventListener('click', function() {
-      if (addr) {
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function() {
         navigator.clipboard.writeText(addr.textContent).then(function() {
           copyBtn.textContent = '已复制 ✓';
           setTimeout(function() { copyBtn.textContent = '复制地址'; }, 1500);
         });
-      }
-    });
-  })();
+      });
+    }
+  }
+  initAppreciation();
+  document.addEventListener('astro:page-load', initAppreciation);
 </script> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
 Back To Top
 </span> </button> </div> <script data-astro-rerun>
