@@ -2,7 +2,7 @@
 author: 陈广亮
 pubDatetime: 2026-03-16T10:00:00+08:00
 title: 工具指南4-二维码生成工具
-slug: blog088_qrcode-generator-guide
+slug: blog089_qrcode-generator-guide
 featured: true
 draft: false
 tags:
@@ -27,11 +27,13 @@ QR Code（Quick Response Code）是 1994 年由日本 Denso Wave 公司发明的
 
 QR Code 有 40 个版本（Version 1 到 Version 40），版本越高，模块数越多，能存的数据也越多：
 
-- **Version 1**：21×21 模块，最多存 41 个数字或 25 个字母
-- **Version 10**：57×57 模块，最多存 652 个数字或 395 个字母
-- **Version 40**：177×177 模块，最多存 7089 个数字或 4296 个字母
+以下为 L 级纠错（最大容量）下的数据：
 
-实际能存多少还取决于纠错等级。QR Code 定义了四种纠错级别：
+- **Version 1**：21×21 模块，最多存 41 个数字或 25 个字母数字字符
+- **Version 10**：57×57 模块，最多存 652 个数字或 395 个字母数字字符
+- **Version 40**：177×177 模块，最多存 7089 个数字或 4296 个字母数字字符
+
+实际能存多少取决于纠错等级（等级越高，纠错能力越强，但可用容量越小）。QR Code 定义了四种纠错级别：
 
 | 纠错等级 | 容错率 | 适用场景 |
 |---------|--------|---------|
