@@ -4,7 +4,7 @@ pubDatetime: 2026-03-19T14:00:00+08:00
 title: 工具指南6-JWT在线解码工具
 slug: blog092_jwt-decoder-guide
 featured: true
-draft: true
+draft: false
 tags:
   - 工具指南
   - 工具
@@ -45,9 +45,9 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4
 
 `alg` 指定签名算法。常见的有：
 
-- **HS256**（HMAC-SHA256）：对称加密，签名和验证用同一个密钥。适合单体应用或你能控制所有验证方的场景。
-- **RS256**（RSA-SHA256）：非对称加密，私钥签名、公钥验证。适合微服务架构——认证服务持有私钥，其他服务只需要公钥就能验证。
-- **ES256**（ECDSA-SHA256）：也是非对称加密，密钥更短、性能更好。越来越多的新项目在用。
+- **HS256**（HMAC-SHA256）：对称密钥算法，签名和验证用同一个密钥。适合单体应用或你能控制所有验证方的场景。
+- **RS256**（RSA-SHA256）：非对称密钥算法，私钥签名、公钥验证。适合微服务架构——认证服务持有私钥，其他服务只需要公钥就能验证。
+- **ES256**（ECDSA-SHA256）：也是非对称密钥算法，密钥更短、性能更好。越来越多的新项目在用。
 
 ### Payload
 
@@ -115,7 +115,7 @@ console.log("Header:", header);
 console.log("Payload:", payload);
 ```
 
-注意这里有 Base64URL 到标准 Base64 的字符替换（`-` → `+`，`_` → `/`）。如果忘了这步，中文或特殊字符可能解码失败。在线工具帮你省掉了这些细节。
+注意这里有 Base64URL 到标准 Base64 的字符替换（`-` → `+`，`_` → `/`）。另外 `atob` 对纯 ASCII payload 没问题，但如果 payload 含中文等多字节字符会乱码，完整的 UTF-8 处理见后文的 TypeScript 实现。在线工具帮你省掉了这些细节。
 
 ### 场景二：token 过期了吗
 
@@ -275,7 +275,7 @@ JWT 不是万能的。它和传统 Session 各有优劣：
 
 **JWT 的劣势**：
 - 无法主动撤销（用户被封禁后，已签发的 token 在过期前仍然有效）
-- Token 体积比 Session ID 大（一个典型的 JWT 在 200-800 字节，Session ID 通常 32-64 字节）
+- Token 体积比 Session ID 大（以文中示例 token 为例约 230 字节，含自定义 claims 的生产 token 通常 400-800 字节；Session ID 通常只有 32-64 字节）
 - Payload 不加密，不适合存放敏感信息
 
 **Session 的优势**：
@@ -298,7 +298,8 @@ JWT 不是万能的。它和传统 Session 各有优劣：
 **命令行**：`jq` 配合 `base64` 命令可以快速解码：
 
 ```bash
-echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d | jq .
+# tr 处理 Base64URL 字符替换，避免含 - 或 _ 时解码失败
+echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | tr '_-' '/+' | base64 -d | jq .
 ```
 
 **IDE 插件**：VS Code 的 JWT 相关插件可以在编辑器里直接预览 token 内容，适合后端开发者。
