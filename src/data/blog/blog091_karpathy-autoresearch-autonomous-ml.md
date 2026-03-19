@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-03-19T10:00:00+08:00
-title: Karpathy 的 AutoResearch：让 AI Agent 一夜跑完 700 个实验
+title: Karpathy 的 AutoResearch：让 AI Agent 自主跑完 700 个 ML 实验
 slug: blog091_karpathy-autoresearch-autonomous-ml
 featured: true
 draft: false
@@ -11,7 +11,7 @@ tags:
   - 机器学习
   - 自动化
   - 开源
-description: 解读 Karpathy 开源的 AutoResearch 项目：一个 630 行的 Python 脚本如何让 AI agent 自主进行 ML 实验，两天跑完 700 个实验并找到 20 个有效优化。从架构设计到实际应用，分析这个"Karpathy Loop"模式为什么值得每个开发者关注。
+description: 解读 Karpathy 开源的 AutoResearch 项目：一个 630 行的 Python 脚本如何让 AI agent 在单 GPU 上自主进行 ML 实验，两天累计完成 700 个实验并找到 20 个有效优化。从架构设计到实际应用，分析这个"Karpathy Loop"模式为什么值得每个开发者关注。
 ---
 
 3 月初，Andrej Karpathy 在 X 上发了一条帖子，说他让一个 AI coding agent 在单 GPU 上自主跑 ML 实验。一夜之间，agent 完成了几十个实验，模型的验证指标有了可测量的提升。
