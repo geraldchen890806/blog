@@ -5,6 +5,8 @@ title: Karpathy 的 AutoResearch：让 AI Agent 自主跑完 700 个 ML 实验
 slug: blog091_karpathy-autoresearch-autonomous-ml
 featured: true
 draft: false
+reviewed: true
+approved: true
 tags:
   - AI
   - AI Agent

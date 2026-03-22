@@ -5,6 +5,8 @@ title: 工具指南6-JWT在线解码工具
 slug: blog092_jwt-decoder-guide
 featured: true
 draft: false
+reviewed: true
+approved: true
 tags:
   - 工具指南
   - 工具
