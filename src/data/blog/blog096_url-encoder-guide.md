@@ -4,9 +4,9 @@ pubDatetime: 2026-03-22T14:00:00+08:00
 title: 工具指南9-URL编解码工具
 slug: blog096_url-encoder-guide
 featured: true
-draft: true
-reviewed: false
-approved: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - 工具指南
   - 工具
@@ -254,7 +254,7 @@ debugDecode("hello%252520world");
 
 ```javascript
 function decodeGBK(percentEncoded) {
-  // 把 %XX 转成字节数组
+  // 仅适用于纯百分号编码字符串（如 "%C4%E3%BA%C3"），不处理混合 ASCII 的情况
   const bytes = percentEncoded
     .split("%")
     .filter(Boolean)
