@@ -4,9 +4,9 @@ pubDatetime: 2026-03-26T10:00:00+08:00
 title: GitHub Squad：把 AI 开发团队直接塞进你的仓库
 slug: blog101_github-squad-multi-agent
 featured: true
-draft: false
+draft: true
 reviewed: true
-approved: true
+approved: false
 tags:
   - AI
   - Agent
