@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-02-12T12:00:00+08:00
-title: AI Agent 开发者工具全景 2026
+title: AI Agent 开发工具对比 2026：Claude Code vs OpenClaw vs Cursor 怎么选
 slug: ai-agent-tools-landscape-2026
 featured: true
 draft: false
@@ -9,7 +9,7 @@ tags:
   - AI
   - Agent
   - 工具
-description: 2026年初，GitHub Trending 上 AI Agent 项目集中爆发。本文梳理当前 Agent 开发者工具生态全景，从框架、Coding Agent 到基础设施协议，分析这波浪潮的走向。
+description: Claude Code、OpenClaw、Cursor 三大 AI 编程工具实测对比。从运行方式、记忆系统、模型支持到 Skill 机制，一文讲清 2026 年 AI Agent 开发工具该怎么选。附配置体系详解和跨工具迁移指南。
 ---
 
 ## 引子：当 GitHub Trending 被 Agent 占领

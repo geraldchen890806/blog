@@ -1,7 +1,7 @@
 ---
 title: 2026 AI 大模型全景对比：国内外 12 款主流模型实测
 pubDatetime: 2026-03-06T17:45:00+08:00
-description: 通过代码生成、中文写作、复杂推理等 6 大真实场景，全面对比 GPT-4 Turbo、Claude 3.5、Gemini 2.0、Qwen 2.5、GLM-4、Kimi 等 12 款主流 AI 模型，提供基于性能、成本、合规性的选型建议。
+description: 实测 12 款 AI 大模型（GPT-4o、Claude 3.5、Gemini 2.0、Qwen 2.5、GLM-4、Kimi 等），覆盖代码生成、中文写作、推理 6 大场景。附性能跑分、月费对比和选型决策树，帮你选出最适合的模型。
 featured: true
 tags:
   - AI
