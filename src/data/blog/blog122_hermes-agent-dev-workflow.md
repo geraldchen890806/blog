@@ -211,3 +211,8 @@ hermes skills delete <skill-id>
 总结下来：Hermes 在个人项目开发中，最有价值的场景是那些"重复性高、不需要精确控制、但有一定上下文要求"的任务——code review、文档生成、定时监控、需求拆解。这些事情用通用 AI 助手做效果也不差，但 Hermes 能直接读你的项目文件、记住你的偏好，省去了大量"提供背景信息"的成本。
 
 如果你已经在用 Claude Code 做深度开发，Hermes 更适合做"外围助理"——处理那些你不想花时间、但又不得不做的周边工作。
+
+**延伸阅读**：
+- [Hermes Agent 评测：OpenClaw 的继任者](https://chenguangliang.com/posts/blog117_hermes-agent-guide/) - Hermes 核心功能介绍、适用场景及与 OpenClaw 的对比
+- [Claude Code Hooks 深度指南](https://chenguangliang.com/posts/blog119_claude-code-hooks-guide/) - 用 Hooks 让 Claude Code 自动化处理代码质量和危险操作拦截
+- [用 Claude Code CLI 构建多 Agent 自动化系统](https://chenguangliang.com/posts/blog115_openclaw-to-claude-code-migration/) - 自建方案的完整实现，与 Hermes 方案形成对比

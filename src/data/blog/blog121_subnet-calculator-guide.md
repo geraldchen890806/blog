@@ -210,3 +210,31 @@ location /admin {
 ---
 
 子网计算不是很难，但手算容易出错，尤其是 `/22`、`/23` 这类跨 C 段的情况。把计算交给工具，把精力放在架构决策上——选哪个网段、怎么划分层次、预留多少空间——这才是值得花时间的部分。
+
+## 本系列其他文章
+
+- [工具指南1-在线图片压缩](https://chenguangliang.com/posts/blog084_image-compress-guide/)
+- [工具指南2-在线JSON格式化工具](https://chenguangliang.com/posts/blog085_json-formatter-guide/)
+- [工具指南3-在线正则表达式测试](https://chenguangliang.com/posts/blog086_regex-tester-guide/)
+- [工具指南4-二维码生成工具](https://chenguangliang.com/posts/blog089_qrcode-generator-guide/)
+- [工具指南5-Base64编解码工具](https://chenguangliang.com/posts/blog090_base64-tool-guide/)
+- [工具指南6-JWT在线解码工具](https://chenguangliang.com/posts/blog092_jwt-decoder-guide/)
+- [工具指南7-Unix时间戳转换工具](https://chenguangliang.com/posts/blog094_timestamp-tool-guide/)
+- [工具指南8-在线密码生成器](https://chenguangliang.com/posts/blog095_password-generator-guide/)
+- [工具指南9-URL编解码工具](https://chenguangliang.com/posts/blog096_url-encoder-guide/)
+- [工具指南10-在线哈希生成器](https://chenguangliang.com/posts/blog097_hash-generator-guide/)
+- [工具指南11-JSON转TypeScript类型生成器](https://chenguangliang.com/posts/blog099_json-to-typescript-guide/)
+- [工具指南12-Cron表达式在线解析工具](https://chenguangliang.com/posts/blog100_cron-parser-guide/)
+- [工具指南13-在线颜色转换工具](https://chenguangliang.com/posts/blog102_color-converter-guide/)
+- [工具指南14-在线SQL格式化工具](https://chenguangliang.com/posts/blog103_sql-formatter-guide/)
+- [工具指南15-在线Markdown实时预览工具](https://chenguangliang.com/posts/blog104_markdown-preview-guide/)
+- [工具指南16-在线JSON对比工具](https://chenguangliang.com/posts/blog106_json-diff-guide/)
+- [工具指南17-AI Token计数器](https://chenguangliang.com/posts/blog107_token-counter-guide/)
+- [工具指南18-在线OCR文字识别工具](https://chenguangliang.com/posts/blog108_ocr-tool-guide/)
+- [工具指南19-在线CSS渐变生成器](https://chenguangliang.com/posts/blog110_css-gradient-guide/)
+- [工具指南20-在线UUID生成器](https://chenguangliang.com/posts/blog111_uuid-generator-guide/)
+- [工具指南21-HTML转JSX在线转换工具](https://chenguangliang.com/posts/blog112_html-to-jsx-guide/)
+- [工具指南22-WebSocket在线测试工具](https://chenguangliang.com/posts/blog114_websocket-tester-guide/)
+- [工具指南23-CSV转JSON在线工具](https://chenguangliang.com/posts/blog116_csv-to-json-guide/)
+- [工具指南24-在线CSS Box Shadow生成器](https://chenguangliang.com/posts/blog118_box-shadow-guide/)
+- [工具指南25-在线Favicon生成器](https://chenguangliang.com/posts/blog120_favicon-generator-guide/)

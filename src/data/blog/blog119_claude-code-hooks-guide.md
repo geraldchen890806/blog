@@ -444,3 +444,8 @@ timeout 10 npx eslint --fix "$f" || true
 ---
 
 用了几个月下来，感受是：Hooks 不是什么神奇功能，就是把原来需要手动做的事情自动化。但好处是实实在在的——Claude 写完代码之后不需要我再问"有没有 lint 错误"，它自己就能看到并修复。这种小反馈循环的自动化，才是提升日常效率的关键。
+
+**延伸阅读**：
+- [Hermes Agent 开发实战：把 AI 助手嵌进项目开发流程](https://chenguangliang.com/posts/blog122_hermes-agent-dev-workflow/) - 另一种思路：用 Hermes Agent 处理开发周边工作
+- [Hermes Agent 评测：OpenClaw 的继任者](https://chenguangliang.com/posts/blog117_hermes-agent-guide/) - Hermes vs OpenClaw vs 自建方案对比
+- [用 Claude Code CLI 构建多 Agent 自动化系统](https://chenguangliang.com/posts/blog115_openclaw-to-claude-code-migration/) - Claude Code 在自动化场景的深度应用
