@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-28T14:00:00+08:00
 title: 工具指南15-在线Markdown实时预览工具
 slug: blog104_markdown-preview-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - Markdown
   - 前端
-  - 技术写作
 description: 深入介绍在线Markdown实时预览工具的核心功能与使用技巧，涵盖GFM扩展语法、代码高亮、导出功能等，帮助开发者和技术写作者提升写作效率。
 ---
 

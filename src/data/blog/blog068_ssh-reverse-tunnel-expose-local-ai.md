@@ -6,10 +6,9 @@ slug: ssh-reverse-tunnel-expose-local-ai
 featured: false
 draft: false
 tags:
-  - SSH
-  - 安全
-  - 运维
   - AI
+  - 安全
+  - 自动化
 description: 通过 SSH 反向隧道 + Nginx 反向代理，将本地运行的 OpenClaw Gateway 安全暴露到公网，实现域名访问。数据完全本地化，多层安全防护，成本为零。
 ---
 

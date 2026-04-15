@@ -4,12 +4,9 @@ pubDatetime: 2026-03-09T21:30:00+08:00
 description: 深度解析 OpenClaw 的 Cron Job 和 Heartbeat 机制，从选型策略到工程实践，结合真实案例展示如何构建可靠的自动化工作流，涵盖错误处理、状态管理、成本优化等关键环节。
 featured: true
 tags:
-  - OpenClaw
   - AI Agent
   - 自动化
-  - Cron
-  - 工程化
-  - 最佳实践
+  - 开发效率
 ---
 
 AI Agent 的价值不仅在于被动响应，更在于主动执行。OpenClaw 提供了两种自动化机制：**Cron Job**（定时任务）和 **Heartbeat**（心跳检查）。但如何选择？如何设计可靠的自动化工作流？如何处理错误和成本优化？

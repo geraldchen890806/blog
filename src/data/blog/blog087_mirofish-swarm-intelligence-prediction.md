@@ -7,9 +7,7 @@ featured: true
 draft: false
 tags:
   - AI
-  - ai-agent
   - 开源
-  - 多智能体
 description: 深度解析 MiroFish 群体智能预测引擎的技术架构与设计思路。一个大四学生用 Vibe Coding 10天开发，登顶 GitHub Trending，获盛大3000万投资。从技术角度看它做对了什么。
 ---
 

@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-29T14:00:00+08:00
 title: 工具指南16-在线JSON对比工具
 slug: blog106_json-diff-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - JSON
-  - 开发工具
-  - 前端
+  - 开发效率
 description: 详解在线 JSON Diff 工具的使用场景和技术原理，帮助开发者高效对比 API 响应、配置文件和数据变更，快速定位差异。
 ---
 

@@ -3,18 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-23T14:00:00+08:00
 title: 工具指南10-在线哈希生成器
 slug: blog097_hash-generator-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - 哈希
-  - MD5
-  - SHA-256
   - 安全
-  - 前端
 description: 详解哈希函数的工作原理、MD5/SHA-1/SHA-256的区别与适用场景，以及开发中密码存储、数据校验、缓存策略等实际应用。
 ---
 

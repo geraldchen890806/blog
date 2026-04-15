@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-25T14:00:00+08:00
 title: 工具指南12-Cron表达式在线解析工具
 slug: blog100_cron-parser-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - Cron
-  - Linux
-  - 定时任务
+  - 自动化
 description: 深入讲解Cron表达式的语法规则和常见用法，介绍一款在线Cron解析工具，帮你快速验证和理解定时任务配置。
 ---
 

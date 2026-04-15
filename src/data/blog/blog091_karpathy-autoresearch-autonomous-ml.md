@@ -10,7 +10,6 @@ approved: true
 tags:
   - AI
   - AI Agent
-  - 机器学习
   - 自动化
   - 开源
 description: 解读 Karpathy 开源的 AutoResearch 项目：一个 630 行的 Python 脚本如何让 AI agent 在单 GPU 上自主进行 ML 实验，两天累计完成 700 个实验并找到 20 个有效优化。从架构设计到实际应用，分析这个"Karpathy Loop"模式为什么值得每个开发者关注。

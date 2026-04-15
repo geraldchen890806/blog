@@ -3,15 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-13T20:00:00+08:00
 title: 工具指南26-在线子网计算器
 slug: blog121_subnet-calculator-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - 网络
-  - 开发效率
+  - 前端
 description: 子网划分是每个后端开发者和运维工程师的必修课，但手算 CIDR 和子网掩码极易出错。本文介绍如何用在线子网计算器快速完成子网划分，并深入讲解 IP 地址、子网掩码和 CIDR 的技术原理。
 ---
 

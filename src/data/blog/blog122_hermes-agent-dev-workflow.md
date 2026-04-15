@@ -8,11 +8,8 @@ draft: false
 reviewed: true
 approved: true
 tags:
-  - AI工具
-  - Agent
-  - Hermes
+  - AI Agent
   - 开发效率
-  - 实战
 description: 不是再介绍 Hermes 有哪些功能，而是记录把它真正用进项目开发流程之后的体验：代码 review、需求拆解、文档生成、定时监控，哪些场景真的有用，哪些会坑你。
 ---
 

@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-04-12T20:30:00+08:00
 title: 工具指南24-在线CSS Box Shadow生成器
 slug: blog118_box-shadow-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
@@ -11,7 +11,6 @@ tags:
   - 工具指南
   - 工具
   - CSS
-  - 前端开发
 description: CSS box-shadow 是最常用的视觉效果属性之一，但多层阴影的参数调试极其繁琐。本文介绍如何用在线 Box Shadow 生成器快速创建阴影效果，并深入讲解阴影的技术原理、性能优化和实战设计模式。
 ---
 

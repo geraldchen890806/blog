@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-20T14:00:00+08:00
 title: 工具指南7-Unix时间戳转换工具
 slug: blog094_timestamp-tool-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - 时间戳
-  - Unix
-  - 开发效率
+  - 前端
 description: 全面解析 Unix 时间戳的原理、常见坑点与实际应用场景，涵盖时区处理、2038 问题、多语言转换方法，帮助开发者高效处理时间相关问题。
 ---
 

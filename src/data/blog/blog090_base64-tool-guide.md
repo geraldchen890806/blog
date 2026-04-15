@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-18T14:00:00+08:00
 title: 工具指南5-Base64编解码工具
 slug: blog090_base64-tool-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - Base64
-  - 编码
-  - 开发效率
+  - 前端
 description: 深入解析 Base64 编解码的原理与实际应用场景，涵盖文本编码、文件转换、Data URL、JWT 解析等常见用法，帮助开发者高效处理编码问题。
 ---
 

@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-31T14:00:00+08:00
 title: 工具指南18-在线OCR文字识别工具
 slug: blog108_ocr-tool-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - OCR
-  - 图片识别
-  - 前端
+  - AI
 description: 深入解析浏览器端 OCR 文字识别的实现原理，对比主流方案，并介绍一款完全本地运行、无需上传图片的在线 OCR 工具。
 ---
 

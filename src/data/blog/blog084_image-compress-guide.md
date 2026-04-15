@@ -3,14 +3,12 @@ author: 陈广亮
 pubDatetime: 2026-03-13T10:00:00+08:00
 title: 工具指南1-在线图片压缩
 slug: blog084_image-compress-guide
-featured: true
+featured: false
 draft: false
 tags:
   - 工具指南
   - 工具
-  - 图片处理
   - 前端
-  - 性能优化
 description: 详解纯前端在线图片压缩工具的使用方法，支持 PNG/JPEG/WebP 格式，图片不离开本地浏览器，附带图片压缩的技术原理和实际应用场景。
 ---
 

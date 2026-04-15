@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-03-24T14:00:00+08:00
 title: 工具指南11-JSON转TypeScript类型生成器
 slug: blog099_json-to-typescript-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
@@ -11,9 +11,6 @@ tags:
   - 工具指南
   - 工具
   - TypeScript
-  - JSON
-  - 类型生成
-  - 前端
 description: 从手写 TypeScript 类型的痛苦出发，讲解 JSON 转 TypeScript 的实现原理、类型推断策略，以及如何在实际项目中用自动生成替代手动定义，减少重复劳动。
 ---
 

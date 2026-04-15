@@ -7,9 +7,8 @@ featured: true
 draft: false
 tags:
   - AI
-  - ai-agent
   - MCP
-  - 协议
+  - LLM
 description: MCP（Model Context Protocol）发布 2026 路线图，四大优先方向：传输层演进、Agent 通信、治理成熟化、企业就绪。从技术角度解读每个方向的具体问题和解决思路。
 ---
 

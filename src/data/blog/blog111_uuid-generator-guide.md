@@ -3,15 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-03T14:00:00+08:00
 title: 工具指南20-在线UUID生成器
 slug: blog111_uuid-generator-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - UUID
-  - 前端开发
+  - 前端
 description: 深入理解UUID的各版本差异和实际应用场景,介绍一款支持批量生成UUID v4的在线工具,帮助开发者快速获取唯一标识符。
 ---
 

@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-14T14:00:00+08:00
 title: 工具指南27-在线Mock数据生成器
 slug: blog123_mock-data-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - Mock数据
-  - 测试数据
-  - 前端开发
+  - 前端
 description: 介绍一款免费在线 Mock 数据生成器，支持个人信息、公司、地址、网络、金融、商品六大数据类型，一键生成 JSON 或 CSV 格式的测试数据，无需安装任何依赖。
 ---
 

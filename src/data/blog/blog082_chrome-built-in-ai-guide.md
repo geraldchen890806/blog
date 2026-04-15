@@ -4,13 +4,9 @@ pubDatetime: 2026-03-11T10:00:00+08:00
 description: 深入探讨 Chrome 内置 Gemini Nano 模型和浏览器原生 AI API（Prompt、Translation、Summarization），从技术架构到生产实战，展示如何构建隐私优先的本地 AI 应用，附完整代码示例和性能分析。
 featured: true
 tags:
-  - Chrome
   - AI
-  - 浏览器
-  - Gemini
   - 前端
-  - 隐私
-  - 最佳实践
+  - 开发效率
 ---
 
 > ⚠️ **重要说明**：本文写作时（2026 年 3 月），部分 API 仍处于 Origin Trial 或早期阶段。文中的 API 状态基于 Chrome 官方文档和开发路线图，实际发布时间和 API 设计可能有变化。硬件要求和性能数据基于当前可用信息，请以 [Chrome Built-in AI 官方文档](https://developer.chrome.com/docs/ai/built-in-apis) 为准。

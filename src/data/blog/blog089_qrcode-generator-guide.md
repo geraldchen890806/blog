@@ -3,12 +3,11 @@ author: 陈广亮
 pubDatetime: 2026-03-16T10:00:00+08:00
 title: 工具指南4-二维码生成工具
 slug: blog089_qrcode-generator-guide
-featured: true
+featured: false
 draft: false
 tags:
   - 工具指南
   - 工具
-  - 二维码
   - 前端
 description: 从二维码编码原理到前端生成方案，详解 QR Code 的技术细节和实际应用场景，附带 qrcode.js 实战代码和常见踩坑记录。
 ---

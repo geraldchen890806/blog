@@ -10,9 +10,6 @@ approved: true
 tags:
   - AI
   - 前端
-  - 设计工具
-  - Google
-  - UI设计
 description: Google Stitch 迎来重大更新，从简单的 prompt-to-mockup 工具进化为 AI 原生设计画布。无限画布、语音交互、DESIGN.md 设计系统、MCP 集成——一次性发了五个大功能。免费、基于 Gemini，直接对标 Figma Make。
 ---
 

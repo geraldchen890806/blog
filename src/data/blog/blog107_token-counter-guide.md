@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-03-30T14:00:00+08:00
 title: 工具指南17-AI Token计数器
 slug: blog107_token-counter-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
@@ -11,9 +11,6 @@ tags:
   - 工具指南
   - 工具
   - AI
-  - LLM
-  - Token
-  - 前端
 description: 详解 AI Token 计数器的使用方法和技术原理，帮助开发者精确估算 GPT、Claude 等大模型的 Token 消耗，优化 API 调用成本。
 ---
 

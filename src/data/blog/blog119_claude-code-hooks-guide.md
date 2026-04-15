@@ -9,9 +9,7 @@ reviewed: true
 approved: true
 tags:
   - Claude Code
-  - AI
   - 自动化
-  - 工具指南
   - 开发效率
 description: Claude Code Hooks 是迄今为止最被低估的 AI 编程特性。本文从三类 Hook 的触发机制讲起，结合博客 Agent、工具站等真实项目中的 10+ 个配置案例，讲清楚怎么用 Hooks 让 Claude Code 真正融入你的工作流。
 ---

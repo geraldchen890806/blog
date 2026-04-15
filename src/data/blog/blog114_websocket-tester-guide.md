@@ -3,13 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-09T10:00:00+08:00
 title: 工具指南22-WebSocket在线测试工具
 slug: blog114_websocket-tester-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
+  - 前端
 description: 介绍 anyfreetools.com 的 WebSocket 在线测试工具，无需安装任何客户端，直接在浏览器中建立 WebSocket 连接、发送消息、查看实时响应，是调试 WebSocket 服务的利器。
 ---
 

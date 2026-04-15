@@ -9,9 +9,7 @@ reviewed: true
 approved: true
 tags:
   - 安全
-  - 前端
-  - Electron
-  - 供应链安全
+  - 开发效率
 description: 2026 年 3 月，Apifox 桌面客户端遭遇供应链投毒攻击，官方 CDN 上的 JS 文件被替换为恶意版本，窃取用户 SSH Key、Git 凭证等敏感信息。从攻击原理、影响范围到自查方法，拆解这次事件的技术细节。
 ---
 

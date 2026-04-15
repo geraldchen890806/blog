@@ -7,9 +7,7 @@ featured: true
 draft: false
 tags:
   - AI Agent
-  - Safety
-  - Production
-  - Best Practices
+  - 开发效率
 description: "通过两个真实生产事故的深度复盘，分析为什么 AI Agent 会系统性地忽略明确的规则，以及如何设计可靠的约束机制。包含技术原理、共性问题和可落地的解决方案。"
 ---
 

@@ -6,9 +6,8 @@ slug: blog-deploy-optimization
 featured: true
 draft: false
 tags:
-  - 运维
-  - 前端工程化
   - 自动化
+  - 开发效率
 description: 记录博客部署流程从服务器端构建到本地构建+GitHub传输的优化历程，解决服务器资源不足的问题。
 ---
 

@@ -7,10 +7,9 @@ featured: true
 draft: false
 tags:
   - AI Agent
-  - Memory
-  - Context Management
-  - OpenClaw
   - LLM
+  - 开发效率
+  - 自动化
 description: "深入解析 OpenClaw 的记忆系统架构，从文件结构到检索优化，提供可落地的 AI Agent 记忆管理最佳实践"
 ---
 

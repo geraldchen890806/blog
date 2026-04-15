@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-04-01T14:00:00+08:00
 title: 工具指南19-在线CSS渐变生成器
 slug: blog110_css-gradient-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
@@ -11,7 +11,6 @@ tags:
   - 工具指南
   - 工具
   - CSS
-  - 前端开发
 description: CSS渐变是现代Web设计的基础能力，但手写渐变代码效率低且难以调试。本文介绍如何用在线CSS渐变生成器快速创建线性渐变、径向渐变和锥形渐变，并深入讲解渐变的技术原理和实战技巧。
 ---
 

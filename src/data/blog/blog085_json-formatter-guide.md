@@ -3,13 +3,12 @@ author: 陈广亮
 pubDatetime: 2026-03-14T10:00:00+08:00
 title: 工具指南2-在线JSON格式化工具
 slug: blog085_json-formatter-guide
-featured: true
+featured: false
 draft: false
 tags:
   - 工具指南
   - 工具
-  - JSON
-  - 开发效率
+  - 前端
 description: 深入介绍在线 JSON 格式化工具的使用技巧，涵盖语法校验、Tree View、JSONPath 查询等实用功能，帮助开发者高效处理 JSON 数据。
 ---
 

@@ -9,10 +9,8 @@ reviewed: true
 approved: true
 tags:
   - AI
-  - Agent
-  - Computer-Use
+  - AI Agent
   - 自动化
-  - 前端
 description: AI Agent 正在学会像人一样操作电脑——看屏幕、点鼠标、敲键盘。从 Anthropic Claude Computer Use 到 Microsoft CUA 再到 OpenAI Operator，Computer-Use 正在重新定义"软件集成"的含义。
 ---
 

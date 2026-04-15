@@ -5,11 +5,8 @@ description: 深入解析 Coinbase x402 协议如何复活 HTTP 402 状态码，
 featured: true
 tags:
   - AI
-  - Web3
+  - AI Agent
   - 前端
-  - ai-agent
-  - 区块链
-  - 最佳实践
 ---
 
 你的 AI Agent 需要调用一个付费 API。它有钱包，有 USDC，但没有信用卡，没有账号，也没有人类帮它点"订阅"按钮。怎么付钱？

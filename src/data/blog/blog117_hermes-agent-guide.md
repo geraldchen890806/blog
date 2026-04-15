@@ -8,10 +8,8 @@ draft: false
 reviewed: true
 approved: true
 tags:
-  - AI工具
-  - Agent
-  - Hermes
-  - 自动化
+  - AI Agent
+  - 开发效率
 description: Hermes Agent 是 Nous Research 推出的开源 AI 助手框架，内置自学习循环、跨平台消息集成和 Cron 调度，支持 OpenClaw 配置一键迁移。本文介绍其核心功能、适用场景及局限性。
 ---
 

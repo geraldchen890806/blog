@@ -3,15 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-15T10:00:00+08:00
 title: 工具指南28-在线TOTP动态验证码生成器
 slug: blog125_totp-generator-guide
-featured: true
-draft: true
-reviewed: false
-approved: false
+featured: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - 工具指南
   - 工具
   - 安全
-  - 双因素认证
 description: 介绍如何用在线 TOTP 动态验证码生成器快速生成和验证 RFC 6238 标准的 6 位 OTP，覆盖原理、使用场景、与 Google Authenticator 的对比，以及开发者集成 TOTP 的完整代码示例。
 ---
 

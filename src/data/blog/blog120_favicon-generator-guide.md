@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-13T14:00:00+08:00
 title: 工具指南25-在线Favicon生成器
 slug: blog120_favicon-generator-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - favicon
-  - 前端开发
-  - Web开发
+  - 前端
 description: 详解Favicon的技术规范、多平台适配方案，以及如何用在线工具快速生成全套Favicon文件，告别手动裁剪和格式转换的繁琐流程。
 ---
 

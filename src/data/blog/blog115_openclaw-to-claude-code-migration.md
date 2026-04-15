@@ -8,11 +8,9 @@ draft: false
 reviewed: true
 approved: true
 tags:
-  - AI
+  - AI Agent
   - Claude Code
-  - 多 Agent
   - 自动化
-  - Telegram
 description: 第三方 AI Agent 框架 OpenClaw 停服后，记录如何用 Claude Code CLI 重建完整的多 Agent 自动化体验：Telegram Bot、定时任务、会话持久化，以及迁移过程踩到的那些坑。
 ---
 

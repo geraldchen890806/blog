@@ -3,13 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-07T10:00:00+08:00
 title: 工具指南21-HTML转JSX在线转换工具
 slug: blog112_html-to-jsx-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
+  - 前端
 description: 介绍HTML转JSX在线转换工具的使用方法、核心功能、实际应用场景，帮助前端开发者快速将HTML代码转换为React可用的JSX语法。
 ---
 

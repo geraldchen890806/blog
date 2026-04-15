@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-04-10T14:00:00+08:00
 title: 工具指南23-CSV转JSON在线工具
 slug: blog116_csv-to-json-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - CSV
-  - JSON
-  - 数据处理
+  - 前端
 description: 介绍一款免费在线 CSV to JSON 转换工具，无需编程基础即可将表格数据转为 JSON 格式，支持自定义分隔符、类型推断、多种输出格式等实用功能。
 ---
 

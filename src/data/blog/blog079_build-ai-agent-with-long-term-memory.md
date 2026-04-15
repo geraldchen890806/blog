@@ -5,10 +5,8 @@ description: 深入探讨如何为 AI Agent 构建情景记忆、语义记忆、
 featured: true
 tags:
   - AI Agent
-  - 长期记忆
-  - 向量数据库
-  - LangChain
-  - 架构设计
+  - LLM
+  - 开发效率
 ---
 
 2025 年，我们习惯了 ChatGPT 能记住对话上下文。2026 年，AI Agent 需要的不只是"记住刚才说了什么"，而是"记住三个月前的决策"、"理解用户的长期偏好"、"从错误中学习"。

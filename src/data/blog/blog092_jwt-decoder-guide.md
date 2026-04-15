@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-19T14:00:00+08:00
 title: 工具指南6-JWT在线解码工具
 slug: blog092_jwt-decoder-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - JWT
-  - 认证
-  - Web安全
+  - 安全
 description: 深入解析 JWT 的结构、编码方式和安全机制，覆盖 token 调试、过期检测、签名验证等常见场景，帮助开发者快速定位认证问题。
 ---
 

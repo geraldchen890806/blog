@@ -8,9 +8,7 @@ featured: false
 draft: false
 tags:
   - AI Agent
-  - OpenClaw
-  - 最佳实践
-  - 踩坑记录
+  - 开发效率
 ---
 
 上周我遇到了一次严重事故。

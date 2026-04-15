@@ -9,9 +9,7 @@ reviewed: true
 approved: true
 tags:
   - AI
-  - Agent
-  - GitHub Copilot
-  - 多Agent
+  - AI Agent
   - 开发效率
 description: 开源项目 Squad 让你用两条命令在仓库里初始化一支 AI 开发团队——架构师、前端、后端、测试各司其职，基于 Copilot 协作开发。聊聊它的架构设计、实际体验和背后的多 Agent 协作模式。
 ---

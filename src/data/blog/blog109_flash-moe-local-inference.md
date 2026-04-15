@@ -9,9 +9,7 @@ reviewed: true
 approved: true
 tags:
   - AI
-  - 本地推理
-  - MoE
-  - Apple Silicon
+  - LLM
   - 开源
 description: 一个开发者用 24 小时写出了 Flash-MoE，在 48GB MacBook Pro 上以 4.4 token/s 运行 397B 参数的 Qwen3.5 模型。只用约 6GB 内存，不需要云端 GPU。拆解它的技术原理：SSD 流式加载、Metal 着色器优化、MoE 稀疏激活。
 ---

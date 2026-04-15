@@ -8,10 +8,9 @@ draft: false
 reviewed: true
 approved: true
 tags:
-  - AI工具
-  - Agent
+  - AI
+  - AI Agent
   - Claude
-  - Anthropic
   - 开发效率
 description: 2026年4月刚公测的 Claude Managed Agents 把 Agent Loop、工具执行、沙箱运行环境全部托管到 Anthropic 云端，开发者只需三个 API 调用就能跑起来一个自治 Agent。本文从核心概念讲起，结合真实代码演示完整工作流，并和自建方案做对比。
 ---

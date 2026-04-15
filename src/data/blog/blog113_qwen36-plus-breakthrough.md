@@ -9,8 +9,7 @@ reviewed: true
 approved: true
 tags:
   - AI
-  - 大模型
-  - 技术分析
+  - LLM
 description: 阿里千问Qwen3.6-Plus发布仅一天登顶OpenRouter全球日榜,中国AI调用量连续五周超越美国。这背后意味着什么?本文从技术、数据和生态三个维度深入分析。
 ---
 

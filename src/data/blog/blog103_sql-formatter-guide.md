@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-27T14:00:00+08:00
 title: 工具指南14-在线SQL格式化工具
 slug: blog103_sql-formatter-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - SQL
-  - 数据库
-  - 后端开发
+  - 开发效率
 description: 详解 SQL 格式化的核心规则与常见场景，介绍一款支持多方言的在线 SQL 格式化工具，帮助开发者写出可读性更强的 SQL 语句。
 ---
 

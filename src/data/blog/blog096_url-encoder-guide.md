@@ -3,16 +3,14 @@ author: 陈广亮
 pubDatetime: 2026-03-22T14:00:00+08:00
 title: 工具指南9-URL编解码工具
 slug: blog096_url-encoder-guide
-featured: true
+featured: false
 draft: false
 reviewed: true
 approved: true
 tags:
   - 工具指南
   - 工具
-  - URL编码
   - 前端
-  - Web开发
 description: 深入讲解URL编码的工作原理、百分号编码规则、encodeURI与encodeURIComponent的区别，以及日常开发中的常见坑点和调试技巧。
 ---
 

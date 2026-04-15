@@ -6,12 +6,7 @@ featured: true
 tags:
   - AI
   - LLM
-  - 模型对比
-  - GPT
-  - Claude
-  - Gemini
-  - Qwen
-  - 性能测试
+  - 开发效率
 ---
 
 2026 年初，AI 大模型市场已经形成清晰的竞争格局：国际三巨头（OpenAI、Anthropic、Google）与国产六强（阿里、智谱、月之暗面、百度、字节、MiniMax）各具优势。作为开发者，面对这么多选择，如何选出最适合自己项目的模型？
