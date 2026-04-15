@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# 加载服务器配置
+CONFIG_FILE="$(dirname "$0")/../.server-config"
+if [ ! -f "$CONFIG_FILE" ]; then
+    CONFIG_FILE="/Users/geraldchen/ai/.server-config"
+fi
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ 找不到 .server-config，请检查路径"
+    exit 1
+fi
+# shellcheck source=/dev/null
+source "$CONFIG_FILE"
+
 echo "🚀 开始部署博客..."
 
 # 构建项目
@@ -16,7 +28,7 @@ fi
 
 # 部署到服务器
 echo "🚚 部署到服务器..."
-sshpass -p 'datayes@123' rsync -avz --delete -e "ssh -p 34567 -o StrictHostKeyChecking=no" dist/ root@45.63.22.102:/var/www/chenguangliang.com/
+sshpass -p "$SERVER_PASSWORD" rsync -avz --delete -e "ssh -p $SERVER_PORT -o StrictHostKeyChecking=no" dist/ "$SERVER_USER@$SERVER_HOST:/var/www/chenguangliang.com/"
 
 # 检查部署是否成功
 if [ $? -eq 0 ]; then

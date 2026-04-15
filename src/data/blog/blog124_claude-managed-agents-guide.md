@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-04-15T16:00:00+08:00
+pubDatetime: 2026-04-15T14:00:00+08:00
 title: Claude Managed Agents 上手指南：让 Anthropic 帮你托管 Agent Loop
 slug: blog124_claude-managed-agents-guide
 featured: true

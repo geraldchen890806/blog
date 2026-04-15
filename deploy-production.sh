@@ -2,6 +2,18 @@
 
 set -e  # 遇到错误立即退出
 
+# 加载服务器配置
+CONFIG_FILE="$(dirname "$0")/.server-config"
+if [ ! -f "$CONFIG_FILE" ]; then
+    CONFIG_FILE="/Users/geraldchen/ai/.server-config"
+fi
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ 找不到 .server-config，请检查路径"
+    exit 1
+fi
+# shellcheck source=/dev/null
+source "$CONFIG_FILE"
+
 # 颜色输出
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -147,7 +159,7 @@ echo "📋 阶段4：服务器部署"
 echo ""
 
 echo "🚚 服务器拉取并部署..."
-sshpass -p 'datayes@123' ssh -p 34567 root@45.63.22.102 << EOF
+sshpass -p "$SERVER_PASSWORD" ssh -p "$SERVER_PORT" "$SERVER_USER@$SERVER_HOST" << EOF
     cd /root/blog
     
     # 拉取最新代码

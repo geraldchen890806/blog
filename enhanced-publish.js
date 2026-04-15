@@ -9,6 +9,28 @@ const { execSync, spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+// 加载服务器配置
+function loadServerConfig() {
+    const candidates = [
+        path.join(__dirname, '.server-config'),
+        path.join(__dirname, '../.server-config'),
+        '/Users/geraldchen/ai/.server-config',
+    ];
+    for (const configPath of candidates) {
+        if (fs.existsSync(configPath)) {
+            const lines = fs.readFileSync(configPath, 'utf8').split('\n');
+            const config = {};
+            for (const line of lines) {
+                const match = line.match(/^([^#=]+)=(.*)$/);
+                if (match) config[match[1].trim()] = match[2].trim();
+            }
+            return config;
+        }
+    }
+    throw new Error('找不到 .server-config，请检查路径');
+}
+
+const serverConfig = loadServerConfig();
 const TELEGRAM_CHAT_ID = "1638777420";
 
 // 发送 Telegram 通知
@@ -86,7 +108,8 @@ async function publishArticle(articleSlug) {
         // 4. 服务器部署  
         await sendNotification(`🚚 通知服务器更新...\n📥 服务器正在获取最新文件...`);
         
-        const deployResult = executeCommand(`sshpass -p 'datayes@123' ssh -p 34567 -o StrictHostKeyChecking=no root@45.63.22.102 "cd /var/www/chenguangliang.com-source && git pull origin main && cp -r dist/* /var/www/chenguangliang.com/"`, '服务器部署');
+        const { SERVER_PASSWORD, SERVER_PORT, SERVER_USER, SERVER_HOST } = serverConfig;
+        const deployResult = executeCommand(`sshpass -p '${SERVER_PASSWORD}' ssh -p ${SERVER_PORT} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "cd /var/www/chenguangliang.com-source && git pull origin main && cp -r dist/* /var/www/chenguangliang.com/"`, '服务器部署');
         
         if (!deployResult.success) {
             throw new Error('服务器部署失败: ' + deployResult.error);

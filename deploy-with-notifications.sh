@@ -3,6 +3,18 @@
 # 部署进度通知脚本
 # 使用 OpenClaw 发送实时进度通知
 
+# 加载服务器配置
+CONFIG_FILE="$(dirname "$0")/../.server-config"
+if [ ! -f "$CONFIG_FILE" ]; then
+    CONFIG_FILE="/Users/geraldchen/ai/.server-config"
+fi
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ 找不到 .server-config，请检查路径"
+    exit 1
+fi
+# shellcheck source=/dev/null
+source "$CONFIG_FILE"
+
 TELEGRAM_CHAT_ID="1638777420"  # 陈广亮的 Telegram ID
 
 echo "🚀 生产环境部署流程（本地构建→GitHub→服务器）..."
@@ -38,7 +50,7 @@ fi
 # 3. 服务器拉取并部署
 echo "🚚 服务器拉取构建产物并部署..."
 
-sshpass -p 'datayes@123' ssh -p 34567 -o StrictHostKeyChecking=no root@45.63.22.102 << 'EOF'
+sshpass -p "$SERVER_PASSWORD" ssh -p "$SERVER_PORT" -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_HOST" << 'EOF'
     cd /var/www/chenguangliang.com-source
     
     # 拉取最新代码（包含构建产物）

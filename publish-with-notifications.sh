@@ -3,6 +3,18 @@
 # 博客文章发布 - 带进度通知
 # 使用方法：./publish-with-notifications.sh [article-slug]
 
+# 加载服务器配置
+CONFIG_FILE="$(dirname "$0")/../.server-config"
+if [ ! -f "$CONFIG_FILE" ]; then
+    CONFIG_FILE="/Users/geraldchen/ai/.server-config"
+fi
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ 找不到 .server-config，请检查路径"
+    exit 1
+fi
+# shellcheck source=/dev/null
+source "$CONFIG_FILE"
+
 ARTICLE_SLUG="$1"
 if [ -z "$ARTICLE_SLUG" ]; then
     echo "用法: $0 <article-slug>"
@@ -60,7 +72,7 @@ fi
 
 # 第5步：服务器部署
 echo "🚚 服务器部署中..."
-sshpass -p 'datayes@123' ssh -p 34567 -o StrictHostKeyChecking=no root@45.63.22.102 << 'EOF'
+sshpass -p "$SERVER_PASSWORD" ssh -p "$SERVER_PORT" -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_HOST" << 'EOF'
     cd /var/www/chenguangliang.com-source
     git pull origin main
     cp -r dist/* /var/www/chenguangliang.com/

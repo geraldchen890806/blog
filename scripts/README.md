@@ -1,193 +1,120 @@
-# 博客部署和社交媒体发布工作流
+# 博客发布完整流程
 
-## 工作流概述
+## 每次发布文章必须完成的四步
 
-```
-部署博客 → 检测新文章 → 生成摘要 → 发送确认 → 发布到X+掘金
-```
-
-## 自动化流程
-
-### 1. 部署博客（含自动摘要生成）
+### 第一步：构建 + 提交 + 推送 GitHub
 
 ```bash
 cd /Users/geraldchen/ai/blog
-./deploy-production.sh
+npm run build
+git add src/data/blog/<新文章>.md dist/
+git commit -m "Publish blogXXX: 文章标题"
+git push origin main
 ```
 
-**执行流程**：
-1. ✅ 部署前检查（分支、改动、同步）
-2. ✅ 本地构建
-3. ✅ 提交到GitHub
-4. ✅ 服务器部署
-5. ✅ 部署验证
-6. ✅ **检测新文章**
-7. ✅ **自动生成推文和掘金摘要**
-8. ⏸️ **暂停，等待大人确认**
+### 第二步：部署到服务器
 
-### 2. 查看生成的摘要
+**git push 之后必须执行这一步，否则网站不会更新。**
 
-部署脚本会自动生成摘要并显示在终端。摘要文件保存在：
-- `/Users/geraldchen/ai/blog/.deploy-temp/summary.json`
-- `/Users/geraldchen/ai/blog/.deploy-temp/juejin.json`
-
-### 3. 确认后发布
-
-**方式1：命令行确认**
 ```bash
+source /Users/geraldchen/ai/.server-config
+sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -p "$SERVER_PORT" "$SERVER_USER@$SERVER_HOST" \
+  'cd /root/blog && git pull origin main && rm -rf /usr/share/nginx/html/* && cp -r /root/blog/dist/* /usr/share/nginx/html/ && echo "部署完成 $(git rev-parse --short HEAD)"'
+```
+
+### 第三步：生成掘金 MD 文件 + 发推文
+
+每篇新文章都需要：
+1. 生成掘金 MD 文件（去掉 frontmatter，加引流链接）
+2. 写 summary.json 和 juejin.json 到 `.deploy-temp/`
+3. 调用 `publish-to-social.cjs` 发布推文并生成掘金文件
+
+**生成掘金 MD 的方法（以文章 slug 为例）：**
+
+```bash
+cd /Users/geraldchen/ai/blog
+slug="blogXXX_your-slug"
+title=$(grep "^title:" src/data/blog/${slug}.md | sed 's/^title: //')
+url_slug=$(grep "^slug:" src/data/blog/${slug}.md | sed 's/^slug: //')
+content=$(awk '/^---/{if(++c==2){found=1;next}} found{print}' src/data/blog/${slug}.md)
+
+{
+  echo "${content}"
+  echo ""
+  echo "---"
+  echo ""
+  echo "> 原文发布于 [陈广亮的技术博客](https://chenguangliang.com/posts/${url_slug}/)，欢迎关注获取更多前端与 AI 开发内容。"
+} > "/Users/geraldchen/ai/juejin/${title}.md"
+```
+
+**发推文的方法：**
+
+```bash
+python3 -c "
+import json
+tweet = '推文内容（≤280字符）\nhttps://chenguangliang.com/posts/xxx/\n#标签1 #标签2'
+juejin_path = '/Users/geraldchen/ai/juejin/文章标题.md'
+with open(juejin_path, 'r') as f:
+    content = f.read()
+summary = {
+    'article': {'title': '文章标题', 'url': 'https://chenguangliang.com/posts/xxx/'},
+    'tweet': tweet.strip(),
+    'charCount': len(tweet.strip())
+}
+juejin = {'path': juejin_path, 'content': content}
+with open('.deploy-temp/summary.json', 'w') as f:
+    json.dump(summary, f, ensure_ascii=False)
+with open('.deploy-temp/juejin.json', 'w') as f:
+    json.dump(juejin, f, ensure_ascii=False)
+"
+
 node /Users/geraldchen/ai/twitter/publish-to-social.cjs
 ```
 
-**方式2：通过Agent确认**（推荐）
-Agent会自动通过Telegram发送摘要给大人，大人回复"确认"后Agent自动执行发布。
-
-### 4. 发布流程
-
-`publish-to-social.cjs` 会自动：
-1. ✅ 发布推文到X（@geraldchen89）
-2. ✅ 生成掘金MD文件到 `/Users/geraldchen/ai/juejin/`
-3. ✅ 清理临时文件
-
-## 单独使用各脚本
-
-### 为指定文章生成摘要
+### 第四步：更新 last-deploy-commit
 
 ```bash
-node /Users/geraldchen/ai/twitter/generate-post-summary.cjs src/data/blog/文章.md
+git rev-parse HEAD > /Users/geraldchen/ai/blog/.last-deploy-commit
 ```
 
-### 检测新文章
+---
 
-```bash
-bash /Users/geraldchen/ai/blog/scripts/detect-new-posts.sh
+## 推文写作规范
+
+- 长度：≤280 字符（含 URL 和标签，URL 约占 23 字符）
+- 格式：正文 + 空行 + URL + 空行 + #标签
+- 正文：用一两句话说清楚"这篇文章解决了什么问题"，不要只写标题
+- 标签：2-3 个，工具类用 `#开发工具`，AI 类用 `#AI #Agent`，前端类用 `#前端开发`
+
+**示例：**
+```
+CSS box-shadow 多层阴影参数太繁琐？在线 Box Shadow 生成器帮你可视化调参，实时预览 + 一键复制代码。附性能优化和常用阴影设计模式。
+https://chenguangliang.com/posts/blog118_box-shadow-guide/
+#CSS #前端开发 #开发工具
 ```
 
-### 准备Telegram消息
+---
 
-```bash
-node /Users/geraldchen/ai/twitter/send-summary-to-telegram.cjs
-```
+## 掘金发布（手动）
 
-## 文件说明
+掘金 MD 文件生成到 `/Users/geraldchen/ai/juejin/`，需要人工登录掘金手动发布。
+
+---
+
+## 关键文件说明
 
 | 文件 | 用途 |
 |------|------|
-| `deploy-production.sh` | 主部署脚本（已集成社交媒体工作流） |
-| `post-deploy-workflow.sh` | 部署后工作流（检测新文章+生成摘要） |
-| `detect-new-posts.sh` | 检测本次部署新增/修改的文章 |
-| `/Users/geraldchen/ai/twitter/generate-post-summary.cjs` | AI生成推文和掘金摘要 |
-| `/Users/geraldchen/ai/twitter/send-summary-to-telegram.cjs` | 准备Telegram确认消息 |
-| `/Users/geraldchen/ai/twitter/publish-to-social.cjs` | 发布到X和生成掘金MD |
+| `.last-deploy-commit` | 记录上次部署的 commit，用于检测新文章 |
+| `.deploy-temp/summary.json` | 临时：推文内容，发布后自动删除 |
+| `.deploy-temp/juejin.json` | 临时：掘金 MD 内容，发布后自动删除 |
+| `/Users/geraldchen/ai/juejin/` | 掘金 MD 文件存放目录 |
+| `/Users/geraldchen/ai/twitter/publish-to-social.cjs` | 发推文 + 生成掘金 MD |
 
-## 临时文件
-
-| 文件 | 说明 |
-|------|------|
-| `.deploy-temp/summary.json` | 生成的推文和摘要 |
-| `.deploy-temp/juejin.json` | 待生成的掘金MD信息 |
-| `.deploy-temp/telegram-message.txt` | Telegram确认消息文本 |
-| `.last-deploy-commit` | 上次部署的commit hash |
+---
 
 ## 注意事项
 
-1. **首次使用**：第一次部署时，因为没有 `.last-deploy-commit`，会检测最近一次提交的文章
-2. **API依赖**：
-   - `generate-post-summary.cjs` 需要 `ANTHROPIC_API_KEY`
-   - `publish-to-social.cjs` 需要Twitter API凭据
-3. **掘金发布**：掘金MD文件生成后，需要人工登录掘金手动发布
-4. **X发布失败处理**：如果X API额度不足，推文内容已保存在 `summary.json`，可稍后手动发布
-
-## 工作流图
-
-```
-┌─────────────────────┐
-│  编辑文章内容       │
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│ ./deploy-production │ ← 一键部署
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│   部署到服务器      │
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│  检测新文章         │
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│ AI生成推文+摘要     │
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│ 发送Telegram确认    │ ← Agent自动
-│ (或命令行显示)      │
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│  大人确认           │
-└──────────┬──────────┘
-           │
-           v
-┌─────────────────────┐
-│ 发布到X + 掘金MD    │ ← Agent自动
-└─────────────────────┘
-```
-
-## 示例输出
-
-### 部署后自动生成摘要
-
-```bash
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📢 部署后工作流：社交媒体发布
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔍 检测新发布的文章...
-✅ 检测到新文章：
-   • src/data/blog/my-new-post.md
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📝 处理文章: my-new-post.md
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📝 解析文章...
-📖 文章标题: 我的新文章
-🔗 文章URL: https://chenguangliang.com/posts/my-new-post
-
-🤖 生成摘要...
-
-✅ 生成完成！
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📱 X推文 (245/280 字符):
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-这是一篇关于xxx的技术文章...
-
-https://chenguangliang.com/posts/my-new-post
-
-#技术 #前端 #开发
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📝 掘金摘要 (280 字):
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-文章介绍了...
-
-> 原文链接：[我的新文章](https://chenguangliang.com/posts/my-new-post/)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⏸️  等待大人确认...
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📋 请查看上方生成的推文和掘金摘要
-
-确认后输入以下命令发布：
-  cd /Users/geraldchen/ai/blog && node scripts/publish-to-social.cjs
-```
+1. **git push 和服务器部署是两步**，缺一不可。只 push 到 GitHub，网站不会更新。
+2. **每篇新文章都要做推文和掘金**，不能批量积压后补——推文发出去是按时间排的，积压太多会一次性刷屏。
+3. **`deploy-production.sh` 脚本**包含完整流程（含服务器部署），但社交媒体发布部分需要 Agent 手动完成（脚本只输出提示，不会自动生成推文）。
