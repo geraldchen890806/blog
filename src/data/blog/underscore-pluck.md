@@ -4,7 +4,7 @@ pubDatetime: 2016-06-15T10:00:00+08:00
 title: "Underscore pluck 方法"
 slug: underscore-pluck
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "Underscore.js 的 pluck 方法快速提取对象数组中的某个属性。"

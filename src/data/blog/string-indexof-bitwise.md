@@ -4,7 +4,7 @@ pubDatetime: 2016-01-20T10:00:00+08:00
 title: "用按位非 ~ 简化 indexOf 判断"
 slug: string-indexof-bitwise
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "利用按位非操作符简化 indexOf 的判断写法。"

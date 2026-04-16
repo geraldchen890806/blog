@@ -4,7 +4,7 @@ pubDatetime: 2015-06-15T10:00:00+08:00
 title: "Node 中使用 Markdown 与 highlight.js"
 slug: node-markdown
 featured: false
-draft: false
+draft: true
 tags:
   - Node.js
   - Markdown

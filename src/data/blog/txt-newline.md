@@ -4,7 +4,7 @@ pubDatetime: 2015-06-01T10:00:00+08:00
 title: "文本复制换行问题"
 slug: txt-newline
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "文本复制到 txt 丢失换行格式的解决方法。"

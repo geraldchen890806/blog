@@ -4,7 +4,7 @@ pubDatetime: 2016-07-01T10:00:00+08:00
 title: "深入理解函数声明提升与变量声明提升"
 slug: js-hoisting
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "通过两个例子深入理解 JS 的声明提升机制。"

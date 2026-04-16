@@ -4,7 +4,7 @@ pubDatetime: 2015-10-15T10:00:00+08:00
 title: "JS 函数返回值与 new 操作符"
 slug: js-constructor-return
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "构造函数返回值对 new 操作符创建实例的影响。"

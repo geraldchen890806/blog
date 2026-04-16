@@ -4,7 +4,7 @@ pubDatetime: 2016-08-01T10:00:00+08:00
 title: "JS 具名函数与匿名函数的差异"
 slug: js-named-function-expression
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "具名函数表达式与函数声明在作用域中的不同行为。"

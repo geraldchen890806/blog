@@ -4,7 +4,7 @@ pubDatetime: 2015-05-20T10:00:00+08:00
 title: "window.showModalDialog 与 window.open 跨域方案"
 slug: window-open-cross-origin
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - 兼容性

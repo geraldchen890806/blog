@@ -4,7 +4,7 @@ pubDatetime: 2015-11-01T10:00:00+08:00
 title: "JS 性能优化：记忆（memoization）"
 slug: js-memoization
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - 性能优化

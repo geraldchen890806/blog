@@ -4,7 +4,7 @@ pubDatetime: 2018-09-15T10:00:00+08:00
 title: "JS 模块规范：CommonJS、AMD、CMD、ES Module"
 slug: js-module-systems
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - 前端工程化

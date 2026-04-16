@@ -4,7 +4,7 @@ pubDatetime: 2019-08-10T10:00:00+08:00
 title: "函数作用域和块作用域"
 slug: function-scope-block-scope
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "最小暴露原则、IIFE、块作用域（let/const/try-catch）详解。"

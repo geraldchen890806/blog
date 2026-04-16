@@ -4,7 +4,7 @@ pubDatetime: 2015-07-20T10:00:00+08:00
 title: "JS 解析 XML 兼容 IE 与其他浏览器"
 slug: js-xml-parse
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - 兼容性

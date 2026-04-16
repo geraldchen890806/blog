@@ -4,7 +4,7 @@ pubDatetime: 2019-07-01T10:00:00+08:00
 title: "AWS 服务器搭建笔记"
 slug: aws-setup
 featured: false
-draft: false
+draft: true
 tags:
   - Linux
   - 运维

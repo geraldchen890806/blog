@@ -4,7 +4,7 @@ pubDatetime: 2015-04-01T10:00:00+08:00
 title: "Node forever 进程管理"
 slug: node-forever
 featured: false
-draft: false
+draft: true
 tags:
   - Node.js
 description: "使用 forever 管理 Node.js 进程，包括 koa 的和谐模式启动。"

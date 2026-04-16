@@ -4,7 +4,7 @@ pubDatetime: 2015-03-15T10:00:00+08:00
 title: "JS repeat 方法的演变历史"
 slug: js-repeat
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "字符串重复方法的多种实现，从 join 到二分法递归。"

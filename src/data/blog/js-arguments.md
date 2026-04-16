@@ -4,7 +4,7 @@ pubDatetime: 2016-05-15T10:00:00+08:00
 title: "function arguments 参数同步机制"
 slug: js-arguments
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "arguments 与输入参数的同步关系。"

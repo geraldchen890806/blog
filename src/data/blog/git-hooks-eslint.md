@@ -4,7 +4,7 @@ pubDatetime: 2018-08-15T10:00:00+08:00
 title: "如何在 git commit 时添加 ESLint 校验"
 slug: git-hooks-eslint
 featured: false
-draft: false
+draft: true
 tags:
   - Git
   - 前端工程化

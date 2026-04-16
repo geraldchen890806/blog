@@ -4,7 +4,7 @@ pubDatetime: 2015-05-10T10:00:00+08:00
 title: "实现 once 函数"
 slug: js-once
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "用闭包实现只能调用一次的函数。"

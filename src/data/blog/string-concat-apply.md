@@ -4,7 +4,7 @@ pubDatetime: 2016-02-01T10:00:00+08:00
 title: "String.concat 与 apply 的妙用"
 slug: string-concat-apply
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "使用 apply 将数组中的字符串一次性拼接。"

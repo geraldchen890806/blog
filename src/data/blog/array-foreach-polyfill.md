@@ -4,7 +4,7 @@ pubDatetime: 2016-06-01T10:00:00+08:00
 title: "Array forEach 在 IE 低版本的兼容"
 slug: array-foreach-polyfill
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - 兼容性

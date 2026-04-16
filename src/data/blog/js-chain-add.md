@@ -4,7 +4,7 @@ pubDatetime: 2016-04-15T10:00:00+08:00
 title: "实现链式函数 add"
 slug: js-chain-add
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "利用 valueOf 实现 add(1)(2)(3) == 6 的链式调用。"

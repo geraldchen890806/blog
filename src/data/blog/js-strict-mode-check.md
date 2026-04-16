@@ -4,7 +4,7 @@ pubDatetime: 2016-03-01T10:00:00+08:00
 title: "JS 判断浏览器是否支持严格模式"
 slug: js-strict-mode-check
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "利用严格模式下 this 为 undefined 的特性来判断。"

@@ -4,7 +4,7 @@ pubDatetime: 2017-01-15T10:00:00+08:00
 title: "ES7 Rest/Spread 运算符在对象中的应用"
 slug: es7-rest-spread
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - ES6

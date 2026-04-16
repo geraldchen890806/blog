@@ -4,7 +4,7 @@ pubDatetime: 2016-09-01T10:00:00+08:00
 title: "MySQL 更换 SQLite 记录"
 slug: mysql-to-sqlite
 featured: false
-draft: false
+draft: true
 tags:
   - Node.js
   - 数据库

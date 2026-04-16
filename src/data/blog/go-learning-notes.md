@@ -4,7 +4,7 @@ pubDatetime: 2019-08-01T10:00:00+08:00
 title: "Go 学习笔记"
 slug: go-learning-notes
 featured: false
-draft: false
+draft: true
 tags:
   - Go
 description: "Go 语言基础：变量定义、array、slice、map 等核心概念。"

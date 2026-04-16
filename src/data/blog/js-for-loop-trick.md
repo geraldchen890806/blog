@@ -4,7 +4,7 @@ pubDatetime: 2015-11-15T10:00:00+08:00
 title: "一个有趣的 for 循环用法"
 slug: js-for-loop-trick
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "Object.keys polyfill 中的 for 循环妙用。"

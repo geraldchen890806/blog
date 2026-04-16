@@ -4,7 +4,7 @@ pubDatetime: 2015-04-15T10:00:00+08:00
 title: "Git Shell Error in Windows 修复"
 slug: git-shell-error
 featured: false
-draft: false
+draft: true
 tags:
   - Git
 description: "Git command could not be found 的修复方法。"

@@ -4,7 +4,7 @@ pubDatetime: 2019-08-15T10:00:00+08:00
 title: "Polyfill 学习：Object.is"
 slug: polyfill-object-is
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - polyfill

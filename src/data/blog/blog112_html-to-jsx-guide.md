@@ -40,16 +40,17 @@ const element = React.createElement(
 
 ## HTML和JSX的关键差异
 
+理解这些差异背后的原因，比单纯记忆规则更有价值。JSX 本质上是 JavaScript，所有属性最终都会成为 JS 对象的键。这决定了它和 HTML 之间几乎所有的命名差异。
+
 ### 1. 属性命名规则
 
-HTML中使用的属性在JSX中需要转换为驼峰命名法（camelCase）：
+HTML 属性在 JSX 中必须是合法的 JavaScript 标识符。`class` 是 JS 保留关键字，所以改为 `className`；`for` 同样是 JS 保留字（用于 `for` 循环），改为 `htmlFor`。事件处理器统一采用驼峰命名，`onclick` 变成 `onClick`，是因为 DOM 的事件属性在 JS 中本来就是驼峰形式（`element.onClick`），JSX 只是与之对齐：
 
 - `class` → `className`
 - `for` → `htmlFor`
-- `data-*` 属性保持不变
-- `aria-*` 属性保持不变
-- `onclick` → `onClick`
-- `onchange` → `onChange`
+- `onclick` → `onClick`，`onchange` → `onChange`，`onsubmit` → `onSubmit`
+
+有两类属性例外，不做转换：`data-*` 和 `aria-*` 保留连字符原样。这是刻意设计——`data-user-id` 本来就是 HTML 自定义数据属性，修改命名会破坏 `dataset` API 的读取方式；`aria-*` 同理，辅助技术按原始名称识别这些属性。
 
 ### 2. 布尔属性
 
@@ -67,26 +68,47 @@ HTML中的布尔属性在JSX中需要显式声明：
 <button disabled>Click me</button>
 ```
 
-### 3. 样式属性
+### 3. 内联样式：从字符串到对象
 
-HTML中的style属性是字符串，而JSX中必须是对象：
+HTML 的 `style` 是一段 CSS 字符串，JSX 里是 JavaScript 对象，属性名同样遵循驼峰命名：
 
 ```html
 <!-- HTML -->
-<div style="color: red; font-size: 16px;">Content</div>
-
-<!-- JSX -->
-<div style={{ color: 'red', fontSize: '16px' }}>Content</div>
+<div style="color: red; font-size: 16px; background-color: #f0f0f0;">Content</div>
 ```
+
+```jsx
+{/* JSX */}
+<div style={{ color: 'red', fontSize: '16px', backgroundColor: '#f0f0f0' }}>Content</div>
+```
+
+注意双花括号：外层 `{}` 是 JSX 的 JS 表达式插值，内层 `{}` 才是样式对象本身。`font-size` 变成 `fontSize`，`background-color` 变成 `backgroundColor`——凡是 CSS 中带连字符的属性，在 JSX 中一律转为驼峰。
 
 ### 4. 自闭合标签
 
-所有在JSX中没有子元素的元素都必须自闭合：
+HTML 允许 `<br>`、`<img>`、`<input>` 等空元素不写闭合斜杠，但 JSX 要求严格的 XML 语法——没有子元素的标签必须自闭合：
 
 ```jsx
 <img src="image.png" alt="description" />
 <br />
 <input type="text" />
+<hr />
+```
+
+这不是可选的风格问题，缺少 `/` 会直接报编译错误。
+
+### 5. SVG 属性的转换
+
+SVG 内联使用时同样受驼峰命名规则约束。`stroke-width` 变为 `strokeWidth`，`fill-opacity` 变为 `fillOpacity`，`clip-path` 变为 `clipPath`。转换工具会自动处理这些，手写时容易遗漏：
+
+```html
+<!-- HTML/SVG -->
+<circle stroke-width="2" fill-opacity="0.5" clip-path="url(#mask)" />
+```
+
+```jsx
+{/* JSX */}
+<circle strokeWidth={2} fillOpacity={0.5} clipPath="url(#mask)" />
 ```
 
 ## HTML转JSX工具的核心功能
@@ -182,7 +204,22 @@ HTML中的style属性是字符串，而JSX中必须是对象：
 </table>
 ```
 
-### 场景3：从HTML原型快速构建React组件
+### 场景3：迁移老 jQuery 项目到 React
+
+将 jQuery 项目改写为 React 时，最费时的部分往往是把散落在各处的 HTML 字符串和模板拼接转换为 JSX。批量处理流程：
+
+1. 从 jQuery 的 `$.html()` 输出或模板文件中提取静态 HTML 片段
+2. 粘贴到 [HTML转JSX工具](https://anyfreetools.com/tools/html-to-jsx) 逐块转换
+3. 转换后的 JSX 作为 React 组件的 `return` 内容
+4. 手动补充原来的 JS 逻辑为 props、state 和事件处理函数
+
+这种做法比从零重写 UI 快得多，工具处理机械性的属性重命名，开发者专注于逻辑迁移。
+
+### 场景4：验证手写 JSX 的正确性
+
+反向使用也很实用：把自己写的 JSX 先在工具里跑一遍参考输出，对比是否有遗漏的属性转换。这在刚接触 React、不确定某个 HTML 属性对应哪个 JSX 属性时尤其有用，比翻文档快。
+
+### 场景5：从HTML原型快速构建React组件
 
 在项目早期，可能会使用纯HTML进行快速原型设计。当需要将其转换为React应用时，使用本工具可以节省大量时间：
 
@@ -216,6 +253,56 @@ function ProductCard() {
   );
 }
 ```
+
+## 常见转换陷阱
+
+工具能处理绝大多数情况，但有几类问题需要手动检查。
+
+### HTML 注释不能直接用
+
+HTML 注释 `<!-- 注释 -->` 在 JSX 中会导致编译错误，必须换成 JSX 的注释语法：
+
+```jsx
+{/* 这是 JSX 注释 */}
+<div className="container">
+  {/* 这里放内容 */}
+</div>
+```
+
+转换工具通常会处理这个，但如果你在转换后的代码里手动加注释，要记住不能用 HTML 写法。
+
+### `value` vs `defaultValue`：受控与非受控
+
+HTML 表单的 `value` 属性在 JSX 里语义发生了变化。直接写 `value="初始值"` 会创建受控组件，React 会接管这个输入框——没有配套的 `onChange` 处理函数，输入框就会变成只读。如果只想设置初始值而不接管控制权，应该用 `defaultValue`：
+
+```jsx
+{/* 受控组件：需要配合 onChange 和 state */}
+<input value={inputValue} onChange={e => setInputValue(e.target.value)} />
+
+{/* 非受控组件：仅设置初始值，之后由浏览器管理 */}
+<input defaultValue="初始值" />
+```
+
+这是转换工具无法替你决策的地方——工具会机械地保留 `value`，但你需要根据组件的实际需求判断该用哪个。
+
+### 事件处理器的写法差异
+
+HTML 的内联事件处理器是字符串形式的代码，JSX 需要传入函数引用：
+
+```html
+<!-- HTML：字符串形式，调用时执行 -->
+<button onclick="handleClick()">Click</button>
+```
+
+```jsx
+{/* JSX：传入函数引用，不要加括号 */}
+<button onClick={handleClick}>Click</button>
+
+{/* 需要传参时用箭头函数包裹 */}
+<button onClick={() => handleClick(itemId)}>Click</button>
+```
+
+转换工具会把 `onclick="handleClick()"` 变成 `onClick={handleClick}`，自动去掉括号。但如果原始 HTML 里是 `onclick="handleClick(someVar)"`，工具的处理结果可能需要人工调整。
 
 ## 使用技巧
 

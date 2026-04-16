@@ -4,7 +4,7 @@ pubDatetime: 2016-09-15T10:00:00+08:00
 title: "我们在使用 Promises 时常犯的错误"
 slug: promises-problem
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
 description: "四种 Promise then 写法的区别。"

@@ -4,7 +4,7 @@ pubDatetime: 2016-01-10T10:00:00+08:00
 title: "Checkbox 模糊状态（indeterminate）"
 slug: checkbox-indeterminate
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - CSS

@@ -4,7 +4,7 @@ pubDatetime: 2016-07-15T10:00:00+08:00
 title: "背包问题 JS 实现"
 slug: knapsack-problem
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - 算法

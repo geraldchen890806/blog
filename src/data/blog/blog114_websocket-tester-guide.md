@@ -186,6 +186,149 @@ hello world
 
 **测试并发**：同时开多个浏览器标签，各自连接服务器，模拟多客户端并发场景。
 
+## WebSocket 握手协议细节
+
+理解握手过程有助于排查连接失败问题，也能更好地利用测试工具中的"自定义请求头"功能。
+
+### HTTP Upgrade 握手
+
+WebSocket 连接由一次普通 HTTP 请求发起，客户端在请求头中携带以下关键字段：
+
+```http
+GET /ws HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Sec-WebSocket-Version: 13
+```
+
+服务端收到请求后，将 `Sec-WebSocket-Key` 拼接固定 GUID `258EAFA5-E914-47DA-95CA-C5AB0DC85B11`，然后计算 `Base64(SHA1(key + GUID))`，写入响应头：
+
+```http
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+```
+
+状态码 101 表示协议切换成功，后续通信不再走 HTTP，直接走 WebSocket 帧协议。
+
+### 帧格式
+
+WebSocket 数据以"帧（Frame）"为单位传输，帧头最小 2 字节，包含以下关键字段：
+
+- **FIN bit**：标记是否为消息的最后一帧，分片传输时中间帧 FIN=0，最后帧 FIN=1。
+- **Opcode**：帧类型标识，常用值如下：
+  - `0x1`：文本帧（UTF-8 编码）
+  - `0x2`：二进制帧
+  - `0x8`：关闭帧（含关闭码）
+  - `0x9`：Ping 帧
+  - `0xA`：Pong 帧（对 Ping 的应答）
+- **Mask 掩码**：客户端向服务端发送的帧**必须**进行掩码处理（RFC 6455 强制要求），服务端向客户端发送的帧则不需要。掩码可防止代理缓存污染攻击。
+
+## 服务端实现示例（Node.js ws 库）
+
+以下是一个生产可用的 Node.js WebSocket 服务端，包含心跳检测和广播逻辑：
+
+```javascript
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', (ws, req) => {
+  const ip = req.socket.remoteAddress;
+  console.log(`客户端连接: ${ip}`);
+
+  // 心跳检测
+  ws.isAlive = true;
+  ws.on('pong', () => { ws.isAlive = true; });
+
+  ws.on('message', (data, isBinary) => {
+    const msg = isBinary ? data : data.toString();
+    // 广播给所有在线客户端
+    wss.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(msg, { binary: isBinary });
+      }
+    });
+  });
+
+  ws.on('close', (code, reason) => {
+    console.log(`断开: ${code} ${reason}`);
+  });
+});
+
+// 定时心跳，清理僵尸连接
+const interval = setInterval(() => {
+  wss.clients.forEach(ws => {
+    if (!ws.isAlive) return ws.terminate();
+    ws.isAlive = false;
+    ws.ping();
+  });
+}, 30000);
+
+wss.on('close', () => clearInterval(interval));
+```
+
+关键细节说明：
+
+- `ws.isAlive` 标志位结合 `pong` 事件实现心跳检测，每 30 秒清理一次无响应的僵尸连接，避免服务端连接数无限增长。
+- `isBinary` 参数区分文本帧和二进制帧，转发时保持原始帧类型，不做多余转换。
+- `ws.terminate()` 强制断开 TCP 连接，`ws.close()` 则会先发送关闭帧（优雅关闭），两者适用场景不同。
+
+用 [WebSocket 在线测试工具](https://anyfreetools.com/tools/websocket-tester) 连接上述本地服务时，消息流面板可以直观看到广播回显，方便验证多连接广播逻辑是否正常。
+
+## 浏览器原生 WebSocket API
+
+前端代码直接使用浏览器内置的 `WebSocket` 类，无需任何依赖：
+
+```javascript
+const ws = new WebSocket('wss://example.com/ws');
+
+ws.onopen = () => {
+  console.log('已连接');
+  ws.send(JSON.stringify({ type: 'subscribe', channel: 'market' }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log('收到:', data);
+};
+
+ws.onerror = (error) => console.error('WebSocket 错误:', error);
+
+ws.onclose = (event) => {
+  console.log(`连接关闭: ${event.code} ${event.reason}`);
+  // 自动重连逻辑
+  if (event.code !== 1000) {
+    setTimeout(() => reconnect(), 3000);
+  }
+};
+
+// 主动关闭
+ws.close(1000, '正常关闭');
+```
+
+几个使用要点：
+
+- `ws.readyState` 有四种状态：`0`（CONNECTING）、`1`（OPEN）、`2`（CLOSING）、`3`（CLOSED），发送消息前需确认状态为 `1`，否则会抛出异常。
+- `onerror` 回调的 `error` 对象信息有限，详细原因通常在紧随其后的 `onclose` 事件中，通过 `event.code` 和 `event.reason` 获取。
+- 自动重连时建议加入指数退避（Exponential Backoff），避免服务端重启时大量客户端同时重连造成雪崩。
+
+## WebSocket 关闭码速查
+
+关闭帧（Opcode `0x8`）携带 2 字节关闭码，标准关闭码由 IANA 维护，常见值如下：
+
+| 关闭码 | 含义 | 常见原因 |
+|--------|------|----------|
+| 1000 | 正常关闭 | 双方主动、正常结束会话 |
+| 1001 | 端点离开 | 浏览器页面导航或关闭标签 |
+| 1006 | 异常关闭 | 无关闭帧，通常是网络中断或进程崩溃 |
+| 1008 | 违反策略 | 消息内容不符合服务端策略 |
+| 1011 | 服务端内部错误 | 服务端处理消息时发生未预期异常 |
+
+调试时，`1006` 是最常见的"非正常"关闭码——它意味着 TCP 连接直接断开，没有完成 WebSocket 级别的握手关闭。遇到 `1006` 应优先排查网络连通性、服务端进程状态和反向代理超时配置。
+
 ## WebSocket 与 HTTP 的对比
 
 | 特性 | HTTP | WebSocket |

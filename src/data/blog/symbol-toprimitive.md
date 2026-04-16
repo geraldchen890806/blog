@@ -4,7 +4,7 @@ pubDatetime: 2019-09-15T10:00:00+08:00
 title: "Symbol.toPrimitive 与 JS 加法运算"
 slug: symbol-toprimitive
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - ES6

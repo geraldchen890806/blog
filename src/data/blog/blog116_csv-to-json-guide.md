@@ -49,6 +49,41 @@ id,name,age,city
 
 在线工具封装了这些细节，省去手写解析代码的麻烦。
 
+## CSV 格式的技术细节
+
+### RFC 4180 标准与引号转义
+
+CSV 没有统一的官方规范，实际使用的标准是 RFC 4180。核心规则是：**字段内容包含分隔符时，必须用双引号包裹；字段内容本身含有双引号时，用两个连续双引号转义**。
+
+```csv
+name,bio
+Alice,"Engineer, Backend"
+Bob,"He said ""hello"" to me"
+```
+
+第一行 `Alice` 的 `bio` 字段包含逗号，必须加引号；第二行 `Bob` 的 bio 里有双引号，写成 `""hello""` 才能正确解析。不遵守这个规则的 CSV 在解析时会出现字段错位或内容截断。
+
+### 编码问题：GBK vs UTF-8
+
+Excel 在中文 Windows 系统上导出的 CSV 默认是 GBK/GB2312 编码，而现代开发环境（Node.js、Python、数据库、API）几乎全部使用 UTF-8。直接把 GBK 文件喂给 UTF-8 解析器，中文字段就会变成乱码。
+
+解决方式有两种：
+
+1. 在 Excel 中另存为时选择"CSV UTF-8（逗号分隔）"——Excel 会在文件头加一个 BOM（字节顺序标记，`\xEF\xBB\xBF`），明确标识为 UTF-8 编码
+2. 用代码转换编码，读取时指定 `encoding='gbk'`，写出时指定 `encoding='utf-8'`
+
+BOM 本身不是内容，但如果解析器不处理 BOM，第一个字段名会多出一个不可见字符，导致按列名取值失败。Python 的 `utf-8-sig` 编码和 Node.js 的 BOM 剥离都是为了解决这个问题。
+
+### 换行符差异
+
+CSV 中的换行符在不同操作系统下不一致：
+
+- Windows：`\r\n`（CRLF）
+- Unix/Linux/macOS：`\n`（LF）
+- 旧版 Mac（OS 9 及以前）：`\r`（CR）
+
+Excel 在 Windows 上导出的 CSV 使用 `\r\n`。大多数解析库能自动处理，但手写正则或 `split('\n')` 来解析 CSV 时，`\r` 会残留在字段值末尾，成为难以排查的隐蔽 bug。
+
 ## 工具核心功能
 
 ### 输入方式
@@ -93,6 +128,33 @@ id,name,age,city
   "2": { "name": "Bob", "age": 32 }
 }
 ```
+
+### 嵌套 JSON 结构
+
+标准转换输出的是扁平对象数组。但有时候业务数据本身有层级关系，比如 `address.city` 和 `address.country` 应该嵌套在 `address` 对象下。
+
+支持嵌套的工具约定用点号（`.`）作为字段名的分隔符：
+
+```csv
+name,address.city,address.country
+Alice,Beijing,CN
+```
+
+转换后自动生成嵌套结构：
+
+```json
+[
+  {
+    "name": "Alice",
+    "address": {
+      "city": "Beijing",
+      "country": "CN"
+    }
+  }
+]
+```
+
+如果不需要嵌套，保持列名扁平即可，工具不会对普通列名做分割处理。
 
 ### 数据类型推断
 
@@ -215,31 +277,71 @@ Alice,"Beijing, Chaoyang"
 
 检查 CSV 是否有 Header 行。工具默认将第一行作为列名，如果 CSV 没有 Header，需要手动添加或在工具中关闭"首行为列名"选项。
 
-## 与代码方案对比
+## 用代码实现 CSV 转 JSON
 
-为什么用在线工具而不是写代码？
+如果 CSV 转 JSON 是业务流程的固定环节（定时任务、自动化导入、CI 脚本），在线工具显然不合适，还是要用代码。以下是两种常见语言的实现。
+
+### Node.js：用 csv-parse 库
+
+`csv-parse` 是 Node.js 生态里最成熟的 CSV 解析库，处理引号转义、换行符、BOM 都很稳健：
 
 ```javascript
-// 用 papaparse 库
-import Papa from "papaparse";
+const { parse } = require('csv-parse/sync');
+const fs = require('fs');
 
-const result = Papa.parse(csvString, {
-  header: true,
-  dynamicTyping: true,
-  skipEmptyLines: true,
+const input = fs.readFileSync('data.csv', 'utf-8');
+const records = parse(input, {
+  columns: true,        // 第一行作为 key
+  skip_empty_lines: true,
+  cast: true,           // 自动类型推断
 });
-console.log(result.data);
+console.log(JSON.stringify(records, null, 2));
 ```
 
-代码方案的问题：
+`cast: true` 开启类型推断，数字字段自动转为 number，`true`/`false` 转为 boolean。如果需要处理 Excel 导出的带 BOM 的 UTF-8 文件，读取前用 `input.replace(/^\uFEFF/, '')` 剥离 BOM 即可。
 
-1. **需要安装依赖**：`npm install papaparse`，且依赖版本需要维护
-2. **需要写胶水代码**：处理文件读取、编码、错误提示
-3. **不适合临时需求**：运营同学或测试同学需要自行转换数据时，让他们安装 Node.js 环境不现实
+### Python：用标准库 csv 模块
 
-在线工具更适合：**一次性或低频的数据转换任务**、**非技术同学的自助操作**、**快速验证 CSV 数据格式是否正确**。
+Python 标准库自带 `csv` 模块，不需要额外安装依赖：
 
-日常开发中如果 CSV 转 JSON 是业务流程的一部分（如定时任务、自动化导入），还是应该用代码实现，保证稳定性和可维护性。
+```python
+import csv, json
+
+with open('data.csv', encoding='utf-8-sig') as f:  # utf-8-sig 处理 BOM
+    reader = csv.DictReader(f)
+    data = list(reader)
+
+print(json.dumps(data, ensure_ascii=False, indent=2))
+```
+
+`encoding='utf-8-sig'` 会自动剥离文件开头的 BOM 字符，解决 Excel 导出文件首列列名带不可见字符的问题。`ensure_ascii=False` 保证中文字段直接输出而不是转义为 `\uXXXX`。
+
+注意：`csv.DictReader` 读出的所有字段都是字符串，如需类型推断，需要自己遍历转换，或改用 `pandas` 的 `read_csv` 并配合 `to_json`。
+
+### 在线工具 vs 代码方案
+
+| 场景 | 推荐方式 |
+|------|----------|
+| 一次性数据转换 | 在线工具 |
+| 非技术同学自助操作 | 在线工具 |
+| 快速验证 CSV 格式 | 在线工具 |
+| 定时任务、自动化流程 | 代码 |
+| 转换逻辑需要版本控制 | 代码 |
+| 数据量超大（几十 MB 以上） | 代码（流式处理） |
+
+## 典型使用场景
+
+### 数据分析前的格式预处理
+
+产品或运营同学从 Excel 整理好数据，导出 CSV 后需要喂给后端 API 或分析脚本。直接用在线工具转成 JSON 数组，复制粘贴到 Postman 或脚本的测试数据里，比手写 JSON 快得多，也不容易出格式错误。
+
+### 前端 mock 数据准备
+
+测试数据通常在 Excel 表格里维护，QA 或开发填完数据后，需要转成 JavaScript 对象用于前端 mock。把 CSV 粘贴进工具，输出的 JSON 数组直接赋值给变量，格式完全符合前端预期，省去手动添加引号和括号的工作。
+
+### 数据库导出结果供前端消费
+
+Navicat、DBeaver、TablePlus 等数据库工具导出的 CSV 是最通用的中间格式。导出后通过本工具转为 JSON，可以直接导入 MongoDB、作为接口响应的测试数据，或用于生成初始化 seed 数据文件。开启类型推断后，数字和布尔字段会自动还原为正确类型，不需要再手动修正。
 
 ## 总结
 
