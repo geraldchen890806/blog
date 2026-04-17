@@ -1,12 +1,12 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-04-15T14:00:00+08:00
+pubDatetime: 2026-04-17T08:30:00+08:00
 title: Axios 投毒事件全解析：朝鲜 APT 如何在 3 小时内感染百万开发者环境
 slug: blog126_axios-supply-chain-attack
 featured: true
-draft: true
-reviewed: false
-approved: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - 安全
   - AI Agent
@@ -264,6 +264,8 @@ npm ci --ignore-scripts
 ---
 
 axios 投毒事件的可怕之处不在于技术有多复杂，而在于它展示了现代开发工具链有多脆弱：一个被劫持的维护者账号，一个 `postinstall` 钩子，3 小时，百万个环境。攻击者需要的运气，远比我们想象的少。
+
+> 本文基于 Elastic Security Labs、StepSecurity、Aikido Security、Microsoft Security Blog 的公开报告综合整理，所有 IoC 和技术细节均来自上述来源。
 
 **延伸阅读**：
 - [Elastic Security Labs：axios 投毒完整技术分析](https://www.elastic.co/security-labs/axios-one-rat-to-rule-them-all)
