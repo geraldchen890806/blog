@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-04-17T10:00:00+08:00
+pubDatetime: 2026-04-17T08:00:00+08:00
 title: AI Agent 安全防护全景：从 ClawHavoc 投毒到 Cisco DefenseClaw 与微软 Governance Toolkit
 slug: blog129_ai-agent-security-governance
 featured: true
