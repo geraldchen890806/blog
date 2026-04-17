@@ -1,6 +1,30 @@
 # 博客发布完整流程
 
-## 每次发布文章必须完成的四步
+## 每次发布文章必须完成的五步（写完先审核，再发布）
+
+### 第零步：子 Agent 审核（写完 MD 后立即做）
+
+文章写完（`draft: true`）后，启动子 Agent 对文章做结构化审核，审核通过或用户确认后再进入发布流程。
+
+子 Agent 审核内容：
+1. **frontmatter 合规性**：featured 字段是否正确（工具指南 false，技术文章 true）、tags ≤4 个且来自标准集、draft/reviewed/approved 状态、description 字数（50-150字）
+2. **文章结构完整性**：背景引入、技术原理拆解、可运行代码示例、总结或实践建议
+3. **内容质量**：技术内容是否准确、有无明显事实错误或逻辑漏洞、内容深度是否达到技术博客标准
+4. **推文草稿**：格式「正文 + 空行 + URL + 空行 + #标签」，总长 ≤280 字符
+
+审核 Prompt 模板（发给子 Agent）：
+
+```
+请审核博客文章 /Users/geraldchen/ai/blog/src/data/blog/[文件名].md，给出结构化审核报告。
+
+审核维度：
+1. frontmatter 合规性：featured（工具指南 false/技术文章 true）、tags ≤4 个且来自标准集（工具指南,工具,AI,AI Agent,前端,安全,自动化,开发效率,开源,CSS,JavaScript,TypeScript,LLM,MCP,Claude Code,Claude）、draft:true/reviewed:false/approved:false、description 50-150 字
+2. 文章结构：背景引入、技术原理、代码示例、总结建议、标题层次
+3. 内容质量：技术准确性、事实错误、内容深度
+4. 推文草稿：正文(1-2句) + 空行 + https://chenguangliang.com/posts/[slug]/ + 空行 + #标签，≤280字符
+
+给出通过/需修改结论和具体修改建议。
+```
 
 ### 第一步：构建 + 提交 + 推送 GitHub
 
@@ -31,6 +55,8 @@ sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -p "$SERVER_PORT" 
 
 **生成掘金 MD 的方法（以文章 slug 为例）：**
 
+掘金 MD 格式要求：第一行必须是 `# 文章标题`，然后空一行，再接正文内容，末尾加引流链接。
+
 ```bash
 cd /Users/geraldchen/ai/blog
 slug="blogXXX_your-slug"
@@ -39,6 +65,8 @@ url_slug=$(grep "^slug:" src/data/blog/${slug}.md | sed 's/^slug: //')
 content=$(awk '/^---/{if(++c==2){found=1;next}} found{print}' src/data/blog/${slug}.md)
 
 {
+  echo "# ${title}"
+  echo ""
   echo "${content}"
   echo ""
   echo "---"
@@ -113,8 +141,18 @@ https://chenguangliang.com/posts/blog118_box-shadow-guide/
 
 ---
 
+## 工具指南文章规范
+
+工具指南系列（"工具指南N-xxx"）有额外要求：
+
+- `featured: false`（不在首页显示，只在 /posts/ 页面可见）
+- 其他技术文章保持 `featured: true`
+
+---
+
 ## 注意事项
 
 1. **git push 和服务器部署是两步**，缺一不可。只 push 到 GitHub，网站不会更新。
 2. **每篇新文章都要做推文和掘金**，不能批量积压后补——推文发出去是按时间排的，积压太多会一次性刷屏。
 3. **`deploy-production.sh` 脚本**包含完整流程（含服务器部署），但社交媒体发布部分需要 Agent 手动完成（脚本只输出提示，不会自动生成推文）。
+4. **掘金 MD 第一行必须是 `# 文章标题`**，否则掘金编辑器不识别文章标题。
