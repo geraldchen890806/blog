@@ -150,19 +150,19 @@ Cascade Agent 对大中型代码库的上下文理解，在社区反馈中普遍
 
 ### Gemini CLI — 免费额度最大的终端 Agent
 
-**GitHub Stars**：102,000+（截至 2026 年 4 月）
+**GitHub Stars**：96,000+（截至 2026 年 4 月）
 
 **定价**：
-- **完全免费**：用 Google 账号登录后，Gemini 2.5 Pro 每天 1000 次请求，每分钟 60 次
+- **免费**：用 Google 账号登录后，Flash 模型每天最多 1000 次、每分钟 60 次；默认的 Gemini 2.5 Pro 模型限制较低（每天约 50 次、每分钟 5 次）
 - API 自付费用（超出免费配额后按 token 计费）
 
 **真实优势**：
 
-免费额度是目前所有工具里最大的——每天 1000 次 Gemini 2.5 Pro 请求，对大多数开发者来说不会见底。上下文窗口 100 万 token，与 Claude Code Max 同级，处理大型代码库时不会"失忆"。
+上下文窗口 100 万 token，与 Claude Code Max 同级，处理大型代码库时不会"失忆"。日常轻度使用通过 Google 账号登录即可免费使用，无需绑定信用卡。
 
 内置 Google Search 工具是独特优势：Agent 在处理任务时可以实时查询外部资料（文档、Issue、技术博客），不需要用户手动提供参考链接。MCP（Model Context Protocol）支持允许扩展自定义工具。Apache 2.0 开源，代码完全透明可审计。
 
-GitHub star 数量（102k+）是 Claude Code 的约 4 倍，社区增速极快，在开源 AI 工具里仅次于 OpenCode。
+上线后增速极快，在开源 AI 编程 CLI 工具中 GitHub stars 排名前列。
 
 典型使用方式：
 
@@ -187,7 +187,7 @@ gemini "把 src/api/ 下所有请求函数改成 TypeScript，补全类型定义
 
 ### Aider — Git 原生的终端 Agent
 
-**GitHub Stars**：42,000+ | **安装量**：4.1M 次 | **每周 token 消耗**：15B
+**GitHub Stars**：42,000+ | **安装量**：4.1M 次（据 Aider 官网）| **每周 token 消耗**：15B（据 Aider 官方统计）
 
 **定价**：完全免费（自付 API 费用），支持接入任意模型
 
@@ -195,7 +195,7 @@ gemini "把 src/api/ 下所有请求函数改成 TypeScript，补全类型定义
 
 Git 集成是 Aider 最独特的设计——每次 Agent 改动自动生成语义化 Git commit，commit message 描述实际做了什么。这让代码审查和回滚变得极其清晰，出了问题可以精确定位到是哪一步改动引入的。
 
-模型无关性做得最彻底：支持 Claude、GPT、Gemini、Groq、本地模型（Ollama）等几乎所有主流 API，没有供应商锁定。SWE-bench Verified 成绩进入前列，在多文件协调改动上表现稳定。每周 15B token 的实际消耗量说明它是活跃开发者真实在用的工具。
+模型无关性做得最彻底：支持 Claude、GPT、Gemini、Groq、本地模型（Ollama）等几乎所有主流 API，没有供应商锁定。Aider Polyglot benchmark 成绩领先同类工具，在多文件协调改动上表现稳定。每周 15B token 的实际消耗量说明它是活跃开发者真实在用的工具。
 
 **真实劣势**：
 
@@ -293,13 +293,13 @@ codex --approval-mode full-auto "写测试，确保所有测试通过"
 
 ### OpenCode — Claude Code 的开源平替
 
-**GitHub Stars**：147,000（截至 2026 年 4 月）| **月活**：650 万（较 2 月翻了 2.6 倍）
+**GitHub Stars**：约 146,000（截至 2026 年 4 月）| **月活**：650 万（据 OpenCode 官方数据，较 2 月翻了 2.6 倍）
 
 **定价**：完全免费（自付 API 费用）
 
 **真实优势**：
 
-开源透明可自部署，支持 Anthropic、OpenAI、Google、Groq 等多家模型。终端界面与 Claude Code 相近，Star 增速约是 Claude Code 的 4.5 倍，社区活跃度高。
+开源透明可自部署，支持 Anthropic、OpenAI、Google、Groq 等多家模型。终端界面与 Claude Code 相近，Star 增速显著高于 Claude Code，社区活跃度高。
 
 **真实劣势**：
 
