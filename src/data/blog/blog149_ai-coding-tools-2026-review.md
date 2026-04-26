@@ -23,7 +23,7 @@ Stack Overflow 2025 年开发者调查给出了一个让很多人意外的答案
 
 这组数字说明了 2026 年 AI 编程工具市场的分裂现状：使用最广的不是最受喜爱的，最受喜爱的不是最多人用的。每个工具在自己的细分场景里有独特优势，没有一个全场景最优解。
 
-这篇文章覆盖 7 个主流工具的现状、定价、真实优缺点，以及针对不同场景的选型建议。数据来自 2026 年 4 月的公开资料和开发者社区反馈。
+这篇文章覆盖 8 个主流工具的现状、定价、真实优缺点，以及针对不同场景的选型建议。数据来自 2026 年 4 月的公开资料和开发者社区反馈。
 
 ## 市场格局：三类工具
 
@@ -31,7 +31,7 @@ AI 编程工具目前分三条产品线：
 
 | 类别 | 代表工具 |
 |------|---------|
-| 终端 / CLI Agent | Claude Code、OpenCode、Aider |
+| 终端 / CLI Agent | Claude Code、Codex CLI、OpenCode、Aider |
 | AI IDE（VS Code fork） | Cursor、Windsurf、Trae |
 | IDE 插件 | GitHub Copilot、Cline |
 
@@ -186,6 +186,41 @@ BYOM（Bring Your Own Model）是核心差异：直连 Anthropic、OpenAI、Goog
 
 ---
 
+### OpenAI Codex CLI — 终端 Agent 直接挑战 Claude Code
+
+**GitHub Stars**：5,800+（截至 2026 年 4 月）
+
+**定价**：
+- ChatGPT Pro 用户（$200/月）：无限访问
+- API 自付费用（GPT-5 按 token 计费）
+
+**真实优势**：
+
+OpenAI 官方出品，直接对标 Claude Code 的终端 Agent 定位——同样是命令行界面，同样走 Agent 自治路线。ChatGPT Pro 订阅用户可以无限量使用，对已订阅 Pro 的用户来说实际成本为零。Codex CLI 在上线后短短几周内开发者生态迅速扩张，是 Claude Code 目前最直接的商业竞争对手。
+
+支持三种沙箱模式：`suggest`（只建议）、`auto-edit`（自动编辑文件）、`full-auto`（完全自治，包括执行命令），可根据任务风险灵活切换。
+
+典型使用方式：
+
+```bash
+# 默认 suggest 模式，只给建议不直接修改
+codex "解释这段代码的性能问题并给出优化方案"
+
+# auto-edit 模式，自动修改文件但不执行命令
+codex --approval-mode auto-edit "把 fetch 调用全部替换成 axios"
+
+# full-auto 模式，完全自治
+codex --approval-mode full-auto "写测试，确保所有测试通过"
+```
+
+**真实劣势**：
+
+上下文窗口显著小于 Claude Code，处理大型代码库时会遇到相同的"失忆"问题。只能用 OpenAI 模型，无法切换 Claude 或 Gemini。产品上线时间较短，稳定性和边缘场景处理不及 Claude Code 成熟。GitHub star 数量（5,800）远低于 Claude Code，社区资源相对薄弱。
+
+**适合**：已订阅 ChatGPT Pro、习惯 OpenAI 生态、想要终端 Agent 但不想额外付费的开发者。
+
+---
+
 ### OpenCode — Claude Code 的开源平替
 
 **GitHub Stars**：147,000（截至 2026 年 4 月）| **月活**：650 万（较 2 月翻了 2.6 倍）
@@ -229,6 +264,7 @@ BYOM（Bring Your Own Model）是核心差异：直连 Anthropic、OpenAI、Goog
 | 中大型项目 + Agent 上下文一致性 | Windsurf | Cascade 跨文件上下文理解更好 |
 | 个人/学生，预算有限 | Trae | $0–10，多模型支持 |
 | 模型自由，拒绝锁定 | Cline 或 OpenCode | BYOM，零平台溢价 |
+| 已订阅 ChatGPT Pro，想用终端 Agent | Codex CLI | Pro 订阅内无限使用，成本为零 |
 
 没有一个工具适合所有场景。如果你主要做日常功能开发，Cursor 的补全体验很难被取代；如果你需要 Agent 自治处理大范围重构，Claude Code 的上下文优势显著；如果预算紧张，Trae 和 OpenCode 是真实可用的选项。
 
