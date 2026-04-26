@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-04-26T10:00:00+08:00
-title: 2026 AI 编程工具红黑榜：Claude Code、Cursor、Copilot、Windsurf 真实评测
+title: 2026 AI 编程工具红黑榜：Claude Code、Cursor、Copilot、Windsurf、Gemini CLI 真实评测
 slug: blog149_ai-coding-tools-2026-review
 featured: false
 draft: false
@@ -12,7 +12,7 @@ tags:
   - AI
   - 开发效率
   - 工具
-description: 深度对比 2026 年主流 AI 编程工具：Claude Code、Cursor、GitHub Copilot、Windsurf、Trae、Cline，覆盖真实数据、最新定价、适用场景，帮助开发者做出选型决策。
+description: 深度对比 2026 年主流 AI 编程工具：Claude Code、Cursor、GitHub Copilot、Windsurf、Trae、Cline、Gemini CLI、Aider，覆盖真实数据、最新定价、适用场景，帮助开发者做出选型决策。
 ---
 
 "满意度最高的 AI 编程工具是哪个？"
@@ -23,7 +23,7 @@ Stack Overflow 2025 年开发者调查给出了一个让很多人意外的答案
 
 这组数字说明了 2026 年 AI 编程工具市场的分裂现状：使用最广的不是最受喜爱的，最受喜爱的不是最多人用的。每个工具在自己的细分场景里有独特优势，没有一个全场景最优解。
 
-这篇文章覆盖 8 个主流工具的现状、定价、真实优缺点，以及针对不同场景的选型建议。数据来自 2026 年 4 月的公开资料和开发者社区反馈。
+这篇文章覆盖 10 个主流工具的现状、定价、真实优缺点，以及针对不同场景的选型建议。数据来自 2026 年 4 月的公开资料和开发者社区反馈。
 
 ## 市场格局：三类工具
 
@@ -31,7 +31,7 @@ AI 编程工具目前分三条产品线：
 
 | 类别 | 代表工具 |
 |------|---------|
-| 终端 / CLI Agent | Claude Code、Codex CLI、OpenCode、Aider |
+| 终端 / CLI Agent | Claude Code、Gemini CLI、Codex CLI、Aider、OpenCode |
 | AI IDE（VS Code fork） | Cursor、Windsurf、Trae |
 | IDE 插件 | GitHub Copilot、Cline |
 
@@ -148,6 +148,76 @@ Cascade Agent 对大中型代码库的上下文理解，在社区反馈中普遍
 
 ## 🟢 绿榜（特定场景最优）
 
+### Gemini CLI — 免费额度最大的终端 Agent
+
+**GitHub Stars**：102,000+（截至 2026 年 4 月）
+
+**定价**：
+- **完全免费**：用 Google 账号登录后，Gemini 2.5 Pro 每天 1000 次请求，每分钟 60 次
+- API 自付费用（超出免费配额后按 token 计费）
+
+**真实优势**：
+
+免费额度是目前所有工具里最大的——每天 1000 次 Gemini 2.5 Pro 请求，对大多数开发者来说不会见底。上下文窗口 100 万 token，与 Claude Code Max 同级，处理大型代码库时不会"失忆"。
+
+内置 Google Search 工具是独特优势：Agent 在处理任务时可以实时查询外部资料（文档、Issue、技术博客），不需要用户手动提供参考链接。MCP（Model Context Protocol）支持允许扩展自定义工具。Apache 2.0 开源，代码完全透明可审计。
+
+GitHub star 数量（102k+）是 Claude Code 的约 4 倍，社区增速极快，在开源 AI 工具里仅次于 OpenCode。
+
+典型使用方式：
+
+```bash
+# 用 Google 账号登录，免费使用
+gemini
+
+# 直接在终端提问，内置 Google Search 可实时查询
+gemini "这个 React 错误是什么原因：Cannot update a component while rendering a different component"
+
+# Agent 模式处理文件改动
+gemini "把 src/api/ 下所有请求函数改成 TypeScript，补全类型定义"
+```
+
+**真实劣势**：
+
+产品相对年轻，稳定性和边缘场景处理不及 Claude Code 成熟。仅支持 Google Gemini 模型，不能切换 Claude 或 GPT。企业用户需要评估 Google 的数据处理政策。
+
+**适合**：预算为零但需要大上下文 Agent 能力的开发者、已有 Google 账号的用户、对开源透明度有要求的团队。
+
+---
+
+### Aider — Git 原生的终端 Agent
+
+**GitHub Stars**：42,000+ | **安装量**：4.1M 次 | **每周 token 消耗**：15B
+
+**定价**：完全免费（自付 API 费用），支持接入任意模型
+
+**真实优势**：
+
+Git 集成是 Aider 最独特的设计——每次 Agent 改动自动生成语义化 Git commit，commit message 描述实际做了什么。这让代码审查和回滚变得极其清晰，出了问题可以精确定位到是哪一步改动引入的。
+
+模型无关性做得最彻底：支持 Claude、GPT、Gemini、Groq、本地模型（Ollama）等几乎所有主流 API，没有供应商锁定。SWE-bench Verified 成绩进入前列，在多文件协调改动上表现稳定。每周 15B token 的实际消耗量说明它是活跃开发者真实在用的工具。
+
+**真实劣势**：
+
+纯命令行界面，没有图形化反馈。需要自行管理 API key 和费用，成本波动难预测。相比 Claude Code，产品化程度较低，遇到问题需要自己查文档和 GitHub Issue。
+
+典型使用方式：
+
+```bash
+# 安装
+pip install aider-chat
+
+# 指定模型和文件，Aider 自动跟踪改动并 commit
+aider --model claude-3-5-sonnet-20241022 src/components/Form.tsx
+
+# 多文件任务，改动自动分组成语义 commit
+aider src/api/users.ts src/types/user.ts "把 User 类型里的 createdAt 从 string 改成 Date，同步更新所有用法"
+```
+
+**适合**：Git 工作流严格的团队、需要模型灵活切换、想要精细 commit 历史的开发者。
+
+---
+
 ### Trae — 预算最优，字节跳动出品
 
 **定价**：
@@ -262,6 +332,8 @@ codex --approval-mode full-auto "写测试，确保所有测试通过"
 | 日常 IDE 开发，体验优先 | Cursor | Tab 补全最快，迁移成本低 |
 | 企业部署，成本敏感 | GitHub Copilot Business | $19/seat，GitHub 深度集成 |
 | 中大型项目 + Agent 上下文一致性 | Windsurf | Cascade 跨文件上下文理解更好 |
+| 零预算 + 大上下文 Agent | Gemini CLI | 每天 1000 次 Gemini 2.5 Pro 免费，100 万 token 上下文 |
+| Git 工作流严格，需要精细 commit | Aider | 每次改动自动语义 commit，模型无关 |
 | 个人/学生，预算有限 | Trae | $0–10，多模型支持 |
 | 模型自由，拒绝锁定 | Cline 或 OpenCode | BYOM，零平台溢价 |
 | 已订阅 ChatGPT Pro，想用终端 Agent | Codex CLI | Pro 订阅内无限使用，成本为零 |
