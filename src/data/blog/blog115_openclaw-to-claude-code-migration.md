@@ -18,7 +18,7 @@ description: 第三方 AI Agent 框架 OpenClaw 停服后，记录如何用 Clau
 
 2026年4月，Anthropic 修改了订阅政策，第三方应用不能再直接使用 Claude 订阅额度。这条改动直接宣判了 OpenClaw 的死刑。
 
-OpenClaw 是我用了将近一年的多 Agent CLI 框架。七个 Agent——虾米（主助手）、博客助手、工具助手、小说助手、翻译助手、交易机器人、DG（开发助手）——每个绑定一个 Telegram Bot，有独立的角色设定、长期记忆和定时任务。这套工作流已经深度融入日常，从博客写作到代码 review，几乎每天都在用。
+OpenClaw 是我用了两个多月的多 Agent CLI 框架。七个 Agent——虾米（主助手）、博客助手、工具助手、小说助手、翻译助手、交易机器人、DG（开发助手）——每个绑定一个 Telegram Bot，有独立的角色设定、长期记忆和定时任务。这套工作流已经深度融入日常，从博客写作到代码 review，几乎每天都在用。
 
 政策改了，OpenClaw 无法继续调用 Claude，全部中断。
 
