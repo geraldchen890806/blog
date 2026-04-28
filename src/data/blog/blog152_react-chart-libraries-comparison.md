@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-04-27T14:00:00+08:00
 title: React 图表库选型指南：Recharts、ECharts、Nivo、Lightweight Charts 深度对比
 slug: blog152_react-chart-libraries-comparison
-featured: false
+featured: true
 draft: false
 reviewed: true
 approved: true
