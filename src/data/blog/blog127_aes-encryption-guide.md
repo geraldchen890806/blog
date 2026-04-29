@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-04-16T14:00:00+08:00
 title: 工具指南29-在线AES加密解密工具
 slug: blog127_aes-encryption-guide
-featured: true
+featured: false
 draft: true
 reviewed: true
 approved: false

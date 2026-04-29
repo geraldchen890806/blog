@@ -4,7 +4,7 @@ slug: multi-agent-lessons
 description: 运行多 agent 系统一周后的真实踩坑记录：配置管理事故、TypeScript 导入错误、发布日期写错、成本优化实战，以及团队协作的最佳实践。
 author: 陈广亮
 pubDatetime: 2026-02-15T13:30:00+08:00
-featured: false
+featured: true
 draft: false
 tags:
   - AI Agent

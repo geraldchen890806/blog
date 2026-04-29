@@ -4,7 +4,7 @@ pubDatetime: 2026-03-24T14:00:00+08:00
 title: 工具指南11-JSON转TypeScript类型生成器
 slug: blog099_json-to-typescript-guide
 featured: false
-draft: false
+draft: true
 reviewed: true
 approved: true
 tags:

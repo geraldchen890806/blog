@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-04-26T10:00:00+08:00
 title: 2026 AI 编程工具红黑榜：Claude Code、Cursor、Copilot、Windsurf、Gemini CLI 真实评测
 slug: blog149_ai-coding-tools-2026-review
-featured: false
+featured: true
 draft: false
 reviewed: true
 approved: true

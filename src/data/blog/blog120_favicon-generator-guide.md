@@ -4,7 +4,7 @@ pubDatetime: 2026-04-13T14:00:00+08:00
 title: 工具指南25-在线Favicon生成器
 slug: blog120_favicon-generator-guide
 featured: false
-draft: false
+draft: true
 reviewed: true
 approved: true
 tags:

@@ -3,7 +3,7 @@ author: 陈广亮
 pubDatetime: 2026-02-13T16:00:00+08:00
 title: 本地 AI 助手如何安全暴露到公网？SSH 反向隧道实战
 slug: ssh-reverse-tunnel-expose-local-ai
-featured: false
+featured: true
 draft: false
 tags:
   - AI

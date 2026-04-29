@@ -4,7 +4,7 @@ pubDatetime: 2026-03-27T14:00:00+08:00
 title: 工具指南14-在线SQL格式化工具
 slug: blog103_sql-formatter-guide
 featured: false
-draft: false
+draft: true
 reviewed: true
 approved: true
 tags:
