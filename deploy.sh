@@ -28,7 +28,7 @@ fi
 
 # 部署到服务器
 echo "🚚 部署到服务器..."
-sshpass -p "$SERVER_PASSWORD" rsync -avz --delete -e "ssh -p $SERVER_PORT -o StrictHostKeyChecking=no" dist/ "$SERVER_USER@$SERVER_HOST:/var/www/chenguangliang.com/"
+sshpass -p "$SERVER_PASSWORD" rsync -avz --delete -e "ssh -p $SERVER_PORT -o StrictHostKeyChecking=no -o PubkeyAuthentication=no" dist/ "$SERVER_USER@$SERVER_HOST:/usr/share/nginx/html/"
 
 # 检查部署是否成功
 if [ $? -eq 0 ]; then

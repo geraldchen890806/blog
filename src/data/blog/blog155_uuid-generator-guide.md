@@ -4,9 +4,9 @@ pubDatetime: 2026-04-29T10:00:00+08:00
 title: 工具指南52-在线 UUID 生成器
 slug: blog155_uuid-generator-guide
 featured: false
-draft: true
-reviewed: false
-approved: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - 工具指南
   - 工具

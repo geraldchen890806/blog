@@ -42,8 +42,9 @@ git push origin main
 
 ```bash
 source /Users/geraldchen/ai/.server-config
-sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -p "$SERVER_PORT" "$SERVER_USER@$SERVER_HOST" \
-  'cd /root/blog && git pull origin main && rm -rf /usr/share/nginx/html/* && cp -r /root/blog/dist/* /usr/share/nginx/html/ && echo "部署完成 $(git rev-parse --short HEAD)"'
+sshpass -p "$SERVER_PASSWORD" rsync -avz --delete \
+  -e "ssh -p $SERVER_PORT -o StrictHostKeyChecking=no -o PubkeyAuthentication=no" \
+  /Users/geraldchen/ai/blog/dist/ "$SERVER_USER@$SERVER_HOST:/usr/share/nginx/html/"
 ```
 
 ### 第三步：生成掘金 MD 文件 + 发推文
