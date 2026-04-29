@@ -45,6 +45,19 @@ const structuredData = {
       ...(profile && { url: profile }),
     },
   ],
+  publisher: {
+    "@type": "Organization",
+    name: SITE.title,
+    url: SITE.website,
+    logo: {
+      "@type": "ImageObject",
+      url: new URL("/favicon.svg", Astro.url).toString(),
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonicalURL.toString(),
+  },
 };
 ---
 

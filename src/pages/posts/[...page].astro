@@ -16,9 +16,18 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+const pageNum = page.currentPage;
+const pageTitle =
+  pageNum > 1
+    ? `文章列表 第 ${pageNum} 页 | ${SITE.title}`
+    : `文章列表 | ${SITE.title}`;
+const pageDesc =
+  pageNum > 1
+    ? `${SITE.title} 文章列表第 ${pageNum} 页，共 ${page.lastPage} 页。`
+    : `${SITE.title} 全部文章列表，涵盖前端开发、AI、Agent、性能优化、安全等技术主题。`;
 ---
 
-<Layout title={`Posts | ${SITE.title}`}>
+<Layout title={pageTitle} description={pageDesc}>
   <Header />
   <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
     <ul>

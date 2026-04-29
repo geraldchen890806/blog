@@ -872,5 +872,5 @@ Skills 生态正在扩大，7 万+ 可用能力包等你挖掘。装上几个实
 - [Skills.sh 官方网站](https://skills.sh/)
 - [Awesome-OpenClaw-Skills GitHub](https://github.com/VoltAgent/awesome-openclaw-skills)
 - [ClawHub 官方文档](https://www.clawhub.ai/)
-- [Anthropic Skill Creator](https://github.com/anthropics/skills/tree/main/skill-creator)
+- [Anthropic Skills 官方仓库](https://github.com/anthropics/skills)
 - [OpenClaw 官方文档](https://docs.openclaw.ai)

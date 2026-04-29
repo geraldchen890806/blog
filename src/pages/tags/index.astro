@@ -13,7 +13,10 @@ const posts = await getCollection("blog");
 let tags = getUniqueTags(posts);
 ---
 
-<Layout title={`Tags | ${SITE.title}`}>
+<Layout
+  title={`标签 | ${SITE.title}`}
+  description={`${SITE.title} 全部标签列表：按主题浏览前端、AI、Agent、性能、安全等技术文章。`}
+>
   <Header />
   <Main pageTitle="Tags" pageDesc="All the tags used in posts.">
     <ul class="flex flex-wrap gap-6">

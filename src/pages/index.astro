@@ -19,7 +19,9 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
 
-<Layout>
+<Layout
+  description="陈广亮的技术博客首页：精选文章和最新文章列表，覆盖 AI Agent、Claude Code、前端工程化、性能优化、Web 安全等主题。"
+>
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>

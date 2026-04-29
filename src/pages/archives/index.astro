@@ -31,7 +31,10 @@ const months = [
 ];
 ---
 
-<Layout title={`Archives | ${SITE.title}`}>
+<Layout
+  title={`归档 | ${SITE.title}`}
+  description={`${SITE.title} 文章归档：按年份和月份组织的全部技术文章索引，覆盖 2015 年至今。`}
+>
   <Header />
   <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
     {

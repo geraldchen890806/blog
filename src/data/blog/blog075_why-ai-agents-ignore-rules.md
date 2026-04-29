@@ -842,8 +842,8 @@ AI Agent 忽略规则不是 bug，是系统性问题：
 
 **相关阅读**：
 - [AI Safety: Alignment Problem](https://en.wikipedia.org/wiki/AI_alignment)
-- [Constitutional AI (Anthropic)](https://www.anthropic.com/constitutional-ai)
-- [The Bitter Lesson (Rich Sutton)](http://www.incompleteideas.net/IncIdeas/BitterLesson.html)
+- [Constitutional AI (Anthropic Research)](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)
+- [The Bitter Lesson (Rich Sutton)](https://www.incompleteideas.net/IncIdeas/BitterLesson.html)
 
 ---
 

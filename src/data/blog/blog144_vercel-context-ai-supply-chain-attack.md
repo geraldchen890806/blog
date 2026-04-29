@@ -46,7 +46,7 @@ Lumma Stealer 从受感染设备中提取了这个 OAuth token。攻击者拿到
 Vercel 官方公布了对应的恶意 OAuth App ID：
 
 ```
-110671459871-30f1spbu0hptbs60cb4vsmv79i7bbvqj.apps.googleusercontent.com
+110671459871-xxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com（完整 ID 见 Vercel 官方安全公告）
 ```
 
 ### 第三步：SSO 横向移动进入 Vercel 内部
@@ -131,7 +131,7 @@ vercel env add MY_API_KEY production
 访问 [https://myaccount.google.com/permissions](https://myaccount.google.com/permissions)，查找并撤销以下 App ID 的授权：
 
 ```
-110671459871-30f1spbu0hptbs60cb4vsmv79i7bbvqj.apps.googleusercontent.com
+110671459871-xxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com（完整 ID 见 Vercel 官方安全公告）
 ```
 
 同时审查所有有 Workspace 写权限的第三方应用，撤销不再使用的授权。

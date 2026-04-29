@@ -29,9 +29,18 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 const params = Astro.params;
 const { tag } = params;
 const { page, tagName } = Astro.props;
+const pageNum = page.currentPage;
+const tagPageTitle =
+  pageNum > 1
+    ? `Tag: ${tagName} 第 ${pageNum} 页 | ${SITE.title}`
+    : `Tag: ${tagName} | ${SITE.title}`;
+const tagPageDesc =
+  pageNum > 1
+    ? `${SITE.title} 标签 ${tagName} 第 ${pageNum} 页文章列表。`
+    : `${SITE.title} 中所有标签为 ${tagName} 的文章合集。`;
 ---
 
-<Layout title={`Tag: ${tagName} | ${SITE.title}`}>
+<Layout title={tagPageTitle} description={tagPageDesc}>
   <Header />
   <Main
     pageTitle={[`Tag:`, `${tagName}`]}
