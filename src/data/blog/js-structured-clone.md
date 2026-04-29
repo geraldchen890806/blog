@@ -4,7 +4,7 @@ pubDatetime: 2026-02-11T14:00:00+08:00
 title: "告别 JSON.parse(JSON.stringify()) — 原生深拷贝 structuredClone"
 slug: js-structured-clone
 featured: true
-draft: false
+draft: true
 tags:
   - JavaScript
   - Web API

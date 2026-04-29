@@ -4,7 +4,7 @@ pubDatetime: 2016-03-15T10:00:00+08:00
 title: ES6 Generator 与 co 模块
 slug: es6-generator-and-co
 featured: false
-draft: false
+draft: true
 tags:
   - JavaScript
   - ES6

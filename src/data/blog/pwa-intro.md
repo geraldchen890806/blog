@@ -4,7 +4,7 @@ pubDatetime: 2018-06-20T10:00:00+08:00
 title: PWA 入门与实践
 slug: pwa-intro
 featured: false
-draft: false
+draft: true
 tags:
   - PWA
   - 前端

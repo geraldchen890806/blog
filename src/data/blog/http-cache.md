@@ -4,7 +4,7 @@ pubDatetime: 2019-08-23T10:00:00+08:00
 title: HTTP 缓存机制详解
 slug: http-cache
 featured: true
-draft: false
+draft: true
 tags:
   - HTTP
   - 浏览器

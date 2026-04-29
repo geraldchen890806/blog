@@ -4,7 +4,7 @@ pubDatetime: 2026-02-11T13:00:00+08:00
 title: Hello World - 博客新生
 slug: hello-world
 featured: true
-draft: false
+draft: true
 tags:
   - 随笔
 description: 博客从 React 迁移到 Astro，记录这次重生之旅。
