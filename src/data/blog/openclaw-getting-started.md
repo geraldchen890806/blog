@@ -4,7 +4,7 @@ pubDatetime: 2026-02-13T00:40:00+08:00
 title: OpenClaw 入门实战：5分钟搭建你的自托管 AI 助手
 slug: openclaw-getting-started
 featured: true
-draft: false
+draft: true
 tags:
   - OpenClaw
   - AI
