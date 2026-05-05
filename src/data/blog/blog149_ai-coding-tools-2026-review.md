@@ -341,3 +341,15 @@ codex --approval-mode full-auto "写测试，确保所有测试通过"
 没有一个工具适合所有场景。如果你主要做日常功能开发，Cursor 的补全体验很难被取代；如果你需要 Agent 自治处理大范围重构，Claude Code 的上下文优势显著；如果预算紧张，Trae 和 OpenCode 是真实可用的选项。
 
 最值得警惕的是"满意度"和"使用量"之间的差距：很多人用 GitHub Copilot，不是因为它最好，而是因为公司给买了。在你有选择的时候，值得认真试一试满意度更高的工具。
+
+## 想看更深入的拆解
+
+工具选好了，下一步是怎么把它用出最大效率。下面几篇可以接着看：
+
+> **🔥 模型层对比**：[GPT-5.5 vs Claude Opus 4.6 vs Gemini 2.5 Pro 编程能力对比 2026](/posts/blog156_gpt5-claude-gemini-coding-comparison-2026/) — 工具背后的模型实测：SWE-bench Pro、LiveCodeBench、Aider Polyglot 数据 + 单次任务成本计算
+>
+> **🛠️ 工作流复用**：[Claude Code Skills 实战：从 0 到 1 写一个能在多项目复用的 Skill](/posts/blog158_claude-code-skills-practical-guide/) — 把"博客发布前自检"这种重复流程写成 Skill，配合 context: fork 不污染主对话
+>
+> **🎨 前端专属 Agent**：[Frontman 拆解：当 AI Agent 从浏览器看你的代码](/posts/blog159_frontman-frontend-ai-agent/) — 通用 Agent 看不到运行态 CSS，前端工程师该用什么补这个缺口
+>
+> **🤖 Agent 时代的开发者新指标**：[AI Agent 成功率从 12% 到 66%：前端开发者该如何迎接"可用"的 Agent 时代](/posts/blog148_ai-agent-66-percent-frontend/) — 一年时间 Agent 成功率翻 5 倍，前端工程师要准备什么

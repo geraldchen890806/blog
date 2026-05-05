@@ -11,6 +11,7 @@ import Appreciation from "@/components/Appreciation.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
 import TableOfContents from "@/components/TableOfContents.astro";
+import RelatedPosts from "@/components/RelatedPosts.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -117,6 +118,8 @@ const nextPost =
         >
           <Content />
         </article>
+
+        <RelatedPosts currentPost={post} {posts} maxResults={3} />
 
         <hr class="my-8 border-dashed" />
 

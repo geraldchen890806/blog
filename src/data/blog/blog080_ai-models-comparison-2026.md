@@ -1750,6 +1750,18 @@ class ModelRouter {
 - 按需选择最佳模型
 - 降低整体开销
 
+## 想看更深入的拆解
+
+这篇全景对比覆盖了 12 款主流模型的基础能力，如果你想下钻到具体场景的深度对比和实战经验：
+
+> **🔥 编程能力对比专题**：[GPT-5.5 vs Claude Opus 4.6 vs Gemini 2.5 Pro 编程能力对比 2026](/posts/blog156_gpt5-claude-gemini-coding-comparison-2026/) — SWE-bench Pro / LiveCodeBench / Aider Polyglot 实测数据 + 定价计算 + 双模型策略
+>
+> **🛠️ AI 编程工具实战评测**：[2026 AI 编程工具红黑榜：Claude Code、Cursor、Copilot、Windsurf、Gemini CLI 真实评测](/posts/blog149_ai-coding-tools-2026-review/) — IDE 层的工具横评，回答"模型选好了，工具怎么挑"
+>
+> **🤖 Agent 工程化实战**：[Claude Code Skills 实战：从 0 到 1 写一个能在多项目复用的 Skill](/posts/blog158_claude-code-skills-practical-guide/) — 把工作流写成可复用 Skill，提升 AI 协作效率
+>
+> **🎨 前端 AI 工具新趋势**：[Frontman 拆解：当 AI Agent 从浏览器看你的代码](/posts/blog159_frontman-frontend-ai-agent/) — 配合 frontend-design Skill 形成完整前端 AI 工作流
+
 ## 总结
 
 2026 年 AI 大模型市场已经形成成熟的竞争格局：
