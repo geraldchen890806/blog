@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import Pagination from "@/components/Pagination.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { SITE } from "@/config";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = getSortedPosts(allPosts);
+const pageSize = SITE.postPerPage;
+const lastPage = Math.max(1, Math.ceil(sortedPosts.length / pageSize));
+const data = sortedPosts.slice(0, pageSize);
+
+const page = {
+  data,
+  currentPage: 1,
+  lastPage,
+  size: pageSize,
+  total: sortedPosts.length,
+  start: 0,
+  end: data.length - 1,
+  url: {
+    current: "/posts/",
+    prev: undefined,
+    next: lastPage > 1 ? "/posts/page/2/" : undefined,
+    first: "/posts/",
+    last: lastPage > 1 ? `/posts/page/${lastPage}/` : "/posts/",
+  },
+};
+
+const pageTitle = `文章列表 | ${SITE.title}`;
+const pageDesc = `${SITE.title} 全部文章列表，涵盖前端开发、AI、Agent、性能优化、安全等技术主题。`;
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+  <Header />
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+    <ul>
+      {page.data.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+
+  <script>
+    function checkReadStatus() {
+      const readPosts = JSON.parse(localStorage.getItem("readPosts") || "[]");
+      const postCards = document.querySelectorAll(".post-card");
+
+      postCards.forEach(card => {
+        const postPath = card.getAttribute("data-post-path");
+        const isRead =
+          readPosts.includes(postPath) || readPosts.includes(postPath + "/");
+
+        if (isRead) {
+          const badge = card.querySelector(".read-badge");
+          if (badge) {
+            badge.classList.remove("hidden");
+          }
+        }
+      });
+    }
+
+    checkReadStatus();
+    document.addEventListener("astro:page-load", checkReadStatus);
+  </script>
+</Layout>

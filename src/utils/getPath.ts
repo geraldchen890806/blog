@@ -2,32 +2,44 @@ import { BLOG_PATH } from "@/content.config";
 import { slugifyStr } from "./slugify";
 
 /**
- * Get full path of a blog post
- * @param id - id of the blog post (aka slug)
+ * Get full path of a blog post.
+ *
+ * URL strategy (方案 A，2026-05 起):
+ * - 旧文章：URL 沿用文件名（含 blogXXX_ 序号前缀），保证外链不失效
+ * - 新文章：frontmatter 显式声明不带序号前缀的 `slug` 字段时，URL 使用该 slug
+ *   判定方式：slug 不以 `blog` + 数字 + `_` 开头时视为干净 slug
+ *
+ * @param id - id of the blog post (Astro collection id, derived from filename)
  * @param filePath - the blog post full file location
  * @param includeBase - whether to include `/posts` in return value
+ * @param frontmatterSlug - optional frontmatter `slug` field
  * @returns blog post path
  */
 export function getPath(
   id: string,
   filePath: string | undefined,
-  includeBase = true
+  includeBase = true,
+  frontmatterSlug?: string
 ) {
   const pathSegments = filePath
     ?.replace(BLOG_PATH, "")
     .split("/")
-    .filter(path => path !== "") // remove empty string in the segments ["", "other-path"] <- empty string will be removed
-    .filter(path => !path.startsWith("_")) // exclude directories start with underscore "_"
-    .slice(0, -1) // remove the last segment_ file name_ since it's unnecessary
-    .map(segment => slugifyStr(segment)); // slugify each segment path
+    .filter(path => path !== "")
+    .filter(path => !path.startsWith("_"))
+    .slice(0, -1)
+    .map(segment => slugifyStr(segment));
 
   const basePath = includeBase ? "/posts" : "";
 
-  // Making sure `id` does not contain the directory
-  const blogId = id.split("/");
-  const slug = blogId.length > 0 ? blogId.slice(-1) : blogId;
+  // 优先使用 frontmatter 中显式声明的干净 slug（不带 blogXXX_ 前缀）
+  let slug: string;
+  if (frontmatterSlug && !/^blog\d+_/i.test(frontmatterSlug)) {
+    slug = frontmatterSlug;
+  } else {
+    const blogId = id.split("/");
+    slug = blogId.length > 0 ? blogId.slice(-1).join("") : id;
+  }
 
-  // If not inside the sub-dir, simply return the file path
   if (!pathSegments || pathSegments.length < 1) {
     return [basePath, slug].join("/");
   }

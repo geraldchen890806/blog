@@ -22,6 +22,7 @@ const blog = defineCollection({
       timezone: z.string().optional(),
       reviewed: z.boolean().optional(),
       approved: z.boolean().optional(),
+      slug: z.string().optional(),
     }),
 });
 

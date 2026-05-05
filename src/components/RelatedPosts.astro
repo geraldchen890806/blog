@@ -39,7 +39,7 @@ const scored = posts
         {scored.map(({ post }) => (
           <li class="related-item">
             <a
-              href={getPath(post.id, post.filePath)}
+              href={getPath(post.id, post.filePath, true, post.data.slug)}
               class="related-link"
             >
               <span class="related-post-title">{post.data.title}</span>
