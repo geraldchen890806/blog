@@ -256,11 +256,6 @@ memory directory to know the current procedure. After each check session:
 
 ---
 
-**相关阅读**：
-- [Claude Code 五层架构详解：MCP、Skills、Agent、Subagents、Agent Teams 怎么协作](/posts/claude-code-five-layer-architecture/) - 本文中 Subagent 的 memory 字段在五层架构中的位置
-- [Claude Code Skills 实战：从 0 到 1 写一个能在多项目复用的 Skill](/posts/blog158_claude-code-skills-practical-guide/) - blog-preflight Skill 的初始实现
-- [构建具有长期记忆的 AI Agent：从设计模式到生产实践](/posts/blog079_build-ai-agent-with-long-term-memory/) - 长期记忆架构的理论基础
-
 **延伸阅读**：
 - [mem0 项目主页](https://mem0.ai/) - 向量记忆框架
 - [Hermes Agent (GitHub)](https://github.com/nousresearch/hermes-agent) - 自进化 Agent 框架

@@ -181,6 +181,3 @@ Computer-Use 不是 API 的替代品，而是 API 的补充。它填补了一个
 AI Agent 的交互方式正在从"调用 API"扩展到"像人一样使用软件"。这不是取代，是进化。
 
 ---
-
-**相关阅读**：
-- [AI Agent 开发者工具全景 2026](https://chenguangliang.com/posts/ai-agent-tools-landscape-2026/) - 更宏观的 AI Agent 工具生态分析

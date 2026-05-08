@@ -423,11 +423,6 @@ Subagent 启动:
 
 ---
 
-**相关阅读**：
-- [Claude Code Skills 实战：从 0 到 1 写一个能在多项目复用的 Skill](/posts/blog158_claude-code-skills-practical-guide/) - Skills 单层深度实战，本文的前置阅读
-- [一个 CLAUDE.md 文件，一周涨了 44K Star：Karpathy 的 AI 编程四原则](/posts/blog139_karpathy-skills-claude-md-guide/) - CLAUDE.md（Memory 层）的设计原则
-- [obra/superpowers：让 AI 编程 Agent 先思考再动手的方法论框架](/posts/blog138_superpowers-agentic-skills-framework/) - 把多层架构封装成完整 SDLC 框架的代表
-
 **延伸阅读**：
 - [Anthropic Subagents 官方文档](https://code.claude.com/docs/en/sub-agents) - frontmatter 全字段说明
 - [Claude Code Advanced Patterns Webinar](https://www.anthropic.com/webinars/claude-code-advanced-patterns) - 官方多层协作 webinar

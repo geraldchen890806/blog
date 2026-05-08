@@ -228,11 +228,6 @@ npx @frontman-ai/vite install
 
 ---
 
-**相关阅读**：
-- [AI Agent 成功率从 12% 到 66%：前端开发者该如何迎接"可用"的 Agent 时代](https://chenguangliang.com/posts/blog148_ai-agent-66-percent-frontend/) - 前端 Agent 整体趋势分析
-- [Claude Code Skills 实战：从 0 到 1 写一个能在多项目复用的 Skill](https://chenguangliang.com/posts/blog158_claude-code-skills-practical-guide/) - 如何把 Frontman 这种能力写成 Skill 在团队复用
-- [2026 AI 编程工具红黑榜：Claude Code、Cursor、Copilot、Windsurf、Gemini CLI 真实评测](https://chenguangliang.com/posts/blog149_ai-coding-tools-2026-review/) - Frontman 之外的通用 Agent 评测
-
 **延伸阅读**：
 - [Frontman GitHub 仓库](https://github.com/frontman-ai/frontman) - 项目源码和 issue 区
 - [Anthropic frontend-design Skill](https://www.aitmpl.com/component/skill/frontend-design) - 装机量最大的前端 Skill

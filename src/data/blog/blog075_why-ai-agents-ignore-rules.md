@@ -840,11 +840,6 @@ AI Agent 忽略规则不是 bug，是系统性问题：
 
 ---
 
-**相关阅读**：
-- [AI Safety: Alignment Problem](https://en.wikipedia.org/wiki/AI_alignment)
-- [Constitutional AI (Anthropic Research)](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)
-- [The Bitter Lesson (Rich Sutton)](https://www.incompleteideas.net/IncIdeas/BitterLesson.html)
-
 ---
 
 **案例来源**：真实生产事故（匿名化处理）  

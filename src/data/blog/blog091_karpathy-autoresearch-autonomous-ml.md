@@ -158,7 +158,3 @@ Karpathy 展望未来时说，下一步是从单 agent 线性迭代变成多 age
 这话听起来有点科幻，但 autoresearch 已经证明了第一步是可行的。而且这第一步，只需要 630 行 Python 和一份写得好的 Markdown。
 
 ---
-
-**相关阅读**：
-- [AI Agent 驱动开发：从工具到工作流的范式转变](https://chenguangliang.com/posts/blog078_ai-agent-driven-development/) - 探讨 AI agent 在软件开发中的工作流变革，与 autoresearch 在 ML 研究中的范式转变互为补充
-- [AutoResearch GitHub 仓库](https://github.com/karpathy/autoresearch) - Karpathy 的开源项目，630 行 Python + 一份 program.md

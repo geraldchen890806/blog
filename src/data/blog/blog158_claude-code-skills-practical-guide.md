@@ -408,10 +408,6 @@ git status --short
 
 ---
 
-**相关阅读**：
-- [一个 CLAUDE.md 文件，一周涨了 44K Star：Karpathy 的 AI 编程四原则](https://chenguangliang.com/posts/blog139_karpathy-skills-claude-md-guide/) - CLAUDE.md 与 Skills 的分工取舍
-- [obra/superpowers：让 AI 编程 Agent 先思考再动手的方法论框架](https://chenguangliang.com/posts/blog138_superpowers-agentic-skills-framework/) - 行为约束系的 Skill 实践，与本文的运行时框架系形成对照
-
 **延伸阅读**：
 - [Claude Code Skills 官方文档](https://code.claude.com/docs/en/skills) - 全字段说明和最新特性
 - [Agent Skills 开放标准](https://agentskills.io/) - 跨 AI 工具的 Skill 规范

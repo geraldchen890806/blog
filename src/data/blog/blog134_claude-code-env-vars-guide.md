@@ -258,6 +258,3 @@ export CLAUDE_CONFIG_DIR=~/.claude-work
 两个变量都写入 `~/.zshrc` 就能永久生效，成本几乎为零。
 
 ---
-
-**相关阅读**：
-- [Claude Code 插件生态全解析：Skills、Hooks、MCP Server 如何组合](https://chenguangliang.com/posts/blog088_mcp-roadmap/) - 了解 Claude Code 的整体架构

@@ -145,6 +145,3 @@ make
 GitHub：[github.com/danveloper/flash-moe](https://github.com/danveloper/flash-moe)
 
 ---
-
-**相关阅读**：
-- [2026 AI 大模型全景对比：国内外 12 款主流模型实测](https://chenguangliang.com/posts/blog080_ai-models-comparison-2026/) - 包含 Qwen 系列模型的测评
