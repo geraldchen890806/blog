@@ -16,11 +16,10 @@ const posts = await getCollection("blog");
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
 
 <Layout
-  description="陈广亮的技术博客首页：精选文章和最新文章列表，覆盖 AI Agent、Claude Code、前端工程化、性能优化、Web 安全等主题。"
+  description="陈广亮的技术博客首页：精选文章列表，覆盖 AI Agent、Claude Code、前端工程化、性能优化、Web 安全等主题。"
 >
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
@@ -68,32 +67,12 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
     {
       featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-b border-border": recentPosts.length > 0 },
-          ]}
-        >
+        <section id="featured" class="pt-12 pb-6">
           <h2 class="text-2xl font-semibold tracking-wide">精选文章</h2>
           <ul>
             {featuredPosts.map(data => (
               <Card variant="h3" {...data} />
             ))}
-          </ul>
-        </section>
-      )
-    }
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">最新文章</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
           </ul>
         </section>
       )
