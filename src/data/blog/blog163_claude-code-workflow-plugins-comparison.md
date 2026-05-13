@@ -4,9 +4,9 @@ pubDatetime: 2026-05-11T11:00:00+08:00
 title: Claude Code 工作流类插件横评 2026：Superpowers、Shipyard、Ralph Loop、Maestro、Karpathy CLAUDE.md 怎么选
 slug: claude-code-workflow-plugins-comparison
 featured: true
-draft: true
-reviewed: false
-approved: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - Claude Code
   - AI Agent
