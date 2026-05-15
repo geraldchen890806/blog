@@ -31,34 +31,47 @@ const {
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: `${title}`,
-  image: `${socialImageURL}`,
-  datePublished: `${pubDatetime?.toISOString()}`,
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: `${author}`,
-      ...(profile && { url: profile }),
-    },
-  ],
-  publisher: {
-    "@type": "Organization",
-    name: SITE.title,
-    url: SITE.website,
-    logo: {
-      "@type": "ImageObject",
-      url: new URL("/favicon.svg", Astro.url).toString(),
-    },
-  },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": canonicalURL.toString(),
+const publisher = {
+  "@type": "Organization",
+  name: SITE.title,
+  url: SITE.website,
+  logo: {
+    "@type": "ImageObject",
+    url: new URL("/favicon.svg", Astro.url).toString(),
   },
 };
+
+// 有 pubDatetime 的页面是文章，用 BlogPosting；
+// 其他（首页 / about / tags / archives 等）用 WebSite，避免输出 undefined 的 datePublished
+const structuredData = pubDatetime
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: `${title}`,
+      image: `${socialImageURL}`,
+      datePublished: pubDatetime.toISOString(),
+      ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+      author: [
+        {
+          "@type": "Person",
+          name: `${author}`,
+          ...(profile && { url: profile }),
+        },
+      ],
+      publisher,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalURL.toString(),
+      },
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: `${title}`,
+      url: canonicalURL.toString(),
+      image: `${socialImageURL}`,
+      publisher,
+    };
 ---
 
 <!doctype html>
