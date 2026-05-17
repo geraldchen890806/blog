@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-05-15T15:00:00+08:00
-title: AI 大模型对比 2026 年中版：从 4 月写完到现在，这 4 个月发生了什么
+title: AI 大模型对比 2026 年中版：blog080 写完两个多月，模型层换了一轮
 slug: blog166_ai-models-mid-2026-update
 featured: true
 draft: false
