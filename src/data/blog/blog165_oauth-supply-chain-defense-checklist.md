@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-05-15T11:00:00+08:00
-title: AI 工具供应链安全清单：从 Vercel 入侵事件提炼的 7 条 OAuth 防御原则
+title: AI 工具供应链安全清单：从 Vercel、Nx Console 两起事件提炼的 8 条防御原则
 slug: blog165_oauth-supply-chain-defense-checklist
 featured: true
 draft: false
@@ -12,12 +12,12 @@ tags:
   - AI Agent
   - 开发效率
   - 自动化
-description: 4 月 Vercel 入侵事件不是 OAuth 协议漏洞，是 OAuth 治理漏洞。本文把这次事件提炼成 7 条防御原则 + 1 小时审计 checklist，覆盖最小权限授权、Google Workspace 默认拒绝、密钥分级、托管设备隔离，给独立开发者和小团队一份能立刻照做的安全模板。
+description: Vercel 入侵和 Nx Console 事件都不是协议漏洞，是凭证治理漏洞。本文把这两起 AI 工具供应链攻击提炼成 8 条防御原则 + 1 小时审计 checklist，覆盖 OAuth 最小权限、密钥分级、托管设备隔离、IDE 扩展凭证隔离，给独立开发者和小团队一份能立刻照做的安全模板。
 ---
 
 [blog144](/posts/blog144_vercel-context-ai-supply-chain-attack/) 写过 Vercel 入侵的完整攻击链复盘——攻击者通过 Lumma Stealer 拿到 Context AI 员工凭证 → 偷出 OAuth token → 横向到 Vercel 内部系统 → 窃取客户环境变量。这篇文章不再讲事件本身，而是反过来问一个问题：**如果你是独立开发者或小团队的 owner，怎么把这件事的教训变成可执行的防御 checklist？**
 
-我对照 Trend Micro、Ox Security、VentureBeat 在 4 月底到 5 月上旬的事后分析，提炼出 7 条核心原则。每条都附"具体怎么做"和"1 小时内能完成"的实操步骤。
+我对照 Trend Micro、Ox Security、VentureBeat 在 4 月底到 5 月上旬的事后分析，先从 Vercel 事件提炼出 7 条核心原则，再从下面要讲的 Nx Console 事件补上第 8 条，一共 8 条。每条都附"具体怎么做"和"1 小时内能完成"的实操步骤。
 
 ## 为什么要从这个角度写
 
@@ -31,7 +31,24 @@ Vercel 事件的一个细节值得反复读：
 
 这两个细节意味着：**OAuth 攻击不是协议漏洞，是治理漏洞**。协议本身没问题，但用户的授权习惯是问题。修协议没用，得修人和流程。
 
-## 7 条防御原则
+## 另一个角度的同类事件：Nx Console（攻击源是 IDE 扩展本身）
+
+Vercel 事件是"第三方 AI 工具被攻破，殃及授权方"。但供应链攻击还有一个更贴近开发者日常的入口——**你每天用的 IDE 扩展和 CLI 工具本身被投毒**。2026 年 5 月的 Nx Console 事件就是教科书级案例。
+
+时间线很短但破坏力惊人：
+
+- **2026-05-18 14:36-14:47 CEST**（仅 11 分钟窗口），恶意构建的 `nrwl.angular-console` v18.95.0 被推到 VS Code Marketplace，这个扩展有 220 万安装量
+- 开发者**只要打开任意工作区**，扩展就在数秒内从官方 `nrwl/nx` 仓库里一个隐藏的孤立提交（dangling commit）拉取并执行 498 KB 混淆 payload
+- 这是一个多阶段凭证窃取工具，系统性搜刮 **1Password 保险库、Anthropic Claude Code 配置、npm / GitHub / AWS 凭证**，还扫描文件系统和 `/proc` 内存找嵌入的密钥
+- 官方初报 28 次安装，后续修正为 **6000+ 次安装**（含 41 次来自 Open VSX）
+
+根因链条值得对照 Vercel 事件看：**一名贡献者的机器被入侵 → GitHub PAT 被盗 → 拿到 `nrwl/nx` 仓库 push 权限 → 进而拿到 VS Code Marketplace 发布凭证（VSCE_PAT）→ 发布恶意版本**。最阴险的一步是 payload 集成了完整 Sigstore（Fulcio 证书签发 + Rekor 透明日志 + SLSA provenance），结合窃取的 npm OIDC token，能让攻击者发布**带合法密码学签名的恶意 npm 包**——签名校验这道防线被绕过了。
+
+这件事和 Vercel 事件的共同点很清楚：**不是协议或工具有 bug，是凭证（PAT / 发布 token）被过度信任、缺乏隔离和轮换**。区别在于入口——Vercel 是"你授权了恶意工具"，Nx 是"你信任的工具被人冒名顶替"。两个入口都得防，所以下面在 7 条 OAuth 原则之外，专门加了第 8 条针对 IDE 扩展与 CLI 工具。
+
+> 补充：这已是 Nx 生态一年内第二次大型供应链事件。2025 年 8 月的 "s1ngularity" 攻击通过恶意 Nx npm 包（20.9.0-21.8.0）从 1079 台开发者机器窃取 2349 个凭证，并**专门针对 Claude / Gemini / Q 等 AI CLI 工具的配置和 token**——AI 工具的高权限正在成为攻击者的明确目标。
+
+## 8 条防御原则
 
 ### 原则 1：OAuth 授权默认拒绝（最高优先级）
 
@@ -138,9 +155,22 @@ Vercel 事件的入口是员工在**个人设备**上下载游戏外挂，被 Lu
 
 **1 小时内**：把上面 4 个监控渠道都打开（多数都是免费的），订阅告警邮件。
 
+### 原则 8：IDE 扩展与 CLI 工具的凭证隔离
+
+前 7 条都在防"你主动授权出去"的风险，Nx Console 事件提醒我们还有一类：**你被动信任的工具被冒名顶替**。IDE 扩展和 CLI 工具有两个危险特征——自动更新（你不会逐版本审查）、和高权限运行环境（能读你机器上所有密钥、配置、`/proc` 内存）。
+
+**怎么做**：
+
+- **关闭高权限扩展的自动更新**，至少对能执行任意代码的扩展（构建工具、AI 助手、Git 集成）手动确认更新。VS Code：`settings.json` 里设 `"extensions.autoUpdate": false`，更新前看一眼版本号和发布时间是否异常
+- **PAT / 发布凭证最小权限 + 短有效期**：GitHub PAT 用 fine-grained token 限定到具体仓库，npm token 用自动过期的，绝不用"全账号、永不过期"的经典 PAT——Nx 事件正是经典 PAT 被盗后畅通无阻
+- **AI CLI 工具的配置目录单独保护**：`~/.claude`、`~/.config/gcloud` 这类目录里有高权限 token，确保它们不在任何会被扩展扫描的工作区路径下；s1ngularity 攻击就是专挑这些目录
+- **遇到供应链事件，第一时间轮换"那台机器能碰到的所有凭证"**——不要只删恶意包，payload 可能已经把密钥发走了
+
+**1 小时内**：列出你装的能执行代码的 IDE 扩展和全局 CLI 工具，关掉它们的自动更新；检查 GitHub / npm 上有没有"全权限、永不过期"的 token，能换成 fine-grained 的全换掉。
+
 ## 1 小时审计 checklist（直接照做）
 
-汇总 7 条原则的实操步骤，按"先后顺序"排好：
+汇总 8 条原则的实操步骤，按"先后顺序"排好：
 
 ```text
 □  [10 分钟] 打开 Google Workspace Admin，把"用户授权第三方 OAuth"切到默认拒绝
@@ -150,6 +180,7 @@ Vercel 事件的入口是员工在**个人设备**上下载游戏外挂，被 Lu
 □  [10 分钟] GitHub Settings → Applications → 审 OAuth Apps，Revoke 不用的
 □  [10 分钟] Vercel / Netlify / Cloudflare → 把所有含 KEY/SECRET/TOKEN 的环境变量强制标 Sensitive
 □  [10 分钟] 整理"AI 工具风险登记"文档：列当前所有 AI 工具 + scope + 用的账号
+□  [10 分钟] 关掉高权限 IDE 扩展 / CLI 工具的自动更新；把 GitHub / npm 上"全权限永不过期"的 token 换成 fine-grained
 ```
 
 不到 1 小时，能把"工具供应链攻击面"砍掉 80%。
@@ -181,13 +212,14 @@ OAuth 设计初衷是"不用密码就能授权"，但**它没解决"过度授权
 
 ## 长期防御思路
 
-7 条原则本质上都是**减少攻击面**——但攻击面只会越来越大（每月都有新 AI 工具发布）。长期防御得加一条第 8 原则：**承认防御做不到 100%，把检测和响应做扎实**。
+这 8 条原则本质上都是**减少攻击面**——但攻击面只会越来越大（每月都有新 AI 工具、新扩展发布）。长期防御得再加一条压舱原则：**承认防御做不到 100%，把检测和响应做扎实**。
 
 具体讲：
 
 - **接受密钥总会泄漏**——做轮换机制（30 天一轮），泄漏后立刻无效
 - **接受 OAuth 总有过度授权**——做使用日志监控，异常行为告警
 - **接受 AI 工具总有恶意可能**——做数据分级，关键数据永远不接入未审计 AI
+- **接受 IDE 扩展和 CLI 工具会被投毒**——关高权限扩展的自动更新，遇到供应链事件先轮换凭证再排查
 
 这套思路不新，但 AI 工具的爆发把它从"企业安全的奢侈品"变成了"独立开发者的必需品"。
 
@@ -198,7 +230,7 @@ OAuth 设计初衷是"不用密码就能授权"，但**它没解决"过度授权
 1. **本周内**：跑完上面的 1 小时审计 checklist
 2. **本月内**：把所有现役 AI 工具的 OAuth scope 重审一遍，能降级的全部降级
 3. **每季度**：重复审计 + 清理新累积的授权
-4. **遇到入侵新闻**：花 15 分钟看是不是涉及你授权过的工具，立刻 Revoke
+4. **遇到入侵新闻**：花 15 分钟看是不是涉及你授权过或安装过的工具——授权类的立刻 Revoke，扩展/CLI 类的立刻轮换那台机器能碰到的凭证
 
 最便宜的安全投入是"不授权那些你不需要的 scope"——这一条原则就能省下 90% 的事后补救成本。
 
@@ -210,3 +242,5 @@ OAuth 设计初衷是"不用密码就能授权"，但**它没解决"过度授权
 - [Trend Micro 官方分析](https://www.trendmicro.com/en_us/research/26/d/vercel-breach-oauth-supply-chain.html) - 安全厂商对事件的技术拆解
 - [Ox Security: Vercel Breach 分析](https://www.ox.security/blog/vercel-context-ai-supply-chain-attack-breachforums/) - 攻击经济和 BreachForums 后续追踪
 - [VentureBeat: OAuth Gap 报告](https://venturebeat.com/security/vercel-breach-exposes-the-oauth-gap-most-security-teams-cannot-detect-scope-or-contain) - 行业级 OAuth 治理盲区分析
+- [The Hacker News: Nx Console 18.95.0 事件](https://thehackernews.com/2026/05/compromised-nx-console-18950-targeted.html) - IDE 扩展供应链攻击的完整时间线
+- [Nx 官方 s1ngularity 复盘](https://nx.dev/blog/s1ngularity-postmortem) - 厂商自述 2025 年事件的根因与响应
