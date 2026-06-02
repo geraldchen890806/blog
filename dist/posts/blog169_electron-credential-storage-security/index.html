@@ -1,0 +1,579 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237239169922070" crossorigin="anonymous"></script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/posts/blog169_electron-credential-storage-security/"><meta name="generator" content="Astro v6.3.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>拆开 Electron safeStorage 黑盒：AES-128-CBC、硬编码 IV，和那些没人告诉你的事 | 陈广亮的技术博客</title><meta name="title" content="拆开 Electron safeStorage 黑盒：AES-128-CBC、硬编码 IV，和那些没人告诉你的事 | 陈广亮的技术博客"><meta name="description" content="safeStorage 是 Electron 推荐的密钥存储 API，但实现细节少被讨论。本文拆开它的源码黑盒：约 100 行 C++ 包装 Chromium OSCrypt，AES-128-CBC、IV 硬编码 16 空格、PBKDF2 只迭代 1 轮。配合 VS Code 凭据被扩展直接读、VoidStealer 用硬件断点抢 master key 的案例，给一份基于威胁模型的存储决策表。"><meta name="author" content="陈广亮"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="陈广亮的技术博客"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="拆开 Electron safeStorage 黑盒：AES-128-CBC、硬编码 IV，和那些没人告诉你的事 | 陈广亮的技术博客"><meta property="og:description" content="safeStorage 是 Electron 推荐的密钥存储 API，但实现细节少被讨论。本文拆开它的源码黑盒：约 100 行 C++ 包装 Chromium OSCrypt，AES-128-CBC、IV 硬编码 16 空格、PBKDF2 只迭代 1 轮。配合 VS Code 凭据被扩展直接读、VoidStealer 用硬件断点抢 master key 的案例，给一份基于威胁模型的存储决策表。"><meta property="og:url" content="https://chenguangliang.com/posts/blog169_electron-credential-storage-security/"><meta property="og:image" content="https://chenguangliang.com/posts/blog169_electron-credential-storage-security/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-05-25T03:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/posts/blog169_electron-credential-storage-security/"><meta property="twitter:title" content="拆开 Electron safeStorage 黑盒：AES-128-CBC、硬编码 IV，和那些没人告诉你的事 | 陈广亮的技术博客"><meta property="twitter:description" content="safeStorage 是 Electron 推荐的密钥存储 API，但实现细节少被讨论。本文拆开它的源码黑盒：约 100 行 C++ 包装 Chromium OSCrypt，AES-128-CBC、IV 硬编码 16 空格、PBKDF2 只迭代 1 轮。配合 VS Code 凭据被扩展直接读、VoidStealer 用硬件断点抢 master key 的案例，给一份基于威胁模型的存储决策表。"><meta property="twitter:image" content="https://chenguangliang.com/posts/blog169_electron-credential-storage-security/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"拆开 Electron safeStorage 黑盒：AES-128-CBC、硬编码 IV，和那些没人告诉你的事 | 陈广亮的技术博客","image":"https://chenguangliang.com/posts/blog169_electron-credential-storage-security/index.png","datePublished":"2026-05-25T03:00:00.000Z","author":[{"@type":"Person","name":"陈广亮","url":"https://chenguangliang.com/"}],"publisher":{"@type":"Organization","name":"陈广亮的技术博客","url":"https://chenguangliang.com/","logo":{"@type":"ImageObject","url":"https://chenguangliang.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chenguangliang.com/posts/blog169_electron-credential-storage-security/"}}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="陈广亮的技术博客" href="https://chenguangliang.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.DWkhkaqn.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/_astro/index.BHms9FnV.css"><style>[data-astro-transition-scope="astro-pcwlacsx-1"] { view-transition-name: \62C6\5F00-electron-safe-storage-\9ED1\76D2\FF1A aes-128-cbc\3001\786C\7F16\7801-iv\FF0C\548C\90A3\4E9B\6CA1\4EBA\544A\8BC9\4F60\7684\4E8B; }@layer astro { ::view-transition-old(\62C6\5F00-electron-safe-storage-\9ED1\76D2\FF1A aes-128-cbc\3001\786C\7F16\7801-iv\FF0C\548C\90A3\4E9B\6CA1\4EBA\544A\8BC9\4F60\7684\4E8B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\62C6\5F00-electron-safe-storage-\9ED1\76D2\FF1A aes-128-cbc\3001\786C\7F16\7801-iv\FF0C\548C\90A3\4E9B\6CA1\4EBA\544A\8BC9\4F60\7684\4E8B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\62C6\5F00-electron-safe-storage-\9ED1\76D2\FF1A aes-128-cbc\3001\786C\7F16\7801-iv\FF0C\548C\90A3\4E9B\6CA1\4EBA\544A\8BC9\4F60\7684\4E8B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\62C6\5F00-electron-safe-storage-\9ED1\76D2\FF1A aes-128-cbc\3001\786C\7F16\7801-iv\FF0C\548C\90A3\4E9B\6CA1\4EBA\544A\8BC9\4F60\7684\4E8B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: \5B89\5168; }@layer astro { ::view-transition-old(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: \524D\7AEF; }@layer astro { ::view-transition-old(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: javascript; }@layer astro { ::view-transition-old(javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: \5F00\53D1\6548\7387; }@layer astro { ::view-transition-old(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> 陈广亮的技术博客 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function s(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const c=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",c?"false":"true"),e.setAttribute("aria-label",c?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}s();document.addEventListener("astro:after-swap",s);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body data-astro-cid-vj4tpspi> <div class="post-layout" data-astro-cid-vj4tpspi> <div class="post-content" data-astro-cid-vj4tpspi> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-cid-vj4tpspi data-astro-transition-scope="astro-pcwlacsx-1"> 拆开 Electron safeStorage 黑盒：AES-128-CBC、硬编码 IV，和那些没人告诉你的事 </h1> <div class="my-2 flex items-center gap-2" data-astro-cid-vj4tpspi> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-05-25T03:00:00.000Z">25 May, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden" data-astro-cid-vj4tpspi>|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)" data-astro-cid-vj4tpspi> <p>写过 Electron 应用的人多少都用过 <code>safeStorage.encryptString()</code>，它是官方推荐的”安全存储”方案，文档说会用系统密钥环保护数据。但很少有人真去翻它的源码——结果就是大量应用基于一个错误的心理模型在写代码，以为加密了就万事大吉。</p>
+<p>我前阵子为了搞清楚 Claude Desktop / Cursor 这类工具的 API key 到底有多安全，翻了 Electron 仓库里 safeStorage 的实现，越看越觉得这个 API 名字起得太”安心”了。这篇把拆解过程写下来，重点不是教你怎么用，是告诉你它<strong>实际</strong>保护了什么、<strong>没有</strong>保护什么。</p>
+<h2 id="safestorage-不是一个加密库是一个-100-行的-c-包装">safeStorage 不是一个加密库，是一个 100 行的 C++ 包装</h2>
+<p>第一个反直觉的事实：safeStorage 没有自己的密码学实现。它<strong>整体</strong>是 Chromium <code>OSCrypt</code> 组件的一层薄包装——把 C++ 的 <code>OSCryptImpl::EncryptString / DecryptString</code> 暴露给 Node.js，加起来大约 100 行 C++。</p>
+<p>这意味着：safeStorage 的安全强度 = Chromium OSCrypt 的安全强度。任何 Chromium 的历史包袱、设计妥协、平台差异，safeStorage 一字不漏地继承。</p>
+<p>OSCrypt 的实现要分两层看：<strong>对称加密参数</strong>三平台共通，<strong>密钥来源</strong>三平台完全不同。</p>
+<p><strong>共通层（OSCrypt 的对称加密参数）</strong>：</p>
+<ul>
+<li>算法：AES-128-CBC（不是 AES-256，不是 GCM——CBC 没有认证）</li>
+<li>IV：<strong>硬编码为 16 个空格字符</strong>（不是每次随机生成）</li>
+</ul>
+<p>这两条意味着：同一份 master key 下，相同明文每次加密出来的密文相同——可以做”密文比对”，理论上还能配合 padding oracle、bit-flipping 等 CBC 模式经典攻击。</p>
+<p><strong>密钥来源（三平台差异巨大）</strong>：</p>
+<ul>
+<li>macOS 主路径：master key 是 Keychain 里<strong>随机生成</strong>的 128-bit 密钥，存储在 <code>&#x3C;AppName> Safe Storage</code> 条目，由系统 ACL 保护</li>
+<li>Windows 主路径：master key 也是随机生成的密钥，但用 <strong>DPAPI</strong> 加密后落盘</li>
+<li>Linux 主路径（libsecret / kwallet 可用）：master key 是随机生成、存进系统密钥环的密钥</li>
+<li>Linux fallback 路径（<code>basic_text</code>）：<strong>没有 master key 的概念</strong>——直接用 PBKDF2-HMAC-SHA1 派生密码，<strong>salt 硬编码为字符串 <code>"saltysalt"</code>、迭代次数 = 1</strong>，源密码也是 Chromium 源码里写死的字符串</li>
+</ul>
+<p><code>PBKDF2-1-saltysalt</code> 这套是历史遗留——Chromium 早期 Linux 实现，当时被定位为”比明文好一点”的兜底方案。可怕的是 Electron 在 Linux 上<strong>默认会回退到这条路径</strong>，应用开发者通常没意识到自己的密文等同于明文，因为 PBKDF2 的”源密码”是写死在 Chromium 源码里的常量，任何拿到磁盘文件的人都能用同一个公开常量解出来。</p>
+<p>Chromium 自己当然知道这套老设计的问题，但浏览器存储的 cookie / 自动填充密码属于”低敏数据”，对应威胁模型够用就没动力重构。问题是 Electron 把这套机制<strong>原样</strong>作为”安全存储 API”卖给应用开发者——而你存的可能是 OpenAI API key、JWT、加密货币私钥。</p>
+<h2 id="三个平台三种不同的安全感">三个平台，三种不同的”安全感”</h2>
+<p>OSCrypt 的实际行为还要看平台。这里把官方文档没明说的细节列出来：</p>
+<h3 id="macos">macOS</h3>
+<p>加密密钥保存在用户 Keychain 的一个名为 <code>&#x3C;AppName> Safe Storage</code> 的条目里。<strong>这是三个平台里最强的一档</strong>：</p>
+<ul>
+<li>其他应用想读这个 Keychain 条目，系统会弹授权框</li>
+<li>系统级 ACL 可以拒绝指定进程</li>
+<li>即使硬盘被偷，Keychain 数据库本身是加密的（除非用户没设登录密码）</li>
+</ul>
+<p>但 macOS 的强度也有边界：<strong>同一应用的子进程、加载的动态库、被注入的代码——都被视为应用本体</strong>，不会触发授权框。一个被恶意 npm 包污染的 Electron 应用，启动后调 safeStorage 解密自己的密钥，OS 一声不吭。</p>
+<h3 id="windows">Windows</h3>
+<p>用 DPAPI。<strong>保护范围是”当前 Windows 登录用户”</strong>：</p>
+<ul>
+<li>能阻止：同机器上其他 Windows 用户登录后读你的密钥</li>
+<li>不能阻止：同用户身份下运行的任何其他进程</li>
+</ul>
+<p>第二条意味着：你装了任何恶意软件、任何带本地代码执行漏洞的应用，它都能 <code>import ctypes; ctypes.windll.crypt32.CryptUnprotectData(...)</code> 把你的密钥解出来。DPAPI 在威胁模型上比 macOS Keychain 弱一档。</p>
+<h3 id="linux">Linux</h3>
+<p>最复杂也最容易出事的一档。Electron 会按桌面环境自动选 backend：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>GNOME / XFCE / Cinnamon / Unity → gnome_libsecret</span></span>
+<span class="line"><span>KDE 5 → kwallet5</span></span>
+<span class="line"><span>KDE 6 → kwallet6</span></span>
+<span class="line"><span>都没有 → basic_text</span></span></code></pre>
+<p><code>basic_text</code> 是字面意义上的”裸奔”：用前面说的 PBKDF2-1 轮 + saltysalt 派生一个<strong>硬编码密码</strong>做 CBC 加密。任何拿到你磁盘文件的人都能解密——包括同一台机器上的其他用户、备份服务、企业 IT 镜像盘。</p>
+<p>更可怕的是：<strong><code>basic_text</code> 是默认 fallback</strong>，不会报错、不会警告。你的应用在一台没装 libsecret 的最小化 Debian 上运行，会”成功加密”，然后把等同于明文的密文写盘。</p>
+<p><strong>正确的防御写法</strong>——这段代码我建议每个 Electron 应用都加上：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="javascript"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#24292EFF;--shiki-dark:#C792EA"> {</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> app</span><span style="--shiki-light:#212121;--shiki-dark:#C792EA">,</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> safeStorage</span><span style="--shiki-light:#24292EFF;--shiki-dark:#C792EA"> }</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> require</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">electron</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic">app</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">whenReady</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">()</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">then</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">()</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =></span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  if</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic">process</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">platform</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> ===</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">linux</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">    const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> backend</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic"> safeStorage</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">getSelectedStorageBackend</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">    if</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D7DBE0">backend</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> ===</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">basic_text</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">      throw</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> new</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> Error</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">System keyring unavailable (basic_text fallback). </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> +</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">        '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Refusing to store credentials. Please install libsecret or kwallet.</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      );</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">});</span></span></code></pre>
+<p>我翻了 GitHub 上几个流行 Electron 项目，<strong>没有一个</strong>默认加了这段检查。</p>
+<h2 id="vs-code-案例sandbox-不存在时safestorage-等于装饰品">VS Code 案例：sandbox 不存在时，safeStorage 等于装饰品</h2>
+<p>ControlPlane 那篇 VS Code 凭据窃取分析很值得细看。结论先说：<strong>任何 VS Code 扩展都能绕过 safeStorage 直接读其他扩展的密钥</strong>，根本不需要漏洞，按 API 调用即可。</p>
+<p>攻击链短到令人尴尬：</p>
+<ol>
+<li>VS Code 的 <code>SecretStorage</code> API 最终调 safeStorage 把密钥加密后存到 SQLite</li>
+<li>文件路径固定：<code>${HOME}/.config/Code/User/globalStorage/state.vscdb</code></li>
+<li>任何扩展都有完整 Node.js 权限——可以直接读这个 SQLite 文件</li>
+<li>扩展再直接调 <code>libsecret</code>（或 <code>keytar</code> fork、或 Windows <code>CryptUnprotectData</code>）解密 OSCrypt 的密钥</li>
+<li>用解出来的 OSCrypt 密钥按 CBC + 硬编码 IV 解密 SQLite 里的密文 → 拿到所有扩展的所有密钥</li>
+</ol>
+<p>ControlPlane 直接放了个 PoC 扩展，装上点一个按钮就 dump 所有 VS Code 管理的 secrets。</p>
+<p>根本原因不在 safeStorage 本身——是 <strong>VS Code 没有给扩展做沙箱</strong>。整个 Electron 应用是一个进程、一个用户身份、一份 Keychain ACL，OS 看不到”这个扩展是好的、那个扩展是坏的”。</p>
+<p>这个案例的普遍性值得警惕：所有”插件化的 Electron 应用”都有同一个问题——Cursor、Windsurf、Trae、Obsidian、Raycast……扩展能跑 Node.js 代码，就能绕过 safeStorage 任何层面的”加密”。</p>
+<h2 id="新攻击面调试器抢-master-keyvoidstealer-2026-03">新攻击面：调试器抢 master key（VoidStealer 2026-03）</h2>
+<p>2026 年 3 月 Kaspersky 披露的 VoidStealer 提供了一个更隐蔽的新思路，针对 Chrome v20 App-Bound Encryption——但同样原理对所有 Electron 应用有效。</p>
+<p>技术原理：</p>
+<ol>
+<li>不去找密钥的存储位置（那是 OS 保护的）</li>
+<li>等应用<strong>自己</strong>调解密 API</li>
+<li>此时 master key 必然以明文形式出现在 Chromium 进程内存里（要算 AES 就得有 key）</li>
+<li>用 Windows 的合法调试 API（<code>WaitForDebugEvent</code> / <code>SetThreadContext</code>）<strong>附加为调试器</strong>，在解密函数地址放一个<strong>硬件断点</strong></li>
+<li>程序执行到断点就被冻结，从寄存器里把 key 读出来</li>
+<li>全程不需要管理员权限，不需要代码注入，不触发 EDR 常用的注入检测</li>
+</ol>
+<p>对应到 Electron 应用：你的应用调 <code>safeStorage.decryptString()</code> 的瞬间，明文密钥短暂存在于进程内存里——一个同用户身份的进程附加调试器，就能在那一瞬间把它读走。</p>
+<p>这个攻击面没有干净的防御：</p>
+<ul>
+<li>Windows 上可以调 <code>IsDebuggerPresent</code> 检测，但调试器有反检测手段</li>
+<li>macOS 上可以用 <code>PT_DENY_ATTACH</code> 阻止 <code>ptrace</code>，但 Apple 自己的 dtrace / lldb 用其他通道</li>
+<li>真正的根治是把”密钥永远不进应用进程内存”——硬件 enclave（macOS Secure Enclave、Windows TPM、Linux TEE）才能做到</li>
+</ul>
+<p>普通 Electron 应用做不到 enclave 集成。所以最务实的认知是：<strong>你的密钥在用户主动调用之外的所有时间都受 safeStorage 保护，调用瞬间在内存里裸奔几毫秒</strong>——这个窗口对针对性攻击足够了。</p>
+<h2 id="electron-团队对这些限制的态度">Electron 团队对这些限制的态度</h2>
+<p>GitHub issue #42318 是一个开发者提的 feature request：希望 Electron 文档明确写清 safeStorage 的局限——比如同进程内其他代码能读密钥、Linux 静默 fallback 到明文、密钥环解锁后任何应用都能读。</p>
+<p>Electron 团队的处置是：<strong>“Closed as not planned”</strong>。</p>
+<p>我能理解这个决定（文档维护成本、避免误导用户改方案、避免被引用为”官方承认不安全”），但它也清楚地表达了一件事：<strong>safeStorage 的安全边界，应用开发者要自己搞清楚</strong>。官方不会主动告诉你它防不住什么。</p>
+<p>这种态度在 Electron 生态里相当普遍。Electron 长期被批评为”web 安全模型套到桌面应用上”，团队也承认这个判断——但商业取舍是”我们提供工具，应用层负责合理使用”。</p>
+<h2 id="一份基于威胁模型的存储决策表">一份基于威胁模型的存储决策表</h2>
+<p>把 safeStorage 实际能防的攻击列出来，开发者就能按自己产品的威胁模型决定是否够用：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>威胁                                        safeStorage 防得住？</span></span>
+<span class="line"><span>─────────────────────────────────────────────────────────────</span></span>
+<span class="line"><span>用户硬盘被偷                                 ✅（除 Linux basic_text）</span></span>
+<span class="line"><span>同机器其他登录用户                            ✅（macOS / Windows）</span></span>
+<span class="line"><span>同用户身份下其他进程读取密钥环                 ❌（macOS 弹授权，Win/Linux 直接通过）</span></span>
+<span class="line"><span>同 Electron 应用内其他模块 / 扩展             ❌（VS Code 案例）</span></span>
+<span class="line"><span>你的应用被供应链攻击注入恶意代码               ❌（应用本体身份）</span></span>
+<span class="line"><span>应用运行时被调试器附加抢内存                   ❌（VoidStealer 攻击面）</span></span>
+<span class="line"><span>V8 snapshot 被本地篡改注入 JS（CVE-2025-55305） ❌</span></span></code></pre>
+<p>满足前两行的产品（普通 SaaS 客户端、文档工具、聊天软件）用 safeStorage 完全合理。后五行命中任何一行的产品（密码管理器、加密钱包、企业 SSO 客户端）必须再加一层用户主密码 + 短期解锁窗口——这是 1Password、Bitwarden 的做法，也是 Electron 框架下能做到的现实上限。</p>
+<h2 id="实操-checklist">实操 checklist</h2>
+<p>如果你正在写一个会经手 API key / token 的 Electron 应用：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>□  [必做] 不要用 electron-store 的 encryptionKey（CBC 无认证，位翻转攻击成本极低）</span></span>
+<span class="line"><span>□  [必做] 用 safeStorage，并在启动时检查 getSelectedStorageBackend()，Linux basic_text 拒绝存储</span></span>
+<span class="line"><span>□  [必做] contextIsolation: true, nodeIntegration: false, sandbox: true 三件套</span></span>
+<span class="line"><span>□  [必做] Electron 版本保持在 LTS，订阅 electron/electron Security Advisories</span></span>
+<span class="line"><span>□  [建议] 启用 ASAR integrity 两个 fuse（embeddedAsarIntegrityValidation + onlyLoadAppFromAsar，Electron 30+ 跨平台可用）</span></span>
+<span class="line"><span>□  [建议] 高敏操作前加 OS 级二次认证（Touch ID / Windows Hello / 主密码）</span></span>
+<span class="line"><span>□  [建议] 密钥写盘文件 chmod 0600，多一层 FS 防线</span></span>
+<span class="line"><span>□  [建议] 不要把密钥放进 BrowserWindow 的渲染进程，仅在主进程持有</span></span>
+<span class="line"><span>□  [建议] 在产品文档里诚实写清安全边界，不要承诺 safeStorage 做不到的事</span></span></code></pre>
+<p>第二条特别想强调一下：<strong>没有任何一个流行 Electron 应用默认加了 basic_text 检查</strong>。这是我建议每个项目都要补上的最低投入、最高回报的一行代码。</p>
+<h2 id="结语">结语</h2>
+<p>我不是要劝大家弃用 safeStorage——在 macOS / Windows 主流环境下，它仍然是 Electron 生态最务实的方案。但请把它当成<strong>一个有明确边界的工具</strong>，不是”加密了就安全”的银弹。</p>
+<p>技术决策的本质是匹配威胁模型。普通用户场景下 safeStorage 够用；安全敏感场景下，你需要主密码 + Secure Enclave 这种纵深防御。把”safeStorage 实际防住了什么”想清楚，比盲目相信 API 名字里的 “safe” 重要得多。</p>
+<hr>
+<p><strong>延伸阅读</strong>：</p>
+<ul>
+<li><a href="https://www.electronjs.org/docs/latest/api/safe-storage">Electron safeStorage 官方文档</a> - API 接口和 backend 列表</li>
+<li><a href="https://source.chromium.org/chromium/chromium/src/+/main:components/os_crypt/">Chromium OSCrypt 源码</a> - safeStorage 底层实现</li>
+<li><a href="https://control-plane.io/posts/abusing-vscode-from-malicious-extensions-to-stolen-credentials-part-2/">Abusing VSCode: From Malicious Extensions to Stolen Credentials (Part 2)</a> - ControlPlane 的 VS Code 凭据窃取 PoC</li>
+<li><a href="https://www.kaspersky.com/blog/chrome-application-bound-encryption-bypass-voidstealer/55735/">VoidStealer 绕过 Chrome App-Bound Encryption 分析</a> - 调试器抢 master key 的技术细节</li>
+<li><a href="https://github.com/electron/electron/issues/42318">Electron Issue #42318: 改进 safeStorage 文档（已被 closed as not planned）</a> - 官方对安全边界的态度</li>
+</ul> </article> <section class="related-posts" data-pagefind-ignore data-astro-cid-dpgbfi7r><h2 class="related-title" data-astro-cid-dpgbfi7r>相关阅读</h2><ul class="related-list" data-astro-cid-dpgbfi7r><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog176_electron-private-key-storage" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Electron 桌面钱包怎么存私钥：safeStorage 不够用，看看 MetaMask 和 Phantom 怎么做</span><span class="related-desc" data-astro-cid-dpgbfi7r>前几天写过一篇拆解 safeStorage 的文章——结论是它适合存普通 API key。但如果你要存的是几万美元价值的钱包私钥呢？safeStorage 就不够了。这篇看 MetaMask、Phantom 这些真正的桌面钱包怎么做，以及为什么&quot;加密 + 主密码 + 短期解锁&quot;是绕不开的三件套。</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog175_claude-code-trading-bot-dogfooding" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>让 Claude Code 改我的真金白银交易代码：我守住的几条界线</span><span class="related-desc" data-astro-cid-dpgbfi7r>我用 Claude Code 在一个真金白银的合约量化项目上写了 10 个月代码。这篇是诚实的复盘：AI 没有直接动钱（我没那么大胆），但它确实在写下单/止损/平仓的关键路径。讲讲我守住的几条界线，以及哪些 AI 真的有用、哪些时刻我必须接管。</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog172_flutter-vs-electron-desktop" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Flutter Desktop vs Electron：从&quot;谁在迁走、谁还在用&quot;看 2026 桌面端选型</span><span class="related-desc" data-astro-cid-dpgbfi7r>不做枯燥的对比表。本文从 2026 年实际产品的去留反推选型逻辑——VS Code / Slack / Claude Desktop 为什么押注 Electron，Ubuntu 26.04 桌面环境为什么转向 Flutter，Teams / Zed 又为什么离开。</span></a></li></ul></section> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/安全/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 安全 </a> </li><li> <a href="/tags/前端/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 前端 </a> </li><li> <a href="/tags/javascript/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> JavaScript </a> </li><li> <a href="/tags/开发效率/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 开发效率 </a> </li> </ul> <div class="appreciation-wrapper" data-pagefind-ignore data-astro-cid-iocheen3> <button id="appreciation-toggle" class="appreciation-btn" data-astro-cid-iocheen3>
+☕ 觉得有帮助？请作者喝杯咖啡
+</button> <!-- 遮罩 + 弹窗 --> <div id="appreciation-overlay" class="appreciation-overlay" hidden data-astro-cid-iocheen3> <div class="appreciation-modal" data-astro-cid-iocheen3> <button id="appreciation-close" class="modal-close" aria-label="Close" data-astro-cid-iocheen3>&times;</button> <div class="modal-icon" data-astro-cid-iocheen3>◇</div> <h3 class="modal-title" data-astro-cid-iocheen3>请作者喝杯咖啡 ☕</h3> <p class="modal-subtitle" data-astro-cid-iocheen3>如果这篇文章对你有帮助</p> <img src="/assets/eth-reward.jpg" alt="Ethereum Donation QR Code" class="modal-qr" loading="lazy" data-astro-cid-iocheen3> <code class="modal-address" id="eth-address" data-astro-cid-iocheen3>0x320B48341e92D120276ff960F347EAe840bd4d6D</code> <button id="copy-address" class="copy-btn" data-astro-cid-iocheen3>复制地址</button> <p class="modal-note" data-astro-cid-iocheen3>支持 ETH / ERC-20 代币</p> </div> </div> </div>  <script>
+  function initAppreciation() {
+    var toggle = document.getElementById('appreciation-toggle');
+    var overlay = document.getElementById('appreciation-overlay');
+    var closeBtn = document.getElementById('appreciation-close');
+    var copyBtn = document.getElementById('copy-address');
+    var addr = document.getElementById('eth-address');
+
+    if (!toggle || toggle._bound) return;
+    toggle._bound = true;
+
+    function open() { if (overlay) overlay.hidden = false; }
+    function close() { if (overlay) overlay.hidden = true; }
+
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
+    });
+
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(addr.textContent).then(function() {
+          copyBtn.textContent = '已复制 ✓';
+          setTimeout(function() { copyBtn.textContent = '复制地址'; }, 1500);
+        });
+      });
+    }
+  }
+  initAppreciation();
+  document.addEventListener('astro:page-load', initAppreciation);
+</script> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/posts/blog169_electron-credential-storage-security/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/posts/blog169_electron-credential-storage-security/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/posts/blog169_electron-credential-storage-security/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/posts/blog169_electron-credential-storage-security/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/posts/blog169_electron-credential-storage-security/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/posts/blog169_electron-credential-storage-security/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed" data-astro-cid-vj4tpspi> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-astro-cid-vj4tpspi> <a href="/posts/blog172_flutter-vs-electron-desktop" class="flex w-full gap-1 hover:opacity-75" data-astro-cid-vj4tpspi> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Previous Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>Flutter Desktop vs Electron：从&quot;谁在迁走、谁还在用&quot;看 2026 桌面端选型</div> </div> </a> <a href="/posts/blog167_anti-ai-tone-writing-rules" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2" data-astro-cid-vj4tpspi> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Next Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>我用 Claude Code 写了 80+ 篇博客后总结的 7 条&quot;反 AI 痕迹&quot;原则</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </div> <!-- Table of Contents Sidebar --> <div class="post-sidebar" data-astro-cid-vj4tpspi> <aside class="toc-container" data-astro-cid-xvrfupwn><div class="toc-wrapper" data-astro-cid-xvrfupwn><h2 class="toc-title" data-astro-cid-xvrfupwn>目录</h2><nav class="toc-nav" data-astro-cid-xvrfupwn><ul class="toc-list" data-astro-cid-xvrfupwn><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#safestorage-不是一个加密库是一个-100-行的-c-包装" class="toc-link" data-heading-id="safestorage-不是一个加密库是一个-100-行的-c-包装" data-astro-cid-xvrfupwn>safeStorage 不是一个加密库，是一个 100 行的 C++ 包装</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#三个平台三种不同的安全感" class="toc-link" data-heading-id="三个平台三种不同的安全感" data-astro-cid-xvrfupwn>三个平台，三种不同的”安全感”</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#macos" class="toc-link" data-heading-id="macos" data-astro-cid-xvrfupwn>macOS</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#windows" class="toc-link" data-heading-id="windows" data-astro-cid-xvrfupwn>Windows</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#linux" class="toc-link" data-heading-id="linux" data-astro-cid-xvrfupwn>Linux</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#vs-code-案例sandbox-不存在时safestorage-等于装饰品" class="toc-link" data-heading-id="vs-code-案例sandbox-不存在时safestorage-等于装饰品" data-astro-cid-xvrfupwn>VS Code 案例：sandbox 不存在时，safeStorage 等于装饰品</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#新攻击面调试器抢-master-keyvoidstealer-2026-03" class="toc-link" data-heading-id="新攻击面调试器抢-master-keyvoidstealer-2026-03" data-astro-cid-xvrfupwn>新攻击面：调试器抢 master key（VoidStealer 2026-03）</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#electron-团队对这些限制的态度" class="toc-link" data-heading-id="electron-团队对这些限制的态度" data-astro-cid-xvrfupwn>Electron 团队对这些限制的态度</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#一份基于威胁模型的存储决策表" class="toc-link" data-heading-id="一份基于威胁模型的存储决策表" data-astro-cid-xvrfupwn>一份基于威胁模型的存储决策表</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#实操-checklist" class="toc-link" data-heading-id="实操-checklist" data-astro-cid-xvrfupwn>实操 checklist</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#结语" class="toc-link" data-heading-id="结语" data-astro-cid-xvrfupwn>结语</a></li></ul></nav></div></aside><script type="module">function l(){const o=document.querySelectorAll(".toc-link"),c=document.querySelectorAll("h2[id], h3[id]");if(o.length===0||c.length===0)return;function s(){let e=null;const r=window.scrollY+100;c.forEach(t=>{const n=t.offsetTop;r>=n&&(e=t)}),o.forEach(t=>{t.classList.remove("active"),e&&t.getAttribute("data-heading-id")===e.id&&t.classList.add("active")})}o.forEach(e=>{e.addEventListener("click",r=>{r.preventDefault();const t=e.getAttribute("href")?.slice(1);if(t){const n=document.getElementById(t);n&&(n.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,"",`#${t}`))}})});let i=!1;window.addEventListener("scroll",()=>{i||(window.requestAnimationFrame(()=>{s(),i=!1}),i=!0)}),s()}document.addEventListener("DOMContentLoaded",l);document.addEventListener("astro:page-load",l);</script> </div> </div> </main> <footer class="app-layout mt-auto" data-astro-cid-vj4tpspi="true"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/privacy-policy/" class="hover:text-accent underline decoration-dashed underline-offset-4">隐私政策</a> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/contact/" class="hover:text-accent underline decoration-dashed underline-offset-4">联系方式</a> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html>  <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>
