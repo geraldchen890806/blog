@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-06-01T18:00:00+08:00
+pubDatetime: 2026-06-04T17:00:00+08:00
 title: Electron 30 的 WebContentsView：替代 BrowserView 之后多视图应用怎么写
 slug: blog180_electron-webcontentsview
 featured: true

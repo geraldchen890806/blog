@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-06-01T19:00:00+08:00
+pubDatetime: 2026-06-04T17:05:00+08:00
 title: React 开发者的 Electron 入门指南：按冲击程度排序的 9 件事
 slug: blog181_react-web-to-electron-mental-model
 featured: true
