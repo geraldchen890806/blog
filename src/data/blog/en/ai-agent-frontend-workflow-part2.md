@@ -1,7 +1,7 @@
 ---
-author: 陈广亮
+author: Gerald Chen
 pubDatetime: 2026-02-14T18:00:00+08:00
-title: AI Agent 前端工作流（二）：智能代码审查与自动化测试
+title: "AI Agent Frontend Workflow (Part 2): Intelligent Code Review and Automated Testing"
 slug: ai-agent-frontend-workflow-part2
 featured: true
 draft: false
@@ -10,54 +10,54 @@ tags:
   - Agent
   - 测试
   - 前端
-description: 用 AI Agent 实现智能代码审查和自动化测试用例生成。从 Git Hook 集成到 E2E 测试，本文分享完整实战方案和真实项目效果数据。
+description: "Use AI Agents for intelligent code review and automated test case generation. From Git Hook integration to E2E testing, this post shares a complete hands-on setup with real project metrics."
 ---
 
-## 回顾：从组件生成到质量保障
+## Recap: From Component Generation to Quality Assurance
 
-[上一篇文章](/posts/ai-agent-frontend-workflow-part1)我们聊了用 AI Agent 生成 React 组件，从产品需求到可运行代码，效率提升了 3-5 倍。但是，代码能跑和代码质量高是两回事。
+[In the previous post](/en/posts/ai-agent-frontend-workflow-part1) we covered using AI Agents to generate React components — going from product requirements to runnable code with a 3-5x efficiency gain. But code that runs and code that's high quality are two different things.
 
-生产环境的代码需要经过严格的审查和测试。传统上，这两个环节都是人力密集型工作：
+Production code needs rigorous review and testing. Traditionally, both are labor-intensive:
 
-- **Code Review**：高级工程师花大量时间审查初级工程师的代码，但很难做到全面、一致
-- **写测试**：测试覆盖率常年在 30%-50% 徘徊，大家都知道应该写，但总是"等下次有时间再补"
+- **Code review**: senior engineers spend huge amounts of time reviewing junior engineers' code, yet struggle to be thorough and consistent
+- **Writing tests**: test coverage hovers around 30%-50% year afterall — everyone knows they should write tests, but it's always "I'll catch up next time"
 
-这篇文章我们要解决的问题是：**AI Agent 能不能承担这些质量保障工作？**
+The question this post tackles: **can an AI Agent take over this quality assurance work?**
 
-答案是：能，而且效果超预期。
+The answer: yes, and it works better than expected.
 
-## 一、AI 驱动的代码审查
+## Part 1: AI-Driven Code Review
 
-### 传统 Code Review 的三大困境
+### Three Chronic Problems with Traditional Code Review
 
-让我们诚实一点：
+Let's be honest:
 
-1. **精力有限**：资深工程师审 10 个 PR 后就会疲劳，后面的 PR 质量难保证
-2. **标准不一**：同一个问题，周一可能被指出，周五可能就被放过了
-3. **覆盖不全**：人很难在审查时同时关注性能、安全、可访问性、最佳实践……太多维度了
+1. **Limited stamina**: a senior engineer gets fatigued after reviewing 10 PRs, and review quality drops from there
+2. **Inconsistent standards**: the same issue might get flagged on Monday but waved through on Friday
+3. **Incomplete coverage**: it's hard for a human to simultaneously watch for performance, security, accessibility, best practices... there are just too many dimensions
 
-结果就是：要么 Review 成本高昂（每个 PR 30 分钟+），要么流于形式（点个 LGTM 了事）。
+The result: either review is expensive (30+ minutes per PR), or it becomes a rubber stamp (drop an LGTM and move on).
 
-### AI Agent 的优势
+### Where an AI Agent Wins
 
-AI 不会累，不会情绪化，而且可以同时检查几十个维度。更重要的是：**它 24/7 在线，成本可控**。
+AI doesn't get tired, doesn't get moody, and can check dozens of dimensions at once. More importantly: **it's online 24/7 at a predictable cost**.
 
-但关键是怎么集成到工作流里。我的方案是：**Git Hook + AI API**。
+The key is how to integrate it into the workflow. My approach: **Git Hook + AI API**.
 
-### 实战：集成到 Git Hook
+### Hands-on: Integrating with a Git Hook
 
-我们用 Husky 在 `pre-commit` 阶段触发 AI 代码审查。完整实现如下：
+We use Husky to trigger an AI code review at the `pre-commit` stage. Full implementation below:
 
-#### 1. 安装依赖
+#### 1. Install dependencies
 
 ```bash
 npm install -D husky lint-staged
 npx husky install
 ```
 
-#### 2. 创建审查脚本
+#### 2. Create the review script
 
-在 `scripts/ai-code-review.js`：
+In `scripts/ai-code-review.js`:
 
 ```javascript
 #!/usr/bin/env node
@@ -184,9 +184,9 @@ async function main() {
 main();
 ```
 
-#### 3. 配置 Husky Hook
+#### 3. Configure the Husky hook
 
-在 `.husky/pre-commit`：
+In `.husky/pre-commit`:
 
 ```bash
 #!/bin/sh
@@ -199,16 +199,16 @@ node scripts/ai-code-review.js
 npx lint-staged
 ```
 
-#### 4. 配置环境变量
+#### 4. Configure environment variables
 
 ```bash
 # .env
 ANTHROPIC_API_KEY=your_api_key_here
 ```
 
-### 真实案例：AI 发现的问题
+### A Real Case: What the AI Caught
 
-上周我提交了一个表单组件，AI 审查发现了一个我完全没注意到的问题：
+Last week I committed a form component, and the AI review caught an issue I had completely missed:
 
 ```jsx
 // 我的原始代码
@@ -233,7 +233,7 @@ function SearchInput({ onSearch }) {
 }
 ```
 
-**AI 的审查报告：**
+**The AI's review report:**
 
 ```markdown
 ## ⚠️ Warnings
@@ -259,34 +259,34 @@ function SearchInput({ onSearch }) {
 - 建议修复后合并
 ```
 
-这是一个典型的"功能能跑，但不够专业"的例子。人工审查很可能会漏掉可访问性问题，但 AI 每次都会检查。
+This is a classic case of "it works, but it isn't professional." A human reviewer would very likely miss the accessibility issue — the AI checks for it every single time.
 
-## 二、自动化测试用例生成
+## Part 2: Automated Test Case Generation
 
-### 为什么测试覆盖率总是上不去？
+### Why Does Test Coverage Never Improve?
 
-老实说：**写测试太枯燥了**。
+Honestly: **writing tests is tedious**.
 
-你写完一个复杂组件，兴奋地想看效果，结果还要花同样的时间写一堆重复的测试用例。最后就变成了：
+You finish a complex component, eager to see it in action — and then you have to spend just as long writing a pile of repetitive test cases. So it ends up like this:
 
-- 核心逻辑有测试（因为有人盯着）
-- 边界情况？等有时间再说
-- UI 组件？手动点一下就行了
-- E2E 测试？那是 QA 的事
+- Core logic gets tests (because someone is watching)
+- Edge cases? Later, when there's time
+- UI components? A manual click-through is fine
+- E2E tests? That's QA's problem
 
-结果就是测试覆盖率 30%，然后生产环境各种边界 case 爆炸。
+The result is 30% coverage, and then edge cases blow up all over production.
 
-### AI 生成测试的思路
+### The Approach for AI-Generated Tests
 
-AI 看代码比我们快，而且它知道所有的测试模式。我的做法是：
+AI reads code faster than we do, and it knows every testing pattern. My approach:
 
-1. **单元测试**：根据组件/函数生成 Jest + React Testing Library 测试
-2. **E2E 测试**：根据用户流程生成 Playwright 脚本
-3. **重点覆盖边界情况**：空数组、异常数据、网络失败等
+1. **Unit tests**: generate Jest + React Testing Library tests from components/functions
+2. **E2E tests**: generate Playwright scripts from user flows
+3. **Focus on edge cases**: empty arrays, malformed data, network failures, etc.
 
-### 实战：单元测试生成
+### Hands-on: Unit Test Generation
 
-创建脚本 `scripts/generate-tests.js`：
+Create `scripts/generate-tests.js`:
 
 ```javascript
 #!/usr/bin/env node
@@ -362,9 +362,9 @@ if (!targetFile) {
 generateTestForFile(targetFile);
 ```
 
-### 真实示例：AI 生成的测试
+### A Real Example: AI-Generated Tests
 
-我有一个 `UserProfile.jsx` 组件：
+I have a `UserProfile.jsx` component:
 
 ```jsx
 import { useState, useEffect } from 'react';
@@ -404,7 +404,7 @@ export function UserProfile({ userId }) {
 }
 ```
 
-运行 `node scripts/generate-tests.js src/components/UserProfile.jsx`，AI 生成的测试：
+Run `node scripts/generate-tests.js src/components/UserProfile.jsx`, and the AI generates:
 
 ```javascript
 import { render, screen, waitFor } from '@testing-library/react';
@@ -536,19 +536,19 @@ describe('UserProfile', () => {
 });
 ```
 
-**注意 AI 做了什么：**
+**Notice what the AI did:**
 
-1. ✅ 覆盖了加载、成功、错误、边界四种场景
-2. ✅ 测试了 `userId` 变化时的重新获取逻辑（这个我自己写可能会漏）
-3. ✅ 检查了可访问性（role="status" 和 role="alert"）
-4. ✅ 所有测试用例都有清晰的描述
-5. ✅ 使用了语义化查询（getByRole > getByText）
+1. ✅ Covered all four scenarios: loading, success, error, and edge cases
+2. ✅ Tested the refetch logic when `userId` changes (I might have missed this writing it myself)
+3. ✅ Checked accessibility (role="status" and role="alert")
+4. ✅ Every test case has a clear description
+5. ✅ Used semantic queries (getByRole > getByText)
 
-这个测试我自己写至少要 30 分钟，AI 生成只要 10 秒，Token 成本 ￥0.15。
+Writing this test suite myself would take at least 30 minutes. The AI generated it in 10 seconds, at a token cost of ￥0.15.
 
-### E2E 测试生成
+### E2E Test Generation
 
-对于端到端测试，我用类似的思路生成 Playwright 脚本：
+For end-to-end testing, I use the same approach to generate Playwright scripts:
 
 ```javascript
 // scripts/generate-e2e.js
@@ -580,7 +580,7 @@ const scenario = `
 // AI 生成的 E2E 测试（示例）
 ```
 
-生成的测试示例：
+Example of the generated test:
 
 ```javascript
 import { test, expect } from '@playwright/test';
@@ -637,90 +637,90 @@ test.describe('用户登录流程', () => {
 });
 ```
 
-## 三、效果对比：数据说话
+## Part 3: Results Comparison — Let the Data Speak
 
-我在一个中型项目（15k 行代码，30+ 组件）上用了一个月 AI 代码审查 + 测试生成，数据如下：
+I ran AI code review + test generation for one month on a mid-sized project (15k lines of code, 30+ components). Here's the data:
 
-### 测试覆盖率提升
+### Test Coverage Improvement
 
-| 指标 | 使用前 | 使用后 | 提升 |
+| Metric | Before | After | Improvement |
 |------|--------|--------|------|
-| 单元测试覆盖率 | 32% | 78% | +144% |
-| E2E 测试场景数 | 5 | 23 | +360% |
-| 发现的边界 case bug | - | 17 个 | - |
+| Unit test coverage | 32% | 78% | +144% |
+| E2E test scenarios | 5 | 23 | +360% |
+| Edge-case bugs found | - | 17 | - |
 
-### 成本分析
+### Cost Analysis
 
-**人工成本：**
-- 代码审查：平均每个 PR 20 分钟 × 高级工程师时薪 ￥300/h = ￥100/PR
-- 写测试：平均每个组件 40 分钟 × ￥300/h = ￥200/组件
+**Human cost:**
+- Code review: average 20 minutes per PR × senior engineer rate of ￥300/h = ￥100/PR
+- Writing tests: average 40 minutes per component × ￥300/h = ￥200/component
 
-**AI 成本：**
-- 代码审查：平均 3k tokens 输入 + 1.5k tokens 输出 = ￥0.08/PR (Claude Sonnet 4.5)
-- 测试生成：平均 2k tokens 输入 + 4k tokens 输出 = ￥0.12/组件
+**AI cost:**
+- Code review: average 3k input tokens + 1.5k output tokens = ￥0.08/PR (Claude Sonnet 4.5)
+- Test generation: average 2k input tokens + 4k output tokens = ￥0.12/component
 
-**一个月数据（50 个 PR，30 个组件）：**
-- 人工成本：￥5000 (审查) + ￥6000 (测试) = ￥11000
-- AI 成本：￥4 (审查) + ￥3.6 (测试) = ￥7.6
-- **成本降低：99.93%**
+**One month of data (50 PRs, 30 components):**
+- Human cost: ￥5000 (review) + ￥6000 (tests) = ￥11000
+- AI cost: ￥4 (review) + ￥3.6 (tests) = ￥7.6
+- **Cost reduction: 99.93%**
 
-时间节省：
-- 代码审查：从 20 分钟降到 2 分钟查看报告 = 节省 90%
-- 测试编写：从 40 分钟降到 5 分钟微调 AI 生成的测试 = 节省 87.5%
+Time savings:
+- Code review: down from 20 minutes to 2 minutes of reading the report = 90% saved
+- Test writing: down from 40 minutes to 5 minutes of tweaking AI-generated tests = 87.5% saved
 
-### 质量提升
+### Quality Improvement
 
-AI 发现的问题类型分布：
+Distribution of issue types the AI found:
 
-- 可访问性问题：47%（这个人工审查几乎不查）
-- 边界情况处理：28%
-- 性能优化建议：15%
-- 安全隐患：10%
+- Accessibility issues: 47% (human reviewers almost never check these)
+- Edge case handling: 28%
+- Performance optimization suggestions: 15%
+- Security issues: 10%
 
-最有价值的发现：一个组件在处理大数组（10k+ 项）时会卡死，AI 建议加虚拟滚动，修复后性能提升 95%。
+The most valuable find: a component would freeze when handling large arrays (10k+ items). The AI suggested virtual scrolling, and the fix improved performance by 95%.
 
-## 四、注意事项
+## Part 4: Caveats
 
-### 1. AI 不是银弹
+### 1. AI Is Not a Silver Bullet
 
-- **误报率**：约 5%-10%，需要人工判断
-- **上下文限制**：无法理解业务逻辑，只能检查技术层面
-- **降级策略**：AI 服务挂了不能阻断开发流程
+- **False positive rate**: roughly 5%-10%, so human judgment is still required
+- **Context limitations**: it can't understand business logic — it only checks the technical layer
+- **Fallback strategy**: an AI service outage must never block the development workflow
 
-### 2. Prompt 很重要
+### 2. The Prompt Matters
 
-我的 Prompt 迭代了 5 个版本才稳定。关键点：
+My prompt went through 5 iterations before it stabilized. Key points:
 
-- ✅ 明确输出格式（Markdown、JSON）
-- ✅ 提供具体的检查项（别说"检查代码质量"）
-- ✅ 给出示例（few-shot learning）
-- ✅ 设置边界（什么情况下 LGTM，什么情况下阻断）
+- ✅ Specify the output format explicitly (Markdown, JSON)
+- ✅ Provide concrete checklist items (don't just say "check code quality")
+- ✅ Give examples (few-shot learning)
+- ✅ Set boundaries (when to LGTM, when to block)
 
-### 3. 人机协作
+### 3. Human-AI Collaboration
 
-最佳实践：
+Best practices:
 
-- AI 做第一轮全面扫描
-- 人工审查 AI 标记的 Critical Issues
-- 对于复杂逻辑，还是需要资深工程师深度 Review
+- AI does the first full-coverage pass
+- Humans review the Critical Issues the AI flags
+- For complex logic, you still need a senior engineer doing a deep review
 
-## 五、下一步：成本优化和团队协作
+## Part 5: Next Up — Cost Optimization and Team Collaboration
 
-AI 代码审查和测试生成已经证明了价值，但还有两个问题需要解决：
+AI code review and test generation have proven their value, but two problems remain:
 
-1. **成本优化**：虽然单次成本低，但频繁调用还是会累积。能不能用更便宜的模型？
-2. **团队协作**：如何让整个团队用上这套工具？如何统一标准？
+1. **Cost optimization**: each call is cheap, but frequent calls still add up. Can we use cheaper models?
+2. **Team collaboration**: how do you roll this tooling out to the whole team? How do you standardize?
 
-下一篇文章我们会深入讨论：
+In the next post we'll dig into:
 
-- **成本降低 80% 的 Prompt 缓存技巧**
-- **多模型组合策略**（简单检查用快速模型，复杂逻辑用强模型）
-- **团队级 AI Agent 工作流**（从个人工具到团队基础设施）
+- **Prompt caching tricks that cut costs by 80%**
+- **Multi-model strategies** (fast models for simple checks, strong models for complex logic)
+- **Team-level AI Agent workflows** (from a personal tool to team infrastructure)
 
-敬请期待。
+Stay tuned.
 
 ---
 
-**相关资源：**
+**Resources:**
 
-完整代码示例和 Prompt 模板见文中各章节代码块。
+Complete code samples and prompt templates are in the code blocks throughout each section above.
