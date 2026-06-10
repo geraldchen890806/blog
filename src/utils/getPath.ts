@@ -26,6 +26,7 @@ export function getPath(
     .split("/")
     .filter(path => path !== "")
     .filter(path => !path.startsWith("_"))
+    .filter(path => path !== "zh" && path !== "en")
     .slice(0, -1)
     .map(segment => slugifyStr(segment));
 
