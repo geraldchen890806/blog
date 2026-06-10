@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     return [];
   }
 
-  const posts = await getCollection("blog", byLang("zh")).then(p =>
+  const posts = await getCollection("blog", byLang("en")).then(p =>
     p.filter(({ data }) => !data.draft && !data.ogImage)
   );
 

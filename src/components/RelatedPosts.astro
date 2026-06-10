@@ -1,6 +1,9 @@
 ---
 import { type CollectionEntry } from "astro:content";
 import { getPath } from "@/utils/getPath";
+import { getLangFromUrl, useTranslations } from "@/i18n";
+
+const t = useTranslations(getLangFromUrl(Astro.url.pathname));
 
 type Props = {
   currentPost: CollectionEntry<"blog">;
@@ -34,7 +37,7 @@ const scored = posts
 {
   scored.length > 0 && (
     <section class="related-posts" data-pagefind-ignore>
-      <h2 class="related-title">相关阅读</h2>
+      <h2 class="related-title">{t("relatedPosts")}</h2>
       <ul class="related-list">
         {scored.map(({ post }) => (
           <li class="related-item">

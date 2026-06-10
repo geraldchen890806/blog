@@ -10,10 +10,10 @@ import Pagination from "@/components/Pagination.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
 import getPostsByTag from "@/utils/getPostsByTag";
 import { SITE } from "@/config";
-import { byLang } from "@/i18n";
+import { byLang, useTranslations } from "@/i18n";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("blog", byLang("zh"));
+  const posts = await getCollection("blog", byLang("en"));
   const tags = getUniqueTags(posts);
 
   return tags.flatMap(({ tag, tagName }) => {
@@ -27,18 +27,19 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   });
 }
 
+const t = useTranslations("en");
 const params = Astro.params;
 const { tag } = params;
 const { page, tagName } = Astro.props;
 const pageNum = page.currentPage;
 const tagPageTitle =
   pageNum > 1
-    ? `Tag: ${tagName} 第 ${pageNum} 页 | ${SITE.title}`
-    : `Tag: ${tagName} | ${SITE.title}`;
+    ? `Tag: ${tagName} - Page ${pageNum} | ${t("siteTitle")}`
+    : `Tag: ${tagName} | ${t("siteTitle")}`;
 const tagPageDesc =
   pageNum > 1
-    ? `${SITE.title} 标签 ${tagName} 第 ${pageNum} 页文章列表。`
-    : `${SITE.title} 中所有标签为 ${tagName} 的文章合集。`;
+    ? `Articles tagged "${tagName}" on ${t("siteTitle")}, page ${pageNum}.`
+    : `All articles tagged "${tagName}" on ${t("siteTitle")}.`;
 ---
 
 <Layout title={tagPageTitle} description={tagPageDesc}>
@@ -61,23 +62,20 @@ const tagPageDesc =
 
 <script>
   function checkReadStatus() {
-    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
-    const postCards = document.querySelectorAll('.post-card');
-    
+    const readPosts = JSON.parse(localStorage.getItem("readPosts") || "[]");
+    const postCards = document.querySelectorAll(".post-card");
+
     postCards.forEach(card => {
-      const postPath = card.getAttribute('data-post-path');
-      if (readPosts.includes(postPath)) {
-        const badge = card.querySelector('.read-badge');
+      const postPath = card.getAttribute("data-post-path");
+      if (postPath && readPosts.includes(postPath)) {
+        const badge = card.querySelector(".read-badge");
         if (badge) {
-          badge.classList.remove('hidden');
+          badge.classList.remove("hidden");
         }
       }
     });
   }
-  
-  // Run on page load
+
   checkReadStatus();
-  
-  // Run after Astro page transitions
-  document.addEventListener('astro:page-load', checkReadStatus);
+  document.addEventListener("astro:page-load", checkReadStatus);
 </script>

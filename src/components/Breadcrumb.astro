@@ -1,10 +1,21 @@
 ---
+import { getLangFromUrl } from "@/i18n";
+
 // Remove current url path and remove trailing slash if exists
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 
+const lang = getLangFromUrl(Astro.url.pathname);
+// 英文站 Home 指向 /en/，中间链接也带 /en 前缀
+const homeHref = lang === "en" ? "/en/" : "/";
+const crumbPrefix = lang === "en" ? "/en" : "";
+
 // Get url array from path
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
-const breadcrumbList = currentUrlPath.split("/").slice(1);
+// 英文站去掉路径开头的 en 段，面包屑不显示语言前缀
+const breadcrumbList = currentUrlPath
+  .split("/")
+  .slice(1)
+  .filter((segment, index) => !(index === 0 && segment === "en"));
 
 // if breadcrumb is Home > Posts > 1 <etc>
 // replace Posts with Posts (page number)
@@ -28,7 +39,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
     class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
   >
     <li>
-      <a href="/" class="opacity-80">Home</a>
+      <a href={homeHref} class="opacity-80">Home</a>
       <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
@@ -45,7 +56,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
+            <a href={`${crumbPrefix}/${breadcrumb}/`} class="capitalize opacity-70">
               {breadcrumb}
             </a>
             <span aria-hidden="true">&raquo;</span>

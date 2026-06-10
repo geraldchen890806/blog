@@ -4,16 +4,24 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Layout from "./Layout.astro";
-import { SITE } from "@/config";
+import {
+  getLangFromUrl,
+  useTranslations,
+  alternatePathname,
+} from "@/i18n";
 
 type Props = MarkdownLayoutProps<{ title: string; description?: string }>;
 
 const { frontmatter } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url.pathname);
+const t = useTranslations(lang);
 ---
 
 <Layout
-  title={`${frontmatter.title} | ${SITE.title}`}
-  description={frontmatter.description ?? SITE.desc}
+  title={`${frontmatter.title} | ${t("siteTitle")}`}
+  description={frontmatter.description ?? t("siteDesc")}
+  alternateURL={alternatePathname(Astro.url.pathname)}
 >
   <Header />
   <Breadcrumb />

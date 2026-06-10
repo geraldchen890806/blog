@@ -1,10 +1,13 @@
 ---
 // Appreciation component - 赞赏弹窗 (ETH/EVM)
+import { getLangFromUrl, useTranslations } from "@/i18n";
+
+const t = useTranslations(getLangFromUrl(Astro.url.pathname));
 ---
 
 <div class="appreciation-wrapper" data-pagefind-ignore>
   <button id="appreciation-toggle" class="appreciation-btn">
-    ☕ 觉得有帮助？请作者喝杯咖啡
+    {t("appreciationButton")}
   </button>
 
   <!-- 遮罩 + 弹窗 -->
@@ -12,8 +15,8 @@
     <div class="appreciation-modal">
       <button id="appreciation-close" class="modal-close" aria-label="Close">&times;</button>
       <div class="modal-icon">◇</div>
-      <h3 class="modal-title">请作者喝杯咖啡 ☕</h3>
-      <p class="modal-subtitle">如果这篇文章对你有帮助</p>
+      <h3 class="modal-title">{t("appreciationTitle")}</h3>
+      <p class="modal-subtitle">{t("appreciationSubtitle")}</p>
       <img
         src="/assets/eth-reward.jpg"
         alt="Ethereum Donation QR Code"
@@ -21,8 +24,15 @@
         loading="lazy"
       />
       <code class="modal-address" id="eth-address">0x320B48341e92D120276ff960F347EAe840bd4d6D</code>
-      <button id="copy-address" class="copy-btn">复制地址</button>
-      <p class="modal-note">支持 ETH / ERC-20 代币</p>
+      <button
+        id="copy-address"
+        class="copy-btn"
+        data-label-copy={t("appreciationCopy")}
+        data-label-copied={t("appreciationCopied")}
+      >
+        {t("appreciationCopy")}
+      </button>
+      <p class="modal-note">{t("appreciationNote")}</p>
     </div>
   </div>
 </div>
@@ -189,8 +199,8 @@
     if (copyBtn && addr) {
       copyBtn.addEventListener('click', function() {
         navigator.clipboard.writeText(addr.textContent).then(function() {
-          copyBtn.textContent = '已复制 ✓';
-          setTimeout(function() { copyBtn.textContent = '复制地址'; }, 1500);
+          copyBtn.textContent = copyBtn.dataset.labelCopied;
+          setTimeout(function() { copyBtn.textContent = copyBtn.dataset.labelCopy; }, 1500);
         });
       });
     }

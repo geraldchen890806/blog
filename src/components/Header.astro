@@ -7,19 +7,39 @@ import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import LinkButton from "./LinkButton.astro";
 import { SITE } from "@/config";
+import {
+  getLangFromUrl,
+  useTranslations,
+  localizePath,
+  alternatePathname,
+} from "@/i18n";
+
+type Props = {
+  /** 当前页在另一语言下的 URL；不传时按朴素前缀互换推断 */
+  alternateUrl?: string;
+};
 
 const { pathname } = Astro.url;
+
+const lang = getLangFromUrl(pathname);
+const t = useTranslations(lang);
+const { alternateUrl = alternatePathname(pathname) } = Astro.props;
+const targetLang = lang === "zh" ? "en" : "zh";
 
 // Remove trailing slash from current pathname if exists
 const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
 const isActive = (path: string) => {
-  const currentPathArray = currentPath.split("/").filter(p => p.trim());
+  // 比较时忽略 /en 前缀，保证英文站导航高亮逻辑一致
+  const normalized = currentPath.replace(/^\/en(?=\/|$)/, "") || "/";
+  const currentPathArray = normalized.split("/").filter(p => p.trim());
   const pathArray = path.split("/").filter(p => p.trim());
 
-  return currentPath === path || currentPathArray[0] === pathArray[0];
+  return normalized === path || currentPathArray[0] === pathArray[0];
 };
+
+const href = (path: string) => localizePath(path, lang);
 ---
 
 <a
@@ -43,10 +63,10 @@ const isActive = (path: string) => {
     ]}
   >
     <a
-      href="/"
+      href={href("/")}
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      {SITE.title}
+      {t("siteTitle")}
     </a>
     <nav
       id="nav-menu"
@@ -72,17 +92,26 @@ const isActive = (path: string) => {
         ]}
       >
         <li class="col-span-2">
-          <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
+          <a
+            href={href("/posts")}
+            class:list={{ "active-nav": isActive("/posts") }}
+          >
             Posts
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
+          <a
+            href={href("/tags")}
+            class:list={{ "active-nav": isActive("/tags") }}
+          >
             Tags
           </a>
         </li>
         <li class="col-span-2">
-          <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
+          <a
+            href={href("/about")}
+            class:list={{ "active-nav": isActive("/about") }}
+          >
             About
           </a>
         </li>
@@ -90,7 +119,7 @@ const isActive = (path: string) => {
           SITE.showArchives && (
             <li class="col-span-2">
               <LinkButton
-                href="/archives"
+                href={href("/archives")}
                 class:list={[
                   "focus-outline flex justify-center p-3 sm:p-1",
                   {
@@ -108,7 +137,7 @@ const isActive = (path: string) => {
         }
         <li class="col-span-1 flex items-center justify-center">
           <LinkButton
-            href="/search"
+            href={href("/search")}
             class:list={[
               "focus-outline flex p-3 sm:p-1",
               { "[&>svg]:stroke-accent": isActive("/search") },
@@ -119,6 +148,18 @@ const isActive = (path: string) => {
             <IconSearch />
             <span class="sr-only">Search</span>
           </LinkButton>
+        </li>
+        <li class="col-span-2 flex items-center justify-center sm:col-span-1">
+          <a
+            id="lang-toggle"
+            href={alternateUrl}
+            data-target-lang={targetLang}
+            title={t("langToggleTitle")}
+            aria-label={t("langToggleTitle")}
+            class="focus-outline whitespace-nowrap p-3 font-medium hover:text-accent sm:p-1 sm:text-sm"
+          >
+            {t("langToggleLabel")}
+          </a>
         </li>
         {
           SITE.lightAndDarkMode && (
@@ -164,6 +205,22 @@ const isActive = (path: string) => {
 
   toggleNav();
 
+  // 语言切换时记住用户偏好，供首页自动跳转判断
+  function bindLangToggle() {
+    const langToggle = document.querySelector<HTMLAnchorElement>("#lang-toggle");
+    langToggle?.addEventListener("click", () => {
+      const targetLang = langToggle.dataset.targetLang;
+      if (targetLang) {
+        document.cookie = `preferred_lang=${targetLang}; path=/; max-age=31536000; SameSite=Lax`;
+      }
+    });
+  }
+
+  bindLangToggle();
+
   // Runs on view transitions navigation
-  document.addEventListener("astro:after-swap", toggleNav);
+  document.addEventListener("astro:after-swap", () => {
+    toggleNav();
+    bindLangToggle();
+  });
 </script>

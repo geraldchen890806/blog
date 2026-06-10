@@ -3,6 +3,12 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import {
+  getLangFromUrl,
+  useTranslations,
+  LOCALE_TAG,
+  OG_LOCALE,
+} from "@/i18n";
 import "@/styles/global.css";
 
 type Props = {
@@ -15,19 +21,38 @@ type Props = {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  /** 本页在另一语言下的 URL（确认存在时才传，用于输出 hreflang 双链接） */
+  alternateURL?: string;
 };
 
+const lang = getLangFromUrl(Astro.url.pathname);
+const t = useTranslations(lang);
+
 const {
-  title = SITE.title,
+  title = t("siteTitle"),
   author = SITE.author,
   profile = SITE.profile,
-  description = SITE.desc,
+  description = t("siteDesc"),
   ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
   canonicalURL = new URL(Astro.url.pathname, Astro.url),
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  alternateURL,
 } = Astro.props;
+
+// hreflang 双链接：当前页 + 另一语言版本（x-default 指向中文版）
+const alternateLang = lang === "zh" ? "en" : "zh";
+const hreflangLinks = alternateURL
+  ? [
+      { hreflang: LOCALE_TAG[lang], href: new URL(Astro.url.pathname, Astro.site).href },
+      { hreflang: LOCALE_TAG[alternateLang], href: new URL(alternateURL, Astro.site).href },
+      {
+        hreflang: "x-default",
+        href: new URL(lang === "zh" ? Astro.url.pathname : alternateURL, Astro.site).href,
+      },
+    ]
+  : [];
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
@@ -77,7 +102,7 @@ const structuredData = pubDatetime
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
+  lang={LOCALE_TAG[lang]}
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
@@ -97,6 +122,11 @@ const structuredData = pubDatetime
       gtag('config', 'G-GJJW5GJ7FL');
     </script>
     <link rel="canonical" href={canonicalURL} />
+    {
+      hreflangLinks.map(link => (
+        <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+      ))
+    }
     <meta name="generator" content={Astro.generator} />
 
     <!-- Load Font -->
@@ -114,8 +144,8 @@ const structuredData = pubDatetime
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={pubDatetime ? "article" : "website"} />
-    <meta property="og:site_name" content={SITE.title} />
-    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content={t("siteTitle")} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -158,8 +188,8 @@ const structuredData = pubDatetime
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={SITE.title}
-      href={new URL("rss.xml", Astro.site)}
+      title={t("rssTitle")}
+      href={new URL(lang === "en" ? "en/rss.xml" : "rss.xml", Astro.site)}
     />
 
     <meta name="theme-color" content="" />

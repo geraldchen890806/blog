@@ -11,6 +11,9 @@ interface Props {
 
 const { headings } = Astro.props;
 
+import { getLangFromUrl, useTranslations } from "@/i18n";
+const t = useTranslations(getLangFromUrl(Astro.url.pathname));
+
 // 只显示 H2 和 H3 标题
 const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
 ---
@@ -18,7 +21,7 @@ const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
 {tocHeadings.length > 0 && (
   <aside class="toc-container">
     <div class="toc-wrapper">
-      <h2 class="toc-title">目录</h2>
+      <h2 class="toc-title">{t("tableOfContents")}</h2>
       <nav class="toc-nav">
         <ul class="toc-list">
           {tocHeadings.map(heading => (

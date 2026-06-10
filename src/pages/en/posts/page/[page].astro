@@ -9,12 +9,12 @@ import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
-import { byLang } from "@/i18n";
+import { byLang, useTranslations } from "@/i18n";
 
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection(
     "blog",
-    post => !post.data.draft && byLang("zh")(post)
+    post => !post.data.draft && byLang("en")(post)
   );
   const sortedPosts = getSortedPosts(allPosts);
   const pageSize = SITE.postPerPage;
@@ -37,13 +37,15 @@ export const getStaticPaths = (async () => {
           start,
           end: start + data.length - 1,
           url: {
-            current: `/posts/page/${pageNum}/`,
+            current: `/en/posts/page/${pageNum}/`,
             prev:
-              pageNum === 2 ? "/posts/" : `/posts/page/${pageNum - 1}/`,
+              pageNum === 2 ? "/en/posts/" : `/en/posts/page/${pageNum - 1}/`,
             next:
-              pageNum < lastPage ? `/posts/page/${pageNum + 1}/` : undefined,
-            first: "/posts/",
-            last: lastPage > 1 ? `/posts/page/${lastPage}/` : "/posts/",
+              pageNum < lastPage
+                ? `/en/posts/page/${pageNum + 1}/`
+                : undefined,
+            first: "/en/posts/",
+            last: lastPage > 1 ? `/en/posts/page/${lastPage}/` : "/en/posts/",
           },
         },
       },
@@ -52,10 +54,11 @@ export const getStaticPaths = (async () => {
   return paths;
 }) satisfies GetStaticPaths;
 
+const t = useTranslations("en");
 const { page } = Astro.props;
 const pageNum = page.currentPage;
-const pageTitle = `文章列表 第 ${pageNum} 页 | ${SITE.title}`;
-const pageDesc = `${SITE.title} 文章列表第 ${pageNum} 页，共 ${page.lastPage} 页。`;
+const pageTitle = `Posts - Page ${pageNum} | ${t("siteTitle")}`;
+const pageDesc = `Posts on ${t("siteTitle")}, page ${pageNum} of ${page.lastPage}.`;
 ---
 
 <Layout title={pageTitle} description={pageDesc}>

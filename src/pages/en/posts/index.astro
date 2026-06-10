@@ -8,11 +8,13 @@ import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
-import { byLang } from "@/i18n";
+import { byLang, useTranslations } from "@/i18n";
+
+const t = useTranslations("en");
 
 const allPosts = await getCollection(
   "blog",
-  post => !post.data.draft && byLang("zh")(post)
+  post => !post.data.draft && byLang("en")(post)
 );
 const sortedPosts = getSortedPosts(allPosts);
 const pageSize = SITE.postPerPage;
@@ -28,19 +30,19 @@ const page = {
   start: 0,
   end: data.length - 1,
   url: {
-    current: "/posts/",
+    current: "/en/posts/",
     prev: undefined,
-    next: lastPage > 1 ? "/posts/page/2/" : undefined,
-    first: "/posts/",
-    last: lastPage > 1 ? `/posts/page/${lastPage}/` : "/posts/",
+    next: lastPage > 1 ? "/en/posts/page/2/" : undefined,
+    first: "/en/posts/",
+    last: lastPage > 1 ? `/en/posts/page/${lastPage}/` : "/en/posts/",
   },
 };
 
-const pageTitle = `文章列表 | ${SITE.title}`;
-const pageDesc = `${SITE.title} 全部文章列表，涵盖前端开发、AI、Agent、性能优化、安全等技术主题。`;
+const pageTitle = `Posts | ${t("siteTitle")}`;
+const pageDesc = `All articles on ${t("siteTitle")}: frontend development, AI agents, performance, security, and more.`;
 ---
 
-<Layout title={pageTitle} description={pageDesc} alternateURL="/en/posts/">
+<Layout title={pageTitle} description={pageDesc} alternateURL="/posts/">
   <Header />
   <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
     <ul>

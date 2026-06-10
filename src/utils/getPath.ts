@@ -30,7 +30,9 @@ export function getPath(
     .slice(0, -1)
     .map(segment => slugifyStr(segment));
 
-  const basePath = includeBase ? "/posts" : "";
+  // 英文文章（en/ 目录下）的 URL 统一带 /en 前缀；中文保持原 URL 不变
+  const isEnglish = id.startsWith("en/") || /\/en\//.test(filePath ?? "");
+  const basePath = includeBase ? (isEnglish ? "/en/posts" : "/posts") : "";
 
   // 优先使用 frontmatter 中显式声明的干净 slug（不带 blogXXX_ 前缀）
   let slug: string;

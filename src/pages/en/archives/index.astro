@@ -7,16 +7,18 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 import { SITE } from "@/config";
-import { byLang } from "@/i18n";
+import { byLang, useTranslations } from "@/i18n";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {
   return Astro.redirect("/404");
 }
 
+const t = useTranslations("en");
+
 const posts = await getCollection(
   "blog",
-  post => !post.data.draft && byLang("zh")(post)
+  post => !post.data.draft && byLang("en")(post)
 );
 
 const months = [
@@ -36,9 +38,9 @@ const months = [
 ---
 
 <Layout
-  title={`归档 | ${SITE.title}`}
-  description={`${SITE.title} 文章归档：按年份和月份组织的全部技术文章索引，覆盖 2015 年至今。`}
-  alternateURL="/en/archives/"
+  title={`Archives | ${t("siteTitle")}`}
+  description={`Archives of ${t("siteTitle")}: all articles organized by year and month.`}
+  alternateURL="/archives/"
 >
   <Header />
   <Main pageTitle="Archives" pageDesc="All the articles I've archived.">

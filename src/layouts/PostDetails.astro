@@ -1,5 +1,5 @@
 ---
-import { render, type CollectionEntry } from "astro:content";
+import { render, getEntry, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -17,6 +17,12 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
+import {
+  getLangFromId,
+  translationId,
+  localizePath,
+  useTranslations,
+} from "@/i18n";
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -59,8 +65,20 @@ const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
 
+/* ========== i18n：对应译文存在时输出 hreflang + 精确的语言切换目标 ========== */
+const lang = getLangFromId(post.id);
+const t = useTranslations(lang);
+const translation = await getEntry("blog", translationId(post.id));
+const alternateURL =
+  translation && !translation.data.draft
+    ? `${getPath(translation.id, translation.filePath, true, translation.data.slug)}/`
+    : undefined;
+// 没有对应译文时，切换按钮退回另一语言的首页
+const headerAlternateUrl =
+  alternateURL ?? localizePath("/", lang === "zh" ? "en" : "zh");
+
 const layoutProps = {
-  title: `${title} | ${SITE.title}`,
+  title: `${title} | ${t("siteTitle")}`,
   author,
   description,
   pubDatetime,
@@ -68,6 +86,7 @@ const layoutProps = {
   canonicalURL,
   ogImage,
   scrollSmooth: true,
+  alternateURL,
 };
 
 /* ========== Prev/Next Posts ========== */
@@ -87,7 +106,7 @@ const nextPost =
 ---
 
 <Layout {...layoutProps}>
-  <Header />
+  <Header alternateUrl={headerAlternateUrl} />
   <BackButton />
   <main
     id="main-content"

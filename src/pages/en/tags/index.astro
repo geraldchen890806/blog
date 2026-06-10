@@ -6,18 +6,19 @@ import Tag from "@/components/Tag.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
-import { SITE } from "@/config";
-import { byLang } from "@/i18n";
+import { byLang, useTranslations } from "@/i18n";
 
-const posts = await getCollection("blog", byLang("zh"));
+const t = useTranslations("en");
+
+const posts = await getCollection("blog", byLang("en"));
 
 let tags = getUniqueTags(posts);
 ---
 
 <Layout
-  title={`标签 | ${SITE.title}`}
-  description={`${SITE.title} 全部标签列表：按主题浏览前端、AI、Agent、性能、安全等技术文章。`}
-  alternateURL="/en/tags/"
+  title={`Tags | ${t("siteTitle")}`}
+  description={`All tags on ${t("siteTitle")}: browse articles by topic — frontend, AI, agents, performance, security, and more.`}
+  alternateURL="/tags/"
 >
   <Header />
   <Main pageTitle="Tags" pageDesc="All the tags used in posts.">

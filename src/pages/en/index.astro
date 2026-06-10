@@ -12,25 +12,25 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SOCIALS } from "@/constants";
 import { byLang } from "@/i18n";
 
-const posts = await getCollection("blog", byLang("zh"));
+const posts = await getCollection("blog", byLang("en"));
 
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 ---
 
 <Layout
-  description="陈广亮的技术博客首页：精选文章列表，覆盖 AI Agent、Claude Code、前端工程化、性能优化、Web 安全等主题。"
-  alternateURL="/en/"
+  description="Gerald Chen's tech blog — articles on AI agents, Claude Code, frontend engineering, performance, and web security."
+  alternateURL="/"
 >
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        你好 👋
+        Hi there 👋
       </h1>
       <a
         target="_blank"
-        href="/rss.xml"
+        href="/en/rss.xml"
         class="inline-block"
         aria-label="rss feed"
         title="RSS Feed"
@@ -44,16 +44,17 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
       </a>
 
       <p>
-        这里是陈广亮的技术博客，记录前端开发、JavaScript、Web 技术的学习与思考。
+        Welcome to Gerald Chen's tech blog — notes and deep dives on frontend
+        development, JavaScript, AI agents, and the modern web.
       </p>
       <p class="mt-2">
-        欢迎常来逛逛，也可以访问
+        Feel free to look around, or visit the
         <LinkButton
           class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="/about/"
+          href="/en/about/"
         >
-          关于我
-        </LinkButton> 了解更多。
+          About
+        </LinkButton> page to learn more.
       </p>
       {
         // only display if at least one social link is enabled
@@ -69,7 +70,7 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
     {
       featuredPosts.length > 0 && (
         <section id="featured" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">精选文章</h2>
+          <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
           <ul>
             {featuredPosts.map(data => (
               <Card variant="h3" {...data} />
@@ -80,8 +81,8 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
     }
 
     <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        所有文章
+      <LinkButton href="/en/posts/">
+        All Posts
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>
@@ -89,50 +90,32 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
   <Footer />
 </Layout>
 
-<script is:inline>
-  // 语言自动跳转：静态站没有服务端 middleware，在首页用客户端检测。
-  // 优先级：preferred_lang cookie（用户手动切换过）> 浏览器语言；只在中文首页执行。
-  (function () {
-    var match = document.cookie.match(/(?:^|;\s*)preferred_lang=(\w+)/);
-    if (match) {
-      if (match[1] === "en") location.replace("/en/");
-      return;
-    }
-    var nav = (navigator.languages && navigator.languages[0]) ||
-      navigator.language || "";
-    if (/^en\b/i.test(nav)) location.replace("/en/");
-  })();
-</script>
-
 <script>
   document.addEventListener("astro:page-load", () => {
     const indexLayout = (document.querySelector("#main-content") as HTMLElement)
       ?.dataset?.layout;
     if (indexLayout) {
-      sessionStorage.setItem("backUrl", "/");
+      sessionStorage.setItem("backUrl", "/en/");
     }
   });
 </script>
 
 <script>
   function checkReadStatus() {
-    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
-    const postCards = document.querySelectorAll('.post-card');
-    
+    const readPosts = JSON.parse(localStorage.getItem("readPosts") || "[]");
+    const postCards = document.querySelectorAll(".post-card");
+
     postCards.forEach(card => {
-      const postPath = card.getAttribute('data-post-path');
-      if (readPosts.includes(postPath)) {
-        const badge = card.querySelector('.read-badge');
+      const postPath = card.getAttribute("data-post-path");
+      if (postPath && readPosts.includes(postPath)) {
+        const badge = card.querySelector(".read-badge");
         if (badge) {
-          badge.classList.remove('hidden');
+          badge.classList.remove("hidden");
         }
       }
     });
   }
-  
-  // Run on page load
+
   checkReadStatus();
-  
-  // Run after Astro page transitions
-  document.addEventListener('astro:page-load', checkReadStatus);
+  document.addEventListener("astro:page-load", checkReadStatus);
 </script>
