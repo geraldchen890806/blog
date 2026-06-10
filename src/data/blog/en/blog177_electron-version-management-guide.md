@@ -1724,5 +1724,5 @@ Getting version management right is, at its core, getting product lifecycle mana
 
 **Related reading**:
 - [Cracking Open the Electron safeStorage Black Box: AES-128-CBC, a Hardcoded IV, and the Things Nobody Tells You](/en/posts/blog169_electron-credential-storage-security/) - Secure storage mechanisms relevant to version management
-- [Electron 的轻量级替代品：electrobun 深度解析](https://chenguangliang.com/posts/blog071_electrobun-electron-alternative/) - Comparing technology choices within the Electron ecosystem
-- [Flutter Desktop vs Electron：从"谁在迁走、谁还在用"看 2026 桌面端选型](https://chenguangliang.com/posts/blog172_flutter-vs-electron-desktop/) - A comparative analysis of desktop application tech stacks
+- [A Lightweight Electron Alternative: A Deep Dive into electrobun](/en/posts/blog071_electrobun-electron-alternative/) - Comparing technology choices within the Electron ecosystem
+- [Flutter Desktop vs Electron: What Migration Patterns in 2026 Tell Us About Choosing a Desktop Framework](/en/posts/blog172_flutter-vs-electron-desktop/) - A comparative analysis of desktop application tech stacks

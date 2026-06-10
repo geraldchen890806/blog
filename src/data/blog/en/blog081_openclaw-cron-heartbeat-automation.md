@@ -1200,8 +1200,8 @@ Start with a simple reminder, and build up your 24/7 AI assistant from there!
 ---
 
 **Related reading**:
-- [Getting Started with OpenClaw: Your Self-Hosted AI Assistant in 5 Minutes](https://chenguangliang.com/posts/openclaw-getting-started/) - an introductory guide to OpenClaw
-- [AI Agent Memory Systems in Practice: OpenClaw Memory Best Practices](https://chenguangliang.com/posts/blog074_openclaw-memory-best-practices/) - pairing the memory system with automation
+- [Getting Started with OpenClaw: Build Your Self-Hosted AI Assistant in 5 Minutes](/en/posts/openclaw-getting-started/) - an introductory guide to OpenClaw
+- [AI Agent Memory Systems in Practice: OpenClaw Memory Best Practices](/en/posts/blog074_openclaw-memory-best-practices/) - pairing the memory system with automation
 
 **Further reading**:
 - [OpenClaw Docs - Cron Jobs](https://docs.openclaw.ai/tools/cron)

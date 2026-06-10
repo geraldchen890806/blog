@@ -167,4 +167,4 @@ The biggest issue right now is maturity — the self-learning behavior isn't pre
 **Further reading**:
 - [Hermes Agent docs](https://hermes-agent.nousresearch.com/docs/)
 - [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
-- [Building a Multi-Agent Automation System with the Claude Code CLI](https://chenguangliang.com/posts/blog115_openclaw-to-claude-code-migration/) - a complete DIY implementation, as a counterpoint to the Hermes approach
+- [After OpenClaw Shut Down: Rebuilding a Multi-Agent Automation Setup with the Claude Code CLI](/en/posts/blog115_openclaw-to-claude-code-migration/) - a complete DIY implementation, as a counterpoint to the Hermes approach

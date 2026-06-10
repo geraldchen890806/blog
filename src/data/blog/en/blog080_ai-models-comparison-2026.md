@@ -1822,7 +1822,7 @@ Hopefully this panoramic comparison helps you find the right AI model for your p
 ---
 
 **Related reading**:
-- [AI Agent Frontend Workflow (Part 3): Cost Optimization and Team Collaboration Best Practices](https://chenguangliang.com/posts/ai-agent-frontend-workflow-part3/) - A deep dive into token cost control and optimization strategies for AI agents
+- [AI Agent Frontend Workflow (Part 3): Cost Optimization and Team Collaboration Best Practices](/en/posts/ai-agent-frontend-workflow-part3/) - A deep dive into token cost control and optimization strategies for AI agents
 
 **Further reading**:
 - [OpenAI official pricing](https://openai.com/pricing)

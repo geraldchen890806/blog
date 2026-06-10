@@ -1143,4 +1143,4 @@ The moment you stop asking "how do I write this code" and start asking "how do I
 - [OpenClaw documentation](https://docs.openclaw.ai/)
 - [MCP protocol specification](https://modelcontextprotocol.io/)
 - [AI Agent Skills standard](https://agentskills.io/)
-- [blog077: The AI Agent Skills Standardization War](https://chenguangliang.com/posts/blog077_ai-agent-skills-standardization-war/)
+- [The AI Agent Skills Standardization War: Architecture, Security, and Ecosystem Evolution](/en/posts/blog077_ai-agent-skills-standardization-war/)

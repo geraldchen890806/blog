@@ -378,7 +378,7 @@ The two tools aren't competitors — they cover different stages of agent securi
 
 ## Supply Chain Attacks: AI Agent Edition vs. Traditional npm Poisoning
 
-In the [axios supply chain poisoning incident](https://chenguangliang.com/posts/blog126_axios-supply-chain-attack/), attackers injected data-harvesting code into axios via a malicious npm package. ClawHavoc used the exact same playbook — it just swapped npm for ClawHub.
+In the [Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours](/en/posts/blog126_axios-supply-chain-attack/), attackers injected data-harvesting code into axios via a malicious npm package. ClawHavoc used the exact same playbook — it just swapped npm for ClawHub.
 
 But AI agent supply chain attacks have a few properties that make them harder to defend against:
 

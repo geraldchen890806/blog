@@ -1789,8 +1789,8 @@ Browser-native AI is not a replacement for cloud AI — it is a new option that 
 ---
 
 **Related reading**:
-- [AI Agent-Driven Development: A Paradigm Shift from Tools to Workflows](https://chenguangliang.com/posts/blog078_ai-agent-driven-development/) - comparing the use cases of agents vs. in-browser AI
-- [Building an AI Development Assistant: The Complete Journey from Zero to Production](https://chenguangliang.com/posts/blog073_build-ai-dev-assistant/) - another route to local AI capability
+- [AI Agent-Driven Development: The Paradigm Shift from Tools to Workflows](/en/posts/blog078_ai-agent-driven-development/) - comparing the use cases of agents vs. in-browser AI
+- [From Command Line to Conversational Programming: Building a Personal Dev Assistant with AI Agents](/en/posts/blog073_build-ai-dev-assistant/) - another route to local AI capability
 
 **Further reading**:
 - [Chrome Built-in AI official documentation](https://developer.chrome.com/docs/ai/built-in-apis)

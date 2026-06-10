@@ -997,6 +997,6 @@ Multi-task collaboration is the key step in AI Agents evolving from "tools" into
 ---
 
 **Further reading**:
-- [OpenClaw Memory Best Practices](https://chenguangliang.com/posts/openclaw-memory-best-practices/)
-- [Why AI Agents Ignore Your "Iron Rules"](https://chenguangliang.com/posts/blog075_why-ai-agents-ignore-rules/)
-- [The AI Agent Developer Tooling Ecosystem 2026](https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/)
+- [AI Agent Memory Systems in Practice: OpenClaw Memory Best Practices](/en/posts/openclaw-memory-best-practices/)
+- [Why Do AI Agents Ignore Your \"Hard Rules\"? A Deep Postmortem of Two Real Incidents](/en/posts/blog075_why-ai-agents-ignore-rules/)
+- ['The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape'](/en/posts/blog070_ai-agent-tools-ecosystem-2026/)

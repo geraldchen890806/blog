@@ -513,8 +513,8 @@ For frontend developers, now is a good time to learn and experiment. Run the dem
 ---
 
 **Related reading**:
-- [AI Agent Frontend Workflow (Part 3): Cost Optimization and Security Practices](https://chenguangliang.com/posts/ai-agent-frontend-workflow-part3/) - another dimension of agent cost control
-- [AI Agent-Driven Development: The Paradigm Shift from Tools to Workflows](https://chenguangliang.com/posts/blog078_ai-agent-driven-development/) - putting autonomous agent task execution into practice
+- [AI Agent Frontend Workflow (Part 3): Cost Optimization and Team Collaboration Best Practices](/en/posts/ai-agent-frontend-workflow-part3/) - another dimension of agent cost control
+- [AI Agent-Driven Development: The Paradigm Shift from Tools to Workflows](/en/posts/blog078_ai-agent-driven-development/) - putting autonomous agent task execution into practice
 
 **Further reading**:
 - [x402 official docs](https://www.x402.org/)

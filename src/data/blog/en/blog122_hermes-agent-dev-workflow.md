@@ -13,7 +13,7 @@ tags:
 description: "Not another feature rundown of Hermes — this is what it's actually like after wiring it into a real development workflow: code review, requirement breakdown, doc generation, scheduled monitoring. Which scenarios genuinely help, and which ones will bite you."
 ---
 
-In my earlier [introduction to Hermes Agent](https://chenguangliang.com/posts/blog117_hermes-agent-guide/), I mostly covered what it can do and how it compares to OpenClaw. After a few weeks of daily use, I have a much more concrete picture — Hermes genuinely saves effort in certain development scenarios, but there are also a few spots where it's easy to get burned. This post is a record of that hands-on experience.
+In my earlier [Hermes Agent Review: OpenClaw's Successor, a Multi-Platform AI Assistant with a Built-In Learning Loop](/en/posts/blog117_hermes-agent-guide/), I mostly covered what it can do and how it compares to OpenClaw. After a few weeks of daily use, I have a much more concrete picture — Hermes genuinely saves effort in certain development scenarios, but there are also a few spots where it's easy to get burned. This post is a record of that hands-on experience.
 
 ## Basic Setup: One Dedicated Agent per Project
 
@@ -210,6 +210,6 @@ To sum up: in personal project development, Hermes is most valuable for tasks th
 If you're already doing deep development with Claude Code, Hermes works best as a "peripheral assistant" — handling the surrounding chores you don't want to spend time on but can't avoid.
 
 **Further reading**:
-- [Hermes Agent Review: The Successor to OpenClaw](https://chenguangliang.com/posts/blog117_hermes-agent-guide/) - An overview of Hermes's core features, use cases, and how it compares to OpenClaw
-- [A Deep Guide to Claude Code Hooks](https://chenguangliang.com/posts/blog119_claude-code-hooks-guide/) - Using Hooks to automate code quality checks and block dangerous operations in Claude Code
-- [Building a Multi-Agent Automation System with the Claude Code CLI](https://chenguangliang.com/posts/blog115_openclaw-to-claude-code-migration/) - A complete self-hosted implementation, as a counterpoint to the Hermes approach
+- [Hermes Agent Review: OpenClaw's Successor, a Multi-Platform AI Assistant with a Built-In Learning Loop](/en/posts/blog117_hermes-agent-guide/) - An overview of Hermes's core features, use cases, and how it compares to OpenClaw
+- [A Deep Dive into Claude Code Hooks: Making the AI Coding Tool Truly Fit Your Workflow](/en/posts/blog119_claude-code-hooks-guide/) - Using Hooks to automate code quality checks and block dangerous operations in Claude Code
+- [After OpenClaw Shut Down: Rebuilding a Multi-Agent Automation Setup with the Claude Code CLI](/en/posts/blog115_openclaw-to-claude-code-migration/) - A complete self-hosted implementation, as a counterpoint to the Hermes approach

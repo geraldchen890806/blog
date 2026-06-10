@@ -19,7 +19,7 @@ On April 8, 2026, Anthropic launched the public beta of Claude Managed Agents. B
 
 Managed Agents takes that loop off your hands. You tell it "write me a Fibonacci script and save it to a file," and it calls bash to write the code, reads the file to verify, and fixes errors on its own—all you do is consume the streaming events.
 
-This post is aimed at **developers who want to embed agent capabilities into their own products or applications**. If what you want is an AI assistant for your personal day-to-day work, Hermes Agent ([review](https://chenguangliang.com/posts/blog117_hermes-agent-guide/), [hands-on](https://chenguangliang.com/posts/blog122_hermes-agent-dev-workflow/)) is a better fit—the two aren't substitutes, they're tools at different layers.
+This post is aimed at **developers who want to embed agent capabilities into their own products or applications**. If what you want is an AI assistant for your personal day-to-day work, Hermes Agent ([Hermes Agent Review: OpenClaw's Successor, a Multi-Platform AI Assistant with a Built-In Learning Loop](/en/posts/blog117_hermes-agent-guide/), [Hermes Agent in Practice: Embedding an AI Assistant into Your Development Workflow](/en/posts/blog122_hermes-agent-dev-workflow/)) is a better fit—the two aren't substitutes, they're tools at different layers.
 
 ## Three Core Concepts
 
@@ -400,5 +400,5 @@ Reasonable for complex tasks. `web_search` is billed separately ($10/1000 calls)
 
 **Further reading**:
 - [Claude Managed Agents official docs](https://platform.claude.com/docs/en/managed-agents/overview)
-- [Hermes Agent in Practice: Embedding an AI Assistant into Your Development Workflow](https://chenguangliang.com/posts/blog122_hermes-agent-dev-workflow/) - another take on personal workflow automation
-- [Building a Multi-Agent Automation System with the Claude Code CLI](https://chenguangliang.com/posts/blog115_openclaw-to-claude-code-migration/) - a complete DIY agent loop implementation
+- [Hermes Agent in Practice: Embedding an AI Assistant into Your Development Workflow](/en/posts/blog122_hermes-agent-dev-workflow/) - another take on personal workflow automation
+- [After OpenClaw Shut Down: Rebuilding a Multi-Agent Automation Setup with the Claude Code CLI](/en/posts/blog115_openclaw-to-claude-code-migration/) - a complete DIY agent loop implementation

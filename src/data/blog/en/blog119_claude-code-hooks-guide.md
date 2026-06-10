@@ -444,6 +444,6 @@ For reference, here's the full configuration I'm actually running right now:
 After a few months of using them, here's my takeaway: Hooks aren't some magic feature — they just automate what you used to do by hand. But the benefit is concrete and real: when Claude finishes writing code, I no longer have to ask "any lint errors?" It sees them and fixes them on its own. Automating these small feedback loops is what actually moves the needle on day-to-day productivity.
 
 **Further reading**:
-- [Building with Hermes Agent: Embedding an AI Assistant into Your Development Workflow](https://chenguangliang.com/posts/blog122_hermes-agent-dev-workflow/) - Another angle: using Hermes Agent to handle work around the development process
-- [Hermes Agent Review: The Successor to OpenClaw](https://chenguangliang.com/posts/blog117_hermes-agent-guide/) - Hermes vs OpenClaw vs building your own
-- [Building a Multi-Agent Automation System with the Claude Code CLI](https://chenguangliang.com/posts/blog115_openclaw-to-claude-code-migration/) - Claude Code applied deeply to automation scenarios
+- [Hermes Agent in Practice: Embedding an AI Assistant into Your Development Workflow](/en/posts/blog122_hermes-agent-dev-workflow/) - Another angle: using Hermes Agent to handle work around the development process
+- [Hermes Agent Review: OpenClaw's Successor, a Multi-Platform AI Assistant with a Built-In Learning Loop](/en/posts/blog117_hermes-agent-guide/) - Hermes vs OpenClaw vs building your own
+- [After OpenClaw Shut Down: Rebuilding a Multi-Agent Automation Setup with the Claude Code CLI](/en/posts/blog115_openclaw-to-claude-code-migration/) - Claude Code applied deeply to automation scenarios

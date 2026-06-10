@@ -1451,7 +1451,7 @@ When your Agent can accurately recall your preferences three months later, you h
 ---
 
 **Related reading**:
-- [AI Agent Memory Systems in Practice: OpenClaw Memory Best Practices](https://chenguangliang.com/posts/blog074_openclaw-memory-best-practices/) - If you're using the OpenClaw framework, this article covers configuring and tuning its built-in memory tools.
+- [AI Agent Memory Systems in Practice: OpenClaw Memory Best Practices](/en/posts/blog074_openclaw-memory-best-practices/) - If you're using the OpenClaw framework, this article covers configuring and tuning its built-in memory tools.
 
 **Further reading**:
 - [LangChain Memory Documentation](https://js.langchain.com/docs/modules/memory/)
