@@ -57,7 +57,7 @@ if (typeof initOgImage === "string") {
 
 // Use dynamic OG image if enabled and no remote|local ogImage
 if (!ogImageUrl && SITE.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath, true, post.data.slug)}/index.png`;
+  ogImageUrl = `${getPath(post.id, post.filePath, true, post.data.slug)}index.png`;
 }
 
 // Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
@@ -71,7 +71,7 @@ const t = useTranslations(lang);
 const translation = await getEntry("blog", translationId(post.id));
 const alternateURL =
   translation && !translation.data.draft
-    ? `${getPath(translation.id, translation.filePath, true, translation.data.slug)}/`
+    ? getPath(translation.id, translation.filePath, true, translation.data.slug)
     : undefined;
 // 没有对应译文时，切换按钮退回另一语言的首页
 const headerAlternateUrl =

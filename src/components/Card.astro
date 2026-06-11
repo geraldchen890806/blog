@@ -14,7 +14,7 @@ const { title, description, slug, ...props } = data;
 const postPath = getPath(id, filePath, true, slug);
 ---
 
-<li class="my-6 post-card" data-post-path={postPath}>
+<li class="my-6 post-card" data-post-path={postPath.replace(/\/$/, "")}>
   <a
     href={postPath}
     class:list={[

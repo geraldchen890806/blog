@@ -11,7 +11,8 @@ import { slugifyStr } from "./slugify";
  *
  * @param id - id of the blog post (Astro collection id, derived from filename)
  * @param filePath - the blog post full file location
- * @param includeBase - whether to include `/posts` in return value
+ * @param includeBase - whether to include `/posts` in return value;
+ *   true 时返回带尾斜杠的完整 URL 路径(站点 canonical 形态,避免 301 跳转链)
  * @param frontmatterSlug - optional frontmatter `slug` field
  * @returns blog post path
  */
@@ -43,9 +44,11 @@ export function getPath(
     slug = blogId.length > 0 ? blogId.slice(-1).join("") : id;
   }
 
-  if (!pathSegments || pathSegments.length < 1) {
-    return [basePath, slug].join("/");
-  }
+  const path =
+    !pathSegments || pathSegments.length < 1
+      ? [basePath, slug].join("/")
+      : [basePath, ...pathSegments, slug].join("/");
 
-  return [basePath, ...pathSegments, slug].join("/");
+  // 完整 URL 统一带尾斜杠(与 nginx/canonical 一致,内链不再产生 301)
+  return includeBase ? `${path}/` : path;
 }

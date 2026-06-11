@@ -93,7 +93,7 @@ const href = (path: string) => localizePath(path, lang);
       >
         <li class="col-span-2">
           <a
-            href={href("/posts")}
+            href={href("/posts/")}
             class:list={{ "active-nav": isActive("/posts") }}
           >
             Posts
@@ -101,7 +101,7 @@ const href = (path: string) => localizePath(path, lang);
         </li>
         <li class="col-span-2">
           <a
-            href={href("/tags")}
+            href={href("/tags/")}
             class:list={{ "active-nav": isActive("/tags") }}
           >
             Tags
@@ -109,7 +109,7 @@ const href = (path: string) => localizePath(path, lang);
         </li>
         <li class="col-span-2">
           <a
-            href={href("/about")}
+            href={href("/about/")}
             class:list={{ "active-nav": isActive("/about") }}
           >
             About
@@ -119,7 +119,7 @@ const href = (path: string) => localizePath(path, lang);
           SITE.showArchives && (
             <li class="col-span-2">
               <LinkButton
-                href={href("/archives")}
+                href={href("/archives/")}
                 class:list={[
                   "focus-outline flex justify-center p-3 sm:p-1",
                   {
@@ -137,7 +137,7 @@ const href = (path: string) => localizePath(path, lang);
         }
         <li class="col-span-1 flex items-center justify-center">
           <LinkButton
-            href={href("/search")}
+            href={href("/search/")}
             class:list={[
               "focus-outline flex p-3 sm:p-1",
               { "[&>svg]:stroke-accent": isActive("/search") },
