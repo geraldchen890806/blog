@@ -1,0 +1,1422 @@
+<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237239169922070" crossorigin="anonymous"></script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/"><link rel="alternate" hreflang="en" href="https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/"><link rel="alternate" hreflang="zh-CN" href="https://chenguangliang.com/posts/blog072_ai-agent-skills-ecosystem/"><link rel="alternate" hreflang="x-default" href="https://chenguangliang.com/posts/blog072_ai-agent-skills-ecosystem/"><meta name="generator" content="Astro v6.3.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>The Complete Guide to AI Agent Skills: Give Your AI Assistant Superpowers | Gerald Chen&#39;s Tech Blog</title><meta name="title" content="The Complete Guide to AI Agent Skills: Give Your AI Assistant Superpowers | Gerald Chen's Tech Blog"><meta name="description" content="What are Skills? How do you install and use them in Claude Code, Codex, OpenClaw, and other AI tools? Explore skills.sh and awesome-openclaw-skills, tap into 3,000+ community Skills, and turn your AI Agent from a generalist assistant into a domain expert."><meta name="author" content="Gerald Chen"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="Gerald Chen's Tech Blog"><meta property="og:locale" content="en_US"><meta property="og:title" content="The Complete Guide to AI Agent Skills: Give Your AI Assistant Superpowers | Gerald Chen's Tech Blog"><meta property="og:description" content="What are Skills? How do you install and use them in Claude Code, Codex, OpenClaw, and other AI tools? Explore skills.sh and awesome-openclaw-skills, tap into 3,000+ community Skills, and turn your AI Agent from a generalist assistant into a domain expert."><meta property="og:url" content="https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/"><meta property="og:image" content="https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-02-21T12:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/"><meta property="twitter:title" content="The Complete Guide to AI Agent Skills: Give Your AI Assistant Superpowers | Gerald Chen's Tech Blog"><meta property="twitter:description" content="What are Skills? How do you install and use them in Claude Code, Codex, OpenClaw, and other AI tools? Explore skills.sh and awesome-openclaw-skills, tap into 3,000+ community Skills, and turn your AI Agent from a generalist assistant into a domain expert."><meta property="twitter:image" content="https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Complete Guide to AI Agent Skills: Give Your AI Assistant Superpowers | Gerald Chen's Tech Blog","image":"https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/index.png","datePublished":"2026-02-21T12:00:00.000Z","author":[{"@type":"Person","name":"Gerald Chen","url":"https://chenguangliang.com/"}],"publisher":{"@type":"Organization","name":"陈广亮的技术博客","url":"https://chenguangliang.com/","logo":{"@type":"ImageObject","url":"https://chenguangliang.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/"}}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Gerald Chen's Tech Blog" href="https://chenguangliang.com/en/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.D7KuxWck.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/_astro/PostDetails.BHms9FnV.css"><style>[data-astro-transition-scope="astro-pcwlacsx-1"] { view-transition-name: the-complete-guide-to-ai-agent-skills_3a-give-your-ai-assistant-superpowers; }@layer astro { ::view-transition-old(the-complete-guide-to-ai-agent-skills_3a-give-your-ai-assistant-superpowers) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(the-complete-guide-to-ai-agent-skills_3a-give-your-ai-assistant-superpowers) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(the-complete-guide-to-ai-agent-skills_3a-give-your-ai-assistant-superpowers) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(the-complete-guide-to-ai-agent-skills_3a-give-your-ai-assistant-superpowers) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai; }@layer astro { ::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: agent; }@layer astro { ::view-transition-old(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: skills; }@layer astro { ::view-transition-old(skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: claude; }@layer astro { ::view-transition-old(claude) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(claude) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(claude) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(claude) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-6"] { view-transition-name: openclaw; }@layer astro { ::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-7"] { view-transition-name: automation; }@layer astro { ::view-transition-old(automation) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(automation) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(automation) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(automation) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-8"] { view-transition-name: \5DE5\5177; }@layer astro { ::view-transition-old(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-8"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-8"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-8"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-8"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-8"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/en/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Gerald Chen&#39;s Tech Blog </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/en/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/en/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/en/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/en/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/en/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-2 flex items-center justify-center sm:col-span-1"> <a id="lang-toggle" href="/posts/blog072_ai-agent-skills-ecosystem/" data-target-lang="zh" title="切换到中文" aria-label="切换到中文" class="focus-outline whitespace-nowrap p-3 font-medium hover:text-accent sm:p-1 sm:text-sm"> 中文 </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const a=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",a?"false":"true"),e.setAttribute("aria-label",a?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}c();function r(){const e=document.querySelector("#lang-toggle");e?.addEventListener("click",()=>{const t=e.dataset.targetLang;t&&(document.cookie=`preferred_lang=${t}; path=/; max-age=31536000; SameSite=Lax`)})}r();document.addEventListener("astro:after-swap",()=>{c(),r()});</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body data-astro-cid-vj4tpspi> <div class="post-layout" data-astro-cid-vj4tpspi> <div class="post-content" data-astro-cid-vj4tpspi> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-cid-vj4tpspi data-astro-transition-scope="astro-pcwlacsx-1"> The Complete Guide to AI Agent Skills: Give Your AI Assistant Superpowers </h1> <div class="my-2 flex items-center gap-2" data-astro-cid-vj4tpspi> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-02-21T12:00:00.000Z">21 Feb, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden" data-astro-cid-vj4tpspi>|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)" data-astro-cid-vj4tpspi> <h2 id="introduction-where-do-an-ai-agents-capabilities-end">Introduction: Where Do an AI Agent’s Capabilities End?</h2>
+<p>Your AI coding assistant can write code, but does it understand your company’s specific workflows? Can it handle your CI/CD pipeline automatically? Does it know the particular tools and APIs you rely on?</p>
+<p><strong>AI Agent Skills</strong> exist to solve exactly this problem — they are reusable capability packages that turn a general-purpose AI assistant into a domain expert.</p>
+<p>Imagine:</p>
+<ul>
+<li>An <strong>SEO expert Skill</strong> that lets the AI audit your website</li>
+<li>A <strong>PDF processing Skill</strong> that lets the AI extract, edit, and merge PDF documents</li>
+<li>A <strong>GitHub workflow Skill</strong> that lets the AI handle PR reviews and CI/CD automatically</li>
+</ul>
+<p>That’s the power of Skills — <strong>packaging procedural knowledge into modules so the AI can operate like a human expert in a specific domain</strong>.</p>
+<p>This article walks through the entire AI Agent Skills ecosystem: what Skills are, how to use them, where to find them, how to create your own, and what to watch out for security-wise.</p>
+<hr>
+<h2 id="1-what-are-skills">1. What Are Skills?</h2>
+<h3 id="1-definition">1. Definition</h3>
+<p><strong>Skills</strong> are modular, self-contained knowledge packages that extend an AI Agent’s capabilities. Think of them as function libraries for programmers — except they’re built for AI Agents.</p>
+<p><strong>Official definition</strong> (from Anthropic):</p>
+<blockquote>
+<p>Skills are reusable capabilities for AI agents. Install them with a single command to enhance your agents with access to procedural knowledge.</p>
+</blockquote>
+<p><strong>In plain terms</strong>:</p>
+<ul>
+<li><strong>For developers</strong>: Skills work like npm packages or Python libraries — install, uninstall, update</li>
+<li><strong>For AI Agents</strong>: Skills provide domain knowledge, workflows, and tool usage guides</li>
+</ul>
+<h3 id="2-what-does-a-skill-provide">2. What Does a Skill Provide?</h3>
+<p>A Skill typically contains:</p>
+<p><strong>(1) Expert workflows</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## SEO Audit Workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Fetch page HTML and meta tags</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Check title tag length (50-60 characters)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Verify meta description (150-160 characters)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Scan for H1/H2/H3 structure</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">5.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Analyze internal/external links</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">6.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Generate SEO score report</span></span></code></pre>
+<p><strong>(2) Tool integration guides</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Using GitHub CLI (gh)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> List PRs: </span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`gh pr list --state open`</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Create PR: </span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`gh pr create --title "..." --body "..."`</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Merge PR: </span><span style="--shiki-light:#2B5581;--shiki-dark:#C5E478">`gh pr merge &#x3C;number> --squash`</span></span></code></pre>
+<p><strong>(3) Domain expertise</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## React Best Practices</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Use functional components + hooks (not class components)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Avoid prop drilling: use Context API or state management</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Memoize expensive computations with useMemo</span></span></code></pre>
+<p><strong>(4) Bundled resources</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>skill-folder/</span></span>
+<span class="line"><span>├── SKILL.md          # Main document</span></span>
+<span class="line"><span>├── scripts/          # Executable scripts</span></span>
+<span class="line"><span>│   ├── audit.sh</span></span>
+<span class="line"><span>│   └── report.py</span></span>
+<span class="line"><span>└── references/       # Reference material</span></span>
+<span class="line"><span>    └── checklist.txt</span></span></code></pre>
+<h3 id="3-skills-vs-plain-prompts">3. Skills vs Plain Prompts</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Dimension</th><th>Plain prompt</th><th>Skills</th></tr></thead><tbody><tr><td><strong>Reusability</strong></td><td>One-off</td><td>Installable, works across projects</td></tr><tr><td><strong>Structure</strong></td><td>Free-form text</td><td>Structured Markdown + metadata</td></tr><tr><td><strong>Resources</strong></td><td>Text only</td><td>Can bundle scripts, tools, reference files</td></tr><tr><td><strong>Discoverability</strong></td><td>Hard to share</td><td>Public registry (skills.sh)</td></tr><tr><td><strong>Versioning</strong></td><td>None</td><td>Git + version numbers</td></tr></tbody></table>
+<p><strong>Side-by-side example</strong>:</p>
+<p><strong>Plain prompt</strong> (retyped every single time):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Review this PR for me, checking: code style, test coverage, security issues, performance optimizations</span></span></code></pre>
+<p><strong>Skill</strong> (install once, use forever):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> obra/pr-reviewer</span></span></code></pre>
+<p>The AI runs the whole flow automatically: pull the PR → check lint → run tests → scan for security issues → generate a report</p>
+<hr>
+<h2 id="2-the-skills-ecosystem-at-a-glance">2. The Skills Ecosystem at a Glance</h2>
+<h3 id="1-skillssh--the-official-directory">1. Skills.sh — The Official Directory</h3>
+<p><strong>Website</strong>: <a href="https://skills.sh/">https://skills.sh/</a></p>
+<p><strong>Numbers (February 2026)</strong>:</p>
+<ul>
+<li><strong>Total Skills</strong>: 70,184+</li>
+<li><strong>Supported AI tools</strong>: 15+ (Claude Code, Codex, OpenClaw, Cursor, Windsurf, and more)</li>
+<li><strong>Categories</strong>: 30+ domains</li>
+</ul>
+<p><strong>Highlights</strong>:</p>
+<ul>
+<li>✅ Officially maintained public registry</li>
+<li>✅ One-command install (<code>npx skills add &#x3C;owner/repo></code>)</li>
+<li>✅ Live leaderboards (by installs, trending, popularity)</li>
+<li>✅ Search (by name, tag, description)</li>
+</ul>
+<p><strong>Note</strong>: skills.sh ships a unified <code>npx skills</code> CLI that can install into multiple AI tools (use the <code>-a</code> flag to pick a target).</p>
+<p><strong>Top 10 Skills</strong> (as of 2026-02-21):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Rank</th><th>Skill</th><th>Installs</th><th>Purpose</th></tr></thead><tbody><tr><td>1</td><td>find-skills</td><td>282.2K</td><td>Discover and recommend Skills</td></tr><tr><td>2</td><td>vercel-react-best-practices</td><td>153.3K</td><td>React best practices</td></tr><tr><td>3</td><td>web-design-guidelines</td><td>116.1K</td><td>Web design guidelines</td></tr><tr><td>4</td><td>remotion-best-practices</td><td>102.6K</td><td>Best practices for the Remotion video library</td></tr><tr><td>5</td><td>frontend-design</td><td>86.4K</td><td>Frontend design patterns</td></tr><tr><td>6</td><td>agent-browser</td><td>50.2K</td><td>Browser automation</td></tr><tr><td>7</td><td>skill-creator</td><td>41.9K</td><td>Create Skills</td></tr><tr><td>8</td><td>ui-ux-pro-max</td><td>33.2K</td><td>UI/UX design</td></tr><tr><td>9</td><td>seo-audit</td><td>23.4K</td><td>SEO audits</td></tr><tr><td>10</td><td>pdf</td><td>18.2K</td><td>PDF processing</td></tr></tbody></table>
+<h3 id="2-awesome-openclaw-skills--community-curated">2. Awesome-OpenClaw-Skills — Community Curated</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/VoltAgent/awesome-openclaw-skills">https://github.com/VoltAgent/awesome-openclaw-skills</a></p>
+<p><strong>Numbers</strong>:</p>
+<ul>
+<li><strong>Curated Skills</strong>: 3,002 (selected from 70,184)</li>
+<li><strong>Filtered out</strong>: 2,748 (spam, crypto, malware, duplicates, non-English)</li>
+<li><strong>Categories</strong>: 30+</li>
+</ul>
+<p><strong>Selection criteria</strong>:</p>
+<ul>
+<li>❌ Excluded: spam accounts, test/useless Skills</li>
+<li>❌ Excluded: cryptocurrency and financial trading Skills</li>
+<li>❌ Excluded: duplicate or near-identical names</li>
+<li>❌ Excluded: malware (flagged by security audits)</li>
+<li>❌ Excluded: non-English descriptions</li>
+</ul>
+<p><strong>Why does a curated list matter?</strong>
+Skills.sh hosts 70K+ Skills of wildly varying quality. The Awesome list applies human review to surface Skills that are safe and genuinely useful.</p>
+<p><strong>Popular categories</strong> (Skill counts):</p>
+<ol>
+<li>AI &#x26; LLMs (287)</li>
+<li>Web &#x26; Frontend Development (202)</li>
+<li>DevOps &#x26; Cloud (212)</li>
+<li>Marketing &#x26; Sales (143)</li>
+<li>Browser &#x26; Automation (139)</li>
+<li>Coding Agents &#x26; IDEs (133)</li>
+<li>Communication (132)</li>
+<li>Productivity &#x26; Tasks (135)</li>
+</ol>
+<hr>
+<h2 id="3-ai-tools-that-support-skills">3. AI Tools That Support Skills</h2>
+<h3 id="1-mainstream-ai-coding-tools">1. Mainstream AI Coding Tools</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Tool</th><th>Skills support</th><th>Installation</th></tr></thead><tbody><tr><td><strong>Claude Code</strong></td><td>✅ Native</td><td><code>~/.claude/skills/</code></td></tr><tr><td><strong>Codex (OpenAI)</strong></td><td>✅ Native</td><td><code>~/.codex/skills/</code></td></tr><tr><td><strong>OpenClaw</strong></td><td>✅ Native</td><td><code>~/.openclaw/skills/</code></td></tr><tr><td><strong>Cursor</strong></td><td>✅ Compatible</td><td>Copy manually into <code>.cursor/</code></td></tr><tr><td><strong>Windsurf</strong></td><td>✅ Compatible</td><td>Copy manually into <code>.windsurf/</code></td></tr><tr><td><strong>Cline</strong></td><td>✅ Compatible</td><td>VS Code extension config</td></tr><tr><td><strong>Goose</strong></td><td>✅ Compatible</td><td>See docs</td></tr><tr><td><strong>Amp Code</strong></td><td>✅ Native</td><td>Official CLI</td></tr><tr><td><strong>Roo Code</strong></td><td>✅ Native</td><td>Official CLI</td></tr></tbody></table>
+<h3 id="2-openclaw--the-best-home-for-skills">2. OpenClaw — The Best Home for Skills</h3>
+<p><strong>OpenClaw</strong> is a locally running AI assistant platform with the most complete Skills support:</p>
+<p><strong>Highlights</strong>:</p>
+<ul>
+<li><strong>Three-tier Skills priority</strong>:
+<ul>
+<li>Workspace (project-level) > Local (user-level) > Bundled (built-in)</li>
+</ul>
+</li>
+<li><strong>Auto-loading</strong>: just drop them into <code>~/.openclaw/skills/</code> or <code>&#x3C;project>/skills/</code></li>
+<li><strong>Official CLI support</strong>: <code>npx skills add &#x3C;skill> -a openclaw</code> installs in one command</li>
+<li><strong>Skill discovery</strong>: ships with a built-in <code>find-skills</code> Skill so the AI recommends Skills automatically</li>
+</ul>
+<p><strong>Install OpenClaw</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># macOS/Linux</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">curl</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -fsSL</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> https://openclaw.ai/install.sh</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Windows</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">powershell</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -c</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">irm openclaw.ai/install.ps1 | iex</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span></code></pre>
+<p><strong>Verify the install</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --version</span></span></code></pre>
+<hr>
+<h2 id="4-installing-and-using-skills">4. Installing and Using Skills</h2>
+<h3 id="1-option-1-the-official-cli-recommended">1. Option 1: The Official CLI (Recommended)</h3>
+<p><strong>Install a Skill</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 通用格式</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">skill-nam</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">e</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 示例：安装 SEO 审计 Skill</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills/seo-audit</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 简写（如果仓库只有一个 Skill）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 指定安装到特定 AI 工具（-a 参数）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> codex</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # 安装到 Codex</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> claude</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # 安装到 Claude Code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> openclaw</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   # 安装到 OpenClaw</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">owne</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">r</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">&#x3C;</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">rep</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">o</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> cursor</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # 安装到 Cursor</span></span></code></pre>
+<p><strong>List installed Skills</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 查看所有已安装的 Skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 或直接查看文件夹</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # OpenClaw</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.claude/skills/</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">    # Claude Code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.codex/skills/</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # Codex</span></span></code></pre>
+<p><strong>Use a Skill</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 启动 OpenClaw</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">openclaw</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 在聊天中直接使用</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">></span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 帮我审计这个网站的 SEO：example.com</span></span></code></pre>
+<p>The AI automatically detects the <code>seo-audit</code> Skill and runs the audit workflow.</p>
+<h3 id="2-option-2-manual-installation">2. Option 2: Manual Installation</h3>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li>Download the Skill folder from GitHub</li>
+<li>Copy it into your Skills directory</li>
+<li>Restart the AI tool</li>
+</ol>
+<p><strong>Example</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 克隆仓库</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clone</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> https://github.com/coreyhaines31/marketingskills.git</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 复制 Skill 到全局目录</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cp</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> marketingskills/seo-audit</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 或复制到项目目录</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cp</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> marketingskills/seo-audit</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ./skills/</span></span></code></pre>
+<h3 id="3-option-3-paste-a-github-link-easiest">3. Option 3: Paste a GitHub Link (Easiest)</h3>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li>Copy the Skill’s GitHub repository link</li>
+<li>Paste it into your AI assistant’s chat window</li>
+<li>Let the AI install it for you</li>
+</ol>
+<p><strong>Example</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>> Install this Skill: https://github.com/coreyhaines31/marketingskills/tree/main/seo-audit</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>AI reply:</span></span>
+<span class="line"><span>✅ Installed the seo-audit Skill</span></span>
+<span class="line"><span>📂 Location: ~/.openclaw/skills/seo-audit</span></span>
+<span class="line"><span>🚀 You can now use it to audit website SEO</span></span></code></pre>
+<h3 id="4-skills-directory-layout">4. Skills Directory Layout</h3>
+<p><strong>Global Skills</strong> (shared across all projects):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>~/.openclaw/skills/</span></span>
+<span class="line"><span>├── seo-audit/</span></span>
+<span class="line"><span>│   ├── SKILL.md</span></span>
+<span class="line"><span>│   └── scripts/</span></span>
+<span class="line"><span>├── pdf-tools/</span></span>
+<span class="line"><span>│   ├── SKILL.md</span></span>
+<span class="line"><span>│   └── references/</span></span>
+<span class="line"><span>└── github-automation/</span></span>
+<span class="line"><span>    └── SKILL.md</span></span></code></pre>
+<p><strong>Project-level Skills</strong> (current project only):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>my-project/</span></span>
+<span class="line"><span>├── skills/</span></span>
+<span class="line"><span>│   └── company-workflow/</span></span>
+<span class="line"><span>│       ├── SKILL.md</span></span>
+<span class="line"><span>│       └── deploy.sh</span></span>
+<span class="line"><span>├── src/</span></span>
+<span class="line"><span>└── package.json</span></span></code></pre>
+<p><strong>Priority</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Workspace Skills > Global Skills > Bundled Skills</span></span></code></pre>
+<hr>
+<h2 id="5-recommended-skills">5. Recommended Skills</h2>
+<h3 id="1-frontend-development">1. Frontend Development</h3>
+<p><strong>(1) vercel-react-best-practices</strong> (153.3K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: React project best practices</li>
+<li><strong>Covers</strong>: component design, performance optimization, state management</li>
+<li><strong>Install</strong>: <code>npx skills add vercel-labs/agent-skills/vercel-react-best-practices</code></li>
+</ul>
+<p><strong>(2) web-design-guidelines</strong> (116.1K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Web design standards</li>
+<li><strong>Covers</strong>: layout, typography, color, responsive design</li>
+<li><strong>Install</strong>: <code>npx skills add vercel-labs/agent-skills/web-design-guidelines</code></li>
+</ul>
+<p><strong>(3) frontend-design</strong> (86.4K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Frontend design patterns</li>
+<li><strong>Covers</strong>: UI component libraries, design systems, Tailwind CSS</li>
+<li><strong>Install</strong>: <code>npx skills add anthropics/skills/frontend-design</code></li>
+</ul>
+<h3 id="2-browser-automation">2. Browser Automation</h3>
+<p><strong>(1) agent-browser</strong> (50.2K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Browser automation</li>
+<li><strong>Covers</strong>: page navigation, clicking, form filling, screenshots</li>
+<li><strong>Install</strong>: <code>npx skills add vercel-labs/agent-browser</code></li>
+</ul>
+<p><strong>(2) browser-use</strong> (35.4K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Browser control</li>
+<li><strong>Covers</strong>: Playwright/Puppeteer wrappers</li>
+<li><strong>Install</strong>: <code>npx skills add browser-use/browser-use</code></li>
+</ul>
+<h3 id="3-marketing--seo">3. Marketing &#x26; SEO</h3>
+<p><strong>(1) seo-audit</strong> (23.4K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Website SEO audits</li>
+<li><strong>Covers</strong>: title, description, keyword, and link analysis</li>
+<li><strong>Install</strong>: <code>npx skills add coreyhaines31/marketingskills/seo-audit</code></li>
+</ul>
+<p><strong>(2) copywriting</strong> (17.6K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Marketing copywriting</li>
+<li><strong>Covers</strong>: headlines, taglines, email templates</li>
+<li><strong>Install</strong>: <code>npx skills add coreyhaines31/marketingskills/copywriting</code></li>
+</ul>
+<p><strong>(3) content-strategy</strong> (11.2K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Content strategy planning</li>
+<li><strong>Covers</strong>: topic research, audience analysis, publishing schedules</li>
+<li><strong>Install</strong>: <code>npx skills add coreyhaines31/marketingskills/content-strategy</code></li>
+</ul>
+<h3 id="4-developer-tools">4. Developer Tools</h3>
+<p><strong>(1) skill-creator</strong> (41.9K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Create your own Skills</li>
+<li><strong>Covers</strong>: Skill templates, structure guidelines, publishing workflow</li>
+<li><strong>Install</strong>: <code>npx skills add anthropics/skills/skill-creator</code></li>
+</ul>
+<p><strong>(2) github</strong> (built into OpenClaw)</p>
+<ul>
+<li><strong>Purpose</strong>: GitHub operations</li>
+<li><strong>Covers</strong>: PR management, issue handling, CI/CD</li>
+<li><strong>Install</strong>: ships with OpenClaw</li>
+</ul>
+<p><strong>(3) pdf</strong> (18.2K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: PDF document processing</li>
+<li><strong>Covers</strong>: text extraction, merging, splitting, editing</li>
+<li><strong>Install</strong>: <code>npx skills add anthropics/skills/pdf</code></li>
+</ul>
+<h3 id="5-ai--llms">5. AI &#x26; LLMs</h3>
+<p><strong>(1) mcp-builder</strong> (11.2K installs)</p>
+<ul>
+<li><strong>Purpose</strong>: Build MCP (Model Context Protocol) servers</li>
+<li><strong>Covers</strong>: MCP service development, tool integration</li>
+<li><strong>Install</strong>: <code>npx skills add anthropics/skills/mcp-builder</code></li>
+</ul>
+<p><strong>(2) claude-optimised</strong> (trending)</p>
+<ul>
+<li><strong>Purpose</strong>: Optimize CLAUDE.md configuration files</li>
+<li><strong>Covers</strong>: prompt optimization, context management</li>
+<li><strong>Install</strong>: <code>npx skills add hexnickk/claude-optimised</code></li>
+</ul>
+<hr>
+<h2 id="6-creating-your-own-skill">6. Creating Your Own Skill</h2>
+<h3 id="1-why-create-a-skill">1. Why Create a Skill?</h3>
+<p><strong>Good reasons</strong>:</p>
+<ul>
+<li>✅ You have company-specific workflows (deployment scripts, review processes)</li>
+<li>✅ You keep seeing the AI make the same mistakes (a fixed procedure helps)</li>
+<li>✅ You want to share knowledge with the community (open-source contribution)</li>
+<li>✅ You need to integrate a specific tool or API</li>
+</ul>
+<h3 id="2-basic-skill-structure">2. Basic Skill Structure</h3>
+<p><strong>Minimal Skill</strong> (just one file):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: my-first-skill</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: A short description of what this Skill does</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># My First Skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## When to Use</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Use this Skill when the user needs to do X.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Step one</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Step two</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Step three</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Examples</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">...</span></span></code></pre>
+<p><strong>Full Skill</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>my-skill/</span></span>
+<span class="line"><span>├── SKILL.md          # Required: main document</span></span>
+<span class="line"><span>├── meta.json         # Optional: metadata</span></span>
+<span class="line"><span>├── scripts/          # Optional: executable scripts</span></span>
+<span class="line"><span>│   ├── setup.sh</span></span>
+<span class="line"><span>│   └── run.py</span></span>
+<span class="line"><span>├── references/       # Optional: reference files</span></span>
+<span class="line"><span>│   ├── api-docs.md</span></span>
+<span class="line"><span>│   └── checklist.txt</span></span>
+<span class="line"><span>└── assets/           # Optional: images, config</span></span>
+<span class="line"><span>    └── config.yaml</span></span></code></pre>
+<h3 id="3-writing-skillmd">3. Writing SKILL.md</h3>
+<p><strong>frontmatter</strong> (required):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">name</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> my-skill</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">description</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> 一句话描述（&#x3C;100字符）</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span></code></pre>
+<p><strong>Recommended content structure</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># Skill Name</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## When to Use</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Spell out exactly when this Skill applies.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Prerequisites</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Tools that must be installed</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Required environment variables</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Permission requirements</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Step one</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Step two</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Step three</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Examples</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">### Example 1: ...</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">bash</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">example command</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">### Example 2: ...</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">...</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Notes</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Common errors and how to fix them</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Limitations and constraints</span></span></code></pre>
+<h3 id="4-core-principles">4. Core Principles</h3>
+<p><strong>(1) Be ruthlessly concise</strong></p>
+<ul>
+<li><strong>The context window is a shared resource</strong> — Skills compete with everything else</li>
+<li><strong>Assume the AI is smart by default</strong> — only add information the AI doesn’t already know</li>
+<li><strong>Use examples instead of long-winded explanations</strong></li>
+</ul>
+<p><strong>Bad example</strong> (verbose):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Git is a distributed version control system created by Linus Torvalds in 2005.</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">It lets multiple developers collaborate on code, tracks file change history, supports branching and merging...</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(200 words explaining what Git is)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Before using Git, you first need to install...</span></span></code></pre>
+<p><strong>Good example</strong> (concise):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Common Git Commands</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">bash</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git status              # check status</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git add &#x3C;file>          # stage a file</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git commit -m "..."     # commit</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git push origin main    # push</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span></span></code></pre>
+<p><strong>(2) Set the right degree of freedom</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Freedom</th><th>When it fits</th><th>Example</th></tr></thead><tbody><tr><td><strong>High</strong></td><td>Multiple valid approaches</td><td>”Review code quality”</td></tr><tr><td><strong>Medium</strong></td><td>There’s a recommended pattern</td><td>”Create the PR from this template”</td></tr><tr><td><strong>Low</strong></td><td>Must be executed exactly</td><td>”Run this script to deploy”</td></tr></tbody></table>
+<p><strong>High-freedom example</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Code Review Checklist</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Is the code style consistent?</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Is there test coverage?</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Any obvious performance issues?</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(The AI decides how to check)</span></span></code></pre>
+<p><strong>Low-freedom example</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Deployment Procedure (follow this order exactly)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">bash</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">npm run build</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">npm run test</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git tag -a v1.0.0 -m "Release 1.0.0"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git push origin v1.0.0</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">./deploy.sh production</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span></span></code></pre>
+<h3 id="5-publishing-a-skill">5. Publishing a Skill</h3>
+<p><strong>Step 1: Create a GitHub repository</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">mkdir</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">cd</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> init</span></span></code></pre>
+<p><strong>Step 2: Create the Skill folder</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">mkdir</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-first-skill</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">cd</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-first-skill</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">touch</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> SKILL.md</span></span></code></pre>
+<p><strong>Step 3: Write SKILL.md</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">name</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> my-first-skill</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">description</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> My first Skill</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># My First Skill</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">...</span></span></code></pre>
+<p><strong>Step 4: Push to GitHub</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> commit</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -m</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Add my-first-skill</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> push</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> origin</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> main</span></span></code></pre>
+<p><strong>Step 5: Publish to skills.sh</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> publish</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> my-first-skill</span></span></code></pre>
+<p><strong>Verify the release</strong>:</p>
+<ul>
+<li>Visit <a href="https://skills.sh/">https://skills.sh/</a></li>
+<li>Search for your Skill’s name</li>
+<li>Confirm it shows up in the listing</li>
+</ul>
+<hr>
+<h2 id="7-security-considerations">7. Security Considerations</h2>
+<h3 id="1-security-risks-of-skills">1. Security Risks of Skills</h3>
+<p><strong>⚠️ Warning</strong>: Skills are executable code and may contain:</p>
+<ul>
+<li><strong>Prompt injection</strong>: malicious prompts that hijack the AI’s behavior</li>
+<li><strong>Tool poisoning</strong>: tampered tool output that misleads the AI</li>
+<li><strong>Hidden malicious payloads</strong>: backdoors, data exfiltration</li>
+<li><strong>Unsafe data handling</strong>: leaking sensitive information</li>
+</ul>
+<h3 id="2-security-review-checklist">2. Security Review Checklist</h3>
+<p><strong>Before installing</strong>:</p>
+<ul>
+<li>✅ Check the GitHub repo’s star and fork counts</li>
+<li>✅ Check the author’s reputation (a known developer/organization?)</li>
+<li>✅ Read the SKILL.md source (any suspicious operations?)</li>
+<li>✅ Check the VirusTotal scan report (provided by skills.sh)</li>
+<li>✅ Check the last update date (actively maintained vs abandoned)</li>
+</ul>
+<p><strong>What to look for in code review</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 检查是否有可疑命令</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">curl.*bash</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skill-folder/</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">rm -rf /</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skill-folder/</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">eval</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skill-folder/</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">exec</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skill-folder/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 检查是否上传数据到外部服务器</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">http://</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skill-folder/</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">https://</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skill-folder/</span></span></code></pre>
+<h3 id="3-recommended-security-tools">3. Recommended Security Tools</h3>
+<p><strong>(1) Snyk Skill Security Scanner</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 安装</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npm</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -g</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> @snyk/skill-scan</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 扫描 Skill</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">skill-scan</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/seo-audit</span></span></code></pre>
+<p><strong>(2) Agent Trust Hub</strong></p>
+<ul>
+<li>Website: <a href="https://ai.gendigital.com/agent-trust-hub">https://ai.gendigital.com/agent-trust-hub</a></li>
+<li>Features: Skill security ratings, vulnerability database</li>
+</ul>
+<p><strong>(3) VirusTotal integration</strong></p>
+<ul>
+<li>Every Skill on skills.sh has a VirusTotal report</li>
+<li>Click into the Skill page to view scan results</li>
+</ul>
+<h3 id="4-security-best-practices">4. Security Best Practices</h3>
+<p><strong>(1) Use project-level Skills (isolation)</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 不要全局安装不信任的 Skill</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># ❌ 避免</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">~</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">/.openclaw/skills/untrusted-skill/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># ✅ 推荐</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">my-project/skills/untrusted-skill/</span></span></code></pre>
+<p><strong>(2) Audit installed Skills regularly</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 列出所有 Skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 查看 Skill 更新日期</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -lt</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 删除不用的 Skills</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">rm</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -rf</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ~/.openclaw/skills/old-skill/</span></span></code></pre>
+<p><strong>(3) Restrict the AI’s permissions</strong></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="yaml"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># ~/.openclaw/config.yaml</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">security</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  allow_file_write</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#FF5874"> false</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 禁止 AI 写入文件</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  allow_network</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#FF5874"> false</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">     # 禁止网络访问</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  sandbox</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#FF5874"> true</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">            # 沙盒模式</span></span></code></pre>
+<h3 id="5-official-security-guidance">5. Official Security Guidance</h3>
+<p><strong>Awesome-OpenClaw-Skills filtering stats</strong>:</p>
+<ul>
+<li>❌ Filtered out 396 malicious Skills</li>
+<li>❌ Filtered out 1,180 spam/test Skills</li>
+<li>❌ Filtered out 672 cryptocurrency-related Skills</li>
+<li>✅ Kept only 3,002 reviewed Skills</li>
+</ul>
+<p><strong>Recommended practices</strong>:</p>
+<ul>
+<li>✅ Prefer installing Skills from the Awesome list</li>
+<li>✅ Check the VirusTotal report before installing</li>
+<li>✅ Update Skills regularly (security patches)</li>
+<li>✅ Report suspicious Skills (via GitHub Issues)</li>
+</ul>
+<hr>
+<h2 id="8-looking-ahead">8. Looking Ahead</h2>
+<h3 id="1-where-the-skills-ecosystem-is-heading">1. Where the Skills Ecosystem Is Heading</h3>
+<p><strong>(1) Skills as a market</strong></p>
+<ul>
+<li>Paid Skills (enterprise-grade, premium features)</li>
+<li>Skill subscription services</li>
+<li>Skill licensing and copyright</li>
+</ul>
+<p><strong>(2) Skills standardization</strong></p>
+<ul>
+<li>A unified Skill format spec</li>
+<li>Cross-platform compatibility (works across Claude, Codex, Cursor)</li>
+<li>Skill dependency management (think package.json)</li>
+</ul>
+<p><strong>(3) Smarter Skills</strong></p>
+<ul>
+<li>AI-driven Skill recommendations</li>
+<li>Automatic Skill composition (Skill + Skill = new capability)</li>
+<li>Self-improving Skills (refined from usage feedback)</li>
+</ul>
+<h3 id="2-technical-evolution">2. Technical Evolution</h3>
+<p><strong>(1) MCP (Model Context Protocol) integration</strong></p>
+<ul>
+<li>Skills served as MCP servers</li>
+<li>Dynamic Skill loading</li>
+<li>Inter-Skill communication</li>
+</ul>
+<p><strong>(2) Multimodal Skills</strong></p>
+<ul>
+<li>Image processing Skills</li>
+<li>Video editing Skills</li>
+<li>Audio transcription Skills</li>
+</ul>
+<p><strong>(3) Agent-to-Agent Skills</strong></p>
+<ul>
+<li>AI Agents sharing Skills with each other</li>
+<li>A Skill marketplace</li>
+<li>Cross-agent collaboration</li>
+</ul>
+<h3 id="3-community-growth">3. Community Growth</h3>
+<p><strong>Current numbers</strong> (February 2026):</p>
+<ul>
+<li>Total Skills: 70,184+</li>
+<li>Monthly growth: ~5,000</li>
+<li>Active contributors: ~10,000</li>
+</ul>
+<p><strong>Projections</strong> (end of 2026):</p>
+<ul>
+<li>Total Skills: 150,000+</li>
+<li>Enterprise-grade Skills share: 30%</li>
+<li>Paid Skills market size: $10M+</li>
+</ul>
+<hr>
+<h2 id="9-case-studies">9. Case Studies</h2>
+<h3 id="case-1-automated-blog-deployment">Case 1: Automated Blog Deployment</h3>
+<p><strong>Scenario</strong>: Every blog post release requires building, committing, and deploying to a server.</p>
+<p><strong>Solution</strong>: create a <code>blog-deploy</code> Skill</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">name</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> blog-deploy</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">description</span><span style="--shiki-light:#D32F2F;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> Automated blog deployment workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># Blog Deploy Skill</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">bash</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># 1. Build</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">npm run build</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># 2. Commit</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git add .</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git commit -m "Deploy blog"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">git push origin main</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># 3. Deploy to the server</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">rsync -avz dist/ user@server:/var/www/blog/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># 4. Verify</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">curl https://blog.example.com | grep "200 OK"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C">\`\`\`</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Usage</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#697098">></span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#697098;--shiki-dark-font-style:italic"> Deploy my latest blog post</span></span></code></pre>
+<p><strong>Result</strong>:</p>
+<ul>
+<li><strong>Before</strong>: 10 minutes of manual work</li>
+<li><strong>After</strong>: the AI runs it automatically, done in 1 minute</li>
+</ul>
+<h3 id="case-2-seo-audit-report">Case 2: SEO Audit Report</h3>
+<p><strong>Scenario</strong>: You need to audit your website’s SEO regularly.</p>
+<p><strong>Solution</strong>: install the <code>seo-audit</code> Skill</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> coreyhaines31/marketingskills/seo-audit</span></span></code></pre>
+<p><strong>Usage</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>> Audit the SEO of this page: https://example.com/blog/post-1</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>AI reply:</span></span>
+<span class="line"><span>📊 SEO Audit Report</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Title tag:</span></span>
+<span class="line"><span>  ✅ Length: 58 characters (recommended: 50-60)</span></span>
+<span class="line"><span>  ❌ Missing target keyword</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Meta description:</span></span>
+<span class="line"><span>  ✅ Length: 155 characters (recommended: 150-160)</span></span>
+<span class="line"><span>  ✅ Contains keywords</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Heading structure:</span></span>
+<span class="line"><span>  ✅ H1: 1</span></span>
+<span class="line"><span>  ⚠️ H2: 8 (too many, recommended: 3-5)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Links:</span></span>
+<span class="line"><span>  ✅ Internal links: 12</span></span>
+<span class="line"><span>  ❌ External links: 0 (consider adding 2-3 authoritative sources)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Overall score: 75/100</span></span>
+<span class="line"><span>Recommendations: ...</span></span></code></pre>
+<h3 id="case-3-batch-pdf-processing">Case 3: Batch PDF Processing</h3>
+<p><strong>Scenario</strong>: You need to extract text from 100 PDFs and merge it.</p>
+<p><strong>Solution</strong>: install the <code>pdf</code> Skill</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npx</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> skills</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> anthropics/skills/pdf</span></span></code></pre>
+<p><strong>Usage</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>> Extract the text from every PDF in ./invoices/ and merge it into all_invoices.txt</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>AI reply:</span></span>
+<span class="line"><span>✅ Processed 100 PDF files</span></span>
+<span class="line"><span>✅ Total extracted text: 45,231 words</span></span>
+<span class="line"><span>✅ Output file: all_invoices.txt</span></span></code></pre>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>The AI Agent Skills ecosystem is growing fast, and it’s upgrading AI from “general-purpose assistant” to “domain expert.”</p>
+<p><strong>Key takeaways</strong>:</p>
+<ul>
+<li>✅ <strong>What Skills are</strong>: reusable knowledge packages that extend AI capabilities</li>
+<li>✅ <strong>Where to find them</strong>: skills.sh (official) + awesome-openclaw-skills (curated)</li>
+<li>✅ <strong>How to install</strong>: official CLI (<code>npx skills add</code>) / manual copy / paste a link</li>
+<li>✅ <strong>How to create one</strong>: SKILL.md + scripts + reference material</li>
+<li>✅ <strong>Security</strong>: review the code, use sandboxes, keep Skills updated</li>
+</ul>
+<p><strong>Next steps</strong>:</p>
+<ol>
+<li>Visit <a href="https://skills.sh/">https://skills.sh/</a> and browse the trending Skills</li>
+<li>Install 1-2 Skills relevant to your work</li>
+<li>Watch your AI jump from assistant to expert</li>
+<li>Create your own first Skill</li>
+</ol>
+<p>The ecosystem keeps expanding, with 70K+ capability packages waiting to be discovered. Install a few practical Skills and your AI assistant stops being a code-only tool — it can audit SEO, process PDFs, and automate deployments, becoming a genuinely capable teammate.</p>
+<hr>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://skills.sh/">Skills.sh Official Website</a></li>
+<li><a href="https://github.com/VoltAgent/awesome-openclaw-skills">Awesome-OpenClaw-Skills on GitHub</a></li>
+<li><a href="https://www.clawhub.ai/">ClawHub Official Docs</a></li>
+<li><a href="https://github.com/anthropics/skills">Anthropic Skills Official Repository</a></li>
+<li><a href="https://docs.openclaw.ai">OpenClaw Official Docs</a></li>
+</ul> </article> <section class="related-posts" data-pagefind-ignore data-astro-cid-dpgbfi7r><h2 class="related-title" data-astro-cid-dpgbfi7r>Related Posts</h2><ul class="related-list" data-astro-cid-dpgbfi7r><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/ai-agent-tools-landscape-2026" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>AI Agent Dev Tools Compared 2026: Claude Code vs OpenClaw vs Cursor — Which One Should You Pick</span><span class="related-desc" data-astro-cid-dpgbfi7r>A hands-on comparison of Claude Code, OpenClaw, and Cursor — the three big AI coding tools. From runtime model, memory systems, and model support to skill mechanisms, this guide covers how to choose an AI agent dev tool in 2026, plus a deep dive into their config systems and a cross-tool migration guide.</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog149_ai-coding-tools-2026-review" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>The 2026 AI Coding Tools Scorecard: An Honest Review of Claude Code, Cursor, Copilot, Windsurf, and Gemini CLI</span><span class="related-desc" data-astro-cid-dpgbfi7r>An in-depth comparison of the leading AI coding tools in 2026: Claude Code, Cursor, GitHub Copilot, Windsurf, Trae, Cline, Gemini CLI, and Aider — covering real-world data, current pricing, and use cases to help developers pick the right tool.</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog124_claude-managed-agents-guide" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Getting Started with Claude Managed Agents: Let Anthropic Run Your Agent Loop</span><span class="related-desc" data-astro-cid-dpgbfi7r>Claude Managed Agents, which entered public beta in April 2026, moves the agent loop, tool execution, and sandboxed runtime entirely into Anthropic&#39;s cloud—three API calls are all it takes to get an autonomous agent running. This post walks through the core concepts, demonstrates the full workflow with real code, and compares it against building your own.</span></a></li></ul></section> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/ai/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI </a> </li><li> <a href="/tags/agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Agent </a> </li><li> <a href="/tags/skills/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Skills </a> </li><li> <a href="/tags/claude/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Claude </a> </li><li> <a href="/tags/openclaw/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-6"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> OpenClaw </a> </li><li> <a href="/tags/automation/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-7"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Automation </a> </li><li> <a href="/tags/工具/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-8"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 工具 </a> </li> </ul> <div class="appreciation-wrapper" data-pagefind-ignore data-astro-cid-iocheen3> <button id="appreciation-toggle" class="appreciation-btn" data-astro-cid-iocheen3> ☕ Found this helpful? Buy me a coffee </button> <!-- 遮罩 + 弹窗 --> <div id="appreciation-overlay" class="appreciation-overlay" hidden data-astro-cid-iocheen3> <div class="appreciation-modal" data-astro-cid-iocheen3> <button id="appreciation-close" class="modal-close" aria-label="Close" data-astro-cid-iocheen3>&times;</button> <div class="modal-icon" data-astro-cid-iocheen3>◇</div> <h3 class="modal-title" data-astro-cid-iocheen3>Buy me a coffee ☕</h3> <p class="modal-subtitle" data-astro-cid-iocheen3>If this article helped you</p> <img src="/assets/eth-reward.jpg" alt="Ethereum Donation QR Code" class="modal-qr" loading="lazy" data-astro-cid-iocheen3> <code class="modal-address" id="eth-address" data-astro-cid-iocheen3>0x320B48341e92D120276ff960F347EAe840bd4d6D</code> <button id="copy-address" class="copy-btn" data-label-copy="Copy address" data-label-copied="Copied ✓" data-astro-cid-iocheen3> Copy address </button> <p class="modal-note" data-astro-cid-iocheen3>ETH / ERC-20 tokens supported</p> </div> </div> </div>  <script>
+  function initAppreciation() {
+    var toggle = document.getElementById('appreciation-toggle');
+    var overlay = document.getElementById('appreciation-overlay');
+    var closeBtn = document.getElementById('appreciation-close');
+    var copyBtn = document.getElementById('copy-address');
+    var addr = document.getElementById('eth-address');
+
+    if (!toggle || toggle._bound) return;
+    toggle._bound = true;
+
+    function open() { if (overlay) overlay.hidden = false; }
+    function close() { if (overlay) overlay.hidden = true; }
+
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
+    });
+
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(addr.textContent).then(function() {
+          copyBtn.textContent = copyBtn.dataset.labelCopied;
+          setTimeout(function() { copyBtn.textContent = copyBtn.dataset.labelCopy; }, 1500);
+        });
+      });
+    }
+  }
+  initAppreciation();
+  document.addEventListener('astro:page-load', initAppreciation);
+</script> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/en/posts/blog072_ai-agent-skills-ecosystem/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed" data-astro-cid-vj4tpspi> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-astro-cid-vj4tpspi> <a href="/en/posts/blog073_build-ai-dev-assistant" class="flex w-full gap-1 hover:opacity-75" data-astro-cid-vj4tpspi> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Previous Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>From Command Line to Conversational Programming: Building a Personal Dev Assistant with AI Agents</div> </div> </a> <a href="/en/posts/blog071_electrobun-electron-alternative" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2" data-astro-cid-vj4tpspi> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Next Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>A Lightweight Electron Alternative: A Deep Dive into electrobun</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </div> <!-- Table of Contents Sidebar --> <div class="post-sidebar" data-astro-cid-vj4tpspi> <aside class="toc-container" data-astro-cid-xvrfupwn><div class="toc-wrapper" data-astro-cid-xvrfupwn><h2 class="toc-title" data-astro-cid-xvrfupwn>Table of Contents</h2><nav class="toc-nav" data-astro-cid-xvrfupwn><ul class="toc-list" data-astro-cid-xvrfupwn><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#introduction-where-do-an-ai-agents-capabilities-end" class="toc-link" data-heading-id="introduction-where-do-an-ai-agents-capabilities-end" data-astro-cid-xvrfupwn>Introduction: Where Do an AI Agent’s Capabilities End?</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#1-what-are-skills" class="toc-link" data-heading-id="1-what-are-skills" data-astro-cid-xvrfupwn>1. What Are Skills?</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-definition" class="toc-link" data-heading-id="1-definition" data-astro-cid-xvrfupwn>1. Definition</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-what-does-a-skill-provide" class="toc-link" data-heading-id="2-what-does-a-skill-provide" data-astro-cid-xvrfupwn>2. What Does a Skill Provide?</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-skills-vs-plain-prompts" class="toc-link" data-heading-id="3-skills-vs-plain-prompts" data-astro-cid-xvrfupwn>3. Skills vs Plain Prompts</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#2-the-skills-ecosystem-at-a-glance" class="toc-link" data-heading-id="2-the-skills-ecosystem-at-a-glance" data-astro-cid-xvrfupwn>2. The Skills Ecosystem at a Glance</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-skillssh--the-official-directory" class="toc-link" data-heading-id="1-skillssh--the-official-directory" data-astro-cid-xvrfupwn>1. Skills.sh — The Official Directory</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-awesome-openclaw-skills--community-curated" class="toc-link" data-heading-id="2-awesome-openclaw-skills--community-curated" data-astro-cid-xvrfupwn>2. Awesome-OpenClaw-Skills — Community Curated</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#3-ai-tools-that-support-skills" class="toc-link" data-heading-id="3-ai-tools-that-support-skills" data-astro-cid-xvrfupwn>3. AI Tools That Support Skills</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-mainstream-ai-coding-tools" class="toc-link" data-heading-id="1-mainstream-ai-coding-tools" data-astro-cid-xvrfupwn>1. Mainstream AI Coding Tools</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-openclaw--the-best-home-for-skills" class="toc-link" data-heading-id="2-openclaw--the-best-home-for-skills" data-astro-cid-xvrfupwn>2. OpenClaw — The Best Home for Skills</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#4-installing-and-using-skills" class="toc-link" data-heading-id="4-installing-and-using-skills" data-astro-cid-xvrfupwn>4. Installing and Using Skills</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-option-1-the-official-cli-recommended" class="toc-link" data-heading-id="1-option-1-the-official-cli-recommended" data-astro-cid-xvrfupwn>1. Option 1: The Official CLI (Recommended)</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-option-2-manual-installation" class="toc-link" data-heading-id="2-option-2-manual-installation" data-astro-cid-xvrfupwn>2. Option 2: Manual Installation</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-option-3-paste-a-github-link-easiest" class="toc-link" data-heading-id="3-option-3-paste-a-github-link-easiest" data-astro-cid-xvrfupwn>3. Option 3: Paste a GitHub Link (Easiest)</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-skills-directory-layout" class="toc-link" data-heading-id="4-skills-directory-layout" data-astro-cid-xvrfupwn>4. Skills Directory Layout</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#5-recommended-skills" class="toc-link" data-heading-id="5-recommended-skills" data-astro-cid-xvrfupwn>5. Recommended Skills</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-frontend-development" class="toc-link" data-heading-id="1-frontend-development" data-astro-cid-xvrfupwn>1. Frontend Development</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-browser-automation" class="toc-link" data-heading-id="2-browser-automation" data-astro-cid-xvrfupwn>2. Browser Automation</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-marketing--seo" class="toc-link" data-heading-id="3-marketing--seo" data-astro-cid-xvrfupwn>3. Marketing &amp; SEO</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-developer-tools" class="toc-link" data-heading-id="4-developer-tools" data-astro-cid-xvrfupwn>4. Developer Tools</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#5-ai--llms" class="toc-link" data-heading-id="5-ai--llms" data-astro-cid-xvrfupwn>5. AI &amp; LLMs</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#6-creating-your-own-skill" class="toc-link" data-heading-id="6-creating-your-own-skill" data-astro-cid-xvrfupwn>6. Creating Your Own Skill</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-why-create-a-skill" class="toc-link" data-heading-id="1-why-create-a-skill" data-astro-cid-xvrfupwn>1. Why Create a Skill?</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-basic-skill-structure" class="toc-link" data-heading-id="2-basic-skill-structure" data-astro-cid-xvrfupwn>2. Basic Skill Structure</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-writing-skillmd" class="toc-link" data-heading-id="3-writing-skillmd" data-astro-cid-xvrfupwn>3. Writing SKILL.md</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-core-principles" class="toc-link" data-heading-id="4-core-principles" data-astro-cid-xvrfupwn>4. Core Principles</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#5-publishing-a-skill" class="toc-link" data-heading-id="5-publishing-a-skill" data-astro-cid-xvrfupwn>5. Publishing a Skill</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#7-security-considerations" class="toc-link" data-heading-id="7-security-considerations" data-astro-cid-xvrfupwn>7. Security Considerations</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-security-risks-of-skills" class="toc-link" data-heading-id="1-security-risks-of-skills" data-astro-cid-xvrfupwn>1. Security Risks of Skills</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-security-review-checklist" class="toc-link" data-heading-id="2-security-review-checklist" data-astro-cid-xvrfupwn>2. Security Review Checklist</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-recommended-security-tools" class="toc-link" data-heading-id="3-recommended-security-tools" data-astro-cid-xvrfupwn>3. Recommended Security Tools</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-security-best-practices" class="toc-link" data-heading-id="4-security-best-practices" data-astro-cid-xvrfupwn>4. Security Best Practices</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#5-official-security-guidance" class="toc-link" data-heading-id="5-official-security-guidance" data-astro-cid-xvrfupwn>5. Official Security Guidance</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#8-looking-ahead" class="toc-link" data-heading-id="8-looking-ahead" data-astro-cid-xvrfupwn>8. Looking Ahead</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-where-the-skills-ecosystem-is-heading" class="toc-link" data-heading-id="1-where-the-skills-ecosystem-is-heading" data-astro-cid-xvrfupwn>1. Where the Skills Ecosystem Is Heading</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-technical-evolution" class="toc-link" data-heading-id="2-technical-evolution" data-astro-cid-xvrfupwn>2. Technical Evolution</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-community-growth" class="toc-link" data-heading-id="3-community-growth" data-astro-cid-xvrfupwn>3. Community Growth</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#9-case-studies" class="toc-link" data-heading-id="9-case-studies" data-astro-cid-xvrfupwn>9. Case Studies</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#case-1-automated-blog-deployment" class="toc-link" data-heading-id="case-1-automated-blog-deployment" data-astro-cid-xvrfupwn>Case 1: Automated Blog Deployment</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#case-2-seo-audit-report" class="toc-link" data-heading-id="case-2-seo-audit-report" data-astro-cid-xvrfupwn>Case 2: SEO Audit Report</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#case-3-batch-pdf-processing" class="toc-link" data-heading-id="case-3-batch-pdf-processing" data-astro-cid-xvrfupwn>Case 3: Batch PDF Processing</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#summary" class="toc-link" data-heading-id="summary" data-astro-cid-xvrfupwn>Summary</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#references" class="toc-link" data-heading-id="references" data-astro-cid-xvrfupwn>References</a></li></ul></nav></div></aside><script type="module">function l(){const o=document.querySelectorAll(".toc-link"),c=document.querySelectorAll("h2[id], h3[id]");if(o.length===0||c.length===0)return;function s(){let e=null;const r=window.scrollY+100;c.forEach(t=>{const n=t.offsetTop;r>=n&&(e=t)}),o.forEach(t=>{t.classList.remove("active"),e&&t.getAttribute("data-heading-id")===e.id&&t.classList.add("active")})}o.forEach(e=>{e.addEventListener("click",r=>{r.preventDefault();const t=e.getAttribute("href")?.slice(1);if(t){const n=document.getElementById(t);n&&(n.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,"",`#${t}`))}})});let i=!1;window.addEventListener("scroll",()=>{i||(window.requestAnimationFrame(()=>{s(),i=!1}),i=!0)}),s()}document.addEventListener("DOMContentLoaded",l);document.addEventListener("astro:page-load",l);</script> </div> </div> </main> <footer class="app-layout mt-auto" data-astro-cid-vj4tpspi="true"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/en/privacy-policy/" class="hover:text-accent underline decoration-dashed underline-offset-4">Privacy Policy</a> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/en/contact/" class="hover:text-accent underline decoration-dashed underline-offset-4">Contact</a> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html>  <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>

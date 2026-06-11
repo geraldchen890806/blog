@@ -1,0 +1,634 @@
+<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237239169922070" crossorigin="anonymous"></script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/"><link rel="alternate" hreflang="en" href="https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/"><link rel="alternate" hreflang="zh-CN" href="https://chenguangliang.com/posts/blog126_axios-supply-chain-attack/"><link rel="alternate" hreflang="x-default" href="https://chenguangliang.com/posts/blog126_axios-supply-chain-attack/"><meta name="generator" content="Astro v6.3.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours | Gerald Chen&#39;s Tech Blog</title><meta name="title" content="Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours | Gerald Chen's Tech Blog"><meta name="description" content="In March 2026, the axios npm package was hijacked by a North Korean state-level APT, planting a RAT into millions of developer environments within 3 hours. This post breaks down two separate but related incidents: the full supply-chain poisoning attack chain, and the technical mechanics and real-world exploitability debate around CVE-2026-40175 (CVSS 10.0)."><meta name="author" content="Gerald Chen"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="Gerald Chen's Tech Blog"><meta property="og:locale" content="en_US"><meta property="og:title" content="Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours | Gerald Chen's Tech Blog"><meta property="og:description" content="In March 2026, the axios npm package was hijacked by a North Korean state-level APT, planting a RAT into millions of developer environments within 3 hours. This post breaks down two separate but related incidents: the full supply-chain poisoning attack chain, and the technical mechanics and real-world exploitability debate around CVE-2026-40175 (CVSS 10.0)."><meta property="og:url" content="https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/"><meta property="og:image" content="https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-04-17T00:30:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/"><meta property="twitter:title" content="Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours | Gerald Chen's Tech Blog"><meta property="twitter:description" content="In March 2026, the axios npm package was hijacked by a North Korean state-level APT, planting a RAT into millions of developer environments within 3 hours. This post breaks down two separate but related incidents: the full supply-chain poisoning attack chain, and the technical mechanics and real-world exploitability debate around CVE-2026-40175 (CVSS 10.0)."><meta property="twitter:image" content="https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours | Gerald Chen's Tech Blog","image":"https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/index.png","datePublished":"2026-04-17T00:30:00.000Z","author":[{"@type":"Person","name":"Gerald Chen","url":"https://chenguangliang.com/"}],"publisher":{"@type":"Organization","name":"陈广亮的技术博客","url":"https://chenguangliang.com/","logo":{"@type":"ImageObject","url":"https://chenguangliang.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/"}}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Gerald Chen's Tech Blog" href="https://chenguangliang.com/en/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.D7KuxWck.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/_astro/PostDetails.BHms9FnV.css"><style>[data-astro-transition-scope="astro-pcwlacsx-1"] { view-transition-name: inside-the-axios-poisoning_3a-how-a-north-korean-apt-infected-millions-of-developer-environments-in-3-hours; }@layer astro { ::view-transition-old(inside-the-axios-poisoning_3a-how-a-north-korean-apt-infected-millions-of-developer-environments-in-3-hours) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(inside-the-axios-poisoning_3a-how-a-north-korean-apt-infected-millions-of-developer-environments-in-3-hours) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(inside-the-axios-poisoning_3a-how-a-north-korean-apt-infected-millions-of-developer-environments-in-3-hours) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(inside-the-axios-poisoning_3a-how-a-north-korean-apt-infected-millions-of-developer-environments-in-3-hours) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: \5B89\5168; }@layer astro { ::view-transition-old(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5B89\5168) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: ai-agent; }@layer astro { ::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: \524D\7AEF; }@layer astro { ::view-transition-old(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/en/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Gerald Chen&#39;s Tech Blog </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/en/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/en/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/en/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/en/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/en/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-2 flex items-center justify-center sm:col-span-1"> <a id="lang-toggle" href="/posts/blog126_axios-supply-chain-attack/" data-target-lang="zh" title="切换到中文" aria-label="切换到中文" class="focus-outline whitespace-nowrap p-3 font-medium hover:text-accent sm:p-1 sm:text-sm"> 中文 </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const a=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",a?"false":"true"),e.setAttribute("aria-label",a?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}c();function r(){const e=document.querySelector("#lang-toggle");e?.addEventListener("click",()=>{const t=e.dataset.targetLang;t&&(document.cookie=`preferred_lang=${t}; path=/; max-age=31536000; SameSite=Lax`)})}r();document.addEventListener("astro:after-swap",()=>{c(),r()});</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body data-astro-cid-vj4tpspi> <div class="post-layout" data-astro-cid-vj4tpspi> <div class="post-content" data-astro-cid-vj4tpspi> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-cid-vj4tpspi data-astro-transition-scope="astro-pcwlacsx-1"> Inside the Axios Poisoning: How a North Korean APT Infected Millions of Developer Environments in 3 Hours </h1> <div class="my-2 flex items-center gap-2" data-astro-cid-vj4tpspi> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-04-17T00:30:00.000Z">17 Apr, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden" data-astro-cid-vj4tpspi>|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)" data-astro-cid-vj4tpspi> <p>In the early hours of March 31, 2026, an npm package downloaded over 100 million times a week spread a remote access trojan (RAT) within 3 hours. The victims were developers and CI/CD pipelines running <code>npm install</code> worldwide. This isn’t a hypothetical scenario. It already happened.</p>
+<p>The package is <code>axios</code>.</p>
+<hr>
+<h2 id="two-incidents-one-time-window">Two Incidents, One Time Window</h2>
+<p>Before unpacking what happened, you need to separate two distinct events that the media blurred together:</p>
+<p><strong>Incident 1: Supply-chain poisoning (2026-03-31)</strong>
+Attackers hijacked the maintainer’s npm account and published <code>axios@1.14.1</code> and <code>axios@0.30.4</code> containing a RAT.</p>
+<p><strong>Incident 2: CVE-2026-40175 (disclosed 2026-04-10)</strong>
+A separate code-level vulnerability disclosed amid the high attention on the poisoning incident, scored CVSS 10.0, but with disputed real-world exploitability.</p>
+<p>These two events happened to erupt in the same window, amplifying the overall impact and complicating the response. This post takes them apart one at a time.</p>
+<hr>
+<h2 id="incident-1-supply-chain-poisoning">Incident 1: Supply-Chain Poisoning</h2>
+<h3 id="who-was-behind-it">Who Was Behind It</h3>
+<p>Microsoft Threat Intelligence attributed the attack to <strong>Sapphire Sleet</strong>, while Google Threat Intelligence calls it <strong>UNC1069</strong> — both are different names for the same North Korean state-level APT group. While analyzing the macOS payload, Elastic Security Labs found “significant overlap” with the known North Korean WAVESHAPER backdoor.</p>
+<p>This wasn’t an isolated event. SANS research shows that from 2026-03-19 to 03-27, the same group (internally known as TeamPCP) had already attacked 4 open-source projects back to back: Trivy, KICS, LiteLLM, and Telnyx. axios was the 5th target — and the one with the largest blast radius.</p>
+<h3 id="step-one-staging">Step One: Staging</h3>
+<p>The attackers didn’t modify axios source code directly. Their approach was more subtle: they injected a dependency that had never appeared in any historical axios version — <code>plain-crypto-js@4.2.1</code> — into <code>package.json</code>, then used npm’s <code>postinstall</code> hook to automatically run malicious code at install time.</p>
+<p>The timeline shows the attackers staged everything 24 hours in advance:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>2026-03-30 05:57 UTC  — plain-crypto-js@4.2.0 published (clean decoy version)</span></span>
+<span class="line"><span>2026-03-30 23:59 UTC  — plain-crypto-js@4.2.1 published (malicious postinstall)</span></span>
+<span class="line"><span>2026-03-31 00:21 UTC  — axios@1.14.1 published (depends on the malicious package above)</span></span>
+<span class="line"><span>2026-03-31 01:00 UTC  — axios@0.30.4 published (legacy branch, 39 minutes later)</span></span>
+<span class="line"><span>2026-03-31 ~03:15 UTC — npm pulled both malicious versions</span></span></code></pre>
+<p>Publishing a clean version first gave the <code>plain-crypto-js</code> account some history, dodging npm’s automated alerts on brand-new accounts. This detail shows the attackers had deep knowledge of npm’s security mechanisms.</p>
+<p>As for how they got hold of axios maintainer jasonsaayman’s npm account: legitimate releases use the GitHub Actions OIDC trusted publishing mechanism (cryptographically bound to the GitHub Actions workflow), whereas the malicious versions were published manually with a classic access token, and the account’s bound email had been changed to <code>ifstap@proton.me</code> before the attack. Social engineering or credential theft — there’s no publicly confirmed conclusion yet.</p>
+<h3 id="step-two-the-dropper">Step Two: The Dropper</h3>
+<p>The <code>postinstall</code> hook of <code>plain-crypto-js@4.2.1</code> runs <code>node setup.js</code>. This file uses two layers of obfuscation:</p>
+<ul>
+<li><strong>Layer one</strong>: string reversal + Base64 decoding</li>
+<li><strong>Layer two</strong>: XOR encryption, key <code>OrDeR_7077</code>, using a position-dependent index of <code>7 × i² % 10</code></li>
+</ul>
+<p>Once decoded, the script detects the current OS (<code>process.platform</code>) and sends an HTTP POST to the C2 server <code>sfrclak.com:8000</code> to download the platform-specific Stage 2 payload.</p>
+<p>After it finishes, the script deletes itself (<code>fs.unlink()</code> removes its own file) and replaces the malicious <code>package.json</code> with a clean stub disguised as <code>4.2.0</code>. This makes the version reported by <code>npm list</code> and <code>npm audit</code> differ from reality, effectively muddying any post-incident forensics.</p>
+<h3 id="step-three-platform-specific-rat">Step Three: Platform-Specific RAT</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Platform</th><th>Implementation</th><th>Drop Path</th></tr></thead><tbody><tr><td>macOS</td><td>C++ (Mach-O binary)</td><td><code>/Library/Caches/com.apple.act.mond</code></td></tr><tr><td>Windows</td><td>PowerShell</td><td><code>%TEMP%\6202033.ps1</code>, executed by a VBScript loader</td></tr><tr><td>Linux</td><td>Python</td><td><code>/tmp/ld.py</code></td></tr></tbody></table>
+<p>The RAT across all three platforms uses the same communication protocol: HTTP POST with a Base64-encoded JSON body, a 60-second heartbeat, and support for <code>kill</code>, <code>peinject</code> (process injection), <code>runscript</code>, and <code>rundir</code> commands.</p>
+<p>One detail is worth noting: the User-Agent is faked as <code>"mozilla/4.0 (compatible; msie 8.0; windows nt 5.1; trident/4.0)"</code> — IE8 + Windows XP. In 2026 network traffic, this UA would instantly trip any halfway-decent EDR alert. Either it’s an oversight by the attackers, or they figured their targets (developer workstations and CI servers) mostly lack traffic-layer detection.</p>
+<p>After the RAT establishes a connection, the first thing it does is send a <code>FirstInfo</code> message containing: hostname, username, OS version, timezone, hardware model, CPU type, the full process list (up to 1000 processes on macOS), and <strong>all environment variables</strong>.</p>
+<p>That last item is the core objective. Environment variables on developer workstations and in CI/CD environments typically contain:</p>
+<ul>
+<li>npm tokens (usable to publish malicious packages)</li>
+<li>AWS/GCP/Azure credentials (<code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>)</li>
+<li>Kubernetes configs</li>
+<li>database passwords</li>
+<li>assorted API keys</li>
+</ul>
+<p>North Korean APT campaigns typically target cryptocurrency and tech companies. A developer workstation holding AWS credentials is worth far more than the machine itself.</p>
+<h3 id="actual-blast-radius">Actual Blast Radius</h3>
+<ul>
+<li><strong>axios weekly downloads</strong>: over 100 million</li>
+<li><strong>npm packages depending on axios</strong>: over 174,000</li>
+<li><strong>lifetime of the malicious versions</strong>: about 3 hours</li>
+<li><strong>affected vector</strong>: developer machines and CI/CD pipelines using floating version constraints like <code>^1.13.6</code> or <code>^0.29.0</code> that ran <code>npm install</code> during the attack window</li>
+<li><strong>not affected</strong>: browser/CDN users (the postinstall hook doesn’t run in the browser)</li>
+</ul>
+<p>Unit 42 confirmed affected industries spread across the US, Europe, the Middle East, South Asia, and Australia, covering finance, high tech, healthcare, retail, insurance, and more.</p>
+<h3 id="if-your-machine-got-infected">If Your Machine Got Infected</h3>
+<p><strong>Rebuild it. Don’t repair it.</strong></p>
+<p>If, between 2026-03-31 00:21–03:15 UTC, your machine or CI pipeline ran <code>npm install</code> and pulled in <code>axios@1.14.1</code> or <code>axios@0.30.4</code>, you should:</p>
+<ol>
+<li>Treat the machine as fully compromised and take it offline immediately</li>
+<li>Reformat and rebuild from a known-clean image</li>
+<li>Rotate every credential that ever existed on that machine: npm tokens, SSH keys, AWS/GCP/Azure keys, all API keys</li>
+<li>Block the C2 at the network layer: <code>sfrclak.com</code> and <code>142.11.206.73:8000</code></li>
+</ol>
+<p><strong>Do not just uninstall the package.</strong> The Stage 2 RAT has already dropped and persisted; removing axios won’t remove it.</p>
+<p>Quick check commands:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Check whether a malicious version was ever installed</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npm</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> list</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> axios</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -E</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">1\.14\.1|0\.30\.4</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># macOS: check for the RAT drop file</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -la</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /Library/Caches/com.apple.act.mond</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> 2></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/dev/null</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Windows: check for drop files</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">dir</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">%PROGRAMDATA%\wt.exe</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> 2></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">nul</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">dir</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">%TEMP%\6202033.ps1</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> 2></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">nul</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Linux: check for the drop file</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ls</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -la</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /tmp/ld.py</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> 2></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">/dev/null</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Check for suspicious network connections</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># macOS/Linux</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">lsof</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -i</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> sfrclak</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Check DNS resolution history (macOS)</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">log</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> show</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --last</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 7d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> grep</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> sfrclak</span></span></code></pre>
+<hr>
+<h2 id="incident-2-cve-2026-40175-cvss-100">Incident 2: CVE-2026-40175 (CVSS 10.0)</h2>
+<p>This is a separate code-level vulnerability found and disclosed under the spotlight of the supply-chain incident. Its CVSS base score is 10.0, but its real-world exploitability is far more complicated than the number suggests.</p>
+<h3 id="how-the-vulnerability-works">How the Vulnerability Works</h3>
+<p>When merging HTTP request headers in <code>lib/adapters/http.js</code>, Axios doesn’t validate header values for CRLF (<code>\r\n</code>) characters. On its own, this is an HTTP header injection (CWE-113) vulnerability.</p>
+<p>But to exploit it all the way to “stealing AWS credentials,” three conditions must hold simultaneously:</p>
+<p><strong>Condition one: a prototype pollution vulnerability in the dependency tree</strong></p>
+<p>The attacker needs to find a library your app depends on indirectly (such as <code>qs</code>, <code>minimist</code>, <code>ini</code>, or <code>body-parser</code>) that has a prototype pollution vulnerability, allowing arbitrary properties to be injected onto <code>Object.prototype</code>.</p>
+<p><strong>Condition two: Axios inherits the polluted property as a request header</strong></p>
+<p>When merging request configs, Axios iterates over object properties and inadvertently inherits the malicious header property injected onto <code>Object.prototype</code> (e.g. <code>X-aws-ec2-metadata-token-ttl-seconds: 21600\r\n</code>). With no CRLF validation, this value is passed verbatim to the underlying HTTP library.</p>
+<p><strong>Condition three: CRLF splits the request, smuggling it to IMDS</strong></p>
+<p>A header value containing CRLF splits one HTTP request into two (HTTP request smuggling, CWE-444), one of which is quietly redirected to the AWS EC2 Instance Metadata Service (<code>169.254.169.254</code>). By injecting the <code>X-aws-ec2-metadata-token-ttl-seconds</code> header, it bypasses IMDSv2’s token protection and ultimately obtains the temporary IAM credentials bound to the EC2 instance.</p>
+<p>The full attack chain:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Prototype pollution in an upstream dependency</span></span>
+<span class="line"><span>  → Object.prototype gets injected with a malicious header value containing \r\n</span></span>
+<span class="line"><span>    → Axios inherits it as a request header with no validation</span></span>
+<span class="line"><span>      → the HTTP request is split by CRLF (request smuggling)</span></span>
+<span class="line"><span>        → the smuggled request makes an SSRF call to 169.254.169.254</span></span>
+<span class="line"><span>          → bypasses the IMDSv2 token mechanism</span></span>
+<span class="line"><span>            → obtains EC2 IAM credentials → cloud environment compromised</span></span></code></pre>
+<h3 id="the-exploitability-debate">The Exploitability Debate</h3>
+<p>After the CVSS 10.0 score landed, Aikido Security published a rebuttal analysis on 2026-04-14, with one core argument:</p>
+<p><strong>The Node.js runtime blocks this attack chain at a lower level.</strong></p>
+<p>Before sending an HTTP request, Node.js has built-in header value validation. If a header value contains <code>\r\n</code> characters, Node.js throws <code>TypeError [ERR_INVALID_CHAR]: Invalid character in header content</code> before it ever reaches the network layer, blocking it outright.</p>
+<p>Even more persuasive: the vulnerability reporter, Raul Vega Del Valle, confirmed himself that “in a real app… this shouldn’t happen… Node, Bun, or Deno would all block the CRLF.”</p>
+<p>So where does the CVSS 10.0 come from? The score is based on the vulnerability’s theoretical impact at the library level, without fully accounting for the Node.js runtime’s compensating controls. This isn’t unusual in security research — CVSS describes a vulnerability’s potential maximum impact, not its actual exploitability in a specific runtime environment.</p>
+<p><strong>Scenarios that still carry risk</strong>: applications using a custom Axios adapter (bypassing the Node.js HTTP client to write raw sockets directly) remain at theoretical risk. That said, this is a very rare configuration.</p>
+<p><strong>Bottom line</strong>: upgrade to <code>axios@1.15.0</code> (the 1.x branch) or <code>axios@0.31.0</code> (the 0.x branch) to fix this vulnerability. But there’s no need to trigger a top-tier incident response just because of the CVSS 10.0 — in a standard Node.js environment, actual exploitation is extremely difficult.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Upgrade command</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npm</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> axios@latest</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Or pin a specific version</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npm</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> axios@1.15.0</span></span></code></pre>
+<hr>
+<h2 id="what-structural-problems-this-incident-exposed">What Structural Problems This Incident Exposed</h2>
+<h3 id="1-single-maintainer-risk">1. Single-Maintainer Risk</h3>
+<p>axios is a Top 10 package on npm by downloads, yet for a long time it had only one active maintainer: jasonsaayman. A single npm account compromised by social engineering or credential theft was enough to spread a RAT to millions of environments.</p>
+<p>This isn’t jasonsaayman’s fault. It’s a structural problem in the open-source ecosystem: the most critical infrastructure often depends on volunteer maintainers, and those maintainers can’t possibly match the protection level of a dedicated security team.</p>
+<h3 id="2-the-postinstall-hook-is-a-high-risk-attack-surface">2. The <code>postinstall</code> Hook Is a High-Risk Attack Surface</h3>
+<p>npm’s <code>postinstall</code> hook automatically runs arbitrary code during <code>npm install</code>, with no user confirmation. This mechanism makes the cost of landing a supply-chain attack extremely low — the attacker only needs to control the publish rights of one dependency.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># Production and CI/CD should standardize on this flag</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">npm</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ci</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> --ignore-scripts</span></span></code></pre>
+<p><code>--ignore-scripts</code> skips all lifecycle hooks. The cost is that some packages requiring native module compilation will fail to install, but for the vast majority of pure-JS dependencies, this is a low-cost defense.</p>
+<h3 id="3-floating-version-constraints-amplified-the-impact">3. Floating Version Constraints Amplified the Impact</h3>
+<p><code>"axios": "^1.13.6"</code> means <code>npm install</code> will automatically pull the latest version within the semver-compatible range, including <code>1.14.1</code>. With the attack window being only 3 hours, if your <code>package-lock.json</code> had already pinned an older version, <code>npm ci</code> would be unaffected. But if you used <code>npm install</code>, or ran <code>npm update</code> during those 3 hours, you got hit.</p>
+<h3 id="4-credentials-shouldnt-be-stored-in-plaintext-environment-variables">4. Credentials Shouldn’t Be Stored in Plaintext Environment Variables</h3>
+<p>One of this attack’s core objectives was to steal environment variables. Developer workstations and CI/CD systems are full of <code>export AWS_SECRET_ACCESS_KEY=...</code>. This is common industry practice — and exactly the harvest scenario supply-chain attacks love most.</p>
+<p>Safer alternatives: AWS IAM Roles (no credentials needed on EC2/Lambda), GitHub OIDC (Actions assume an IAM Role directly, no static keys), and HashiCorp Vault or AWS Secrets Manager for managing sensitive credentials.</p>
+<hr>
+<h2 id="checklist">Checklist</h2>
+<p><strong>Act now</strong>:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Check <code>package.json</code> and <code>package-lock.json</code> to confirm you’re on <code>axios@1.14.0</code> or <code>axios@1.15.0+</code>, not <code>1.14.1</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> If any machine ran <code>npm install</code> during 2026-03-31 00:21–03:15 UTC, check the IoCs above</li>
+<li class="task-list-item"><input type="checkbox" disabled> Upgrade to <code>axios@1.15.0</code> to fix CVE-2026-40175</li>
+</ul>
+<p><strong>Process improvements</strong>:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Switch CI/CD pipelines to <code>npm ci --ignore-scripts</code></li>
+<li class="task-list-item"><input type="checkbox" disabled> Move sensitive credentials to a Secrets Manager; don’t leave them in plaintext environment variables</li>
+<li class="task-list-item"><input type="checkbox" disabled> Consider pinning critical dependencies to exact versions (<code>"axios": "1.15.0"</code> instead of <code>"^1.15.0"</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled> Evaluate whether to add <code>npm audit --audit-level=critical</code> to your CI flow</li>
+</ul>
+<p><strong>IoC quick reference</strong>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Type</th><th>Value</th></tr></thead><tbody><tr><td>Malicious axios versions</td><td><code>1.14.1</code>, <code>0.30.4</code></td></tr><tr><td>Malicious dependency</td><td><code>plain-crypto-js@4.2.1</code></td></tr><tr><td>C2 domain</td><td><code>sfrclak.com</code></td></tr><tr><td>C2 IP</td><td><code>142.11.206.73:8000</code></td></tr><tr><td>macOS drop file</td><td><code>/Library/Caches/com.apple.act.mond</code></td></tr><tr><td>Windows drop files</td><td><code>%PROGRAMDATA%\wt.exe</code>, <code>%TEMP%\6202033.ps1</code></td></tr><tr><td>Linux drop file</td><td><code>/tmp/ld.py</code></td></tr><tr><td>Network detection signature</td><td>User-Agent containing <code>msie 8.0; windows nt 5.1</code></td></tr></tbody></table>
+<hr>
+<p>The frightening thing about the axios poisoning isn’t how technically sophisticated it was — it’s how fragile it revealed the modern development toolchain to be: one hijacked maintainer account, one <code>postinstall</code> hook, 3 hours, millions of environments. The luck the attackers needed was far less than we’d like to believe.</p>
+<blockquote>
+<p>This post is a synthesis of public reports from Elastic Security Labs, StepSecurity, Aikido Security, and the Microsoft Security Blog. All IoCs and technical details come from those sources.</p>
+</blockquote>
+<p><strong>Further reading</strong>:</p>
+<ul>
+<li><a href="https://www.elastic.co/security-labs/axios-one-rat-to-rule-them-all">Elastic Security Labs: Full technical analysis of the axios poisoning</a></li>
+<li><a href="https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan">StepSecurity: Detailed supply-chain attack report</a></li>
+<li><a href="https://www.aikido.dev/blog/axios-cve-2026-40175-a-critical-bug-thats-not-exploitable">Aikido Security: Real-world exploitability analysis of CVE-2026-40175</a></li>
+<li><a href="https://www.microsoft.com/en-us/security/blog/2026/04/01/mitigating-the-axios-npm-supply-chain-compromise/">Microsoft Security Blog: Sapphire Sleet attribution and mitigation guide</a></li>
+</ul> </article> <section class="related-posts" data-pagefind-ignore data-astro-cid-dpgbfi7r><h2 class="related-title" data-astro-cid-dpgbfi7r>Related Posts</h2><ul class="related-list" data-astro-cid-dpgbfi7r><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog175_claude-code-trading-bot-dogfooding" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Letting Claude Code Touch My Real-Money Trading Code: The Lines I Refused to Cross</span><span class="related-desc" data-astro-cid-dpgbfi7r>I&#39;ve spent 10 months using Claude Code on a real-money futures trading project. This is an honest retrospective: the AI never touched the money directly (I&#39;m not that bold), but it did write code on the critical order/stop-loss/close-position paths. Here are the boundaries I held, where AI genuinely helped, and the moments I had to take over.</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog169_electron-credential-storage-security" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Cracking Open the Electron safeStorage Black Box: AES-128-CBC, a Hardcoded IV, and the Things Nobody Tells You</span><span class="related-desc" data-astro-cid-dpgbfi7r>safeStorage is Electron&#39;s recommended API for storing secrets, but its implementation details are rarely discussed. This post cracks open the source: roughly 100 lines of C++ wrapping Chromium&#39;s OSCrypt, AES-128-CBC, an IV hardcoded to 16 spaces, and PBKDF2 with a single iteration. Paired with real cases — VS Code credentials read directly by extensions, VoidStealer grabbing the master key with a hardware breakpoint — it ends with a threat-model-based storage decision table.</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog165_oauth-supply-chain-defense-checklist" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>AI Tooling Supply Chain Security Checklist: 8 Defense Principles Distilled from the Vercel and Nx Console Incidents</span><span class="related-desc" data-astro-cid-dpgbfi7r>Neither the Vercel breach nor the Nx Console incident was a protocol vulnerability—both were credential governance failures. This post distills these two AI tooling supply chain attacks into 8 defense principles plus a 1-hour audit checklist, covering OAuth least privilege, secret tiering, managed device isolation, and IDE extension credential isolation—a security playbook indie developers and small teams can act on immediately.</span></a></li></ul></section> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/安全/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 安全 </a> </li><li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/前端/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 前端 </a> </li> </ul> <div class="appreciation-wrapper" data-pagefind-ignore data-astro-cid-iocheen3> <button id="appreciation-toggle" class="appreciation-btn" data-astro-cid-iocheen3> ☕ Found this helpful? Buy me a coffee </button> <!-- 遮罩 + 弹窗 --> <div id="appreciation-overlay" class="appreciation-overlay" hidden data-astro-cid-iocheen3> <div class="appreciation-modal" data-astro-cid-iocheen3> <button id="appreciation-close" class="modal-close" aria-label="Close" data-astro-cid-iocheen3>&times;</button> <div class="modal-icon" data-astro-cid-iocheen3>◇</div> <h3 class="modal-title" data-astro-cid-iocheen3>Buy me a coffee ☕</h3> <p class="modal-subtitle" data-astro-cid-iocheen3>If this article helped you</p> <img src="/assets/eth-reward.jpg" alt="Ethereum Donation QR Code" class="modal-qr" loading="lazy" data-astro-cid-iocheen3> <code class="modal-address" id="eth-address" data-astro-cid-iocheen3>0x320B48341e92D120276ff960F347EAe840bd4d6D</code> <button id="copy-address" class="copy-btn" data-label-copy="Copy address" data-label-copied="Copied ✓" data-astro-cid-iocheen3> Copy address </button> <p class="modal-note" data-astro-cid-iocheen3>ETH / ERC-20 tokens supported</p> </div> </div> </div>  <script>
+  function initAppreciation() {
+    var toggle = document.getElementById('appreciation-toggle');
+    var overlay = document.getElementById('appreciation-overlay');
+    var closeBtn = document.getElementById('appreciation-close');
+    var copyBtn = document.getElementById('copy-address');
+    var addr = document.getElementById('eth-address');
+
+    if (!toggle || toggle._bound) return;
+    toggle._bound = true;
+
+    function open() { if (overlay) overlay.hidden = false; }
+    function close() { if (overlay) overlay.hidden = true; }
+
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
+    });
+
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(addr.textContent).then(function() {
+          copyBtn.textContent = copyBtn.dataset.labelCopied;
+          setTimeout(function() { copyBtn.textContent = copyBtn.dataset.labelCopy; }, 1500);
+        });
+      });
+    }
+  }
+  initAppreciation();
+  document.addEventListener('astro:page-load', initAppreciation);
+</script> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/en/posts/blog126_axios-supply-chain-attack/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed" data-astro-cid-vj4tpspi> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-astro-cid-vj4tpspi> <a href="/en/posts/blog134_claude-code-env-vars-guide" class="flex w-full gap-1 hover:opacity-75" data-astro-cid-vj4tpspi> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Previous Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>Two Claude Code Environment Variables You&#39;ve Probably Never Used: EFFORT_LEVEL and ADDITIONAL_DIRECTORIES_CLAUDE_MD</div> </div> </a> <a href="/en/posts/blog129_ai-agent-security-governance" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2" data-astro-cid-vj4tpspi> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Next Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>The AI Agent Security Landscape: From the ClawHavoc Poisoning to Cisco DefenseClaw and Microsoft&#39;s Governance Toolkit</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </div> <!-- Table of Contents Sidebar --> <div class="post-sidebar" data-astro-cid-vj4tpspi> <aside class="toc-container" data-astro-cid-xvrfupwn><div class="toc-wrapper" data-astro-cid-xvrfupwn><h2 class="toc-title" data-astro-cid-xvrfupwn>Table of Contents</h2><nav class="toc-nav" data-astro-cid-xvrfupwn><ul class="toc-list" data-astro-cid-xvrfupwn><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#two-incidents-one-time-window" class="toc-link" data-heading-id="two-incidents-one-time-window" data-astro-cid-xvrfupwn>Two Incidents, One Time Window</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#incident-1-supply-chain-poisoning" class="toc-link" data-heading-id="incident-1-supply-chain-poisoning" data-astro-cid-xvrfupwn>Incident 1: Supply-Chain Poisoning</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#who-was-behind-it" class="toc-link" data-heading-id="who-was-behind-it" data-astro-cid-xvrfupwn>Who Was Behind It</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#step-one-staging" class="toc-link" data-heading-id="step-one-staging" data-astro-cid-xvrfupwn>Step One: Staging</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#step-two-the-dropper" class="toc-link" data-heading-id="step-two-the-dropper" data-astro-cid-xvrfupwn>Step Two: The Dropper</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#step-three-platform-specific-rat" class="toc-link" data-heading-id="step-three-platform-specific-rat" data-astro-cid-xvrfupwn>Step Three: Platform-Specific RAT</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#actual-blast-radius" class="toc-link" data-heading-id="actual-blast-radius" data-astro-cid-xvrfupwn>Actual Blast Radius</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#if-your-machine-got-infected" class="toc-link" data-heading-id="if-your-machine-got-infected" data-astro-cid-xvrfupwn>If Your Machine Got Infected</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#incident-2-cve-2026-40175-cvss-100" class="toc-link" data-heading-id="incident-2-cve-2026-40175-cvss-100" data-astro-cid-xvrfupwn>Incident 2: CVE-2026-40175 (CVSS 10.0)</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#how-the-vulnerability-works" class="toc-link" data-heading-id="how-the-vulnerability-works" data-astro-cid-xvrfupwn>How the Vulnerability Works</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#the-exploitability-debate" class="toc-link" data-heading-id="the-exploitability-debate" data-astro-cid-xvrfupwn>The Exploitability Debate</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#what-structural-problems-this-incident-exposed" class="toc-link" data-heading-id="what-structural-problems-this-incident-exposed" data-astro-cid-xvrfupwn>What Structural Problems This Incident Exposed</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-single-maintainer-risk" class="toc-link" data-heading-id="1-single-maintainer-risk" data-astro-cid-xvrfupwn>1. Single-Maintainer Risk</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-the-postinstall-hook-is-a-high-risk-attack-surface" class="toc-link" data-heading-id="2-the-postinstall-hook-is-a-high-risk-attack-surface" data-astro-cid-xvrfupwn>2. The postinstall Hook Is a High-Risk Attack Surface</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-floating-version-constraints-amplified-the-impact" class="toc-link" data-heading-id="3-floating-version-constraints-amplified-the-impact" data-astro-cid-xvrfupwn>3. Floating Version Constraints Amplified the Impact</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-credentials-shouldnt-be-stored-in-plaintext-environment-variables" class="toc-link" data-heading-id="4-credentials-shouldnt-be-stored-in-plaintext-environment-variables" data-astro-cid-xvrfupwn>4. Credentials Shouldn’t Be Stored in Plaintext Environment Variables</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#checklist" class="toc-link" data-heading-id="checklist" data-astro-cid-xvrfupwn>Checklist</a></li></ul></nav></div></aside><script type="module">function l(){const o=document.querySelectorAll(".toc-link"),c=document.querySelectorAll("h2[id], h3[id]");if(o.length===0||c.length===0)return;function s(){let e=null;const r=window.scrollY+100;c.forEach(t=>{const n=t.offsetTop;r>=n&&(e=t)}),o.forEach(t=>{t.classList.remove("active"),e&&t.getAttribute("data-heading-id")===e.id&&t.classList.add("active")})}o.forEach(e=>{e.addEventListener("click",r=>{r.preventDefault();const t=e.getAttribute("href")?.slice(1);if(t){const n=document.getElementById(t);n&&(n.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,"",`#${t}`))}})});let i=!1;window.addEventListener("scroll",()=>{i||(window.requestAnimationFrame(()=>{s(),i=!1}),i=!0)}),s()}document.addEventListener("DOMContentLoaded",l);document.addEventListener("astro:page-load",l);</script> </div> </div> </main> <footer class="app-layout mt-auto" data-astro-cid-vj4tpspi="true"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/en/privacy-policy/" class="hover:text-accent underline decoration-dashed underline-offset-4">Privacy Policy</a> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/en/contact/" class="hover:text-accent underline decoration-dashed underline-offset-4">Contact</a> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html>  <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>

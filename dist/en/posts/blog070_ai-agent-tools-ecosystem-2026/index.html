@@ -1,0 +1,1165 @@
+<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><!-- Google AdSense --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237239169922070" crossorigin="anonymous"></script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/"><link rel="alternate" hreflang="en" href="https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/"><link rel="alternate" hreflang="zh-CN" href="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/"><link rel="alternate" hreflang="x-default" href="https://chenguangliang.com/posts/blog070_ai-agent-tools-ecosystem-2026/"><meta name="generator" content="Astro v6.3.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape | Gerald Chen&#39;s Tech Blog</title><meta name="title" content="The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape | Gerald Chen's Tech Blog"><meta name="description" content="From Claude Code CLI to OpenClaw: how AI agent configuration systems evolved, seen through the 35.6k-star everything-claude-code project. A deep dive into Skills, Hooks, and Rules, plus a practical guide to porting configs across tools."><meta name="author" content="Gerald Chen"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="Gerald Chen's Tech Blog"><meta property="og:locale" content="en_US"><meta property="og:title" content="The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape | Gerald Chen's Tech Blog"><meta property="og:description" content="From Claude Code CLI to OpenClaw: how AI agent configuration systems evolved, seen through the 35.6k-star everything-claude-code project. A deep dive into Skills, Hooks, and Rules, plus a practical guide to porting configs across tools."><meta property="og:url" content="https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/"><meta property="og:image" content="https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-02-18T12:30:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/"><meta property="twitter:title" content="The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape | Gerald Chen's Tech Blog"><meta property="twitter:description" content="From Claude Code CLI to OpenClaw: how AI agent configuration systems evolved, seen through the 35.6k-star everything-claude-code project. A deep dive into Skills, Hooks, and Rules, plus a practical guide to porting configs across tools."><meta property="twitter:image" content="https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape | Gerald Chen's Tech Blog","image":"https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/index.png","datePublished":"2026-02-18T12:30:00.000Z","author":[{"@type":"Person","name":"Gerald Chen","url":"https://chenguangliang.com/"}],"publisher":{"@type":"Organization","name":"陈广亮的技术博客","url":"https://chenguangliang.com/","logo":{"@type":"ImageObject","url":"https://chenguangliang.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/"}}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Gerald Chen's Tech Blog" href="https://chenguangliang.com/en/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.D7KuxWck.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style>
+<link rel="stylesheet" href="/_astro/PostDetails.BHms9FnV.css"><style>[data-astro-transition-scope="astro-pcwlacsx-1"] { view-transition-name: the-ai-agent-development-tools-ecosystem-in-2026_3a-a-complete-landscape; }@layer astro { ::view-transition-old(the-ai-agent-development-tools-ecosystem-in-2026_3a-a-complete-landscape) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(the-ai-agent-development-tools-ecosystem-in-2026_3a-a-complete-landscape) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(the-ai-agent-development-tools-ecosystem-in-2026_3a-a-complete-landscape) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(the-ai-agent-development-tools-ecosystem-in-2026_3a-a-complete-landscape) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai-agent; }@layer astro { ::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: claude-code; }@layer astro { ::view-transition-old(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: openclaw; }@layer astro { ::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(openclaw) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: cursor; }@layer astro { ::view-transition-old(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(cursor) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-6"] { view-transition-name: \5F00\53D1\5DE5\5177; }@layer astro { ::view-transition-old(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5F00\53D1\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-6"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-6"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-7"] { view-transition-name: \6700\4F73\5B9E\8DF5; }@layer astro { ::view-transition-old(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\6700\4F73\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-7"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-7"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/en/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Gerald Chen&#39;s Tech Blog </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/en/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/en/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/en/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/en/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/en/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-2 flex items-center justify-center sm:col-span-1"> <a id="lang-toggle" href="/posts/blog070_ai-agent-tools-ecosystem-2026/" data-target-lang="zh" title="切换到中文" aria-label="切换到中文" class="focus-outline whitespace-nowrap p-3 font-medium hover:text-accent sm:p-1 sm:text-sm"> 中文 </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const a=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",a?"false":"true"),e.setAttribute("aria-label",a?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}c();function r(){const e=document.querySelector("#lang-toggle");e?.addEventListener("click",()=>{const t=e.dataset.targetLang;t&&(document.cookie=`preferred_lang=${t}; path=/; max-age=31536000; SameSite=Lax`)})}r();document.addEventListener("astro:after-swap",()=>{c(),r()});</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body data-astro-cid-vj4tpspi> <div class="post-layout" data-astro-cid-vj4tpspi> <div class="post-content" data-astro-cid-vj4tpspi> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-cid-vj4tpspi data-astro-transition-scope="astro-pcwlacsx-1"> The AI Agent Development Tools Ecosystem in 2026: A Complete Landscape </h1> <div class="my-2 flex items-center gap-2" data-astro-cid-vj4tpspi> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-02-18T12:30:00.000Z">18 Feb, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden" data-astro-cid-vj4tpspi>|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)" data-astro-cid-vj4tpspi> <h2 id="introduction">Introduction</h2>
+<p>In early 2026, the AI agent development tools ecosystem is going through explosive growth. Claude Code CLI, OpenClaw, and Cursor each occupy their own niche, while community-driven configuration projects like everything-claude-code have racked up 35.6k+ stars and become essential references for developers looking to get more out of AI assistance.</p>
+<p>But this ecosystem also breeds confusion: <strong>What fundamentally separates these tools? How do you pick one? Can configurations carry over between them?</strong></p>
+<p>This post compares the three mainstream tools in depth, breaks down the configuration system behind everything-claude-code, and offers a practical guide to borrowing ideas across tools.</p>
+<hr>
+<h2 id="1-three-flavors-of-ai-agent-tooling">1. Three Flavors of AI Agent Tooling</h2>
+<h3 id="1-claude-code-cli-a-minimal-tool-focused-on-code">1. Claude Code CLI: A Minimal Tool Focused on Code</h3>
+<p><strong>Positioning</strong>: Anthropic’s official terminal-based AI coding partner.</p>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li><strong>Use it and leave</strong>: no session memory; every conversation is independent</li>
+<li><strong>Single model family</strong>: Claude only (Sonnet/Opus/Haiku)</li>
+<li><strong>Coding-focused</strong>: the toolset is limited to file read/write, shell execution, and Git operations</li>
+</ul>
+<p><strong>Best for</strong>:</p>
+<ul>
+<li>Rapid prototyping</li>
+<li>One-off code generation tasks</li>
+<li>Standalone problems that don’t need accumulated context</li>
+</ul>
+<p><strong>Key configuration files</strong>:</p>
+<ul>
+<li><code>~/.claude/settings.json</code>: global settings</li>
+<li><code>.claude/CLAUDE.md</code>: project-level prompt</li>
+<li><code>.claude/agents/*.md</code>: subagent definitions</li>
+<li><code>.claude/skills/*/SKILL.md</code>: skill definitions</li>
+</ul>
+<h3 id="2-openclaw-a-247-all-purpose-personal-assistant">2. OpenClaw: A 24/7 All-Purpose Personal Assistant</h3>
+<p><strong>Positioning</strong>: an all-purpose AI assistant you interact with through chat apps (Telegram/Discord/Slack, etc.).</p>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li><strong>Always on</strong>: runs 24/7, with support for scheduled tasks and heartbeat checks</li>
+<li><strong>Long-term memory</strong>: maintains MEMORY.md plus daily logs</li>
+<li><strong>Multi-model</strong>: can switch between Claude, GPT, Gemini, and more</li>
+<li><strong>Full-scenario coverage</strong>: not just coding — email, calendar, notifications, documents, and beyond</li>
+</ul>
+<p><strong>Best for</strong>:</p>
+<ul>
+<li>Long-running projects that need cross-session memory</li>
+<li>Managing multiple tasks in parallel (code + email + calendar)</li>
+<li>Bot assistants in team collaboration</li>
+</ul>
+<p><strong>Key configuration files</strong>:</p>
+<ul>
+<li><code>~/.openclaw/workspace-*/AGENTS.md</code>: role definition</li>
+<li><code>~/.openclaw/workspace-*/SOUL.md</code>: personality settings</li>
+<li><code>~/.openclaw/workspace-*/TOOLS.md</code>: tool usage notes</li>
+<li><code>~/.openclaw/workspace-*/MEMORY.md</code>: long-term memory (main session only)</li>
+</ul>
+<h3 id="3-cursor-an-ai-native-ide">3. Cursor: An AI-Native IDE</h3>
+<p><strong>Positioning</strong>: a code editor with built-in AI capabilities, deeply customized on top of VS Code.</p>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li><strong>IDE integration</strong>: invoke AI right inside the editor, no terminal switching</li>
+<li><strong>Project context</strong>: automatically indexes your codebase for accurate completions</li>
+<li><strong>Simple configuration</strong>: rules live in a <code>.cursorrules</code> file</li>
+</ul>
+<p><strong>Best for</strong>:</p>
+<ul>
+<li>Developers used to a VS Code workflow</li>
+<li>Real-time code completion and inline suggestions</li>
+<li>Users who prefer a graphical interface</li>
+</ul>
+<p><strong>Key configuration files</strong>:</p>
+<ul>
+<li><code>.cursorrules</code>: project-level rules</li>
+<li>Project docs (used as context)</li>
+</ul>
+<hr>
+<h2 id="2-everything-claude-code-the-definitive-configuration-system">2. everything-claude-code: The Definitive Configuration System</h2>
+<p><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> (35.6k stars) is a complete collection of Claude Code configurations curated by an Anthropic hackathon winner, refined over 10+ months of real-world use.</p>
+<h3 id="core-components">Core Components</h3>
+<h4 id="1-agents-subagents-division-of-labor">1. <strong>Agents (subagents): division of labor</strong></h4>
+<p>Subagents are task-specific experts that offload work from the main session through delegation.</p>
+<p><strong>Typical agents</strong>:</p>
+<ul>
+<li><code>planner.md</code>: feature planning, generates implementation blueprints</li>
+<li><code>code-reviewer.md</code>: code quality and security review</li>
+<li><code>security-reviewer.md</code>: OWASP Top 10 vulnerability scanning</li>
+<li><code>tdd-guide.md</code>: enforces a test-driven development workflow</li>
+<li><code>build-error-resolver.md</code>: fixes build errors</li>
+</ul>
+<p><strong>Agent definition example</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: code-reviewer</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Reviews code for quality, security, and maintainability</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">tools: ["Read", "Grep", "Glob", "Bash"]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">model: opus</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">You are a senior code reviewer with 15+ years of experience...</span></span></code></pre>
+<p><strong>Key points</strong>:</p>
+<ul>
+<li><strong>Tool restrictions</strong>: each agent only gets the tools it needs (avoids permission leakage)</li>
+<li><strong>Model selection</strong>: Opus for complex tasks, Sonnet/Haiku for simple ones</li>
+</ul>
+<h4 id="2-skills-on-demand-expertise">2. <strong>Skills: on-demand expertise</strong></h4>
+<p><strong>What is a Skill?</strong></p>
+<ul>
+<li><strong>Not a simple prompt template</strong>: it’s a folder containing a full workflow, decision trees, and scripts</li>
+<li><strong>Activated on demand</strong>: Claude decides when to invoke it via LLM reasoning (not keyword matching)</li>
+<li><strong>Can bundle resources</strong>: e.g. Anthropic’s official PDF Skill ships with its own Python parsing scripts</li>
+</ul>
+<p><strong>Core Skills</strong>:</p>
+<ol>
+<li>
+<p><strong>continuous-learning</strong>: automatically extracts coding patterns from sessions</p>
+<ul>
+<li>Detects recurring code style preferences</li>
+<li>Generates Instinct files (with a confidence scoring mechanism)</li>
+<li>Supports cross-session learning</li>
+</ul>
+</li>
+<li>
+<p><strong>strategic-compact</strong>: fights context window limits</p>
+<ul>
+<li>Suggests <code>/compact</code> at logical breakpoints (instead of waiting for the 95% auto-compaction)</li>
+<li>Avoids losing critical variable names and file paths during compaction</li>
+</ul>
+</li>
+<li>
+<p><strong>tdd-workflow</strong>: test-driven development</p>
+<ul>
+<li>Forces tests before implementation</li>
+<li>80% coverage check</li>
+<li>RED-GREEN-REFACTOR loop</li>
+</ul>
+</li>
+<li>
+<p><strong>verification-loop</strong>: continuous verification</p>
+<ul>
+<li>Automatically runs tests after every change</li>
+<li>Rolls back and retries on failure</li>
+</ul>
+</li>
+</ol>
+<p><strong>Skill file structure</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>skills/</span></span>
+<span class="line"><span>└── pdf-processing/</span></span>
+<span class="line"><span>    ├── SKILL.md          # Workflow description</span></span>
+<span class="line"><span>    ├── parse_pdf.py      # Parsing script</span></span>
+<span class="line"><span>    └── examples/</span></span>
+<span class="line"><span>        └── sample.pdf</span></span></code></pre>
+<p><strong>SKILL.md example</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: pdf-processing</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Extract and analyze content from PDF files</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">triggers: ["PDF", "document", "extract"]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## When to Use</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">User mentions working with PDF files, extracting tables, or analyzing documents.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Use parse_pdf.py to extract raw text</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Identify structure (headers, tables, paragraphs)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Return structured data</span></span></code></pre>
+<h4 id="3-hooks-automation-before-and-after-tool-calls">3. <strong>Hooks: automation before and after tool calls</strong></h4>
+<p>Hooks automatically trigger scripts before and after tool execution, enabling “invisible” automation.</p>
+<p><strong>Typical Hooks</strong>:</p>
+<ol>
+<li><strong>Check for console.log on file save</strong>:</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "matcher"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">tool == </span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">Edit</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6"> &#x26;&#x26; tool_input.file_path matches </span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"\\</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">.(ts|tsx|js|jsx)$</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "hooks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">command</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">grep -n 'console</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\\</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">.log' </span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">$file_path</span><span style="--shiki-light:#22863A;--shiki-dark:#F78C6C">\"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6"> &#x26;&#x26; echo '[Hook] Remove console.log' >&#x26;2</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="2">
+<li><strong>Auto-save state when a session ends</strong>:</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "event"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">Stop</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "hooks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">command</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">node scripts/hooks/session-end.js</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<ol start="3">
+<li><strong>Load context when a session starts</strong>:</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "event"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">SessionStart</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "hooks"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "type"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">command</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "command"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">node scripts/hooks/session-start.js</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>Hook trigger points</strong>:</p>
+<ul>
+<li><code>PreToolUse</code>: before tool execution</li>
+<li><code>PostToolUse</code>: after tool execution</li>
+<li><code>Stop</code>: when a session ends</li>
+<li><code>SessionStart</code>/<code>SessionEnd</code>: session lifecycle</li>
+</ul>
+<h4 id="4-commands-slash-commands-shortcuts">4. <strong>Commands (slash commands): shortcuts</strong></h4>
+<p>Commands are predefined task flows — one command kicks off an entire workflow.</p>
+<p><strong>Common commands</strong>:</p>
+<ul>
+<li><code>/plan "Add user authentication"</code>: generate a feature implementation plan</li>
+<li><code>/tdd</code>: start a test-driven development workflow</li>
+<li><code>/code-review</code>: review the code you just wrote</li>
+<li><code>/build-fix</code>: fix build errors</li>
+<li><code>/e2e</code>: generate end-to-end tests</li>
+<li><code>/learn</code>: extract patterns from the current session into Skills</li>
+</ul>
+<p><strong>Command definition example</strong> (/tdd):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">---</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">name: tdd</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">description: Enforce test-driven development workflow</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#82B1FF">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">You are now in TDD mode. Follow this strict process:</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> User describes a feature</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> You write a FAILING test first (RED)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Ask user to confirm test fails</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Write MINIMAL code to pass (GREEN)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">5.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Refactor if needed (IMPROVE)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">6.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Verify 80%+ coverage</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Never write implementation before tests.</span></span></code></pre>
+<h4 id="5-rules-always-on-constraints">5. <strong>Rules: always-on constraints</strong></h4>
+<p>Rules are mandatory constraints loaded automatically into every conversation.</p>
+<p><strong>Rule organization</strong> (multi-language layout):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>rules/</span></span>
+<span class="line"><span>├── common/              # Shared rules (apply to any language)</span></span>
+<span class="line"><span>│   ├── coding-style.md  # Immutability, file organization</span></span>
+<span class="line"><span>│   ├── git-workflow.md  # Commit format, PR workflow</span></span>
+<span class="line"><span>│   ├── testing.md       # TDD, 80% coverage</span></span>
+<span class="line"><span>│   ├── security.md      # No hardcoded secrets</span></span>
+<span class="line"><span>│   └── performance.md   # Model selection, context management</span></span>
+<span class="line"><span>├── typescript/          # TypeScript-specific rules</span></span>
+<span class="line"><span>├── python/              # Python-specific rules</span></span>
+<span class="line"><span>└── golang/              # Go-specific rules</span></span></code></pre>
+<p><strong>Installing rules</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 只安装需要的语言</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 仅 TS/JS 规则</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> python</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # 仅 Python 规则</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> python</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> golang</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 多语言</span></span></code></pre>
+<p><strong>Key rule examples</strong>:</p>
+<ul>
+<li><strong>Security</strong>: no hardcoded API keys or database passwords</li>
+<li><strong>Testing</strong>: every feature must have 80%+ test coverage</li>
+<li><strong>Git</strong>: commit messages must follow Conventional Commits</li>
+<li><strong>Performance</strong>: at most 10 MCP servers per project</li>
+</ul>
+<h4 id="6-mcp-configuration-integrating-external-services">6. <strong>MCP configuration: integrating external services</strong></h4>
+<p>MCP (Model Context Protocol) lets Claude Code call external service APIs.</p>
+<p><strong>Common MCP servers</strong>:</p>
+<ul>
+<li><code>github</code>: GitHub API (PRs, Issues, Actions)</li>
+<li><code>supabase</code>: Supabase database operations</li>
+<li><code>vercel</code>: Vercel deployments</li>
+<li><code>railway</code>: Railway service management</li>
+</ul>
+<p><strong>⚠️ Critical warning</strong>:</p>
+<ul>
+<li><strong>Don’t enable too many MCPs at once</strong>: every MCP tool description consumes tokens — a 200k context can shrink to 70k</li>
+<li><strong>At most 10 MCPs per project</strong>, and no more than 80 tools</li>
+<li><strong>Disable unused MCPs per project</strong>:</li>
+</ul>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// .claude/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "disabledMcpServers"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">supabase</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">railway</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">vercel</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<hr>
+<h2 id="3-the-skill-mechanism-on-demand-experts-driven-by-llm-reasoning">3. The Skill Mechanism: On-Demand Experts Driven by LLM Reasoning</h2>
+<h3 id="skill-vs-prompt-vs-rules">Skill vs Prompt vs Rules</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Dimension</th><th>Rules</th><th>Prompt</th><th>Skill</th></tr></thead><tbody><tr><td><strong>When it takes effect</strong></td><td>Auto-loaded every conversation</td><td>Manually typed by the user</td><td>The AI decides when it’s needed</td></tr><tr><td><strong>Content</strong></td><td>Hard constraints</td><td>One-off instruction</td><td>Full workflow + resources</td></tr><tr><td><strong>Example</strong></td><td>”No hardcoded secrets"</td><td>"Build a login page in React"</td><td>"Complete process for handling PDFs”</td></tr></tbody></table>
+<h3 id="how-a-skill-works">How a Skill Works</h3>
+<ol>
+<li>
+<p><strong>The user asks</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>"Help me extract table data from this PDF"</span></span></code></pre>
+</li>
+<li>
+<p><strong>Claude reasons</strong>:</p>
+<ul>
+<li>Recognizes the keywords: “PDF”, “extract”, “table”</li>
+<li>Matches the <code>triggers</code> field of the <code>pdf-processing</code> Skill</li>
+<li>Automatically loads the SKILL.md content into context</li>
+</ul>
+</li>
+<li>
+<p><strong>It runs the workflow</strong>:</p>
+<ul>
+<li>Invokes the <code>parse_pdf.py</code> script</li>
+<li>Follows the steps defined in SKILL.md</li>
+<li>Returns structured data</li>
+</ul>
+</li>
+</ol>
+<h3 id="why-a-skill-is-more-than-a-prompt">Why a Skill Is More Than a Prompt</h3>
+<p><strong>A traditional prompt</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Please process this PDF file and extract the table data</span></span></code></pre>
+<p><strong>The Skill mechanism</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># SKILL.md</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">When the user mentions PDFs:</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">1.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Check the file format first (scanned vs text-based)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">2.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> If scanned, tell the user OCR is required</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">3.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> If text-based, extract with parse_pdf.py</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">4.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Detect table boundaries (via coordinates and blank lines)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">5.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Convert to CSV/JSON</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">6.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Validate data integrity</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># Bundled script</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">parse_pdf.py: 150 lines of Python handling all the edge cases</span></span></code></pre>
+<p><strong>The difference</strong>:</p>
+<ul>
+<li>A prompt is a one-off instruction; a Skill is a reusable knowledge base</li>
+<li>A Skill includes decision trees, error handling, and script resources</li>
+<li>A Skill persists across sessions (no need to repeat yourself every time)</li>
+</ul>
+<hr>
+<h2 id="4-cross-tool-adoption-guide">4. Cross-Tool Adoption Guide</h2>
+<h3 id="1-claude-code-users">1. Claude Code Users</h3>
+<p><strong>Use everything-claude-code directly</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 安装插件</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/plugin</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> marketplace</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> add</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> affaan-m/everything-claude-code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">/plugin</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> install</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> everything-claude-code@everything-claude-code</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 安装规则（必需手动）</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">git</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> clone</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> https://github.com/affaan-m/everything-claude-code.git</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">cd</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> everything-claude-code</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 或 python、golang</span></span></code></pre>
+<p><strong>Recommendations</strong>:</p>
+<ul>
+<li>Start with the core Skills (continuous-learning, tdd-workflow)</li>
+<li>Don’t adopt everything wholesale — enable what you need</li>
+<li>Monitor token usage regularly with <code>/cost</code></li>
+</ul>
+<h3 id="2-cursor-users">2. Cursor Users</h3>
+<p><strong>You can’t install the plugin directly</strong>, but you can borrow the ideas:</p>
+<ol>
+<li><strong>Rules → .cursorrules</strong>:</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="markdown"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit"># .cursorrules</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Coding Style</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Prefer immutability</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> No console.log in production</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-weight:bold;--shiki-dark:#82B1FF;--shiki-dark-font-weight:inherit">## Testing</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 80%+ coverage required</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> Write tests before implementation</span></span></code></pre>
+<ol start="2">
+<li>
+<p><strong>Skills → project docs</strong>:</p>
+<ul>
+<li>Put the SKILL.md content into your project’s <code>docs/</code> directory</li>
+<li>Cursor will index it automatically as context</li>
+</ul>
+</li>
+<li>
+<p><strong>Hooks → no equivalent</strong>:</p>
+<ul>
+<li>Cursor doesn’t support Hooks</li>
+<li>Use Git Hooks or CI instead</li>
+</ul>
+</li>
+</ol>
+<p><strong>Cursor-specific configuration</strong>:</p>
+<ul>
+<li>everything-claude-code ships a pre-translated <code>.cursor/</code> directory</li>
+<li>Use <code>./install.sh --target cursor typescript</code></li>
+</ul>
+<h3 id="3-openclaw-users">3. OpenClaw Users</h3>
+<p><strong>OpenClaw already has a built-in Skill mechanism</strong>:</p>
+<ul>
+<li>Config path: <code>~/.openclaw/workspace-*/skills/</code></li>
+<li>Works the same way as Claude Code’s</li>
+</ul>
+<p><strong>How to port things over</strong>:</p>
+<ol>
+<li><strong>Copy the Skill folder</strong>:</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cp</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -r</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> everything-claude-code/skills/tdd-workflow</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">      ~/.openclaw/workspace-main/skills/</span></span></code></pre>
+<ol start="2">
+<li>
+<p><strong>Rewrite the Rules</strong>:</p>
+<ul>
+<li>OpenClaw’s constraints live in <code>AGENTS.md</code></li>
+<li>Fold the content of <code>rules/common/*.md</code> into it</li>
+</ul>
+</li>
+<li>
+<p><strong>Hooks → Cron Jobs</strong>:</p>
+<ul>
+<li>OpenClaw has no tool-level Hooks</li>
+<li>Use Cron Jobs (scheduled tasks) instead</li>
+</ul>
+</li>
+</ol>
+<p><strong>Where OpenClaw shines</strong>:</p>
+<ul>
+<li>Multi-model support (Claude + GPT + Gemini)</li>
+<li>Can send reminders and reports via Telegram</li>
+<li>Long-term cross-session memory</li>
+</ul>
+<hr>
+<h2 id="5-best-practices-pitfalls-to-avoid">5. Best Practices: Pitfalls to Avoid</h2>
+<h3 id="1-token-optimization">1. Token Optimization</h3>
+<p><strong>Problem</strong>: Claude Code is expensive to run and it’s easy to hit daily limits.</p>
+<p><strong>Solution</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// ~/.claude/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "model"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">sonnet</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 默认用 Sonnet，60% 成本降低</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "env"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "MAX_THINKING_TOKENS"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">10000</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 限制思考 token</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">50</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 50% 时压缩上下文</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>Day-to-day commands</strong>:</p>
+<ul>
+<li><code>/model sonnet</code>: most tasks</li>
+<li><code>/model opus</code>: complex architecture, deep debugging</li>
+<li><code>/clear</code>: wipe the context when switching tasks (free)</li>
+<li><code>/compact</code>: compact manually at logical breakpoints (better quality)</li>
+</ul>
+<h3 id="2-mcp-management">2. MCP Management</h3>
+<p><strong>Problem</strong>: with every MCP server enabled, a 200k context shrinks to 70k.</p>
+<p><strong>Cause</strong>: each MCP tool description consumes a lot of tokens.</p>
+<p><strong>Solution</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="json"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// 项目级配置 .claude/settings.json</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">  "disabledMcpServers"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> [</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">supabase</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">railway</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C789D6">vercel</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><strong>Rules of thumb</strong>:</p>
+<ul>
+<li>At most 10 MCPs per project</li>
+<li>No more than 80 tools total</li>
+</ul>
+<h3 id="3-choosing-skills">3. Choosing Skills</h3>
+<p><strong>Problem</strong>: installing every Skill slows Claude’s reasoning down.</p>
+<p><strong>Cause</strong>: every conversation has to scan every Skill’s <code>triggers</code>.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li><strong>Enable per project</strong>: a backend project doesn’t need <code>frontend-patterns</code></li>
+<li><strong>Clean up regularly</strong>: delete Skills you don’t use</li>
+</ul>
+<h3 id="4-the-performance-cost-of-hooks">4. The Performance Cost of Hooks</h3>
+<p><strong>Problem</strong>: a Hook fires on every tool call, and everything gets slower.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+<li><strong>Only keep essential Hooks</strong>: e.g. the <code>console.log</code> check</li>
+<li><strong>Avoid heavy scripts</strong>: Hook scripts should run in &#x3C;100ms</li>
+<li><strong>Run asynchronously</strong>: use background processes instead of blocking commands</li>
+</ul>
+<h3 id="5-when-to-compact">5. When to Compact</h3>
+<p><strong>Wrong approach</strong>:</p>
+<ul>
+<li>Waiting for the 95% auto-compaction (you may lose critical variable names)</li>
+</ul>
+<p><strong>Right approach</strong> (strategic-compact):</p>
+<ul>
+<li>Research phase done → <code>/compact</code> → start implementing</li>
+<li>Milestone reached → <code>/compact</code> → start the next one</li>
+<li>Debugging finished → <code>/compact</code> → continue feature work</li>
+</ul>
+<h3 id="6-installing-multi-language-rules">6. Installing Multi-Language Rules</h3>
+<p><strong>Problem</strong>: installing rules for every language pollutes the context.</p>
+<p><strong>Solution</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"># 只安装需要的语言</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> typescript</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  # 前端项目</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> python</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # Python 项目</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">./install.sh</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> golang</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">      # Go 项目</span></span></code></pre>
+<hr>
+<h2 id="6-tool-comparison-table">6. Tool Comparison Table</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Dimension</th><th>Claude Code CLI</th><th>OpenClaw</th><th>Cursor</th></tr></thead><tbody><tr><td><strong>Runtime model</strong></td><td>Terminal command</td><td>24/7 background service</td><td>IDE integration</td></tr><tr><td><strong>Interface</strong></td><td>CLI</td><td>Chat apps (Telegram, etc.)</td><td>Graphical editor</td></tr><tr><td><strong>Session memory</strong></td><td>❌ None</td><td>✅ Long-term memory (MEMORY.md)</td><td>⚠️ Project-level context</td></tr><tr><td><strong>Model support</strong></td><td>Claude family</td><td>Claude + GPT + Gemini</td><td>Claude + GPT + in-house</td></tr><tr><td><strong>Skill mechanism</strong></td><td>✅ SKILL.md</td><td>✅ skills/ directory</td><td>⚠️ Manual doc setup</td></tr><tr><td><strong>Hooks</strong></td><td>✅ hooks.json</td><td>❌ None (use Cron instead)</td><td>❌ None</td></tr><tr><td><strong>MCP integration</strong></td><td>✅ Native support</td><td>✅ Supported</td><td>⚠️ Partial support</td></tr><tr><td><strong>Cost</strong></td><td>Pay-per-API-call</td><td>Pay-per-API-call</td><td>Subscription (from $20/month)</td></tr><tr><td><strong>Best for</strong></td><td>Rapid prototypes, one-off tasks</td><td>Long-term projects, multi-tasking</td><td>Heavy IDE users</td></tr></tbody></table>
+<hr>
+<h2 id="7-which-one-should-you-pick">7. Which One Should You Pick?</h2>
+<h3 id="choose-claude-code-cli-if-you">Choose Claude Code CLI if you:</h3>
+<ul>
+<li>Only need code generation, with no cross-session memory</li>
+<li>Are comfortable with a terminal workflow</li>
+<li>Want full control over configuration (Agents/Skills/Hooks)</li>
+</ul>
+<h3 id="choose-openclaw-if-you">Choose OpenClaw if you:</h3>
+<ul>
+<li>Need a personal assistant that runs 24/7</li>
+<li>Manage multiple kinds of tasks (code + email + calendar + notifications)</li>
+<li>Interact through chat apps like Telegram</li>
+<li>Need long-term cross-session memory</li>
+</ul>
+<h3 id="choose-cursor-if-you">Choose Cursor if you:</h3>
+<ul>
+<li>Are deeply invested in a VS Code workflow</li>
+<li>Prefer a graphical interface</li>
+<li>Want real-time code completion and inline suggestions</li>
+<li>Don’t want to fiddle with config files</li>
+</ul>
+<hr>
+<h2 id="8-looking-ahead">8. Looking Ahead</h2>
+<h3 id="1-configuration-standardization">1. Configuration Standardization</h3>
+<p>Claude Code, OpenClaw, and Cursor currently use incompatible configuration formats, and the community is pushing for standardization:</p>
+<ul>
+<li><strong>Universal Config Format</strong>: one config that works across tools</li>
+<li><strong>Skill interoperability</strong>: different tools sharing the same set of Skills</li>
+</ul>
+<h3 id="2-multi-agent-collaboration">2. Multi-Agent Collaboration</h3>
+<p>everything-claude-code already supports multi-agent collaboration (<code>/multi-plan</code>, <code>/multi-execute</code>), and more sophisticated orchestration is coming:</p>
+<ul>
+<li><strong>Automatic task decomposition</strong>: a lead agent breaks down tasks; subagents execute in parallel</li>
+<li><strong>Cross-tool collaboration</strong>: Claude Code writes the code → OpenClaw deploys → Cursor reviews</li>
+</ul>
+<h3 id="3-cost-optimization">3. Cost Optimization</h3>
+<p>As Anthropic ships cheaper models like Haiku 3.5, tools will start picking the optimal model automatically:</p>
+<ul>
+<li><strong>Smart downgrading</strong>: Haiku for simple tasks, Opus for complex ones</li>
+<li><strong>Tiered billing</strong>: dynamically switching models by task type</li>
+</ul>
+<h3 id="4-a-skill-marketplace">4. A Skill Marketplace</h3>
+<p>Much like the VS Code extension marketplace, a Skill marketplace may emerge:</p>
+<ul>
+<li><strong>One-click install</strong>: <code>/skill install react-patterns</code></li>
+<li><strong>Community sharing</strong>: developers contribute Skills and earn revenue share</li>
+</ul>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>The AI agent development tools ecosystem has matured considerably by 2026, but picking the right tool and setting up a sensible workflow still requires understanding what makes each tool different.</p>
+<p><strong>Key takeaways</strong>:</p>
+<ol>
+<li><strong>Claude Code CLI</strong>: minimal, code-focused, no memory</li>
+<li><strong>OpenClaw</strong>: all-purpose, 24/7, long-term memory</li>
+<li><strong>Cursor</strong>: IDE-integrated, graphical, real-time completion</li>
+</ol>
+<p><strong>The value of everything-claude-code</strong>:</p>
+<ul>
+<li>A battle-tested configuration system</li>
+<li>The Skill mechanism turns the AI into an “on-demand expert”</li>
+<li>Hooks deliver “invisible” automation</li>
+</ul>
+<p><strong>Cross-tool adoption</strong>:</p>
+<ul>
+<li>Claude Code users can install the plugin directly</li>
+<li>Cursor users need to rewrite things as <code>.cursorrules</code> and docs</li>
+<li>OpenClaw users can copy Skills and replace Hooks</li>
+</ul>
+<p><strong>Best practices</strong>:</p>
+<ul>
+<li>Token optimization: default to Sonnet, use Opus for complex tasks</li>
+<li>MCP management: at most 10 per project</li>
+<li>Compaction timing: run <code>/compact</code> manually at logical breakpoints</li>
+</ul>
+<p>Whichever tool you choose, <strong>start small</strong> and expand your configuration gradually — that’s how you find the workflow that actually fits you.</p>
+<hr>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code GitHub</a></li>
+<li><a href="https://code.claude.com/docs">Claude Code Docs</a></li>
+<li><a href="https://docs.openclaw.ai">OpenClaw Docs</a></li>
+<li><a href="https://cursor.com">Cursor IDE</a></li>
+</ul> </article> <section class="related-posts" data-pagefind-ignore data-astro-cid-dpgbfi7r><h2 class="related-title" data-astro-cid-dpgbfi7r>Related Posts</h2><ul class="related-list" data-astro-cid-dpgbfi7r><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog186_prompt-context-harness-agentic-layers" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Prompt, Context, Harness, Agentic: The Four Nested Layers of LLM Apps — and Knowing Which One You&#39;re Stuck In</span><span class="related-desc" data-astro-cid-dpgbfi7r>Prompt engineer, context engineer, harness engineer, agentic engineer — these aren&#39;t four competing job titles. They&#39;re nested layers of concern, from a single instruction to an entire autonomous system. Understand how the four layers relate, and you&#39;ll know exactly which one you&#39;re optimizing every time you get stuck.</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/blog175_claude-code-trading-bot-dogfooding" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Letting Claude Code Touch My Real-Money Trading Code: The Lines I Refused to Cross</span><span class="related-desc" data-astro-cid-dpgbfi7r>I&#39;ve spent 10 months using Claude Code on a real-money futures trading project. This is an honest retrospective: the AI never touched the money directly (I&#39;m not that bold), but it did write code on the critical order/stop-loss/close-position paths. Here are the boundaries I held, where AI genuinely helped, and the moments I had to take over.</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/en/posts/claude-code-multi-agent-orchestration-plugins" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Claude Code Multi-Agent Orchestration Plugins Compared 2026: Choosing Between Ruflo, Maestro, Claude Octopus, and Codex Peer Review</span><span class="related-desc" data-astro-cid-dpgbfi7r>A head-to-head comparison of multi-agent orchestration plugins: Ruflo calls itself the &quot;leading Claude orchestration platform&quot; but underdelivers in execution, Maestro stays lightweight, Claude Octopus runs reviews across 8 models in parallel, and Codex Peer Review gates merges behind three sequential reviewers. From architecture to measured token costs — a decision framework for indie developers.</span></a></li></ul></section> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/claude-code/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Claude Code </a> </li><li> <a href="/tags/openclaw/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> OpenClaw </a> </li><li> <a href="/tags/cursor/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Cursor </a> </li><li> <a href="/tags/开发工具/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-6"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 开发工具 </a> </li><li> <a href="/tags/最佳实践/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-7"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 最佳实践 </a> </li> </ul> <div class="appreciation-wrapper" data-pagefind-ignore data-astro-cid-iocheen3> <button id="appreciation-toggle" class="appreciation-btn" data-astro-cid-iocheen3> ☕ Found this helpful? Buy me a coffee </button> <!-- 遮罩 + 弹窗 --> <div id="appreciation-overlay" class="appreciation-overlay" hidden data-astro-cid-iocheen3> <div class="appreciation-modal" data-astro-cid-iocheen3> <button id="appreciation-close" class="modal-close" aria-label="Close" data-astro-cid-iocheen3>&times;</button> <div class="modal-icon" data-astro-cid-iocheen3>◇</div> <h3 class="modal-title" data-astro-cid-iocheen3>Buy me a coffee ☕</h3> <p class="modal-subtitle" data-astro-cid-iocheen3>If this article helped you</p> <img src="/assets/eth-reward.jpg" alt="Ethereum Donation QR Code" class="modal-qr" loading="lazy" data-astro-cid-iocheen3> <code class="modal-address" id="eth-address" data-astro-cid-iocheen3>0x320B48341e92D120276ff960F347EAe840bd4d6D</code> <button id="copy-address" class="copy-btn" data-label-copy="Copy address" data-label-copied="Copied ✓" data-astro-cid-iocheen3> Copy address </button> <p class="modal-note" data-astro-cid-iocheen3>ETH / ERC-20 tokens supported</p> </div> </div> </div>  <script>
+  function initAppreciation() {
+    var toggle = document.getElementById('appreciation-toggle');
+    var overlay = document.getElementById('appreciation-overlay');
+    var closeBtn = document.getElementById('appreciation-close');
+    var copyBtn = document.getElementById('copy-address');
+    var addr = document.getElementById('eth-address');
+
+    if (!toggle || toggle._bound) return;
+    toggle._bound = true;
+
+    function open() { if (overlay) overlay.hidden = false; }
+    function close() { if (overlay) overlay.hidden = true; }
+
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) close();
+    });
+
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function() {
+        navigator.clipboard.writeText(addr.textContent).then(function() {
+          copyBtn.textContent = copyBtn.dataset.labelCopied;
+          setTimeout(function() { copyBtn.textContent = copyBtn.dataset.labelCopy; }, 1500);
+        });
+      });
+    }
+  }
+  initAppreciation();
+  document.addEventListener('astro:page-load', initAppreciation);
+</script> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/en/posts/blog070_ai-agent-tools-ecosystem-2026/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed" data-astro-cid-vj4tpspi> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-astro-cid-vj4tpspi> <a href="/en/posts/blog071_electrobun-electron-alternative" class="flex w-full gap-1 hover:opacity-75" data-astro-cid-vj4tpspi> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Previous Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>A Lightweight Electron Alternative: A Deep Dive into electrobun</div> </div> </a> <a href="/en/posts/ai-agent-frontend-workflow-part3" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2" data-astro-cid-vj4tpspi> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Next Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>AI Agent Frontend Workflow (Part 3): Cost Optimization and Team Collaboration Best Practices</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </div> <!-- Table of Contents Sidebar --> <div class="post-sidebar" data-astro-cid-vj4tpspi> <aside class="toc-container" data-astro-cid-xvrfupwn><div class="toc-wrapper" data-astro-cid-xvrfupwn><h2 class="toc-title" data-astro-cid-xvrfupwn>Table of Contents</h2><nav class="toc-nav" data-astro-cid-xvrfupwn><ul class="toc-list" data-astro-cid-xvrfupwn><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#introduction" class="toc-link" data-heading-id="introduction" data-astro-cid-xvrfupwn>Introduction</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#1-three-flavors-of-ai-agent-tooling" class="toc-link" data-heading-id="1-three-flavors-of-ai-agent-tooling" data-astro-cid-xvrfupwn>1. Three Flavors of AI Agent Tooling</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-claude-code-cli-a-minimal-tool-focused-on-code" class="toc-link" data-heading-id="1-claude-code-cli-a-minimal-tool-focused-on-code" data-astro-cid-xvrfupwn>1. Claude Code CLI: A Minimal Tool Focused on Code</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-openclaw-a-247-all-purpose-personal-assistant" class="toc-link" data-heading-id="2-openclaw-a-247-all-purpose-personal-assistant" data-astro-cid-xvrfupwn>2. OpenClaw: A 24/7 All-Purpose Personal Assistant</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-cursor-an-ai-native-ide" class="toc-link" data-heading-id="3-cursor-an-ai-native-ide" data-astro-cid-xvrfupwn>3. Cursor: An AI-Native IDE</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#2-everything-claude-code-the-definitive-configuration-system" class="toc-link" data-heading-id="2-everything-claude-code-the-definitive-configuration-system" data-astro-cid-xvrfupwn>2. everything-claude-code: The Definitive Configuration System</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#core-components" class="toc-link" data-heading-id="core-components" data-astro-cid-xvrfupwn>Core Components</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#3-the-skill-mechanism-on-demand-experts-driven-by-llm-reasoning" class="toc-link" data-heading-id="3-the-skill-mechanism-on-demand-experts-driven-by-llm-reasoning" data-astro-cid-xvrfupwn>3. The Skill Mechanism: On-Demand Experts Driven by LLM Reasoning</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#skill-vs-prompt-vs-rules" class="toc-link" data-heading-id="skill-vs-prompt-vs-rules" data-astro-cid-xvrfupwn>Skill vs Prompt vs Rules</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#how-a-skill-works" class="toc-link" data-heading-id="how-a-skill-works" data-astro-cid-xvrfupwn>How a Skill Works</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#why-a-skill-is-more-than-a-prompt" class="toc-link" data-heading-id="why-a-skill-is-more-than-a-prompt" data-astro-cid-xvrfupwn>Why a Skill Is More Than a Prompt</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#4-cross-tool-adoption-guide" class="toc-link" data-heading-id="4-cross-tool-adoption-guide" data-astro-cid-xvrfupwn>4. Cross-Tool Adoption Guide</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-claude-code-users" class="toc-link" data-heading-id="1-claude-code-users" data-astro-cid-xvrfupwn>1. Claude Code Users</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-cursor-users" class="toc-link" data-heading-id="2-cursor-users" data-astro-cid-xvrfupwn>2. Cursor Users</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-openclaw-users" class="toc-link" data-heading-id="3-openclaw-users" data-astro-cid-xvrfupwn>3. OpenClaw Users</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#5-best-practices-pitfalls-to-avoid" class="toc-link" data-heading-id="5-best-practices-pitfalls-to-avoid" data-astro-cid-xvrfupwn>5. Best Practices: Pitfalls to Avoid</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-token-optimization" class="toc-link" data-heading-id="1-token-optimization" data-astro-cid-xvrfupwn>1. Token Optimization</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-mcp-management" class="toc-link" data-heading-id="2-mcp-management" data-astro-cid-xvrfupwn>2. MCP Management</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-choosing-skills" class="toc-link" data-heading-id="3-choosing-skills" data-astro-cid-xvrfupwn>3. Choosing Skills</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-the-performance-cost-of-hooks" class="toc-link" data-heading-id="4-the-performance-cost-of-hooks" data-astro-cid-xvrfupwn>4. The Performance Cost of Hooks</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#5-when-to-compact" class="toc-link" data-heading-id="5-when-to-compact" data-astro-cid-xvrfupwn>5. When to Compact</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#6-installing-multi-language-rules" class="toc-link" data-heading-id="6-installing-multi-language-rules" data-astro-cid-xvrfupwn>6. Installing Multi-Language Rules</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#6-tool-comparison-table" class="toc-link" data-heading-id="6-tool-comparison-table" data-astro-cid-xvrfupwn>6. Tool Comparison Table</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#7-which-one-should-you-pick" class="toc-link" data-heading-id="7-which-one-should-you-pick" data-astro-cid-xvrfupwn>7. Which One Should You Pick?</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#choose-claude-code-cli-if-you" class="toc-link" data-heading-id="choose-claude-code-cli-if-you" data-astro-cid-xvrfupwn>Choose Claude Code CLI if you:</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#choose-openclaw-if-you" class="toc-link" data-heading-id="choose-openclaw-if-you" data-astro-cid-xvrfupwn>Choose OpenClaw if you:</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#choose-cursor-if-you" class="toc-link" data-heading-id="choose-cursor-if-you" data-astro-cid-xvrfupwn>Choose Cursor if you:</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#8-looking-ahead" class="toc-link" data-heading-id="8-looking-ahead" data-astro-cid-xvrfupwn>8. Looking Ahead</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#1-configuration-standardization" class="toc-link" data-heading-id="1-configuration-standardization" data-astro-cid-xvrfupwn>1. Configuration Standardization</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#2-multi-agent-collaboration" class="toc-link" data-heading-id="2-multi-agent-collaboration" data-astro-cid-xvrfupwn>2. Multi-Agent Collaboration</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#3-cost-optimization" class="toc-link" data-heading-id="3-cost-optimization" data-astro-cid-xvrfupwn>3. Cost Optimization</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#4-a-skill-marketplace" class="toc-link" data-heading-id="4-a-skill-marketplace" data-astro-cid-xvrfupwn>4. A Skill Marketplace</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#summary" class="toc-link" data-heading-id="summary" data-astro-cid-xvrfupwn>Summary</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#references" class="toc-link" data-heading-id="references" data-astro-cid-xvrfupwn>References</a></li></ul></nav></div></aside><script type="module">function l(){const o=document.querySelectorAll(".toc-link"),c=document.querySelectorAll("h2[id], h3[id]");if(o.length===0||c.length===0)return;function s(){let e=null;const r=window.scrollY+100;c.forEach(t=>{const n=t.offsetTop;r>=n&&(e=t)}),o.forEach(t=>{t.classList.remove("active"),e&&t.getAttribute("data-heading-id")===e.id&&t.classList.add("active")})}o.forEach(e=>{e.addEventListener("click",r=>{r.preventDefault();const t=e.getAttribute("href")?.slice(1);if(t){const n=document.getElementById(t);n&&(n.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,"",`#${t}`))}})});let i=!1;window.addEventListener("scroll",()=>{i||(window.requestAnimationFrame(()=>{s(),i=!1}),i=!0)}),s()}document.addEventListener("DOMContentLoaded",l);document.addEventListener("astro:page-load",l);</script> </div> </div> </main> <footer class="app-layout mt-auto" data-astro-cid-vj4tpspi="true"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/en/privacy-policy/" class="hover:text-accent underline decoration-dashed underline-offset-4">Privacy Policy</a> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/en/contact/" class="hover:text-accent underline decoration-dashed underline-offset-4">Contact</a> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html>  <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>
