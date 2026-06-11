@@ -1828,4 +1828,4 @@ class ModelRouter {
 - [Anthropic Claude 定价](https://www.anthropic.com/pricing)
 - [Google Gemini 定价](https://ai.google.dev/pricing)
 - [阿里通义千问定价](https://help.aliyun.com/zh/dashscope/developer-reference/tongyi-qianwen-metering-and-billing)
-- [LMSYS Chatbot Arena 排行榜](https://chat.lmsys.org/?leaderboard)
+- [LMSYS Chatbot Arena 排行榜](https://lmarena.ai/leaderboard)

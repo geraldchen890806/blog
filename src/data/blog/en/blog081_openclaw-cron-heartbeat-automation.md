@@ -1204,6 +1204,6 @@ Start with a simple reminder, and build up your 24/7 AI assistant from there!
 - [AI Agent Memory Systems in Practice: OpenClaw Memory Best Practices](/en/posts/blog074_openclaw-memory-best-practices/) - pairing the memory system with automation
 
 **Further reading**:
-- [OpenClaw Docs - Cron Jobs](https://docs.openclaw.ai/tools/cron)
-- [OpenClaw Docs - Heartbeat](https://docs.openclaw.ai/guides/heartbeat)
+- [OpenClaw Docs - Cron Jobs](https://docs.openclaw.ai/)
+- [OpenClaw Docs - Heartbeat](https://docs.openclaw.ai/)
 - [Crontab expression generator](https://crontab.guru/)

@@ -15,7 +15,7 @@ const posts = await getCollection("blog", byLang("en"));
 let tags = getUniqueTags(posts);
 ---
 
-<Layout
+<Layout noindex
   title={`Tags | ${t("siteTitle")}`}
   description={`All tags on ${t("siteTitle")}: browse articles by topic — frontend, AI, agents, performance, security, and more.`}
   alternateURL="/tags/"

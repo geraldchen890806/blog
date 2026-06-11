@@ -41,7 +41,7 @@ const tagPageDesc =
     : `${SITE.title} 中所有标签为 ${tagName} 的文章合集。`;
 ---
 
-<Layout title={tagPageTitle} description={tagPageDesc}>
+<Layout noindex title={tagPageTitle} description={tagPageDesc}>
   <Header />
   <Main
     pageTitle={[`Tag:`, `${tagName}`]}

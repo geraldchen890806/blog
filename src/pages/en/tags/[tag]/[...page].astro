@@ -42,7 +42,7 @@ const tagPageDesc =
     : `All articles tagged "${tagName}" on ${t("siteTitle")}.`;
 ---
 
-<Layout title={tagPageTitle} description={tagPageDesc}>
+<Layout noindex title={tagPageTitle} description={tagPageDesc}>
   <Header />
   <Main
     pageTitle={[`Tag:`, `${tagName}`]}

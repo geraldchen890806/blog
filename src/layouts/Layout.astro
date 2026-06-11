@@ -23,6 +23,8 @@ type Props = {
   scrollSmooth?: boolean;
   /** 本页在另一语言下的 URL（确认存在时才传，用于输出 hreflang 双链接） */
   alternateURL?: string;
+  /** 薄页面(搜索/标签)不进索引,避免 AdSense 低价值内容判定 */
+  noindex?: boolean;
 };
 
 const lang = getLangFromUrl(Astro.url.pathname);
@@ -39,6 +41,7 @@ const {
   modDatetime,
   scrollSmooth = false,
   alternateURL,
+  noindex = false,
 } = Astro.props;
 
 // hreflang 双链接：当前页 + 另一语言版本（x-default 指向中文版）
@@ -122,6 +125,7 @@ const structuredData = pubDatetime
       gtag('config', 'G-GJJW5GJ7FL');
     </script>
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     {
       hreflangLinks.map(link => (
         <link rel="alternate" hreflang={link.hreflang} href={link.href} />

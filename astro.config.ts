@@ -16,7 +16,12 @@ export default defineConfig({
   site: SITE.website,
   integrations: [
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      // search/tags 已加 noindex(薄页面,AdSense 整改),同步移出 sitemap
+      filter: page => {
+        const path = new URL(page).pathname;
+        if (/^\/(en\/)?(search|tags)(\/|$)/.test(path)) return false;
+        return SITE.showArchives || !page.endsWith("/archives");
+      },
     }),
   ],
   markdown: {

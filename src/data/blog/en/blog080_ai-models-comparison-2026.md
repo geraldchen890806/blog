@@ -1829,4 +1829,4 @@ Hopefully this panoramic comparison helps you find the right AI model for your p
 - [Anthropic Claude pricing](https://www.anthropic.com/pricing)
 - [Google Gemini pricing](https://ai.google.dev/pricing)
 - [Alibaba Tongyi Qianwen pricing](https://help.aliyun.com/zh/dashscope/developer-reference/tongyi-qianwen-metering-and-billing)
-- [LMSYS Chatbot Arena leaderboard](https://chat.lmsys.org/?leaderboard)
+- [LMSYS Chatbot Arena leaderboard](https://lmarena.ai/leaderboard)

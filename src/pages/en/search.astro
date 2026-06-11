@@ -12,7 +12,7 @@ const t = useTranslations("en");
 const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/en/";
 ---
 
-<Layout
+<Layout noindex
   title={`Search | ${t("siteTitle")}`}
   description={`Full-text search across all articles on ${t("siteTitle")}.`}
   alternateURL="/search/"

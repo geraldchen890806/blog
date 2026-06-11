@@ -14,7 +14,7 @@ const posts = await getCollection("blog", byLang("zh"));
 let tags = getUniqueTags(posts);
 ---
 
-<Layout
+<Layout noindex
   title={`标签 | ${SITE.title}`}
   description={`${SITE.title} 全部标签列表：按主题浏览前端、AI、Agent、性能、安全等技术文章。`}
   alternateURL="/en/tags/"
