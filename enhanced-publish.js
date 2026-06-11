@@ -67,15 +67,24 @@ async function publishArticle(articleSlug) {
         console.log(`🚀 开始发布文章: ${articleSlug}`);
         await sendNotification(`🚀 开始发布文章: ${articleSlug}\n正在设置文章状态为发布...`);
         
-        // 1. 设置文章为发布状态
-        const articleFile = `src/data/blog/${articleSlug}.md`;
+        // 1. 设置文章为发布状态(中英文版同步翻转 draft)
+        const articleFile = `src/data/blog/zh/${articleSlug}.md`;
         if (!fs.existsSync(articleFile)) {
             throw new Error(`文章文件 ${articleFile} 不存在`);
         }
-        
+
         let content = fs.readFileSync(articleFile, 'utf8');
         content = content.replace(/draft:\s*true/, 'draft: false');
         fs.writeFileSync(articleFile, content);
+
+        // 英文版与中文版同步发布;缺英文版时中断,先翻译再发
+        const enArticleFile = `src/data/blog/en/${articleSlug}.md`;
+        if (!fs.existsSync(enArticleFile)) {
+            throw new Error(`缺少英文版 ${enArticleFile},请先翻译(node scripts/translate-post.js ${articleFile})再发布`);
+        }
+        let enContent = fs.readFileSync(enArticleFile, 'utf8');
+        enContent = enContent.replace(/draft:\s*true/, 'draft: false');
+        fs.writeFileSync(enArticleFile, enContent);
         
         // 2. 本地构建
         await sendNotification(`📦 正在本地构建...\n⏳ 构建中，预计需要30-60秒...`);

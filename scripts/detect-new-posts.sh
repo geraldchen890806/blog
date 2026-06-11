@@ -8,9 +8,9 @@ LAST_DEPLOY_COMMIT_FILE="/Users/geraldchen/ai/blog/.last-deploy-commit"
 
 if [ -f "$LAST_DEPLOY_COMMIT_FILE" ]; then
     LAST_COMMIT=$(cat "$LAST_DEPLOY_COMMIT_FILE")
-    # 获取从上次部署到现在，新增或修改的文章
-    git diff --name-only --diff-filter=AM "$LAST_COMMIT" HEAD | grep "^src/data/blog/.*\.md$" || true
+    # 获取从上次部署到现在，新增或修改的文章(只看中文版,避免英文译文重复计数)
+    git diff --name-only --diff-filter=AM "$LAST_COMMIT" HEAD | grep "^src/data/blog/zh/.*\.md$" || true
 else
     # 首次部署，获取最近一次提交中的文章
-    git diff --name-only --diff-filter=AM HEAD~1 HEAD | grep "^src/data/blog/.*\.md$" || true
+    git diff --name-only --diff-filter=AM HEAD~1 HEAD | grep "^src/data/blog/zh/.*\.md$" || true
 fi

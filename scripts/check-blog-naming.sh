@@ -2,10 +2,12 @@
 
 # 博客文件命名检查和修复脚本
 # 功能：确保所有新创建的 blog 文件都使用 blog{number}_{slug}.md 格式
+# i18n 改造后中文文章在 zh/ 子目录,英文译文在 en/ 同名文件;重命名时两边同步
 
 set -e
 
-BLOG_DIR="/Users/geraldchen/ai/blog/src/data/blog"
+BLOG_DIR="/Users/geraldchen/ai/blog/src/data/blog/zh"
+EN_DIR="/Users/geraldchen/ai/blog/src/data/blog/en"
 cd "$BLOG_DIR"
 
 # 颜色定义
@@ -29,8 +31,12 @@ MAX_NUM=$((10#$MAX_NUM))
 echo "📌 当前最大序号: blog${MAX_NUM}"
 echo ""
 
-# 检查是否有不符合规范的新文件（近7天内修改）
-NEW_FILES_WITHOUT_NUMBER=$(find . -maxdepth 1 -name "*.md" -type f -mtime -7 ! -name "blog[0-9]*" 2>/dev/null || true)
+# 检查是否有不符合规范的新文件
+# 用 git 状态判断「真正新建」的文件(未跟踪或新加入暂存区),
+# 避免老文章被修改后(mtime 变新)误报——老文章重命名会破坏线上 URL
+NEW_FILES_WITHOUT_NUMBER=$(git -C "$BLOG_DIR" status --porcelain . 2>/dev/null \
+    | grep -E '^(\?\?|A )' | awk '{print $2}' | sed 's|.*/||' \
+    | grep '\.md$' | grep -v '^blog[0-9]' | sed 's|^|./|' || true)
 
 if [ -z "$NEW_FILES_WITHOUT_NUMBER" ]; then
     echo -e "${GREEN}✅ 所有文件命名符合规范${NC}"
@@ -64,12 +70,16 @@ for file in $NEW_FILES_WITHOUT_NUMBER; do
     echo "  旧文件: $OLD_NAME"
     echo "  新文件: $NEW_NAME"
     
-    # 执行重命名
+    # 执行重命名(英文译文同名文件同步重命名)
     mv "$OLD_NAME" "$NEW_NAME"
-    
+    if [ -f "$EN_DIR/$OLD_NAME" ]; then
+        mv "$EN_DIR/$OLD_NAME" "$EN_DIR/$NEW_NAME"
+        echo "  同步重命名英文版: en/$NEW_NAME"
+    fi
+
     echo -e "${GREEN}✅ 重命名成功${NC}"
     echo ""
-    
+
     NEXT_NUM=$((NEXT_NUM + 1))
 done
 
