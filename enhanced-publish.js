@@ -118,7 +118,9 @@ async function publishArticle(articleSlug) {
         await sendNotification(`🚚 通知服务器更新...\n📥 服务器正在获取最新文件...`);
         
         const { SERVER_PASSWORD, SERVER_PORT, SERVER_USER, SERVER_HOST } = serverConfig;
-        const deployResult = executeCommand(`sshpass -p '${SERVER_PASSWORD}' ssh -p ${SERVER_PORT} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "cd /var/www/chenguangliang.com-source && git pull origin main && cp -r dist/* /var/www/chenguangliang.com/"`, '服务器部署');
+        // nginx 实际 root 是 /usr/share/nginx/html/(见 sites-enabled/default),
+        // 不是 /var/www/chenguangliang.com/——后者是 nginx 不读的死目录,曾导致部署后 404
+        const deployResult = executeCommand(`sshpass -p '${SERVER_PASSWORD}' ssh -p ${SERVER_PORT} -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "cd /var/www/chenguangliang.com-source && git pull origin main && cp -r dist/* /usr/share/nginx/html/"`, '服务器部署');
         
         if (!deployResult.success) {
             throw new Error('服务器部署失败: ' + deployResult.error);
