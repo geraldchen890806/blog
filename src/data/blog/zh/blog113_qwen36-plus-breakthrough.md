@@ -4,7 +4,7 @@ pubDatetime: 2026-04-07T14:00:00+08:00
 title: Qwen3.6-Plus的启示——中国大模型在特定领域能打了
 slug: blog113_qwen36-plus-breakthrough
 featured: true
-draft: true
+draft: false
 reviewed: true
 approved: true
 tags:

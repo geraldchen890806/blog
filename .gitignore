@@ -29,3 +29,7 @@ public/pagefind
 # 部署临时文件
 .deploy-temp/
 .last-deploy-commit
+.publish-drafts/
+
+# SEO 辅助配置(服务器侧,非站点源码)
+nginx-seo-redirects.conf

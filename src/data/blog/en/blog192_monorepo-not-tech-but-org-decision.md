@@ -1,5 +1,5 @@
 ---
-author: 陈广亮
+author: Gerald Chen
 pubDatetime: 2026-06-15T21:30:00+08:00
 title: "Monorepo Is an Org Decision, Not a Tech One: Lessons from Babel, Lerna, and Mercari"
 slug: blog192_monorepo-not-tech-but-org-decision

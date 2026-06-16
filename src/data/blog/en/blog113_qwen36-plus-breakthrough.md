@@ -4,7 +4,7 @@ pubDatetime: 2026-04-07T14:00:00+08:00
 title: "What Qwen3.6-Plus Tells Us: Chinese LLMs Can Now Compete in Specific Domains"
 slug: blog113_qwen36-plus-breakthrough
 featured: true
-draft: true
+draft: false
 reviewed: true
 approved: true
 tags:
