@@ -192,7 +192,6 @@ That's the essence of a supply chain attack: your security boundary isn't your c
 **References**
 
 - [Vercel April 2026 Security Incident (official bulletin)](https://vercel.com/kb/bulletin/vercel-april-2026-security-incident)
-- [Context.ai Security Update](https://context.ai/security-update)
 - [TechCrunch: App host Vercel says it was hacked](https://techcrunch.com/2026/04/20/app-host-vercel-confirms-security-incident-says-customer-data-was-stolen-via-breach-at-context-ai/)
 - [CyberScoop: Vercel's security breach started with malware disguised as Roblox cheats](https://cyberscoop.com/vercel-security-breach-third-party-attack-context-ai-lumma-stealer/)
 - [Halborn: Explained: The Vercel Hack (April 2026)](https://www.halborn.com/blog/post/explained-the-vercel-hack-april-2026)
