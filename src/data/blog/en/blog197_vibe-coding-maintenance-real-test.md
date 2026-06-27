@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-06-27T11:21:19+08:00
-title: The 90-Day Spaghetti Point: Why Maintenance Is Vibe Coding's Real Exam
+title: "The 90-Day Spaghetti Point: Why Maintenance Is Vibe Coding's Real Exam"
 slug: blog197_vibe-coding-maintenance-real-test
 featured: true
 draft: false
