@@ -1,29 +1,88 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import LinkButton from "@/components/LinkButton.astro";
+import Card from "@/components/Card.astro";
 import { SITE } from "@/config";
+import { byLang } from "@/i18n";
+import getSortedPosts from "@/utils/getSortedPosts";
+
+const zhPosts = await getCollection("blog", byLang("zh"));
+const enPosts = await getCollection("blog", byLang("en"));
+const latestZh = getSortedPosts(zhPosts).slice(0, 3);
+const latestEn = getSortedPosts(enPosts).slice(0, 3);
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
   <Header />
 
-  <main
-    id="main-content"
-    class="app-layout flex flex-1 items-center justify-center"
-  >
-    <div class="mb-14 flex flex-col items-center justify-center">
-      <h1 class="text-9xl font-bold text-accent">404</h1>
-      <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p class="mt-4 text-2xl sm:text-3xl">Page Not Found</p>
-      <LinkButton
-        href="/"
-        class="my-6 text-lg underline decoration-dashed underline-offset-8"
-      >
-        Go back home
-      </LinkButton>
-    </div>
+  <main id="main-content" class="app-layout flex flex-1 flex-col">
+    <!-- 经典 404 头部，保留原本的轻松感 -->
+    <section class="flex flex-col items-center justify-center py-12 sm:py-16">
+      <h1 class="text-8xl font-bold text-accent sm:text-9xl">404</h1>
+      <span aria-hidden="true" class="mt-2 text-2xl opacity-60">¯\_(ツ)_/¯</span>
+      <p class="mt-4 text-xl sm:text-2xl">
+        这页走丢了，可能被搬走、删了，或者从未存在过。
+      </p>
+      <p class="mt-1 text-sm opacity-70">
+        This page is gone, moved, or never existed.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <LinkButton
+          href="/"
+          class="underline decoration-dashed underline-offset-4"
+        >
+          ← 回首页
+        </LinkButton>
+        <span class="opacity-40">·</span>
+        <LinkButton
+          href="/archives/"
+          class="underline decoration-dashed underline-offset-4"
+        >
+          归档
+        </LinkButton>
+        <span class="opacity-40">·</span>
+        <LinkButton
+          href="/posts/"
+          class="underline decoration-dashed underline-offset-4"
+        >
+          所有文章
+        </LinkButton>
+        <span class="opacity-40">·</span>
+        <LinkButton
+          href="/en/"
+          class="underline decoration-dashed underline-offset-4"
+        >
+          English
+        </LinkButton>
+      </div>
+    </section>
+
+    <!-- 最新文章救活迷路用户 -->
+    <section class="mx-auto w-full max-w-3xl px-4 pb-16">
+      <h2 class="text-2xl font-semibold tracking-tight">看看最新写了什么</h2>
+      <p class="mt-1 text-sm opacity-60">
+        既然来了，要不要看几篇最近的？
+      </p>
+
+      <ul class="mt-4">
+        {latestZh.map(post => <Card {...post} variant="h3" />)}
+      </ul>
+
+      {latestEn.length > 0 && (
+        <>
+          <h2 class="mt-12 text-2xl font-semibold tracking-tight">
+            Latest in English
+          </h2>
+          <ul class="mt-4">
+            {latestEn.map(post => <Card {...post} variant="h3" />)}
+          </ul>
+        </>
+      )}
+    </section>
   </main>
 
   <Footer />
