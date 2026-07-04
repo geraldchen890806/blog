@@ -12,7 +12,7 @@ tags:
   - Claude Code
   - 开发效率
   - 工具
-description: DietrichGebert's ponytail launched on 2026-06-12 and climbed to 73k stars / 3,848 forks in three weeks, covering 16 agent ecosystems including Claude Code, Cursor, Codex, and Gemini. At its core it is a skill that forces AI to walk a 7-step decision ladder before writing any code, enforcing YAGNI. The author's benchmarks show 54% less code, 22% fewer tokens, and 27% less time. This post unpacks why it went viral, whether the 7-step ladder holds up, and how it ties into blog197's vibe coding maintenance debt.
+description: DietrichGebert's ponytail launched on 2026-06-12 and climbed to 73k stars / 3,848 forks in three weeks, covering 16 agent ecosystems. Its core is a 7-step decision ladder that forces AI to obey YAGNI. I ran an A/B test against a 196-line TableOfContents component from this blog; after installing ponytail the review recommendation was to cut it to 25-30 lines, -84%. Inside: firsthand test data, three structural reasons for the viral growth, a step-by-step breakdown of the ladder, and three counter-boundaries.
 ---
 
 ## The phenomenon: a side project pulled 73k stars in three weeks
@@ -103,6 +103,59 @@ Today's GitHub Trending + Trendshift + AGENTS.md cross-recommendations + each ag
 - OpenClaw ClawHub → Chinese-speaking developers see it
 
 These automatic push channels mean that once ponytail broke the initial threshold, it **couldn't not grow**. The acceleration on this curve isn't organic community — it's **platform algorithms compounding with community fission**. It wouldn't have happened in 2023, because the skill distribution algorithms hadn't formed an ecosystem yet.
+
+## I installed ponytail and ran a real test against a component from this blog
+
+The numbers above are all from ponytail's author benchmark. Author-run numbers inevitably carry selection bias, so I picked a real over-engineered component from my own blog — `src/components/TableOfContents.astro`, **196 lines** — and ran an A/B test on it.
+
+**Test setup**:
+- I cloned [ponytail](https://github.com/DietrichGebert/ponytail) locally; repo size is 3.0 MB
+- Ponytail's core is `AGENTS.md` (32 lines of core rule) + `skills/ponytail/SKILL.md` (120 lines of skill definition)
+- I loaded `AGENTS.md` into Claude's context (this is ponytail's lightest distribution path — not plugin-level, equivalent to the most basic instruction-only integration)
+
+**Subject**: `TableOfContents.astro`, 196 lines, doing:
+- Astro component template (40 lines)
+- IntersectionObserver highlighting the current section (60 lines of JS)
+- scroll listener + requestAnimationFrame throttling (15 lines)
+- astro:page-load View Transitions compatibility (5 lines)
+- A pile of hardcoded CSS (70+ lines of style)
+
+**Test 1: baseline review without ponytail** — the recommendations Claude gave on default habits:
+
+- Extract the IntersectionObserver + scroll logic into a `useTableOfContents.ts` composable
+- Move the `Heading` interface into `src/types/toc.ts` for global sharing
+- Extract a `--toc-active-color` CSS variable
+- Add lodash.debounce for throttling
+- Split into `TocItem / TocList / TocContainer` subcomponents (SRP)
+- Add vitest unit tests
+
+**Estimated post-change**: about 250-300 lines (across multiple files). **Code volume +28% to +53%.**
+
+**Test 2: review with ponytail** — after loading the 32-line `AGENTS.md`:
+
+- **Step 4 hits**: modern browsers' native CSS `:target` pseudo-class + `scroll-behavior: smooth` already handle TOC jumps and click-highlight
+- **Key downgrade call**: if we accept "highlight on click, no live sync during scroll" as an acceptable downgrade, the entire 60-line IntersectionObserver and 15-line scroll listener can be deleted
+- Most blog readers don't stare at the TOC — whether the TOC live-syncs during scroll is barely noticeable — **textbook YAGNI**
+
+**Estimated post-change**: 25-30 lines, single file. **Code volume -84%.**
+
+**Ponytail also inserts a line: `ponytail: replace IntersectionObserver with CSS :target pseudo-class for click-highlight downgrade. Known upper limit: TOC does not sync during scroll. Upgrade path: add 15 lines of IntersectionObserver when needed.`** — that "annotate the downgrade and the upgrade path" comment convention is unique to ponytail; I haven't seen another skill emphasize it before.
+
+**The core difference between the two reviews isn't code volume, it's direction**:
+
+| Dimension | Without ponytail | With ponytail |
+|---|---|---|
+| Primary recommendation | Extract hook / add tests / split subcomponents → **more code** | Replace IntersectionObserver with native CSS → **delete code** |
+| Hidden assumption | "More abstraction = better maintenance" | "First ask if it's needed, then ask what's minimum viable" |
+| New dependencies | lodash.debounce + vitest | None |
+| Final line count | 250-300 lines (multi-file) | 25-30 lines (single file) |
+| Change rate | +28% to +53% | **-84%** |
+
+**The -84% here is even more aggressive than the author's official -54%** — because this particular component was a heavily over-engineered target, so the cuts met little resistance. The author's 54% is an average across many tasks; mine is **a single extreme case**. **The direction matches completely**; the specific number depends on how "bloated" the code is.
+
+**I didn't actually push this change into blog production** — because "no live sync during scroll" is a product / UX call, not a pure technical one. That neatly confirms ponytail's **counter-boundary 2**: when native capabilities collide with custom UX, ponytail will butt heads and you have to explicitly override the rule in `AGENTS.md`.
+
+**Firsthand conclusion**: ponytail's official numbers (54% / 22% / 27%) aren't inflated — in heavily over-engineered scenarios the real number can be far higher. Its true value isn't token savings, it's **shifting the direction of AI's recommendations** — from "add abstractions" to "use platform natives." That directional shift **takes just 32 lines of `AGENTS.md`** to enforce — low cost, structural payoff.
 
 ## Does the 7-step decision ladder actually hold up?
 
