@@ -12,7 +12,7 @@ tags:
   - Claude Code
   - 开发效率
   - 工具
-description: DietrichGebert's ponytail launched on 2026-06-12 and climbed to 73k stars / 3,848 forks in three weeks, covering 16 agent ecosystems. Its core is a 7-step decision ladder that forces AI to obey YAGNI. I ran an A/B test against a 196-line TableOfContents component from this blog; after installing ponytail the review recommendation was to cut it to 25-30 lines, -84%. Inside: firsthand test data, three structural reasons for the viral growth, a step-by-step breakdown of the ladder, and three counter-boundaries.
+description: "DietrichGebert's ponytail launched on 2026-06-12 and climbed to 73k stars / 3,848 forks in three weeks, covering 16 agent ecosystems. Its core is a 7-step decision ladder that forces AI to obey YAGNI. I ran an A/B test against a 196-line TableOfContents component from this blog; after installing ponytail the review recommendation was to cut it to 25-30 lines, a -84% change. Inside — firsthand test data, three structural reasons for the viral growth, a step-by-step breakdown of the ladder, and three counter-boundaries."
 ---
 
 ## The phenomenon: a side project pulled 73k stars in three weeks
