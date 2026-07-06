@@ -1,0 +1,592 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any"><!-- Google AdSense (Auto Ads) --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237239169922070" crossorigin="anonymous"></script><script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1237239169922070",
+        enable_page_level_ads: true
+      });
+    </script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"><link rel="alternate" hreflang="zh-CN" href="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"><link rel="alternate" hreflang="en" href="https://chenguangliang.com/en/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"><link rel="alternate" hreflang="x-default" href="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"><meta name="generator" content="Astro v6.3.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示 | 陈广亮的技术博客</title><meta name="title" content="腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示 | 陈广亮的技术博客"><meta name="description" content="腾讯 WorkBuddy 2026/3/9 上线，3 月月访问 8.85M、环比 +831%，DAU 是第 2 名 3-4 倍。同期 Claude Code / Codex CLI 在海外开发者圈封王。两条路一个 messaging-first 一个 terminal-first，背后是中美 agent 产品哲学的真实分叉。这篇基于公开资料拆 WorkBuddy 增长背后 4 个结构性决策，以及国内创业者从中能学到的差异化路径。"><meta name="author" content="陈广亮"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="陈广亮的技术博客"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示 | 陈广亮的技术博客"><meta property="og:description" content="腾讯 WorkBuddy 2026/3/9 上线，3 月月访问 8.85M、环比 +831%，DAU 是第 2 名 3-4 倍。同期 Claude Code / Codex CLI 在海外开发者圈封王。两条路一个 messaging-first 一个 terminal-first，背后是中美 agent 产品哲学的真实分叉。这篇基于公开资料拆 WorkBuddy 增长背后 4 个结构性决策，以及国内创业者从中能学到的差异化路径。"><meta property="og:url" content="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"><meta property="og:image" content="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-06-28T06:22:53.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"><meta property="twitter:title" content="腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示 | 陈广亮的技术博客"><meta property="twitter:description" content="腾讯 WorkBuddy 2026/3/9 上线，3 月月访问 8.85M、环比 +831%，DAU 是第 2 名 3-4 倍。同期 Claude Code / Codex CLI 在海外开发者圈封王。两条路一个 messaging-first 一个 terminal-first，背后是中美 agent 产品哲学的真实分叉。这篇基于公开资料拆 WorkBuddy 增长背后 4 个结构性决策，以及国内创业者从中能学到的差异化路径。"><meta property="twitter:image" content="https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示 | 陈广亮的技术博客","image":"https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/index.png","datePublished":"2026-06-28T06:22:53.000Z","author":[{"@type":"Person","name":"陈广亮","url":"https://chenguangliang.com/"}],"publisher":{"@type":"Organization","name":"陈广亮的技术博客","url":"https://chenguangliang.com/","logo":{"@type":"ImageObject","url":"https://chenguangliang.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/"}}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="陈广亮的技术博客" href="https://chenguangliang.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.BHXrXZ6j.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+.toc-container[data-astro-cid-xvrfupwn]{height:fit-content;max-height:calc(100vh - 200px);overflow-y:auto;padding:1.25rem;border:1px solid var(--color-border);border-radius:.5rem;background:var(--color-card)}.toc-wrapper[data-astro-cid-xvrfupwn]{width:100%}.toc-title[data-astro-cid-xvrfupwn]{font-size:14px;font-weight:600;margin-bottom:.75rem;color:var(--color-text-base)}.toc-list[data-astro-cid-xvrfupwn]{list-style:none;padding:0;margin:0}.toc-item[data-astro-cid-xvrfupwn]{margin:.2rem 0}.toc-level-2[data-astro-cid-xvrfupwn]{padding-left:0;font-size:14px}.toc-level-3[data-astro-cid-xvrfupwn]{padding-left:.75rem;font-size:13px}.toc-link[data-astro-cid-xvrfupwn]{display:block;padding:.15rem .4rem;color:var(--color-text-muted);text-decoration:none;border-left:2px solid transparent;transition:all .2s ease;line-height:1.3}.toc-link[data-astro-cid-xvrfupwn]:hover{color:var(--color-accent);border-left-color:var(--color-accent);background:var(--color-fill)}.toc-link[data-astro-cid-xvrfupwn].active{color:var(--color-accent);border-left-color:var(--color-accent);font-weight:500}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar{width:4px}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar-track{background:transparent}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar-thumb{background:var(--color-border);border-radius:2px}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar-thumb:hover{background:var(--color-text-muted)}.related-posts[data-astro-cid-dpgbfi7r]{margin-top:2.5rem;margin-bottom:1rem;padding:1.5rem;border:1px solid var(--color-border);border-radius:.5rem;background:var(--color-card, var(--color-fill))}.related-title[data-astro-cid-dpgbfi7r]{font-size:1.1rem;font-weight:600;margin:0 0 1rem;color:var(--color-text-base)}.related-list[data-astro-cid-dpgbfi7r]{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.75rem}.related-item[data-astro-cid-dpgbfi7r]{margin:0}.related-link[data-astro-cid-dpgbfi7r]{display:flex;flex-direction:column;gap:.25rem;padding:.75rem;border-radius:.375rem;text-decoration:none;color:var(--color-text-base);transition:background .15s,transform .15s;border-left:3px solid transparent}.related-link[data-astro-cid-dpgbfi7r]:hover{background:var(--color-fill);border-left-color:var(--color-accent)}.related-post-title[data-astro-cid-dpgbfi7r]{font-weight:600;color:var(--color-accent);font-size:.95rem;line-height:1.4}.related-desc[data-astro-cid-dpgbfi7r]{font-size:.85rem;color:var(--color-text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.post-layout[data-astro-cid-vj4tpspi]{position:relative;width:100%}.post-content[data-astro-cid-vj4tpspi]{width:100%;max-width:var(--app-layout-max-width, 1024px);margin:0 auto}.post-sidebar[data-astro-cid-vj4tpspi]{display:none}@media(min-width:1280px){.post-sidebar[data-astro-cid-vj4tpspi]{display:block;position:fixed;right:max(2rem,calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 300px));top:5rem;width:240px;max-height:calc(100vh - 8rem)}}@media(min-width:1536px){.post-sidebar[data-astro-cid-vj4tpspi]{right:max(2rem,calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 320px));width:260px}}@media(min-width:1920px){.post-sidebar[data-astro-cid-vj4tpspi]{right:max(3rem,calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 360px));width:280px}}
+</style><style>[data-astro-transition-scope="astro-pcwlacsx-1"] { view-transition-name: \817E\8BAF-work-buddy-\4E09\4E2A\6708\505A\5230\4E2D\56FD\751F\4EA7\529B-agent-\7B2C\4E00\FF1Amessaging-first-\8DEF\7EBF\5BF9-claude-code-codex-terminal-first-\7684\5DEE\5F02\5316\542F\793A; }@layer astro { ::view-transition-old(\817E\8BAF-work-buddy-\4E09\4E2A\6708\505A\5230\4E2D\56FD\751F\4EA7\529B-agent-\7B2C\4E00\FF1Amessaging-first-\8DEF\7EBF\5BF9-claude-code-codex-terminal-first-\7684\5DEE\5F02\5316\542F\793A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\817E\8BAF-work-buddy-\4E09\4E2A\6708\505A\5230\4E2D\56FD\751F\4EA7\529B-agent-\7B2C\4E00\FF1Amessaging-first-\8DEF\7EBF\5BF9-claude-code-codex-terminal-first-\7684\5DEE\5F02\5316\542F\793A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\817E\8BAF-work-buddy-\4E09\4E2A\6708\505A\5230\4E2D\56FD\751F\4EA7\529B-agent-\7B2C\4E00\FF1Amessaging-first-\8DEF\7EBF\5BF9-claude-code-codex-terminal-first-\7684\5DEE\5F02\5316\542F\793A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\817E\8BAF-work-buddy-\4E09\4E2A\6708\505A\5230\4E2D\56FD\751F\4EA7\529B-agent-\7B2C\4E00\FF1Amessaging-first-\8DEF\7EBF\5BF9-claude-code-codex-terminal-first-\7684\5DEE\5F02\5316\542F\793A) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai-agent; }@layer astro { ::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: \5DE5\5177; }@layer astro { ::view-transition-old(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5DE5\5177) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: \5F00\53D1\6548\7387; }@layer astro { ::view-transition-old(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: \81EA\52A8\5316; }@layer astro { ::view-transition-old(\81EA\52A8\5316) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\81EA\52A8\5316) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\81EA\52A8\5316) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\81EA\52A8\5316) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> 陈广亮的技术博客 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts/" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags/">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about/">
+About
+</a> </li> <li class="col-span-2"> <a href="/archives/" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search/" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-2 flex items-center justify-center sm:col-span-1"> <a id="lang-toggle" href="/en/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" data-target-lang="en" title="Switch to English" aria-label="Switch to English" class="focus-outline whitespace-nowrap p-3 font-medium hover:text-accent sm:p-1 sm:text-sm"> EN </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const a=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",a?"false":"true"),e.setAttribute("aria-label",a?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}c();function r(){const e=document.querySelector("#lang-toggle");e?.addEventListener("click",()=>{const t=e.dataset.targetLang;t&&(document.cookie=`preferred_lang=${t}; path=/; max-age=31536000; SameSite=Lax`)})}r();document.addEventListener("astro:after-swap",()=>{c(),r()});</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body data-astro-cid-vj4tpspi> <div class="post-layout" data-astro-cid-vj4tpspi> <div class="post-content" data-astro-cid-vj4tpspi> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-cid-vj4tpspi data-astro-transition-scope="astro-pcwlacsx-1"> 腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示 </h1> <div class="my-2 flex items-center gap-2" data-astro-cid-vj4tpspi> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-06-28T06:22:53.000Z">28 Jun, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden" data-astro-cid-vj4tpspi>|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)" data-astro-cid-vj4tpspi> <h2 id="现象同期爆发的两种-agent">现象：同期爆发的两种 agent</h2>
+<p><a href="https://chenguangliang.com/posts/blog196_cli-second-spring-ai-era-three-structural-reasons/">blog196</a> 那篇我讲过 2025-2026 上半年 AI CLI 的集体爆发——Claude Code、OpenAI Codex CLI、Charm Bubble Tea、Ink 同期起飞，把”AI 工具就该是 CLI”几乎写成业界共识。</p>
+<p>但同一时间窗口，国内有一个完全不同形态的 agent 在悄悄成长：</p>
+<ul>
+<li><strong>2026 年 3 月 9 日</strong>，腾讯云上线 WorkBuddy</li>
+<li><strong>2026 年 3 月</strong>，月访问 8.85M，<strong>环比 +831%</strong>，是中国第 2 名生产力 agent 的 <strong>2 倍以上</strong></li>
+<li><strong>DAU 比第 2 名高 3-4 倍</strong></li>
+<li><strong>2026 年 5 月 29 日</strong>全球版上线，对接 Slack/Discord/Telegram 等海外 IM</li>
+<li>产品原型出自腾讯 CodeBuddy 团队约 10 人，<strong>Wang Shengjie 带一个运营在 2026 年 1 月某个周末熬了两个通宵搭出来的</strong></li>
+</ul>
+<p>如果你完全在 Claude Code / Cursor 的英文圈里，你大概率没听过 WorkBuddy；如果你在腾讯生态/中国市场里，它三个月内已经成了你的同事可能在用的工具。</p>
+<p>更值得拆的不是”中国出了个新 agent”——是 <strong>WorkBuddy 选了一条跟 Claude Code / Codex CLI 完全相反的路线</strong>：<strong>messaging-first</strong> 而非 terminal-first。这条路线选择对应了一组结构性的产品哲学差异，对国内做 agent 产品的人有直接启示。</p>
+<p>这篇基于公开资料 + Tencent 官方文档 + 我对 Claude Code / Codex CLI 长期 dogfooding 经验做对比，拆 4 个 WorkBuddy 增长背后的结构性决策。</p>
+<h2 id="决策一messaging-first-vs-terminal-first受众根本不同">决策一：messaging-first vs terminal-first，受众根本不同</h2>
+<p>这是最大的分叉。</p>
+<p>Claude Code 的默认形态是 <code>claude</code> 在终端跑、Codex CLI 同理——它们假设用户是<strong>坐在 IDE 旁边的工程师</strong>，回车-看输出-继续指令的反馈环节奏是亚秒到分钟级。</p>
+<p>WorkBuddy 的默认形态完全相反——<strong>用户在 Slack / Discord / Telegram / WeChat 里发一句话，WorkBuddy 在后台跑完任务、把成品（PPT / 表格 / 研究简报）通过同一个 IM 频道发回来</strong>。用户全程不切上下文，连 web 都不用打开。</p>
+<p>这个差异不是 UI 偏好，<strong>是受众分层</strong>：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Claude Code / Codex</th><th>WorkBuddy</th></tr></thead><tbody><tr><td>主要用户</td><td>工程师</td><td>产品经理、运营、销售、PM、行政</td></tr><tr><td>默认场景</td><td>写代码 / 改代码 / 跑测试</td><td>做 PPT / 整理数据 / 写周报 / 竞品调研</td></tr><tr><td>反馈节奏</td><td>秒-分钟</td><td>分钟-小时</td></tr><tr><td>用户技能假设</td><td>会用 shell</td><td>会用聊天软件</td></tr><tr><td>设备假设</td><td>桌面 + 终端</td><td>手机 / 桌面均可</td></tr></tbody></table>
+<p>把”agent 跑在 IM 里”这件事讲清楚后会发现：<strong>WorkBuddy 不是在跟 Claude Code 竞争</strong>，它在跟”我开个微信问同事帮我做个 PPT”竞争。这是个<strong>数量级更大</strong>的市场——办公人员的体量本身就比工程师群体大得多。</p>
+<p>腾讯选这条路有先天优势——微信、企业微信、QQ 是国内 IM 基础设施；同样的事情 Anthropic 做不了，因为没人在 Slack 里<strong>指挥工程师工作</strong>，工程师都自己在终端干活。</p>
+<h2 id="决策二scenario-encapsulation-而非-capability-exposure">决策二：Scenario encapsulation 而非 capability exposure</h2>
+<p>第二个结构性差异更细，但影响更深。</p>
+<p>Claude Code 和 Codex CLI 暴露的是<strong>能力</strong>——<code>bash</code>、<code>edit</code>、<code>grep</code>、MCP tool，让用户用自然语言<strong>组合</strong>它们达到目的。这是经典的工程师产品哲学：“给你一组原子能力，你自己组合”。能力强、灵活、上限高，但需要用户<strong>会想清楚要怎么组合</strong>。</p>
+<p>WorkBuddy 暴露的是<strong>场景</strong>——它的 Skills Gallery 内置了 <strong>100+ 个 Expert Skills</strong>（也就是文章前面提到的”100+ 内置专家角色”，官方口径是同一回事），覆盖发票处理、文档归档、竞品调研、内容创作、舆情分析、销售洞察、数据处理等高频场景。每一个都是一个完整 workflow，用户<strong>选场景、塞素材、等结果</strong>，不需要拼命想”我该让 AI 做什么、按什么顺序、用哪些工具”。</p>
+<p>这是一个<strong>产品哲学的根本分叉</strong>：</p>
+<ul>
+<li><strong>Claude Code / Codex 的哲学</strong>：“工程师懂自己要什么，给他原子能力 + 文档就行”</li>
+<li><strong>WorkBuddy 的哲学</strong>：“非工程师用户不知道自己要什么，给他打包好的场景模板，他选一个就用”</li>
+</ul>
+<p>这背后是对<strong>用户基线能力</strong>的不同判断。前者假设用户能 prompt engineering、能调试、能读 log、能从错误里学；后者假设用户连”我需要哪些步骤”都不想想，<strong>就要一个能跑完的封装</strong>。</p>
+<p><strong>两个哲学没有对错，只对应不同市场</strong>。但要注意：<strong>国内 to C / to SMB 市场的真实用户构成与硅谷工程师社区差异显著</strong>（前者非工程师占比高得多），所以 WorkBuddy 的 scenario encapsulation 在国内是对的；同样的产品在 Claude Code 用户群里发布，可能反而被嫌”太傻瓜、不够灵活”。</p>
+<h2 id="决策三expert-teams-不是噱头是-sub-agent-工程化的产品包装">决策三：Expert Teams 不是噱头，是 sub-agent 工程化的产品包装</h2>
+<p>WorkBuddy 一个被反复宣传的功能叫 <strong>Expert Teams</strong>——多个 sub-agent 并行干不同子任务，1 个 lead agent 协调最终产出。</p>
+<p>熟悉 <a href="https://chenguangliang.com/posts/blog195_loop-engineering-three-debts-playbook/">blog195</a> 里讲 loop engineering 的人会立刻识别——这就是 <strong>maker/verifier 分工 + 并行 sub-agent</strong> 的产品化包装。Claude Code 也支持 sub-agent，但它把这能力<strong>留给用户自己 wire 起来</strong>；WorkBuddy 把它<strong>包成默认行为</strong>——你提一个复杂任务，它自动决定要不要拆、拆几个、谁验证谁。</p>
+<p>这个差异体现的是工程化心智 vs 产品化心智：</p>
+<ul>
+<li><strong>工程师心智</strong>：“你想要 parallel sub-agent？自己 spawn 啊，我把 SDK 给你”</li>
+<li><strong>产品化心智</strong>：“你不需要知道有 sub-agent，你只要看见 PPT 三分钟就好了”</li>
+</ul>
+<p><strong>WorkBuddy 把工程概念藏起来这件事是它增速 +831% 的关键之一</strong>——非工程师用户不需要被教育 “loop engineering”、“verification debt”、“maker/verifier 解耦”，他们只需要看见<strong>任务在后台跑、最后产出一份能用的文件</strong>。</p>
+<p>但反过来——这种封装的代价是<strong>透明度低</strong>。出了问题用户没法 debug、没法看中间状态、没法干预。Claude Code 用户能在终端看见每一步 tool call、能 Ctrl+C 中断、能改 prompt 重跑；WorkBuddy 用户大部分情况下能做的只有”等”和”重新发一次”。这是封装的天然代价，对它的目标受众不致命，对工程师用户会逼疯。</p>
+<h2 id="决策四mcp-接入广度先于深度">决策四：MCP 接入广度先于深度</h2>
+<p>WorkBuddy 通过 MCP 接 GitHub、Jira、Notion、Gmail、Google Drive、Slack，覆盖典型办公人员一天会用到的多数 SaaS。</p>
+<p>它的做法是<strong>接入数量先于单个深度</strong>——每个 connector 先把”能读、能写、能触发”做出来，<strong>不追求功能完整覆盖</strong>。这又是一个产品取舍：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>哲学</th><th>Claude Code 路线</th><th>WorkBuddy 路线</th></tr></thead><tbody><tr><td>接入策略</td><td>用户自己装 MCP，按需扩</td><td>平台预装一批主流 connector</td></tr><tr><td>单个深度</td><td>用户自己写 prompt / skill 调用</td><td>平台预先封装常用动作</td></tr><tr><td>用户成本</td><td>高（要会配）</td><td>低（开箱即用）</td></tr><tr><td>长尾覆盖</td><td>强（任何 MCP 都能装）</td><td>弱（只支持官方列表）</td></tr></tbody></table>
+<p>WorkBuddy 这个策略的实质是：<strong>对 80% 的用户来说，他们一辈子都不会用到自己写的 MCP，他们要的是”主流 SaaS 都能接、点点鼠标就能跑”</strong>。Claude Code 那种 “MCP 即插即用 + 用户自己组合” 在这群用户里<strong>不是 feature 是负担</strong>。</p>
+<p>MCP 这条标准协议本身没有 winner，但<strong>两种打包方式对应两种用户群</strong>——一种偏 power user 的灵活组合，一种偏普通用户的预设场景。WorkBuddy 选了后者，这是它能在三个月里把月活拉到 8.85M 的关键之一。</p>
+<h2 id="国内创业者能学到什么">国内创业者能学到什么</h2>
+<p>把 4 个决策合起来看，WorkBuddy 的增长不是因为大模型好（它本身是个 routing 层，可以接多种模型），不是因为腾讯有钱（早期就 10 个人 + 一个周末），是因为<strong>产品决策清晰对齐了”非工程师用户能直接用”这个目标</strong>：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>WorkBuddy 决策</th><th>对应了什么</th></tr></thead><tbody><tr><td>messaging-first</td><td>用户已在 IM，不要让他换上下文</td></tr><tr><td>scenario encapsulation</td><td>用户不知道要哪些步骤，给他打包工作流</td></tr><tr><td>Expert Teams 默认行为</td><td>复杂能力藏在产品里，不要求用户理解</td></tr><tr><td>MCP 广度先于深度</td><td>主流 SaaS 覆盖率 > 长尾 connector 灵活性</td></tr></tbody></table>
+<p>对国内 agent 产品创业者，这套打法的启示<strong>不在于抄 WorkBuddy</strong>，而在于<strong>别再做 Claude Code 的中文翻版</strong>。国内 to C / to SMB 的真实需求<strong>不是”给我一个超强 agent SDK 让我自己拼”</strong>，而是”我已经在用微信/钉钉，能不能帮我把这份 Excel 整理成 PPT”。</p>
+<p>具体可借鉴的几条：</p>
+<ol>
+<li><strong>先选 messaging 入口</strong>：微信小程序、企业微信、钉钉、飞书都比独立 web app 摩擦小一个量级</li>
+<li><strong>先封场景，再开能力</strong>：选 3-5 个<strong>高频办公场景</strong>做深，比开放 200 个 MCP tool 给用户自己拼更容易做出 retention</li>
+<li><strong>复杂工程概念藏在 UI 之后</strong>：sub-agent、verifier、loop—用户不需要懂，但你的工程团队必须懂</li>
+<li><strong>MCP 选主流大件</strong>：先把 Notion / Lark / GitHub / Google Drive 接出来，比追开源长尾值得</li>
+</ol>
+<h2 id="workbuddy-不是没有问题">WorkBuddy 不是没有问题</h2>
+<p>为了不变成腾讯软文，必须给反向边界。WorkBuddy 路线的代价我能想到的至少有：</p>
+<p><strong>1. 透明度低，调试痛苦</strong>
+非工程师用户不需要看见中间状态，但<strong>真出错时也没法 debug</strong>。Expert Teams 哪个 sub-agent 出问题、为什么、能不能跳过——用户基本没办法干预。这是 messaging-first 形态的天然代价。</p>
+<p><strong>2. 长尾任务不擅长</strong>
+100+ 个 Expert Skills 覆盖了高频 80% 场景，但一旦你的任务<strong>不在场景列表里</strong>，效果可能反而比直接用 ChatGPT 还差——因为 WorkBuddy 整套系统是为”封装工作流”设计的，自由对话不是它的优势。</p>
+<p><strong>3. 强依赖 MCP 接入方的 API 政策</strong>
+WorkBuddy 整套体验依赖 GitHub / Jira / Notion / Gmail 等保持开放 MCP 接入。一旦某家收紧（比如 Notion 限流），WorkBuddy 的 connector 体验直接降级。</p>
+<p><strong>4. messaging 的隐私边界</strong>
+通过 Slack/Discord/Telegram 远程发任务意味着<strong>任务描述、产出文件都经过 IM 中转</strong>。企业敏感数据上 WorkBuddy 用户必须明确知道这一点。</p>
+<p>这些问题对它的核心受众（非工程师 + 高频办公场景）影响有限，但任何想抄它的人需要提前评估这些代价是否能接受。</p>
+<h2 id="收尾">收尾</h2>
+<p>WorkBuddy 三个月 +831% 不是奇迹，是<strong>产品决策清晰对齐目标用户</strong>的结果。它跟 Claude Code / Codex CLI 不是替代关系，是平行宇宙——分别为”工程师用户”和”办公人员用户”两个不同市场服务。</p>
+<p>国内 agent 创业最容易踩的坑是<strong>把硅谷工程师工具的形态直接搬来卖给中国办公人员</strong>。WorkBuddy 做了相反的事——拿全球最先进的 agent 工程化能力（sub-agent / MCP / multi-model routing）<strong>包装成办公人员熟悉的 IM 形态</strong>。这种打包能力本身是稀缺的，是腾讯 + CodeBuddy 团队在 AI agent 工程化上多年积累的体现。</p>
+<p>如果你正在做国内 agent 产品，建议从下面这个问题开始：<strong>你的用户已经在用什么 IM / 协作工具，你能不能把他要的产出从那里推给他，而不是让他打开第 11 个 web app？</strong></p>
+<p>回答这一个问题，可能就决定了你 6 个月后的留存曲线长什么样。</p>
+<hr>
+<p><strong>延伸阅读</strong>：</p>
+<ul>
+<li><a href="https://www.tencentcloud.com/act/pro/workbuddy">Tencent WorkBuddy 官方页</a> - 产品官方介绍</li>
+<li><a href="https://technode.com/2026/05/29/tencent-launches-workbuddy-productivity-ai-agent-for-global-users/">TechNode: Tencent launches WorkBuddy globally</a> - 全球版 launch 报道</li>
+<li><a href="https://www.panewslab.com/en/articles/019ed38e-887d-76c8-a0eb-2726bcc3b9cd">PANews: WorkBuddy DAU 3-4x 第 2 名拆解</a> - 中文圈对 WorkBuddy 增长的产品复盘</li>
+<li><a href="https://www.prnewswire.com/apac/news-releases/tencent-cloud-unveils-new-ai-agents-workbuddy-and-miora-driving-innovation-and-real-business-outcomes-across-southeast-asia-302797910.html">PR Newswire: WorkBuddy 海外 launch</a> - 官方海外发布稿</li>
+<li><a href="https://chenguangliang.com/posts/blog196_cli-second-spring-ai-era-three-structural-reasons/">本博客 blog196 - AI 时代 CLI 第二春</a> - terminal-first 路线那一侧</li>
+<li><a href="https://chenguangliang.com/posts/blog195_loop-engineering-three-debts-playbook/">本博客 blog195 - Loop Engineering 三条债 playbook</a> - sub-agent / verifier 工程化基础</li>
+</ul> </article> <section class="related-posts" data-pagefind-ignore data-astro-cid-dpgbfi7r><h2 class="related-title" data-astro-cid-dpgbfi7r>相关阅读</h2><ul class="related-list" data-astro-cid-dpgbfi7r><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog202_ponytail-73k-stars-three-weeks-lazy-senior-dev/" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Ponytail 三周 73k star：一个 side project 治好了 AI Agent 过度写代码的病</span><span class="related-desc" data-astro-cid-dpgbfi7r>DietrichGebert 的 ponytail 2026-06-12 建仓，三周涨到 73k star，覆盖 16 个 agent 生态。核心是 7 步 decision ladder 强制 AI 走 YAGNI。我拿博客里一个 196 行的 TableOfContents 组件跑了 A/B 实测，装 ponytail 后 review 建议是砍到 25-30 行、-84%。本文含实测数据、病毒传播 3 结构性原因、7 步 ladder 逐条拆解、3 反向边界。</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog201_weread-official-agent-skill-monetization-window/" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>微信读书 Agent Skill 拆解：中文互联网内容平台第一个官方玩家，独立开发者的 Skill 商业化窗口打开了吗</span><span class="related-desc" data-astro-cid-dpgbfi7r>微信读书 2026-05-17 发的 Agent Skill 是中文互联网内容平台第一个&quot;官方玩家&quot;。发布首周社区二创井喷，1.5 个月过去却无一个真正商业化产品。本文拆&quot;官方开放 + 二创井喷 + 零商业化&quot;背后 3 个结构性阻力，以及独立开发者当下真正能吃到的红利。</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog200_zcode-glm52-harness-hn-frontpage/" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>ZCode 登 HN 头版：国产开发者工具第一次被硅谷工程师认真评估</span><span class="related-desc" data-astro-cid-dpgbfi7r>智谱 GLM-5.2 官方 harness &quot;ZCode&quot; 登 Hacker News 头版（最早 155/192，现在 264/236）。这不是&quot;又一个 AI IDE&quot;，而是国产开发者工具首次进入硅谷主流工程师视野。本文拆事件时间线、ZCode 到底是什么形态（不是 CLI 是桌面 app）、HN 里 3 类真实反对声，以及自己接 GLM Coding API 的 30 行 TS 示例。</span></a></li></ul></section> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/工具/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 工具 </a> </li><li> <a href="/tags/开发效率/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 开发效率 </a> </li><li> <a href="/tags/自动化/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 自动化 </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/posts/blog198_workbuddy-messaging-first-vs-terminal-first-agent/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed" data-astro-cid-vj4tpspi> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-astro-cid-vj4tpspi> <a href="/posts/blog199_glm-5-2-cyber-benchmark-scenario-specific-breakthrough/" class="flex w-full gap-1 hover:opacity-75" data-astro-cid-vj4tpspi> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Previous Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>GLM 5.2 在安全基准超 Claude：中国大模型的「场景特化超越」是不是新拐点</div> </div> </a> <a href="/posts/blog197_vibe-coding-maintenance-real-test/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2" data-astro-cid-vj4tpspi> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Next Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>接手 AI 写的代码后我心态崩了——维护期才是 Vibe Coding 真正的考场</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </div> <!-- Table of Contents Sidebar --> <div class="post-sidebar" data-astro-cid-vj4tpspi> <aside class="toc-container" data-astro-cid-xvrfupwn><div class="toc-wrapper" data-astro-cid-xvrfupwn><h2 class="toc-title" data-astro-cid-xvrfupwn>目录</h2><nav class="toc-nav" data-astro-cid-xvrfupwn><ul class="toc-list" data-astro-cid-xvrfupwn><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#现象同期爆发的两种-agent" class="toc-link" data-heading-id="现象同期爆发的两种-agent" data-astro-cid-xvrfupwn>现象：同期爆发的两种 agent</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#决策一messaging-first-vs-terminal-first受众根本不同" class="toc-link" data-heading-id="决策一messaging-first-vs-terminal-first受众根本不同" data-astro-cid-xvrfupwn>决策一：messaging-first vs terminal-first，受众根本不同</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#决策二scenario-encapsulation-而非-capability-exposure" class="toc-link" data-heading-id="决策二scenario-encapsulation-而非-capability-exposure" data-astro-cid-xvrfupwn>决策二：Scenario encapsulation 而非 capability exposure</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#决策三expert-teams-不是噱头是-sub-agent-工程化的产品包装" class="toc-link" data-heading-id="决策三expert-teams-不是噱头是-sub-agent-工程化的产品包装" data-astro-cid-xvrfupwn>决策三：Expert Teams 不是噱头，是 sub-agent 工程化的产品包装</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#决策四mcp-接入广度先于深度" class="toc-link" data-heading-id="决策四mcp-接入广度先于深度" data-astro-cid-xvrfupwn>决策四：MCP 接入广度先于深度</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#国内创业者能学到什么" class="toc-link" data-heading-id="国内创业者能学到什么" data-astro-cid-xvrfupwn>国内创业者能学到什么</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#workbuddy-不是没有问题" class="toc-link" data-heading-id="workbuddy-不是没有问题" data-astro-cid-xvrfupwn>WorkBuddy 不是没有问题</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#收尾" class="toc-link" data-heading-id="收尾" data-astro-cid-xvrfupwn>收尾</a></li></ul></nav></div></aside><script type="module">function l(){const o=document.querySelectorAll(".toc-link"),c=document.querySelectorAll("h2[id], h3[id]");if(o.length===0||c.length===0)return;function s(){let e=null;const r=window.scrollY+100;c.forEach(t=>{const n=t.offsetTop;r>=n&&(e=t)}),o.forEach(t=>{t.classList.remove("active"),e&&t.getAttribute("data-heading-id")===e.id&&t.classList.add("active")})}o.forEach(e=>{e.addEventListener("click",r=>{r.preventDefault();const t=e.getAttribute("href")?.slice(1);if(t){const n=document.getElementById(t);n&&(n.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,"",`#${t}`))}})});let i=!1;window.addEventListener("scroll",()=>{i||(window.requestAnimationFrame(()=>{s(),i=!1}),i=!0)}),s()}document.addEventListener("DOMContentLoaded",l);document.addEventListener("astro:page-load",l);</script> </div> </div> </main> <footer class="app-layout mt-auto" data-astro-cid-vj4tpspi="true"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/privacy-policy/" class="hover:text-accent underline decoration-dashed underline-offset-4">隐私政策</a> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/contact/" class="hover:text-accent underline decoration-dashed underline-offset-4">联系方式</a> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html>  <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>

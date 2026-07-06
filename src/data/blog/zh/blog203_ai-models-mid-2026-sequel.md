@@ -1,7 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-07-06T14:08:21+08:00
-title: "AI 模型对比 2026 年中续篇：blog166 发布 52 天后，我 5 月的判断错了几条"
+title: AI 模型对比 2026 年中续篇：blog166 发布 52 天后，我 5 月的判断错了几条
 slug: blog203_ai-models-mid-2026-sequel
 featured: true
 draft: false
@@ -12,7 +12,7 @@ tags:
   - LLM
   - 开发效率
   - 开源
-description: blog166 发出 52 天后自校验：5 条判断里 2 条反悔（Sonnet/Opus 建议过时、开源差距 5-15 分低估到 2 分）、1 条待验证（Anthropic 定价）、2 条成立（Opus 4.6 退役、开发者门槛）。附 6 个月路由观察。
+description: blog166 发出 52 天后逐条自校验：5 条判断里 2 条反悔（Sonnet/Opus 建议过时、开源差距低估）、1 条待验证（Anthropic 定价）、2 条成立。附我博客 6 个月模型路由的真实观察和下次校验节点。
 ---
 
 ## 为什么要写"续篇"，而不是又一版对比
@@ -33,11 +33,11 @@ blog166 是我 5 月 15 日发的 [「AI 大模型对比 2026 年中版」](/pos
 
 | # | blog166 5 月的判断 | 7 月现状 | 兑现情况 |
 |---|---|---|---|
-| 1 | Opus 4.6 → **升 Sonnet 4.6（$3/$15）作为日常默认**、复杂任务用 Opus 4.7（$5/$25） | Opus 4.8 / Fable 5 已发布，Sonnet 6-30 直接跳到 Sonnet 5，成本-能力曲线整体前移 | ❌ **过时** |
+| 1 | Opus 4.6 → **升 Sonnet 4.6（$3/$15）作为日常默认**、复杂任务用 Opus 4.7（$5/$25） | Opus 4.8 / Fable 5 已发布，Sonnet 线 6-30 直接从 4.6 跳到 Sonnet 5，成本-能力曲线整体前移 | ❌ **过时** |
 | 2 | 开源和闭源前沿差距 **缩到 5-15 分**（SWE-bench / MMLU 任意基准） | GLM-5.2 在 BenchLM 综合榜 **91/100**，Claude 系约 93 —— **差约 2 分** | ⚠️ **方向对，幅度严重低估** |
 | 3 | Opus 4.6 退役时间 **2026-06-15**，API opus alias 会自动切 4.7 | 6/15 后 Opus 4.6 确实进入 deprecated 状态，Anthropic 发布节奏往后拉了 Opus 4.7 → 4.8 → Fable 5 三档 | ✅ **成立** |
 | 4 | Anthropic 定价维持不变、在别人降价背景下相对变贵 | Opus 4.8 官方仍 $5/$25 input/output（GPT-5.5 已明显降价、GLM-5.2 官方 $1.40/$4.40 更是杀进腰斩线） | ⚠️ **成立但正在验证** —— Anthropic Fable 5 会不会开新档位待观察 |
-| 5 | "开发者经济门槛降一档"（叠加 Sonnet + DeepSeek + Groq 免费额度可跑 50 万-200 万 token/天） | 更极端：ZCode 官方 Coding Plan Lite **$16.2/月**、GLM Coding Plan 免费档 5M tokens/day，Ponytail 这类 skill 让同样任务再省 22%-54% token | ✅ **超预期** |
+| 5 | "开发者经济门槛降一档"（独立开发者月预算从 3 月的 $50 降到 5 月的 $20 也能跑完整工作流） | 更极端：ZCode 官方 Coding Plan Lite **$16.2/月**、GLM Coding Plan 免费档 5M tokens/day，Ponytail 这类 skill 让同样任务代码量再省约 54%、token 省约 22% | ✅ **超预期** |
 
 **5 条里：1 条过时（#1 Sonnet/Opus 建议）、1 条方向对但幅度低估（#2 开源差距）、1 条成立（#3 Opus 4.6 退役）、1 条成立但仍在验证（#4 Anthropic 定价）、1 条超预期（#5 开发者门槛）。** 严格算：完全成立 2 条、成立但需重估 1 条、方向对幅度错 1 条、完全过时 1 条。宽口径命中率 60%、严口径命中率 40%——**看你怎么算，都不是"照抄就好"的档次**。
 
@@ -104,13 +104,13 @@ blog166 里我说：
 
 ## 我 blog 项目 6 个月路由的真实观察
 
-从 blog080（2026-01）到今天，我博客的 agent 层用过（或试过）以下模型路由：
+从 2026 年 1 月到今天（blog080、blog166 两个复盘节点分别在 3 月和 5 月），我博客的 agent 层用过（或试过）以下模型路由：
 
 - **1-2 月**：主要 Claude 3.5 Sonnet（blog 生成 + 校对同一模型，token 单价 $3/$15）
 - **3-4 月**：切 Sonnet 4.6（[blog166 里的推荐](/posts/blog166_ai-models-mid-2026-update/)），生成 + 校对分离
 - **5 月**：Sonnet 4.6 生成 + Opus 4.7 二次校对（[blog190](/posts/blog190_claude-fable-5-integration-guide/) 里讲的双模 fallback）
 - **6 月**：Fable 5 发布后短暂全线迁到 Fable 5，因为 stop_reason:refusal 触发率高、拒答风格改变，反而把校对切回 Opus 4.7
-- **7 月当前**：**Sonnet 5（6-30 发布）生成 + Opus 4.8 二次校对**——校对触发 refusal 的比例明显下降，同时 Opus 4.8 在数字/引用精度上比 4.7 有可感提升（[blog199 里那次"综合差 9 分 vs 差 2 分"数字硬伤](/posts/blog199_glm-5-2-cyber-benchmark-scenario-specific-breakthrough/) 就是这个组合抓出来的 —— 校对 pass 抓到跨全文 8 处一致的方向错误）
+- **7 月当前**：**Sonnet 5（6-30 发布）生成 + Opus 4.8 二次校对**——校对触发 refusal 的比例明显下降，同时 Opus 4.8 在数字/引用精度上比 4.7 有可感提升（[blog199](/posts/blog199_glm-5-2-cyber-benchmark-scenario-specific-breakthrough/) 发布时把综合榜差距错写成 9 分——真实约 2 分，9 分是 IDOR 单场景的数——就是这个组合抓出来的：校对 pass 抓到跨全文 8 处一致的方向错误）
 
 **尚未落地的**：GLM-5.2 我在博客生成路径里**没上生产**。理由不是能力不够，是**中文 SEO / AdSense 复审窗口期**风险——我博客主市场是中文，AdSense 目前正在 7/10 复审，任何非 Anthropic 主线的模型引入都会打乱内容风格的可预测性。**等 AdSense 通过后再评估 GLM-5.2 独立在特定任务上试点**。
 
@@ -124,7 +124,7 @@ blog166 里我说：
 真实发生。Anthropic 按预告节奏发布，API opus alias 平滑过渡到 4.7 再到 4.8。这条 5 月能预判是因为 Anthropic 官方 blog 明确写过。**从 blog166 到 blog203 期间对模型 lifecycle 管理没打乱**，是 Anthropic 值得信任的一个信号。
 
 **成立 2：开发者经济门槛降一档。**
-7 月更极端。ZCode Coding Plan $16.2/月起、GLM Coding Plan 5M tokens/day 免费、Ponytail 这类 skill 让单次任务 token 减 22-54%（[blog202 里我实测了一个组件从 196 行砍到 25-30 行 -84%](/posts/blog202_ponytail-73k-stars-three-weeks-lazy-senior-dev/)）。
+7 月更极端。ZCode Coding Plan $16.2/月起、GLM Coding Plan 5M tokens/day 免费、Ponytail 这类 skill 让单次任务 token 减约 22%、代码量减约 54%（[blog202 里我实测了一个组件从 196 行砍到 25-30 行、约 -84%](/posts/blog202_ponytail-73k-stars-three-weeks-lazy-senior-dev/)）。
 
 **这两条不是巧合成立**——它们都不是对某个模型"能不能出"、"性能会不会强"的预判，都是对**结构性趋势**（Anthropic 内部 lifecycle 节奏、开发者定价 race-to-bottom）的判断。**结构性趋势比单模型预测更容易命中**——因为它们由市场和商业动力驱动，不由一次发布决定。
 
