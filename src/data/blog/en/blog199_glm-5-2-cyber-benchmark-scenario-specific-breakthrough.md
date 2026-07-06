@@ -12,7 +12,7 @@ tags:
   - LLM
   - 安全
   - 开发效率
-description: Zhipu's GLM 5.2 hit 39% F1 on Semgrep's IDOR vulnerability detection benchmark, beating Claude Code Opus 4.8 (28%) by 11 points and Opus 4.6 (37%) by 2 points, at roughly 1/6 the per-finding cost. On aggregate benchmarks it still trails the Claude Opus line by about 9 points. The same "behind overall, ahead on a specific scenario" pattern is reproducing in Kimi K2.5 and Qwen3-Max during the same window. This post unpacks whether "scenario-specific superiority" is the new 2026 inflection point for Chinese models.
+description: Zhipu's GLM 5.2 hit 39% F1 on Semgrep's IDOR vulnerability detection benchmark, beating Claude Code Opus 4.8 (28%) by 11 points and Opus 4.6 (37%) by 2 points, at roughly 1/6 the per-finding cost. On aggregate benchmarks it still trails the Claude Opus line by about 2 points (91 vs ~93). The same "behind overall, ahead on a specific scenario" pattern is reproducing in Kimi K2.5 and Qwen3-Max during the same window. This post unpacks whether "scenario-specific superiority" is the new 2026 inflection point for Chinese models.
 ---
 
 ## Disambiguation first: this is "cybersecurity," not "alignment safety"
@@ -34,7 +34,7 @@ Without disambiguation, "beats Claude" in the headline easily reads as "GLM 5.2 
 
 Once the scope is pinned down, the remaining question becomes meaningful: **is this "scenario-specific overtake" an isolated case or a new pattern?**
 
-## The full picture: GLM 5.2 trails by 9 points overall but wins specific scenarios
+## The full picture: GLM 5.2 trails by about 2 points overall but wins specific scenarios
 
 Placing GLM 5.2 in a wider coordinate system shows where it actually sits:
 
@@ -51,7 +51,7 @@ Placing GLM 5.2 in a wider coordinate system shows where it actually sits:
 | **Open weights** | Yes, MIT License (744B MoE, 40B active) | No, closed |
 
 The right way to read this table is in order:
-1. **Aggregate benchmark still trails** — 91 vs ~93, about a 9-point gap. Any post that frames GLM 5.2 as "comprehensively beating Claude" is overselling.
+1. **Aggregate benchmark still trails** — 91 vs ~93, about a 2-point gap. Any post that frames GLM 5.2 as "comprehensively beating Claude" is overselling.
 2. **Specific scenarios already overtake** — #1 on Design Arena human blind eval, +11 points on IDOR detection vs the latest Opus 4.8 (+2 vs Opus 4.6), 1M context window.
 3. **Price + open weights + large window** carve out a differentiation surface Claude cannot follow.
 
@@ -72,7 +72,7 @@ GLM 5.2 is just the most recent instance. Put a few other H1 2026 players next t
 
 Read together, "scenario-specific overtake" has gone from an **occasional anomaly** to **the default 2026 playbook** for Chinese models:
 
-- Stop trying to beat Claude/GPT on "strong across the board" — the 9-point aggregate gap will not close short term.
+- Stop trying to beat Claude/GPT on "strong across the board" — the ~2-point aggregate gap is small but persistent, and won't close short term.
 - **Pick one** subdomain where the frontier model is very expensive but real demand exists, win it, and **give the user no reason to pay 5-10x to use Claude in that scenario**.
 
 GLM 5.2 chose cybersecurity and design tasks, Kimi chose browsing and math, Qwen chose conversational preference. **Each lab takes one or two slices.** Stacked together, you get a map of "must-use-Claude" territories being chipped away one tile at a time.
@@ -85,7 +85,7 @@ The playbook is not new, but **2026 is when it became reproducible at scale**. T
 
 GLM 5.2 is MIT-licensed open source, Kimi has open weights, the entire Qwen line is open. Anyone who wants to **deeply fine-tune** or **distill** for their own business scenario only has GPU compute as the barrier. Claude has always been closed, API only — which means any company that wants to "specialize on its own codebase" either iterates prompts against the Claude API (high cost, capped ceiling) or just switches to GLM/Kimi/Qwen and fine-tunes with the open toolchain.
 
-The latter only holds when **the open-source model baseline itself is strong enough**. 2026 was the first year that condition was met — 9 points behind on aggregate, but already at the "specialization can flip it" threshold.
+The latter only holds when **the open-source model baseline itself is strong enough**. 2026 was the first year that condition was met — only ~2 points behind on aggregate, and already at the "specialization can flip it" threshold.
 
 ### 2. 1M context changes the upper bound of "specialization datasets"
 
@@ -95,7 +95,7 @@ Claude's 200K context already strains in the "read the whole project, then decid
 
 ### 3. The agent-era cost structure has changed purchasing decisions
 
-In normal chat scenarios each query has low token volume, so Claude Opus being 5x more expensive is not lethal. But **in the agent era a single task can run 100k-1M tokens**, and 5x price difference + long runtime turns into **a monthly bill going from $500 to $4000**. At that point "GLM 5.2 is 9 points behind on aggregate but matches Claude in my scenario" becomes the **rational procurement decision**.
+In normal chat scenarios each query has low token volume, so Claude Opus being 5x more expensive is not lethal. But **in the agent era a single task can run 100k-1M tokens**, and 5x price difference + long runtime turns into **a monthly bill going from $500 to $4000**. At that point "GLM 5.2 is only ~2 points behind on aggregate but matches Claude in my scenario" becomes the **rational procurement decision**.
 
 [blog195](/en/posts/blog195_loop-engineering-three-debts-playbook/) cited a LeanOps case — a developer burned $4,200 on a weekend autonomous refactor. The same task on GLM 5.2 was $800. In the loop-engineering era a 5x price gap is not about "saving money," it is **the boundary of whether the business model is viable at all**.
 
@@ -152,7 +152,7 @@ My read: **it is a local inflection point, not a global one.**
 - The procurement side is already moving (z.ai's "GLM Coding Plan" signup volume disclosed on social media after GLM 5.2 launched is visibly up).
 
 **Evidence against a "global inflection point":**
-- Aggregate benchmarks still trail by 9 points, which means **Claude still holds the general-purpose market**.
+- Aggregate benchmarks still trail by about 2 points, which means **Claude still holds the general-purpose market**.
 - **Alignment safety, long-term controllability, enterprise compliance** are Anthropic's real moat, and open-source models cannot catch up short-term.
 - Most Chinese models lack **production observability, guardrails, SLA commitments** — these B2B-critical capabilities have nothing to do with model benchmarks.
 - The Ink/Yoga/ANSI engineering footprint exposed by the March 2026 Claude Code source leak ([blog196](/en/posts/blog196_cli-second-spring-ai-era-three-structural-reasons/)) shows Claude is still far ahead on **engineering the toolchain around the model** — something the open-source community cannot easily match.
