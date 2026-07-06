@@ -25,7 +25,7 @@ By May 2026, the Claude Code ecosystem has settled into three clear tiers:
 
 Plus standalone projects (Karpathy CLAUDE.md, Ralph Loop, etc.).
 
-This post covers **workflow methodology plugins only**—they don't change what the tools can do, they change *the rhythm at which AI writes code*. I installed the 5 most-discussed ones into two real projects (this blog and anyfreetools.com) and used them for a week or two each, comparing design philosophy, token overhead, and where each one fits.
+This post covers **workflow methodology plugins only**—they don't change what the tools can do, they change *the rhythm at which AI writes code*. I installed the 5 most-discussed ones into two real projects (this blog and the tools site) and used them for a week or two each, comparing design philosophy, token overhead, and where each one fits.
 
 ## One-line positioning
 
@@ -170,7 +170,7 @@ There's also an "Express path"—simple tasks skip Phase 1 and call a single spe
 
 ### Field notes
 
-I used Maestro to build a new tool page for anyfreetools.com:
+I used Maestro to build a new tool page for the tools site:
 
 - **Phase 1 alone had 5 specialists deliberating** for about 15 minutes—not cheap in tokens
 - **Parallel execution is genuinely fast**—SEO / a11y / security checks all run at once
@@ -270,7 +270,7 @@ Occasional Ralph Loop                  ← bulk jobs like processing 410/301 con
 
 No Superpowers / Shipyard / Maestro—the blog is too small to justify the overhead.
 
-### anyfreetools.com (tools site)
+### the tools site (tools site)
 
 ```text
 CLAUDE.md at project root              ← Karpathy principles

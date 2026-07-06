@@ -19,7 +19,7 @@ description: "A head-to-head comparison of multi-agent orchestration plugins: Ru
 
 Workflow plugins answer the question "what cadence should I code at." Multi-agent orchestration answers "who writes the code, and who reviews it." They solve different pain points too: a single Claude easily falls into the trap of grading its own homework, while multiple agents let different models poke holes in each other's work and surface bugs before they get merged.
 
-I installed all 4 of the current mainstream options on my blog and the anyfreetools.com project and ran them for a week, comparing everything from design philosophy to token overhead to fit-for-purpose.
+I installed all 4 of the current mainstream options on my blog and the the tools site project and ran them for a week, comparing everything from design philosophy to token overhead to fit-for-purpose.
 
 ## One-Line Positioning
 
@@ -286,7 +286,7 @@ Critical moments (< 5% of tasks): enable Claude Octopus
 
 No Ruflo / Maestro — an indie blog has no use for 30+ specialists.
 
-### anyfreetools.com (tools site)
+### the tools site (tools site)
 
 ```text
 Day to day: Codex Peer Review (default)

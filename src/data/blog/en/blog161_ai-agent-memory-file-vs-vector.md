@@ -194,7 +194,7 @@ Looking back at `PROCEDURE.md` after 50 blog posts:
 
 - It started as a 7-step standard checklist
 - At post #12 the Subagent added "check whether the description ends with a redundant '我'"—because it noticed I'd made that mistake three times
-- At post #28 it added "if the article is a tool guide, an anyfreetools.com link must appear"—which later turned out to be wrong (we'd stopped publishing tool guides), and at post #47 it deprecated that check on its own
+- At post #28 it added "if the article is a tool guide, a tools-site link must appear"—which later turned out to be wrong (we'd stopped publishing tool guides), and at post #47 it deprecated that check on its own
 - By post #50 it had 11 checks and 5 deprecation records, and honestly looked more sensible than the checklist I'd written by hand
 
 **That's the power of procedural memory—the Subagent isn't "using memory," it's "accumulating methodology."** This direction is dirt cheap to implement in file-based storage (a single PROCEDURE.md file), yet most agent frameworks ignore it.

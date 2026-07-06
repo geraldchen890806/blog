@@ -194,7 +194,7 @@ memory directory to know the current procedure. After each check session:
 
 - 起初是 7 步标准检查
 - 第 12 篇 Subagent 自己加了"检查 description 末尾是否冗余的'我'"——因为它发现我写了三次类似问题
-- 第 28 篇加了"如果文章是工具指南，必须出现 anyfreetools.com 链接"——后来发现这条不对（工具指南我们停发了），第 47 篇它自己 deprecate 了
+- 第 28 篇加了"如果文章是工具指南，必须出现工具站链接"——后来发现这条不对（工具指南我们停发了），第 47 篇它自己 deprecate 了
 - 第 50 篇时它有 11 步检查，5 个废弃记录，看起来比我手写的检查清单还合理
 
 **这就是 procedural memory 的威力——Subagent 不是"用记忆"，而是"积累方法论"。** 这个方向在 file-based 里实现成本极低（一个 PROCEDURE.md 文件），但很多 Agent 框架忽略了它。

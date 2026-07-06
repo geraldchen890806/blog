@@ -27,7 +27,7 @@ To keep this from becoming yet another "benchmark dump" post, here's how I actua
 - **April**: Switched my primary to Claude Opus 4.6 the week it launched, added a Cursor subscription, monthly cost jumped to $80
 - **May (now)**: Claude Code (Opus 4.7 + Sonnet 4.6) + self-hosted Qwen 3 Coder for batch work, monthly cost back down to $35
 
-Projects I ran them on: this blog itself (Astro 5→6 migration, URL restructuring, JSON-LD fixes), the anyfreetools site (53 tools under continuous iteration), and an internal blog-preflight subagent ([covered in detail in blog158](/en/posts/blog158_claude-code-skills-practical-guide/)). **Total token consumption over the two-plus months was roughly 8M+** — enough to form a real feel for each model, not a paper analysis built on benchmark scores alone.
+Projects I ran them on: this blog itself (Astro 5→6 migration, URL restructuring, JSON-LD fixes), a separate tools site (50+ frontend tools under continuous iteration), and an internal blog-preflight subagent ([covered in detail in blog158](/en/posts/blog158_claude-code-skills-practical-guide/)). **Total token consumption over the two-plus months was roughly 8M+** — enough to form a real feel for each model, not a paper analysis built on benchmark scores alone.
 
 This post answers one question based on those projects and the bumps along the way: **if you made model choices in March based on blog080, how should you adjust now?** I won't rehash the basics (what GPT/Claude/Gemini are) — just what changed, why, and whether you should follow.
 
@@ -58,7 +58,7 @@ When blog080 was written, "which model is best at coding" was a two-way Claude v
 **Before April**: default to Claude or GPT, pick one.
 **After May**: choose by **task type** — a level of specialization that simply didn't exist in the blog080 era.
 
-**My hands-on take**: I ran multi-file refactors on the blog project (Opus 4.7) and one-off scripts for the anyfreetools site (GPT-5.5) side by side. Opus 4.7 is clearly better at cross-file understanding — it remembers what I did five files ago, while GPT-5.5 starts getting "forgetful" after file 3. But GPT-5.5 is smoother on the agentic workflow of "open a terminal, run a chain of commands, read the output, decide the next step" — which matches its 82.7% on Terminal-Bench 2.0. For SWE-bench Pro-style work — "read the whole repo and fix one issue" — Opus 4.7 is still the best, consistent with its 64.3% lead.
+**My hands-on take**: I ran multi-file refactors on the blog project (Opus 4.7) and one-off scripts for the tools site (GPT-5.5) side by side. Opus 4.7 is clearly better at cross-file understanding — it remembers what I did five files ago, while GPT-5.5 starts getting "forgetful" after file 3. But GPT-5.5 is smoother on the agentic workflow of "open a terminal, run a chain of commands, read the output, decide the next step" — which matches its 82.7% on Terminal-Bench 2.0. For SWE-bench Pro-style work — "read the whole repo and fix one issue" — Opus 4.7 is still the best, consistent with its 64.3% lead.
 
 My personal conclusion: **staring at a single benchmark number is useless**. You have to map "what you actually run day to day" onto "what each benchmark actually measures."
 
@@ -93,7 +93,7 @@ The open-source candidates most worth your attention:
 
 **Why it matters**: the blog080-era assumption that "open-source models are demo-only" **is now obsolete**. From May on, "open source as the workhorse + closed source for the hard stuff" is a genuinely executable strategy for serious projects.
 
-**My own field test**: I moved all the "repetitive batch work" on the anyfreetools site (fixing old post frontmatter, batch-updating tags, scanning for privacy-sensitive keywords) to self-hosted Qwen 3 Coder 32B. The cost is effectively zero — the server was already running, and inference uses idle compute. My Claude Code primary is still Opus 4.7 (new features, architectural changes), but **70% of the "mechanical work" no longer needs Claude at all**. In March this was impossible — Qwen 2.5 routinely went off the rails on those tasks.
+**My own field test**: I moved all the "repetitive batch work" on the tools site (fixing old post frontmatter, batch-updating tags, scanning for privacy-sensitive keywords) to self-hosted Qwen 3 Coder 32B. The cost is effectively zero — the server was already running, and inference uses idle compute. My Claude Code primary is still Opus 4.7 (new features, architectural changes), but **70% of the "mechanical work" no longer needs Claude at all**. In March this was impossible — Qwen 2.5 routinely went off the rails on those tasks.
 
 One caveat: self-hosted Qwen 3 Coder 32B is still less reliable than Claude on long Chinese context (beyond 50k tokens). Don't bet important documents entirely on it.
 
