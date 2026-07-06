@@ -100,7 +100,7 @@ HN `SwellJoe` 一条评论有代表性："I don't trust them to run on my deskto
 
 ## 30 行 TS 代码：自己接 GLM Coding API 而不用 ZCode
 
-如果你受"闭源桌面 app"或"chat-app 触发覆盖面"影响不想装 ZCode，但仍想在自己的 CLI / agent 里用 GLM-5.2，最简单的方式是直接调 Z.ai 的 OpenAI-compatible 端点。以下是一个能真跑的最小示例（Bun + OpenAI SDK）：
+如果你受"闭源桌面 app"或"chat-app 触发覆盖面"影响不想装 ZCode，但仍想在自己的 CLI / agent 里用 GLM-5.2，最简单的方式是直接调 Z.ai 的 OpenAI-compatible 端点。以下是**根据 Z.ai 官方文档（`https://api.z.ai/api/paas/v4`）写的最小示例（Bun + OpenAI SDK，未实测）**，读者需要自己申请 Key 后验证：
 
 ```ts
 #!/usr/bin/env bun
@@ -136,8 +136,7 @@ main().catch(console.error);
 ```bash
 export ZAI_API_KEY=your_key_from_z.ai_console
 bun add openai
-chmod +x glm.ts
-./glm.ts "refactor this file into smaller modules: $(cat foo.ts)"
+bun run glm.ts "refactor this file into smaller modules: $(cat foo.ts)"
 ```
 
 **这 30 行代码做了什么，跟 ZCode 相比缺什么**：

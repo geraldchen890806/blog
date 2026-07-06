@@ -100,7 +100,7 @@ Users report frequent `Cannot connect to API: write EPIPE` errors. That's a norm
 
 ## 30 lines of TS: wire up GLM Coding API without ZCode
 
-If closed-source-desktop-app or chat-app-trigger-coverage arguments make you want to skip ZCode but you still want GLM-5.2 in your own CLI or agent, the cleanest path is calling Z.ai's OpenAI-compatible endpoint directly. Here's a minimal runnable example (Bun + OpenAI SDK):
+If closed-source-desktop-app or chat-app-trigger-coverage arguments make you want to skip ZCode but you still want GLM-5.2 in your own CLI or agent, the cleanest path is calling Z.ai's OpenAI-compatible endpoint directly. Below is **a minimal example written from Z.ai's official docs (`https://api.z.ai/api/paas/v4`), not tested by me** — you'll need to apply for your own key and verify:
 
 ```ts
 #!/usr/bin/env bun
@@ -136,8 +136,7 @@ Run it:
 ```bash
 export ZAI_API_KEY=your_key_from_z.ai_console
 bun add openai
-chmod +x glm.ts
-./glm.ts "refactor this file into smaller modules: $(cat foo.ts)"
+bun run glm.ts "refactor this file into smaller modules: $(cat foo.ts)"
 ```
 
 **What these 30 lines do, and what they're missing next to ZCode**:
