@@ -12,7 +12,7 @@ tags:
   - 工具
   - 开发效率
   - 自动化
-description: Tencent WorkBuddy launched on 2026/3/9. By the end of that month it had 8.85M visits (+831% MoM) and a DAU 3-4x the #2 productivity agent in China. Same window, Claude Code and Codex CLI were crowning kings in the Western developer crowd. Two paths, one messaging-first and one terminal-first, expose a real fork in US/China agent product philosophy. This post breaks down the 4 structural decisions behind WorkBuddy's growth, and what builders in China can actually learn from them.
+description: Tencent WorkBuddy launched 2026-03-09 and hit 8.85M monthly visits (+831% MoM) with a DAU 3-4x the #2 productivity agent in China. It took the opposite path to Claude Code/Codex — messaging-first, not terminal-first. This post breaks down the 4 structural decisions behind the growth and what agent builders can learn.
 ---
 
 ## The phenomenon: two kinds of agent breaking out at the same time
@@ -25,7 +25,7 @@ But during that exact same window, a completely different shape of agent was qui
 - **March 2026**: 8.85M monthly visits, **+831% MoM**, more than **2x** the #2 productivity agent in China
 - **DAU 3-4x higher** than the #2 player
 - **May 29, 2026**: global version launched, integrating with Slack, Discord, Telegram and other Western IM platforms
-- The prototype came out of Tencent's CodeBuddy team — about 10 people. **Wang Shengjie and one ops partner built it over two all-nighters during a weekend in January 2026**.
+- The prototype came out of Tencent's CodeBuddy team — about 10 people. **Wang Shengjie (汪晟杰, CodeBuddy's chief product manager) and one ops partner built it over two all-nighters during a weekend in mid-January 2026** (the story is documented in TMTPost and 36Kr reporting).
 
 If you live entirely inside the English Claude Code / Cursor crowd, you've probably never heard of WorkBuddy. If you're inside Tencent's ecosystem or the Chinese market, in 90 days it became something your colleague might already be using.
 
@@ -53,7 +53,9 @@ This isn't a UI preference. **It's audience stratification.**
 
 Once you say out loud "the agent lives in the IM," the framing snaps into focus: **WorkBuddy isn't competing with Claude Code. It's competing with "let me just DM a coworker on WeChat to make me a PPT."** That's an **order-of-magnitude bigger** market — the office worker population is structurally far larger than the engineer population.
 
-Tencent has a structural advantage on this path. WeChat, WeCom, and QQ are China's IM infrastructure. Anthropic can't run the same play, because nobody is sitting in Slack **directing engineers to do work** — engineers are already heads-down in their own terminals.
+Tencent has a structural advantage on this path. WeChat, WeCom, and QQ are China's IM infrastructure. Anthropic can't easily replicate that position — it doesn't own any IM entry point, and Claude inside Slack is a bot on someone else's turf: distribution, accounts, and payments all live elsewhere.
+
+**I validate this split every day myself**: my blog's agent fleet is messaging-first — topic briefs, review reports, and publish confirmations all flow through Telegram, agents run in the background and push results back, and I often close the whole decision loop from my phone. But for writing code or changing the blog's build, I always go back to a terminal with Claude Code. Same person, two task types, two form factors — **the form factor follows the task's feedback cadence, not tool ideology**. WorkBuddy's bet is exactly that office tasks' feedback cadence naturally belongs to IM.
 
 ## Decision 2: Scenario encapsulation, not capability exposure
 
@@ -61,7 +63,7 @@ The second structural difference is subtler, but it cuts deeper.
 
 Claude Code and Codex CLI expose **capabilities** — `bash`, `edit`, `grep`, MCP tools — and let the user **compose** them with natural language to hit a goal. This is the classic engineer-product philosophy: "here's a set of atomic primitives, you compose." High ceiling, flexible, powerful. But it requires the user to **figure out how to compose**.
 
-WorkBuddy exposes **scenarios**. Its Skills Gallery ships **100+ built-in Expert Skills** (the "100+ built-in expert roles" the marketing copy mentions — same thing), covering high-frequency office scenarios: invoice processing, document filing, competitive research, content creation, sentiment analysis, sales insights, data processing. Each one is a complete workflow. The user **picks a scenario, drops in the input, waits for the output** — no need to puzzle out "what should the AI do, in what order, with which tools."
+WorkBuddy exposes **scenarios**. Its Skills Gallery ships **100+ built-in Expert Skills** (the official copy also calls them "built-in Experts"), covering high-frequency office scenarios: invoice processing, document filing, competitive research, content creation, sentiment analysis, sales insights, data processing. Each one is a complete workflow. The user **picks a scenario, drops in the input, waits for the output** — no need to puzzle out "what should the AI do, in what order, with which tools."
 
 This is **a fundamental fork in product philosophy**:
 
@@ -159,6 +161,7 @@ Answer that one question, and you may have already decided what your retention c
 - [Tencent WorkBuddy official page](https://www.tencentcloud.com/act/pro/workbuddy) - Official product overview
 - [TechNode: Tencent launches WorkBuddy globally](https://technode.com/2026/05/29/tencent-launches-workbuddy-productivity-ai-agent-for-global-users/) - Global launch coverage
 - [PANews: WorkBuddy DAU 3-4x #2 breakdown](https://www.panewslab.com/en/articles/019ed38e-887d-76c8-a0eb-2726bcc3b9cd) - Chinese-language product post-mortem on WorkBuddy's growth
+- [TMTPost: How a 10-person team built China's #1 DAU agent](https://www.tmtpost.com/7992670.html) - firsthand reporting on Wang Shengjie's team and the weekend prototype story
 - [PR Newswire: WorkBuddy overseas launch](https://www.prnewswire.com/apac/news-releases/tencent-cloud-unveils-new-ai-agents-workbuddy-and-miora-driving-innovation-and-real-business-outcomes-across-southeast-asia-302797910.html) - Official overseas launch release
 - [This blog, blog196 - The CLI's second spring in the AI era](https://chenguangliang.com/en/posts/blog196_cli-second-spring-ai-era-three-structural-reasons/) - The other side: terminal-first
 - [This blog, blog195 - Loop Engineering three-debts playbook](https://chenguangliang.com/en/posts/blog195_loop-engineering-three-debts-playbook/) - The engineering basis for sub-agent / verifier
