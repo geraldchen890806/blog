@@ -10,17 +10,51 @@ import {
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
 import { SITE } from "./src/config";
+import fs from "node:fs";
+import path from "node:path";
+
+// 文章 URL → 最后更新时间(modDatetime 优先,回退 pubDatetime),供 sitemap lastmod 使用
+function buildLastmodMap() {
+  const map = new Map<string, Date>();
+  for (const lang of ["zh", "en"] as const) {
+    const dir = path.resolve("./src/data/blog", lang);
+    for (const f of fs.readdirSync(dir)) {
+      if (!f.endsWith(".md")) continue;
+      const raw = fs.readFileSync(path.join(dir, f), "utf8");
+      if (/^draft:\s*true/m.test(raw)) continue;
+      const slug =
+        raw.match(/^slug:\s*["']?([^"'\n]+?)["']?\s*$/m)?.[1]?.trim() ??
+        f.replace(/\.md$/, "");
+      const dateStr =
+        raw.match(/^modDatetime:\s*(\S+)/m)?.[1] ??
+        raw.match(/^pubDatetime:\s*(\S+)/m)?.[1];
+      if (!dateStr) continue;
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) continue;
+      map.set(`${lang === "en" ? "/en" : ""}/posts/${slug}/`, d);
+    }
+  }
+  return map;
+}
+const LASTMOD_MAP = buildLastmodMap();
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   integrations: [
     sitemap({
-      // search/tags 已加 noindex(薄页面,AdSense 整改),同步移出 sitemap
+      // search/tags 已加 noindex(薄页面,AdSense 整改),同步移出 sitemap;
+      // 分页页(/posts/page/N/)同为薄页面,不进 sitemap(仍可被正常爬取)
       filter: page => {
         const path = new URL(page).pathname;
         if (/^\/(en\/)?(search|tags)(\/|$)/.test(path)) return false;
+        if (/^\/(en\/)?posts\/page\//.test(path)) return false;
         return SITE.showArchives || !page.endsWith("/archives");
+      },
+      serialize: item => {
+        const d = LASTMOD_MAP.get(new URL(item.url).pathname);
+        if (d) item.lastmod = d.toISOString();
+        return item;
       },
     }),
   ],

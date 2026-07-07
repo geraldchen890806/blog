@@ -1,6 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-06-30T07:12:17+08:00
+modDatetime: 2026-07-07T12:00:00+08:00
 title: GLM 5.2 在安全基准超 Claude：中国大模型的「场景特化超越」是不是新拐点
 slug: blog199_glm-5-2-cyber-benchmark-scenario-specific-breakthrough
 featured: true

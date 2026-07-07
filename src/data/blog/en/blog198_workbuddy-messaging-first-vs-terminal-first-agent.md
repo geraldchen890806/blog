@@ -1,6 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-06-28T14:22:53+08:00
+modDatetime: 2026-07-07T12:00:00+08:00
 title: "WorkBuddy Hit #1 in China in 90 Days: What messaging-first AI Agents Teach the Claude Code / Codex CLI World"
 slug: blog198_workbuddy-messaging-first-vs-terminal-first-agent
 featured: true

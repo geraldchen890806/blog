@@ -1,6 +1,7 @@
 ---
 author: 陈广亮
 pubDatetime: 2026-06-28T14:22:53+08:00
+modDatetime: 2026-07-07T12:00:00+08:00
 title: 腾讯 WorkBuddy 三个月做到中国生产力 Agent 第一：messaging-first 路线对 Claude Code/Codex terminal-first 的差异化启示
 slug: blog198_workbuddy-messaging-first-vs-terminal-first-agent
 featured: true
