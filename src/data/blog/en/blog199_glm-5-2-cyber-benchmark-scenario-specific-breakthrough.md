@@ -12,7 +12,7 @@ tags:
   - LLM
   - 安全
   - 开发效率
-description: Zhipu's GLM 5.2 hit 39% F1 on Semgrep's IDOR vulnerability detection benchmark, beating Claude Code Opus 4.8 (28%) by 11 points and Opus 4.6 (37%) by 2 points, at roughly 1/6 the per-finding cost. On aggregate benchmarks it still trails the Claude Opus line by about 2 points (91 vs ~93). The same "behind overall, ahead on a specific scenario" pattern is reproducing in Kimi K2.5 and Qwen3-Max during the same window. This post unpacks whether "scenario-specific superiority" is the new 2026 inflection point for Chinese models.
+description: Zhipu's GLM 5.2 hit 39% F1 on Semgrep's IDOR vulnerability detection benchmark, beating every Claude Code Opus version at roughly 1/6 the per-finding cost — while still trailing about 2 points on aggregate benchmarks. Kimi and Qwen reproduce the same pattern. Is "scenario-specific superiority" the 2026 inflection point for Chinese models?
 ---
 
 ## Disambiguation first: this is "cybersecurity," not "alignment safety"
@@ -38,7 +38,7 @@ Once the scope is pinned down, the remaining question becomes meaningful: **is t
 
 Placing GLM 5.2 in a wider coordinate system shows where it actually sits:
 
-| Dimension | GLM 5.2 | Claude Opus 4.8 / Fable 5 / 4.5 |
+| Dimension | GLM 5.2 | Claude (Opus line / Fable 5, per-row as sourced) |
 |---|---|---|
 | **Aggregate benchmark (BenchLM 124-model leaderboard)** | 91/100, #4 | Claude line generally ~93 |
 | **FrontierSWE** | 74.4% | 75.1% |
@@ -64,7 +64,7 @@ GLM 5.2 is just the most recent instance. Put a few other H1 2026 players next t
 | Model | Scenario | Overtake |
 |---|---|---|
 | **GLM 5.2** | Semgrep IDOR detection | F1 39% vs Claude Code Opus 4.8 28% / Opus 4.6 37% |
-| **GLM 5.2** | Design Arena human blind eval | #1, 10 Elo ahead of Claude Fable 5 (Fable 5 was already retired by then, mind the timing) |
+| **GLM 5.2** | Design Arena human blind eval | #1 (Elo 1360), 10 Elo ahead of Claude Fable 5 (1350) — Design Arena's own announcement notes Fable 5 was "now unavailable" on that board with its Elo frozen, so mind the timing gap |
 | **Kimi K2.5** | BrowseComp (web browsing aggregate) | Agent Swarm mode 78.4% / standard 60.6%, beats Claude Opus 4.5 |
 | **Kimi k1.5** | AIME math (short-CoT setting) | 77.5 vs GPT-4o 9.3 (GPT-4o is bad at short-CoT math, mind the setting difference) |
 | **Qwen3-Max** | Arena-Hard user preference | 90.5 vs Claude Sonnet 4.6 86.4 (Qwen3-Max shipped before Sonnet 4.6, timing skews the comparison) |
@@ -116,6 +116,8 @@ The default has long been "everyone uses Claude Code" or "everyone uses GPT." Th
 | Production deployment / strong alignment requirements | Claude (still the moat) |
 
 It does not need to be elaborate — 3-5 buckets is enough to halve the monthly bill.
+
+**My own selection (updated 2026-07-07)**: I run this matrix myself. My blog's agent layer currently generates with Sonnet 5 and proofreads with Opus 4.8, and GLM 5.2 is **not** in the production path — not a capability issue, but because my blog's main market is Chinese and it's inside an AdSense re-review window, so content-style predictability outranks the token savings ([blog203](/en/posts/blog203_ai-models-mid-2026-sequel/) has the full 6-month routing log). Once the window passes, I'll pilot GLM 5.2 on batch mechanical tasks for 30 days rather than switching the mainline in one move. That's also how the matrix above is meant to be used: **it tells you the optimum per scenario, but the switching cadence is set by your own risk budget**.
 
 ### 2. Defenders: your "AI vuln scanner" threat model needs an update
 
