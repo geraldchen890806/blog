@@ -1,6 +1,6 @@
 ---
 author: Gerald Chen
-pubDatetime: 2026-07-16T09:00:00+08:00
+pubDatetime: 2026-07-15T23:04:47+08:00
 title: "An Agent Is Just a While Loop? From UI = f(state) to action = LLM(context)"
 slug: blog206_fe2agent-01-agent-loop
 featured: true

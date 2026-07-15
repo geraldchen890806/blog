@@ -1,6 +1,6 @@
 ---
 author: 陈广亮
-pubDatetime: 2026-07-16T09:00:00+08:00
+pubDatetime: 2026-07-15T23:04:47+08:00
 title: "Agent 就是个 while 循环？——从 UI = f(state) 到 action = LLM(context)"
 slug: blog206_fe2agent-01-agent-loop
 featured: true
