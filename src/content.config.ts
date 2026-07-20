@@ -6,7 +6,7 @@ export const BLOG_PATH = "src/data/blog";
 
 const blog = defineCollection({
   loader: glob({
-    pattern: "**/[^_]*.md",
+    pattern: ["**/[^_]*.md", "!**/*.tweet.*.md"],
     base: `./${BLOG_PATH}`,
     // 强制用文件路径作 entry id(如 "zh/blog186_xxx"),保证 zh/en 同名文章 id 不冲突,
     // 且语言可从 id 前缀推断。glob 默认会优先用 frontmatter slug 作 id,导致双语副本冲突。
