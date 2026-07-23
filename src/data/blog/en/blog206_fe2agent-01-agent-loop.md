@@ -111,9 +111,9 @@ The first case is the big one. **The model is the one deciding whether it's had 
 
 This one point drags in three downstream engineering problems, each handled in a later post; hooks for now:
 
-1. **What if it never stops?** — You need a loop cap. The model can spiral into "let me try this tool one more time, maybe this run is different," and an uncapped `while(true)` will happily run until your credit card alert fires. See [blog195, "Loop Engineering: Three Debts"](/posts/blog195_loop-engineering-three-debts-playbook/) — I call this "step debt." The answer is a hard `max_steps` gate: don't trust the model's self-control; count for it. Post 06 covers this.
+1. **What if it never stops?** — You need a loop cap. The model can spiral into "let me try this tool one more time, maybe this run is different," and an uncapped `while(true)` will happily run until your credit card alert fires. See [blog195, "Loop Engineering: Three Debts"](/en/posts/blog195_loop-engineering-three-debts-playbook/) — I call this "step debt." The answer is a hard `max_steps` gate: don't trust the model's self-control; count for it. Post 06 covers this.
 2. **What if it stops at the wrong point?** — You need a verifier. Sometimes the model triumphantly returns `end_turn`, but the job isn't done: half a file written, lint passed but tests never run, mock data delivered as if it were real. You can't take "done" at face value; another model or a rule set has to judge it again. This is the agent equivalent of code review. Covered alongside step debt in post 06.
-3. **Costs spiraling?** — You need a cost circuit breaker. Every step is real API money; a long task can burn through thousands of dollars overnight (the $4200 LeanOps incident in [blog195](/posts/blog195_loop-engineering-three-debts-playbook/) is the template). You need two gates running at once: a token budget (per-turn cap) and a step budget (total-turn cap) — and you need to stop early before either fires, saving a last breath to write a checkpoint. Post 10 is dedicated to this.
+3. **Costs spiraling?** — You need a cost circuit breaker. Every step is real API money; a long task can burn through thousands of dollars overnight (the $4200 LeanOps incident in [blog195](/en/posts/blog195_loop-engineering-three-debts-playbook/) is the template). You need two gates running at once: a token budget (per-turn cap) and a step budget (total-turn cap) — and you need to stop early before either fires, saving a last breath to write a checkpoint. Post 10 is dedicated to this.
 
 For now, just carve this line into your brain:
 
@@ -208,7 +208,7 @@ Homework: add a try/catch to `runTool` yourself and see what the model does when
 
 ### 4.4 This 32-line engine *is* Claude Code
 
-This skeleton isn't a toy. It's **isomorphic** to the Claude Code I use daily in [blog194's project passport](/posts/blog194_project-passport-agents-md-claude-md-memory/) — Claude Code is essentially this loop wrapped in UI, memory (AGENTS.md / CLAUDE.md), a hook system, permission gates, and a cost tracker. Peel off the wrapping and the innermost core is still `while (true) { create → branch → push result }`.
+This skeleton isn't a toy. It's **isomorphic** to the Claude Code I use daily in [blog194's project passport](/en/posts/blog194_project-passport-agents-md-claude-md-memory/) — Claude Code is essentially this loop wrapped in UI, memory (AGENTS.md / CLAUDE.md), a hook system, permission gates, and a cost tracker. Peel off the wrapping and the innermost core is still `while (true) { create → branch → push result }`.
 
 Concretely, almost every outer layer maps onto something in your 32 lines:
 
@@ -235,7 +235,7 @@ I need to stop here and speak plainly: the `UI = f(state)` → `action = LLM(con
 
 **One: render is a pure function; the agent loop is not.** The same state renders to the same UI, always. The same context can produce a different action every call (any temperature above 0 is stochastic; even temperature 0 isn't fully stable — batch scheduling and floating-point drift will make it jitter; post 09's eval piece will unpack this). React lets you write `useMemo` because it trusts function purity — you cannot bring that mental model to an LLM.
 
-**Two: React has a Reconciler and diff; the agent loop doesn't.** React re-renders, diffs, and commits only the minimum change to the DOM. Every agent turn is a brand-new API call sending the entire messages array in full. **No diff.** Cost, latency, and context length all grow linearly — post 02 exists to fix this. Related note: [blog205 on how Fiber's three principles teach agent state design](/posts/blog205_fiber-teaches-ai-agent-state-design-three-principles/) covered the double-buffer / stage-commit layer — that's an analogy from a different direction (state commit), while this post is about control flow. Two lanes; don't blur them.
+**Two: React has a Reconciler and diff; the agent loop doesn't.** React re-renders, diffs, and commits only the minimum change to the DOM. Every agent turn is a brand-new API call sending the entire messages array in full. **No diff.** Cost, latency, and context length all grow linearly — post 02 exists to fix this. Related note: [blog205 on how Fiber's three principles teach agent state design](/en/posts/blog205_fiber-teaches-ai-agent-state-design-three-principles/) covered the double-buffer / stage-commit layer — that's an analogy from a different direction (state commit), while this post is about control flow. Two lanes; don't blur them.
 
 **Three: render is idempotent; the agent is not.** Same state, same UI — that's the air React breathes. Same context, possibly different action — that's the air an agent breathes. On the frontend you debug by "opening devtools and finding the state"; with an agent you debug by "rerunning it ten times and looking at the distribution" — one is a criminal investigation, the other is a poll. This difference shows up directly in your test strategy: on the frontend you write a unit test that asserts "input A produces B"; with an agent you write an eval set that asserts "input A produces B more than 90% of the time." **Testing goes from a true/false question to a statistics question** — which is exactly why post 09 dedicates itself to eval; it isn't extra ceremony, it's the new bedrock you can't unlearn once you've built an agent.
 
@@ -247,7 +247,7 @@ And please remember the deepest layer of that boundary —
 
 ## 6. The Hook: Next Post
 
-Next up: *The Model Has No Memory — Context Is State, Fully Re-Rendered Every Turn.*
+Next up: "The Model Has No Memory: Context Is State, and Every Turn Is a Full Re-render."
 
 Analogy hook to sit on: React fully re-renders on every state change, but React has diff, memo, and Fiber to hold the cost down; agents also go full-context every turn — but with no diff. That's why context management, prompt caching, and history compression become agent engineering's first real chore. tiny-agent will grow two organs in v0.2 — **history management + context compression** — `git checkout v0.2` to see the next version: [github.com/geraldchen890806/tiny-agent](https://github.com/geraldchen890806/tiny-agent).
 
