@@ -4,9 +4,9 @@ pubDatetime: 2026-07-24T09:00:00+08:00
 title: "Prompt 是新的 CSS：声明式、会级联、没有 devtools"
 slug: blog209_fe2agent-04-prompt
 featured: true
-draft: true
-reviewed: false
-approved: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - AI Agent
   - 前端

@@ -4,9 +4,9 @@ pubDatetime: 2026-07-24T09:00:00+08:00
 title: "Prompt Is the New CSS: Declarative, Cascading, No Devtools"
 slug: blog209_fe2agent-04-prompt
 featured: true
-draft: true
-reviewed: false
-approved: false
+draft: false
+reviewed: true
+approved: true
 tags:
   - AI Agent
   - Frontend

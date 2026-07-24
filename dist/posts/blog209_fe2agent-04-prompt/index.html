@@ -1,0 +1,552 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any"><!-- Google AdSense (Auto Ads) --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1237239169922070" crossorigin="anonymous"></script><script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-1237239169922070",
+        enable_page_level_ads: true
+      });
+    </script><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GJJW5GJ7FL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GJJW5GJ7FL');
+    </script><link rel="canonical" href="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/"><link rel="alternate" hreflang="zh-CN" href="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/"><link rel="alternate" hreflang="en" href="https://chenguangliang.com/en/posts/blog209_fe2agent-04-prompt/"><link rel="alternate" hreflang="x-default" href="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/"><meta name="generator" content="Astro v6.3.1"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/ebe081c5cf2bc9bf.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86";src:url("/_astro/fonts/dfc33a259d798962.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-de078a87b11e4a86 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-de078a87b11e4a86","Google Sans Code-de078a87b11e4a86 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>Prompt 是新的 CSS：声明式、会级联、没有 devtools | 陈广亮的技术博客</title><meta name="title" content="Prompt 是新的 CSS：声明式、会级联、没有 devtools | 陈广亮的技术博客"><meta name="description" content="改一行 system prompt，agent 行为整个变一副样子——prompt 像 CSS：声明式、会级联、可以覆盖，但没有 devtools 告诉你当前生效的是哪一条。这是 fe2agent 系列第 4 篇，讲 prompt 的层、指令稀释与结构化写法，配 tiny-agent v0.4（同一套工具、两版 system prompt 跑行为对比）。"><meta name="author" content="陈广亮"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:site_name" content="陈广亮的技术博客"><meta property="og:locale" content="zh_CN"><meta property="og:title" content="Prompt 是新的 CSS：声明式、会级联、没有 devtools | 陈广亮的技术博客"><meta property="og:description" content="改一行 system prompt，agent 行为整个变一副样子——prompt 像 CSS：声明式、会级联、可以覆盖，但没有 devtools 告诉你当前生效的是哪一条。这是 fe2agent 系列第 4 篇，讲 prompt 的层、指令稀释与结构化写法，配 tiny-agent v0.4（同一套工具、两版 system prompt 跑行为对比）。"><meta property="og:url" content="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/"><meta property="og:image" content="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-07-24T01:00:00.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/"><meta property="twitter:title" content="Prompt 是新的 CSS：声明式、会级联、没有 devtools | 陈广亮的技术博客"><meta property="twitter:description" content="改一行 system prompt，agent 行为整个变一副样子——prompt 像 CSS：声明式、会级联、可以覆盖，但没有 devtools 告诉你当前生效的是哪一条。这是 fe2agent 系列第 4 篇，讲 prompt 的层、指令稀释与结构化写法，配 tiny-agent v0.4（同一套工具、两版 system prompt 跑行为对比）。"><meta property="twitter:image" content="https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Prompt 是新的 CSS：声明式、会级联、没有 devtools | 陈广亮的技术博客","image":"https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/index.png","datePublished":"2026-07-24T01:00:00.000Z","author":[{"@type":"Person","name":"陈广亮","url":"https://chenguangliang.com/"}],"publisher":{"@type":"Organization","name":"陈广亮的技术博客","url":"https://chenguangliang.com/","logo":{"@type":"ImageObject","url":"https://chenguangliang.com/favicon.svg"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/"}}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="陈广亮的技术博客" href="https://chenguangliang.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><link rel="stylesheet" href="/_astro/Footer.CHt5ewzQ.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+.toc-container[data-astro-cid-xvrfupwn]{height:fit-content;max-height:calc(100vh - 200px);overflow-y:auto;padding:1.25rem;border:1px solid var(--color-border);border-radius:.5rem;background:var(--color-card)}.toc-wrapper[data-astro-cid-xvrfupwn]{width:100%}.toc-title[data-astro-cid-xvrfupwn]{font-size:14px;font-weight:600;margin-bottom:.75rem;color:var(--color-text-base)}.toc-list[data-astro-cid-xvrfupwn]{list-style:none;padding:0;margin:0}.toc-item[data-astro-cid-xvrfupwn]{margin:.2rem 0}.toc-level-2[data-astro-cid-xvrfupwn]{padding-left:0;font-size:14px}.toc-level-3[data-astro-cid-xvrfupwn]{padding-left:.75rem;font-size:13px}.toc-link[data-astro-cid-xvrfupwn]{display:block;padding:.15rem .4rem;color:var(--color-text-muted);text-decoration:none;border-left:2px solid transparent;transition:all .2s ease;line-height:1.3}.toc-link[data-astro-cid-xvrfupwn]:hover{color:var(--color-accent);border-left-color:var(--color-accent);background:var(--color-fill)}.toc-link[data-astro-cid-xvrfupwn].active{color:var(--color-accent);border-left-color:var(--color-accent);font-weight:500}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar{width:4px}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar-track{background:transparent}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar-thumb{background:var(--color-border);border-radius:2px}.toc-container[data-astro-cid-xvrfupwn]::-webkit-scrollbar-thumb:hover{background:var(--color-text-muted)}.related-posts[data-astro-cid-dpgbfi7r]{margin-top:2.5rem;margin-bottom:1rem;padding:1.5rem;border:1px solid var(--color-border);border-radius:.5rem;background:var(--color-card, var(--color-fill))}.related-title[data-astro-cid-dpgbfi7r]{font-size:1.1rem;font-weight:600;margin:0 0 1rem;color:var(--color-text-base)}.related-list[data-astro-cid-dpgbfi7r]{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.75rem}.related-item[data-astro-cid-dpgbfi7r]{margin:0}.related-link[data-astro-cid-dpgbfi7r]{display:flex;flex-direction:column;gap:.25rem;padding:.75rem;border-radius:.375rem;text-decoration:none;color:var(--color-text-base);transition:background .15s,transform .15s;border-left:3px solid transparent}.related-link[data-astro-cid-dpgbfi7r]:hover{background:var(--color-fill);border-left-color:var(--color-accent)}.related-post-title[data-astro-cid-dpgbfi7r]{font-weight:600;color:var(--color-accent);font-size:.95rem;line-height:1.4}.related-desc[data-astro-cid-dpgbfi7r]{font-size:.85rem;color:var(--color-text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.post-layout[data-astro-cid-vj4tpspi]{position:relative;width:100%}.post-content[data-astro-cid-vj4tpspi]{width:100%;max-width:var(--app-layout-max-width, 1024px);margin:0 auto}.post-sidebar[data-astro-cid-vj4tpspi]{display:none}@media(min-width:1280px){.post-sidebar[data-astro-cid-vj4tpspi]{display:block;position:fixed;right:max(2rem,calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 300px));top:5rem;width:240px;max-height:calc(100vh - 8rem)}}@media(min-width:1536px){.post-sidebar[data-astro-cid-vj4tpspi]{right:max(2rem,calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 320px));width:260px}}@media(min-width:1920px){.post-sidebar[data-astro-cid-vj4tpspi]{right:max(3rem,calc((100vw - var(--app-layout-max-width, 1024px)) / 2 - 360px));width:280px}}
+</style><style>[data-astro-transition-scope="astro-pcwlacsx-1"] { view-transition-name: prompt-\662F\65B0\7684-css\FF1A\58F0\660E\5F0F\3001\4F1A\7EA7\8054\3001\6CA1\6709-devtools; }@layer astro { ::view-transition-old(prompt-\662F\65B0\7684-css\FF1A\58F0\660E\5F0F\3001\4F1A\7EA7\8054\3001\6CA1\6709-devtools) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(prompt-\662F\65B0\7684-css\FF1A\58F0\660E\5F0F\3001\4F1A\7EA7\8054\3001\6CA1\6709-devtools) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(prompt-\662F\65B0\7684-css\FF1A\58F0\660E\5F0F\3001\4F1A\7EA7\8054\3001\6CA1\6709-devtools) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(prompt-\662F\65B0\7684-css\FF1A\58F0\660E\5F0F\3001\4F1A\7EA7\8054\3001\6CA1\6709-devtools) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-pcwlacsx-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-pcwlacsx-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: ai-agent; }@layer astro { ::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai-agent) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: \524D\7AEF; }@layer astro { ::view-transition-old(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\524D\7AEF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: \5F00\53D1\6548\7387; }@layer astro { ::view-transition-old(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5F00\53D1\6548\7387) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: claude-code; }@layer astro { ::view-transition-old(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(claude-code) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> 陈广亮的技术博客 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts/" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags/">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about/">
+About
+</a> </li> <li class="col-span-2"> <a href="/archives/" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search/" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-2 flex items-center justify-center sm:col-span-1"> <a id="lang-toggle" href="/en/posts/blog209_fe2agent-04-prompt/" data-target-lang="en" title="Switch to English" aria-label="Switch to English" class="focus-outline whitespace-nowrap p-3 font-medium hover:text-accent sm:p-1 sm:text-sm"> EN </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const a=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",a?"false":"true"),e.setAttribute("aria-label",a?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}c();function r(){const e=document.querySelector("#lang-toggle");e?.addEventListener("click",()=>{const t=e.dataset.targetLang;t&&(document.cookie=`preferred_lang=${t}; path=/; max-age=31536000; SameSite=Lax`)})}r();document.addEventListener("astro:after-swap",()=>{c(),r()});</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body data-astro-cid-vj4tpspi> <div class="post-layout" data-astro-cid-vj4tpspi> <div class="post-content" data-astro-cid-vj4tpspi> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-cid-vj4tpspi data-astro-transition-scope="astro-pcwlacsx-1"> Prompt 是新的 CSS：声明式、会级联、没有 devtools </h1> <div class="my-2 flex items-center gap-2" data-astro-cid-vj4tpspi> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-07-24T01:00:00.000Z">24 Jul, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden" data-astro-cid-vj4tpspi>|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)" data-astro-cid-vj4tpspi> <h2 id="1-坑">1. 坑</h2>
+<p>blog03 结尾我留了一句话：description 从 “Read a file” 改成 “Read a file. USE THIS BEFORE WRITING”，模型行为完全变一副样子。当时就有读者追问：一句话就能改行为，那多写几句会怎样？</p>
+<p>这个问题，上个月我用一场事故回答了自己。</p>
+<p>我的博客发布流程里有一个审查 agent，专门在发布前给稿子挑刺。有天我往它的 system prompt 里加了一条规则：“检查弯引号，本博客只用半角直引号”。加完当晚跑下一篇稿子，它报了 40 多个”引号问题”。我吓一跳，打开稿子逐个看——全是中文全角引号，一篇干净的中文稿，42 个假阳性。</p>
+<p>麻烦出在一个冷知识上：中文全角引号和英文弯引号是<strong>同一对 Unicode 码点</strong>,U+201C 和 U+201D。同一个字符，出现在英文单词中间是排版事故，出现在中文句子里是正经标点。我的规则只说了”检查弯引号”，没说语境，它就一视同仁全抓了。</p>
+<p>（顺便，这对字符我在这篇文章里一次都没法直接打出来——打出来，我自己的审查 agent 就会把这一段报上去。规则已经立了，立法者也得守。）</p>
+<p>第一反应是把那条规则删掉。但删了，英文里真混进来的弯引号就没人管了。最后的修法是再加一条：“U+201C/U+201D 出现在中文句子里时是正常中文标点，不上报；只有夹在英文和代码里才算弯引号问题”。再跑一遍，42 个假阳性归零，英文弯引号照抓。</p>
+<p>你品一下这个修法：<strong>我没有改第一条规则一个字，我是用一条更具体的规则，把它在特定场景下覆盖掉了。</strong> 写过 CSS 的人应该已经坐直了——这不就是级联吗。</p>
+<p>这是《从 useEffect 到 Agent Loop》系列第 4 篇。blog01 讲循环，blog02 讲 context,blog03 讲工具。这一篇讲的东西你从第一篇起就一直在用，但从没正眼看过它：<strong>prompt</strong>——那些你写给模型的字，到底是按什么规矩生效的。</p>
+<h2 id="2-桥">2. 桥</h2>
+<p>一句话：</p>
+<blockquote>
+<p><strong>Prompt 就是新的 CSS：声明式、会级联、可以覆盖——但没有 devtools 告诉你当前生效的是哪一条。</strong></p>
+</blockquote>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CSS:                            Prompt:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  UA 样式表(浏览器默认)           预训练+对齐(模型出厂人格)</span></span>
+<span class="line"><span>    │ 可被覆盖                       │ 可被覆盖</span></span>
+<span class="line"><span>  author 样式表                    system prompt</span></span>
+<span class="line"><span>    │ 可被覆盖                       │ 可被覆盖</span></span>
+<span class="line"><span>  inline style                    tool description / 本轮 user</span></span>
+<span class="line"><span>    │                                │</span></span>
+<span class="line"><span>    ▼                                ▼</span></span>
+<span class="line"><span>  devtools 一眼看到谁生效         跑十次任务,数行为,猜谁生效</span></span></code></pre>
+<p>左边每一层谁赢谁输，规范里写着算法，devtools 里标着删除线；右边每一层都只是”倾向”，谁赢要看这一轮的采样。骨架同构，判决机制完全不同。</p>
+<h2 id="3-真">3. 真</h2>
+<h3 id="31-prompt-的层你写的每个字都住在某一层里">3.1 prompt 的”层”：你写的每个字都住在某一层里</h3>
+<p>先把”prompt”这个词拆开。很多人以为 prompt 就是聊天框里那句话，其实模型每一轮读到的声明至少有四层：</p>
+<p>第一层，<strong>模型默认行为</strong>。预训练加对齐训练给它的出厂人格：乐于助人、倾向给出答案、说话自带一股客服味。这是 UA 样式表——你一行 CSS 不写，h1 也有默认字号；你一行 prompt 不写，模型也自带一整套行事风格。这层你改不了，只能覆盖。</p>
+<p>第二层，<strong>system prompt</strong>。你亲手写的常驻规则，每一轮都在——author 样式表。tiny-agent v0.2 里我们加 cache_control 的那一块就是它。</p>
+<p>第三层，<strong>tool description</strong>。blog03 说过”description 不是文档，是 prompt”——它是散落在 tools 数组里的样式片段，管”这个工具什么时候用”这类局部行为，像组件级的 scoped style。很多人 system prompt 抠得很细，tool description 随手一句话，然后奇怪模型工具用得乱——全局样式表写得再好，组件里 style 属性乱写一气，页面照样花。</p>
+<p>第四层，<strong>本轮 user message</strong>。最近、最具体——inline style。</p>
+<p>层与层冲突时谁赢？CSS 有一套确定算法：origin、specificity、书写顺序，一路比下去，必有唯一答案。prompt 没有算法，只有倾向：Anthropic 的模型被训练成 system 的优先级大致高于 user；同时，离得近的内容（最近几条消息）天然拿到更多注意力。注意这两股力量是拧着的——system 靠身份赢，最近的 user 靠位置赢，拧出来的结果不是规范定的，是概率定的。</p>
+<p>顺带纠正一个容易照抄错的点：OpenAI 那边有 role: “developer” 这个专门的指令角色，<strong>Anthropic 没有</strong>——你在 Anthropic API 里能操作的就是 system 和 messages 两处，别照着 OpenAI 的文章去找 developer role，找不到的。</p>
+<p>回头用四层结构套我的引号事故，一套一个准：“检查弯引号”住在 system 层，它跟谁冲突？跟第一层——模型出厂就知道中文全角引号是正常标点，但我的规则更具体、更像命令，把这条常识覆盖了。而我的修法，是在同一层里再立一条 specificity 更高的规则，反向覆盖回来。三层声明叠着打架，最后生效的是最具体那条——全程没有一处报错，也没有任何面板能让我点开看”当前生效的规则列表”。</p>
+<h3 id="32-指令稀释每条规则都在掏其他规则的口袋">3.2 指令稀释：每条规则都在掏其他规则的口袋</h3>
+<p>CSS 老兵都打过 specificity 战争：你写 .btn，同事写 .card .btn，你回敬 #main .card .btn，最后两边掀桌子，一起上 !important。</p>
+<p>prompt 的战争长得几乎一样，只是武器从选择器换成了语气。你发现模型不守某条规则，把那条改成大写；别的规则相形见绌，也跟着大写；然后开始加粗、加 NEVER、加感叹号。<strong>大写加粗的 IMPORTANT，就是 prompt 界的 <code>!important</code>——用之前觉得丢人，用完都说真香。</strong></p>
+<p>真香是真的。模型对 IMPORTANT、ALWAYS、NEVER 这类标记确实更敏感，该用就用，不丢人。但 CSS 那条老教训在这儿原样成立：!important 的威力来自稀缺。满屏 !important 的样式表等于没有 !important——人人都插队，队就没了。prompt 同理：system prompt 里十条规则八条大写，模型读到的信息是”这个人说话都这个音量”，然后按自己的理解挑着执行。<strong>强调是相对的，全都强调等于都不强调。</strong></p>
+<p>比音量战争更隐蔽的是稀释。模型一轮里的注意力大致是个定量，规则列表在它那儿不是 checklist——它不逐条打勾，它把所有规则揉成一团软约束一起消化。每加一条，其他每条分到的注意力就薄一点。我在 v0.4 上实测过一回（4.3 节有数字）：规则从 7 条加到 11 条，新规则是执行了，一直好好的第 3 条开始丢。<strong>加规则不是免费的：你以为在做加法，注意力在做除法。</strong></p>
+<p>所以改 prompt 的正确心态不是”多写点保险”，是像管 CSS 代码库一样管它：能删则删、冲突要清、!important 记账。blog02 说过”少给一点，它反而干得更准”——在 context 体量上成立，在规则条数上同样成立。</p>
+<h3 id="33-结构化写法给注意力画格子">3.3 结构化写法：给注意力画格子</h3>
+<p>blog02 讲 context 三招时埋过一个钩：“结构化 context，细讲留到 blog04”。还钩的时候到了。</p>
+<p>同样几条规则，写成一段散文和写成分节列表，执行率差得远（4.3 有实测）。原因不玄：模型在训练数据里见过海量的 XML 标签、markdown 标题、编号列表，这些结构是它熟悉的边界信号——标签把一坨字切成有名字的块，注意力找起来有格子可循。散文没有边界，规则和规则之间只隔一个句号，读着读着就糊了。</p>
+<p>结构化写法三板斧：</p>
+<p><strong>一，分节并命名。</strong> 用 XML 标签（<code>&#x3C;rules></code>、<code>&#x3C;output_format></code>）或 markdown 标题把不同职责的内容隔开。这不是因为 Claude 会解析 XML 语法——是标签让”这一块是规则、那一块是格式要求”变得可寻址。</p>
+<p><strong>二，正例反例。</strong> 与其堆三条抽象形容词（“要谨慎、要仔细”），不如给一对 good/bad 例子。CSS 里你也不写”标题要好看”，你写 font-size: 24px——具体的值永远比抽象的意图管用。模型是模式匹配的生物，例子就是它的具体值。</p>
+<p><strong>三，防御性规则显式写。</strong> 模型的出厂默认（还记得 UA 样式表那层吗）是倾向于给出答案，哪怕它不知道。所以”找不到就直说没有，别编”这种话，你不写，它就用默认行为补位。防御性 CSS 你写过——<code>img { max-width: 100% }</code> 防的是没约束的图片撑爆布局；防御性 prompt 防的是没出口的模型编造内容。给它一个”承认不知道”的显式出口，比事后抓它编造便宜得多。</p>
+<p>三板斧的共同点，是把”希望它怎么做”从你脑子里的默认假设，变成结构上可寻址的声明。写 CSS 的人早就懂这个理：浏览器不读你的心。模型也不读——区别只是浏览器错得稳定，模型错得随机。</p>
+<h2 id="4-干tiny-agent-v04">4. 干：tiny-agent v0.4</h2>
+<h3 id="41-v04-长出什么">4.1 v0.4 长出什么</h3>
+<p><code>git checkout v0.4</code> 就能看到这一版：<a href="https://github.com/geraldchen890806/tiny-agent">github.com/geraldchen890806/tiny-agent</a>。相比 v0.3，长出来三件事：</p>
+<ul>
+<li>新文件 <code>src/prompts.js</code>：两版 system prompt 常量——<code>PROMPT_V1</code>（一句话版）和 <code>PROMPT_V2</code>（结构化版）</li>
+<li><code>src/agent.js</code> 加一个 <code>--prompt=v1|v2</code> flag、task 取参改成”跳过 flag 的第一个位置参数”，其余不动</li>
+<li>玩法变了：同一套工具、同一个任务、只换 prompt，跑几遍数行为差异</li>
+</ul>
+<p>这是全系列代码量最小的一版——因为这一篇要证明的恰恰是：<strong>一行执行代码不改，只改声明，行为整个换一副样子。</strong></p>
+<h3 id="42-两版-prompt">4.2 两版 prompt</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="javascript"><code><span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">// src/prompts.js</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">export</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> PROMPT_V1</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#22863A;--shiki-dark:#D6DEEB"> `</span><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">You are tiny-agent, a helpful assistant</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">with file tools. Be careful and accurate.</span><span style="--shiki-light:#22863A;--shiki-dark:#D6DEEB">`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">export</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> PROMPT_V2</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#22863A;--shiki-dark:#D6DEEB"> `</span><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">You are tiny-agent, a cautious file editor.</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;rules></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">1. ALWAYS call read_file on an existing file before write_file.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">2. If a file or directory does not exist, say so. NEVER invent content.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">3. Prefer the smallest change that completes the task.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">4. After writing, state which files changed and by how many bytes.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;/rules></span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;output_format></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">Reply in the user's language.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">End with one line: DONE: &#x3C;files touched, comma separated>.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;/output_format></span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;examples></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;good></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">Task: update the title in README.md</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">-> read_file README.md -> write_file with ONLY the title line changed</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;/good></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;bad></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">Task: update the title in README.md</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">-> write_file README.md from memory, guessing the rest of the content</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;/bad></span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-light-font-style:inherit;--shiki-dark:#ECC48D;--shiki-dark-font-style:italic">&#x3C;/examples></span><span style="--shiki-light:#22863A;--shiki-dark:#D6DEEB">`</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span></code></pre>
+<p>（repo 里这两段实际叫 <code>RULES_V1</code> / <code>RULES_V2</code>——导出前各自拼上 v0.2 那份项目说明：<code>PROMPT_V1 = RULES_V1 + BRIEF</code>。不拼的话，换个 prompt 做实验，system 就掉回 4096 的缓存门槛以下了。这里只展示会变的部分。）</p>
+<p><code>agent.js</code> 的改动就这几行：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="javascript"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">import</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> { PROMPT_V1</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> PROMPT_V2 } </span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">from</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">./prompts.js</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> promptArg</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic"> process</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">argv</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">find</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#D7DBE0;--shiki-dark-font-style:italic">a</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic"> a</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">startsWith</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">--prompt=</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">));</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> version</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic"> promptArg</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">?.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">split</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">=</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)[</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> ??</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">v2</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> task</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic"> process</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">argv</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">slice</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">2</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">find</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#24292EFF;--shiki-light-font-style:inherit;--shiki-dark:#D7DBE0;--shiki-dark-font-style:italic">a</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =></span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> !</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#7FDBCA;--shiki-dark-font-style:italic">a</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">startsWith</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">--</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">));</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">const</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> ctx</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> new</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> Context</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D7DBE0">version</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> ===</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">v1</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> ?</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> PROMPT_V1</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> :</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> PROMPT_V2</span><span style="--shiki-light:#212121;--shiki-dark:#C792EA">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D7DBE0"> client</span><span style="--shiki-light:#212121;--shiki-dark:#C792EA">,</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> MODEL</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span></code></pre>
+<p>四点讲透：</p>
+<p><strong>一，严格控制变量。</strong> v1 和 v2 之间，工具、模型、任务、温度全部相同，唯一差异是 system 字符串。这是拿 A/B test 的纪律对待 prompt 改动——想知道一条声明的效果，就只改这一条。听着像废话，但我见过太多人一次改八处然后问”为什么行为变了”——这跟一次改八个 CSS 属性然后问哪个生效了，是同一种自我为难。</p>
+<p><strong>二，v2 的四条规则，每条都在覆盖一个出厂默认。</strong> 第 1 条覆盖”上手直接写”（blog03 开头那位读者的 README 惨案，病根一半在这）；第 2 条覆盖”倾向给答案”（防编造）；第 3 条覆盖”顺手优化”（模型很爱把你没让它碰的地方也润色一遍）；第 4 条要求自报改动——这是给 blog06 的 verifier 提前留的验收接口。没有一条是装饰。</p>
+<p><strong>三，<code>&#x3C;examples></code> 里 bad 和 good 一样重要。</strong> 只给正例，模型学到”这样做对”；配上反例，它才学到边界在哪。这对例子直接取材自 blog03 的真实事故——评测用例从翻车里来，示例也从翻车里来。</p>
+<p><strong>四，改 system 会打掉缓存。</strong> blog02 讲过 cache 是前缀匹配的，而 system 就在前缀里——你每改一版 prompt，下一轮就得按约 1.25 倍原价重新写入缓存。所以 prompt 迭代别跟日常任务混着跑：改完集中测，测稳了再上，不然行为和账单一起抖，你分不清哪个抖动是谁贡献的。</p>
+<h3 id="43-跑一下">4.3 跑一下</h3>
+<p>同一个任务，两版 prompt 各跑五次：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>$ node src/agent.js --prompt=v1 "把 README.md 的标题改成 tiny-agent v0.4"</span></span>
+<span class="line"><span>[turn · tool_use=write_file]</span></span>
+<span class="line"><span>改好了!我重写了 README.md,顺手把安装说明也理顺了一些。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>$ node src/agent.js --prompt=v2 "把 README.md 的标题改成 tiny-agent v0.4"</span></span>
+<span class="line"><span>[turn · tool_use=read_file]</span></span>
+<span class="line"><span>[turn · tool_use=write_file]</span></span>
+<span class="line"><span>README.md 已更新:标题行由 "# tiny-agent" 改为 "# tiny-agent v0.4",</span></span>
+<span class="line"><span>其余内容未动(+5 bytes)。</span></span>
+<span class="line"><span>DONE: README.md</span></span></code></pre>
+<p>我的五次实测：v1 有两次不读直接写，其中一次还”顺手”改了标题之外的三处措辞；v2 五次全部先读后写，五次都只动标题行。同一套工具、同一段 runTool，行为差异全部来自那段声明。blog03 里那位读者要是当时有 v2 这版 prompt，他的 README 至少能多活一阵——注意我说的是”多活一阵”，不是”永生”，prompt 是倾向不是闸门，真正的闸门要等 blog07 的确认门。</p>
+<p><strong>翻车段（必备）</strong>:v2 不是一次写成的。第一版我没用 <code>&#x3C;rules></code> 标签，把 7 条规则写成一段 190 个词的英文散文，自我感觉写得挺周到。同一个任务跑五次，稳定执行的只有开头两条；“写完报告字节数”那条排在散文中段，五次一次都没出现——lost in the middle,blog02 讲 context 时那个现象，在一段 300 token 的 system prompt 里照样发作。拆成带编号的 <code>&#x3C;rules></code> 之后，五次全执行。</p>
+<p>结构的问题解决了，我又手痒撞上了稀释：后来往 <code>&#x3C;rules></code> 里陆续加到 11 条——输出语言、路径规范、各种小洁癖——新规则倒是都执行了，但五次里有三次，第 3 条”最小改动”开始丢，模型又开始润色我没让它碰的段落。最后删到 4 条，就是上面你看到的那版，第 3 条稳定回归。<strong>规则条数和单条执行率之间，有一条你看不见的预算线。</strong> 我现在的纪律是：每想加一条规则，先问自己愿不愿意为它删一条旧的。</p>
+<h3 id="44-一处映射claudemd-为什么长那个样子">4.4 一处映射：CLAUDE.md 为什么长那个样子</h3>
+<p><a href="/posts/blog194_project-passport-agents-md-claude-md-memory/">blog194 项目护照</a> 里讲过 Claude Code 的 CLAUDE.md / AGENTS.md——每轮被拼进 system 层的项目说明。用这一篇的语言重新看它：这就是<strong>用户态的 author 样式表</strong>。你项目里那份 markdown，就是你写给模型的 stylesheet,Claude Code 负责把它拼进级联。</p>
+<p>再看官方推荐的写法：短句、分节、bullet、少废话——现在你知道这不是审美偏好，是级联工程。CLAUDE.md 的内容要跟内置 system prompt、tool description、你本轮的指令叠在同一套级联里消化，写成散文就会被稀释，写成结构才可寻址。文档让你”保持简短”，跟本篇 3.2 那条注意力预算线，是同一条线。</p>
+<h3 id="45-moonshot-注脚">4.5 Moonshot 注脚</h3>
+<blockquote>
+<p>OpenAI 系在 system 之外还有 role: “developer” 这个指令角色——在新模型里它实际上就是 system 的新名字，优先级语义相同，不是一个额外的超级层。Moonshot / DeepSeek 兼容 OpenAI 口径，切过去时 PROMPT_V1/V2 内容原样能用，放进对应的 system 或 developer 消息即可。</p>
+<p>结构化写法两边通吃，但偏好有微差：Claude 系对 XML 标签格外顺手（训练数据里见得多）,OpenAI 系文档更常示范 markdown 分节。差异不大，原则同一条：分节、命名、给边界。别背”哪家用哪种”——同一个任务跑五次数一数，你自己模型上的数据比任何教程可信。</p>
+</blockquote>
+<h2 id="5-界类比的边界">5. 界：类比的边界</h2>
+<p>CSS 这个类比撑得住的部分我认：声明式、分层、覆盖、specificity 战争、!important 的兴衰——全对得上，对得让人起鸡皮疙瘩。但有三条撑不住的，得说满。</p>
+<p><strong>第一条：CSS 级联有确定算法，prompt 只有概率倾向。</strong> 两条 CSS 规则打架，谁赢是可计算的：origin、specificity、书写顺序，规范写死了，你甚至能笔算。两条 prompt 规则打架，没有任何文档能告诉你谁赢——system 大致压过 user、具体大致压过抽象、近的大致压过远的，全是”大致”。裁判不是规范，是你自己跑出来的评测：同一组任务，改动前后各跑 N 次，数通过率。这件事第 09 篇会展开成正经方法论，这里先立块牌子：<strong>在 prompt 的世界里，eval 就是你的 W3C。</strong></p>
+<p><strong>第二条：CSS 改坏了立刻看得见，prompt 改坏了什么都不发生。</strong> 样式写错，页面当场长歪，F12 三分钟定位。prompt 改坏了呢？不报错、不变红、不崩——模型只是”表现得不太一样”，而你多半不在场。我的引号事故里，从那条规则上线到我看见 42 个假阳性，中间隔了一整天；要不是假阳性多到刺眼，它可能再潜伏一个月。这跟 blog02 的 cache 静默不命中是同一族病：不报错，只变坏——而”变坏”这件事，没有任何面板会替你标红。CSS 要是没有 devtools 顶多难受，prompt 没有 devtools 是危险——因为连”坏了”这个事实本身，都要靠人肉发现。</p>
+<p><strong>第三条：CSS 的读者是标准化的，prompt 的读者是概率的，还会换人。</strong> 浏览器大战早打完了，同一段 CSS 在 Chrome 和 Safari 里语义基本一致，兼容性查 caniuse 就行。prompt 没有 caniuse——同一段 prompt，换个模型是一种行为，同一个模型升个版本又是一种行为，连一字不改原地重跑都有波动。你不是在给一台确定的机器写规则，<strong>你在给一个概率读者写规则</strong>——他今天读进去了，不保证下周还读得进去。</p>
+<p>一句话收尾：<strong>CSS 教会你声明和级联，但它也惯坏了你——它让你以为声明出去的东西必然生效。prompt 会把这个惯性掰回来。</strong></p>
+<p>呼应 spine:<a href="/posts/blog206_fe2agent-01-agent-loop/">blog01</a> 说控制权交给概率函数（选择）,blog02 说 context 是它每一轮的输入，blog03 说执行留在你手里。prompt 贴在”输入”那块骨头上——它是输入里常驻的、由你亲手写的那一层。用方向盘的话说：<strong>prompt 是贴在仪表盘上的行车守则——它每次出发前都读一遍，但读没读进去，是概率的。</strong> 你能做的，是把守则写短、写清、分好节，然后用评测盯着它有没有照做。</p>
+<h2 id="6-钩下集">6. 钩：下集</h2>
+<p>下一篇《Context 是内存，记忆是硬盘：给 Agent 上 lazy loading》。</p>
+<p>类比引子：读完这一篇你可能已经憋出一个问题——prompt 也好、context 也好，全都活在上下文窗口里，而窗口是有限的、按 token 计费的（blog02 那条账单曲线还记得吧）。项目约定、历史结论、上周踩过的坑，这些塞不进每一轮的东西放哪？前端早答过这道题：内存放不下的放硬盘，首屏用不到的 lazy load。agent 世界同款：context 是内存，记忆文件是硬盘，检索就是按需 import()。</p>
+<p>tiny-agent v0.5 会长出：<strong>markdown 记忆文件 + 朴素检索</strong>——save_memory / search_memory 两个新工具进 tools.js（blog03 说过这个文件会越来越挤，兑现从下篇开始）。<code>git checkout v0.5</code> 就能看到下一版：<a href="https://github.com/geraldchen890806/tiny-agent">github.com/geraldchen890806/tiny-agent</a>。</p>
+<p>在那之前给你留个作业：把 v0.4 的 <code>&#x3C;rules></code> 故意加到 12 条，同一个任务跑十次，数每条规则的执行率；再删回 5 条，再跑十次。你会亲眼看到那条注意力预算线画在哪——这份手感比任何 prompt 工程课都值钱，因为它是在你自己的模型上量出来的。</p> </article> <section class="related-posts" data-pagefind-ignore data-astro-cid-dpgbfi7r><h2 class="related-title" data-astro-cid-dpgbfi7r>相关阅读</h2><ul class="related-list" data-astro-cid-dpgbfi7r><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog208_fe2agent-03-tools/" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Tool Call：让 AI dispatch，你来当 reducer</span><span class="related-desc" data-astro-cid-dpgbfi7r>前端里 dispatch 是你的活、reducer 是你写的；agent 里 dispatch 交给了 AI，reducer 那半边仍然是你的责任。这是 fe2agent 系列第 3 篇，讲 tool schema 三件套、执行权分离、把 AI 当不可信客户端校验，配 tiny-agent v0.3。</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog207_fe2agent-02-context/" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>模型没有记忆：Context 就是 state，而且每次全量重渲染</span><span class="related-desc" data-astro-cid-dpgbfi7r>你以为 agent 记得你，其实每轮它都在把整个 messages 数组全量重发——LLM 调用是无状态的，&quot;对话&quot; 是客户端造出来的幻觉。React 有 diff/memo/Fiber 帮你把重渲染压便宜，agent 没有，全量是真的全量。这是 fe2agent 系列第 2 篇，配 tiny-agent v0.2（Context 类 + 历史压缩 + prompt caching）。</span></a></li><li class="related-item" data-astro-cid-dpgbfi7r><a href="/posts/blog206_fe2agent-01-agent-loop/" class="related-link" data-astro-cid-dpgbfi7r><span class="related-post-title" data-astro-cid-dpgbfi7r>Agent 就是个 while 循环？——从 UI = f(state) 到 action = LLM(context)</span><span class="related-desc" data-astro-cid-dpgbfi7r>前端人第一次看 AI Agent 满墙术语懵，其实核心就是个 while 循环——但循环里那个函数不纯、会撒谎、每次返回都不一样。这是系列首篇，从 UI=f(state) 到 action=LLM(context)，配一个 32 行可跑的 tiny-agent（Anthropic SDK + 1 个工具），把 agent vs chatbot vs workflow 三分法讲清楚。</span></a></li></ul></section> <hr class="my-8 border-dashed" data-astro-cid-vj4tpspi>  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-astro-cid-vj4tpspi> <li> <a href="/tags/ai-agent/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> AI Agent </a> </li><li> <a href="/tags/前端/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 前端 </a> </li><li> <a href="/tags/开发效率/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> 开发效率 </a> </li><li> <a href="/tags/claude-code/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Claude Code </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://chenguangliang.com/posts/blog209_fe2agent-04-prompt/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed" data-astro-cid-vj4tpspi> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2" data-astro-cid-vj4tpspi>  <a href="/posts/blog216_claude-code-config-half-year-evolution/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2" data-astro-cid-vj4tpspi> <div data-astro-cid-vj4tpspi> <span data-astro-cid-vj4tpspi>Next Post</span> <div class="text-sm text-accent/85" data-astro-cid-vj4tpspi>从 OpenClaw 到 Claude Code：半年后我的配置演化账本</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180" data-astro-cid-vj4tpspi="true"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </div> <!-- Table of Contents Sidebar --> <div class="post-sidebar" data-astro-cid-vj4tpspi> <aside class="toc-container" data-astro-cid-xvrfupwn><div class="toc-wrapper" data-astro-cid-xvrfupwn><h2 class="toc-title" data-astro-cid-xvrfupwn>目录</h2><nav class="toc-nav" data-astro-cid-xvrfupwn><ul class="toc-list" data-astro-cid-xvrfupwn><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#1-坑" class="toc-link" data-heading-id="1-坑" data-astro-cid-xvrfupwn>1. 坑</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#2-桥" class="toc-link" data-heading-id="2-桥" data-astro-cid-xvrfupwn>2. 桥</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#3-真" class="toc-link" data-heading-id="3-真" data-astro-cid-xvrfupwn>3. 真</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#31-prompt-的层你写的每个字都住在某一层里" class="toc-link" data-heading-id="31-prompt-的层你写的每个字都住在某一层里" data-astro-cid-xvrfupwn>3.1 prompt 的”层”：你写的每个字都住在某一层里</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#32-指令稀释每条规则都在掏其他规则的口袋" class="toc-link" data-heading-id="32-指令稀释每条规则都在掏其他规则的口袋" data-astro-cid-xvrfupwn>3.2 指令稀释：每条规则都在掏其他规则的口袋</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#33-结构化写法给注意力画格子" class="toc-link" data-heading-id="33-结构化写法给注意力画格子" data-astro-cid-xvrfupwn>3.3 结构化写法：给注意力画格子</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#4-干tiny-agent-v04" class="toc-link" data-heading-id="4-干tiny-agent-v04" data-astro-cid-xvrfupwn>4. 干：tiny-agent v0.4</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#41-v04-长出什么" class="toc-link" data-heading-id="41-v04-长出什么" data-astro-cid-xvrfupwn>4.1 v0.4 长出什么</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#42-两版-prompt" class="toc-link" data-heading-id="42-两版-prompt" data-astro-cid-xvrfupwn>4.2 两版 prompt</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#43-跑一下" class="toc-link" data-heading-id="43-跑一下" data-astro-cid-xvrfupwn>4.3 跑一下</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#44-一处映射claudemd-为什么长那个样子" class="toc-link" data-heading-id="44-一处映射claudemd-为什么长那个样子" data-astro-cid-xvrfupwn>4.4 一处映射：CLAUDE.md 为什么长那个样子</a></li><li class="toc-item toc-level-3" data-astro-cid-xvrfupwn><a href="#45-moonshot-注脚" class="toc-link" data-heading-id="45-moonshot-注脚" data-astro-cid-xvrfupwn>4.5 Moonshot 注脚</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#5-界类比的边界" class="toc-link" data-heading-id="5-界类比的边界" data-astro-cid-xvrfupwn>5. 界：类比的边界</a></li><li class="toc-item toc-level-2" data-astro-cid-xvrfupwn><a href="#6-钩下集" class="toc-link" data-heading-id="6-钩下集" data-astro-cid-xvrfupwn>6. 钩：下集</a></li></ul></nav></div></aside><script type="module">function l(){const o=document.querySelectorAll(".toc-link"),c=document.querySelectorAll("h2[id], h3[id]");if(o.length===0||c.length===0)return;function s(){let e=null;const r=window.scrollY+100;c.forEach(t=>{const n=t.offsetTop;r>=n&&(e=t)}),o.forEach(t=>{t.classList.remove("active"),e&&t.getAttribute("data-heading-id")===e.id&&t.classList.add("active")})}o.forEach(e=>{e.addEventListener("click",r=>{r.preventDefault();const t=e.getAttribute("href")?.slice(1);if(t){const n=document.getElementById(t);n&&(n.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,"",`#${t}`))}})});let i=!1;window.addEventListener("scroll",()=>{i||(window.requestAnimationFrame(()=>{s(),i=!1}),i=!0)}),s()}document.addEventListener("DOMContentLoaded",l);document.addEventListener("astro:page-load",l);</script> </div> </div> </main> <footer class="app-layout mt-auto" data-astro-cid-vj4tpspi="true"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/geraldchen890806/blog" title="陈广亮的技术博客 on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">陈广亮的技术博客 on GitHub</span>  </a><a href="https://x.com/geraldchen89" title="陈广亮的技术博客 on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">陈广亮的技术博客 on X</span>  </a><a href="https://www.linkedin.com/in/%E5%B9%BF%E4%BA%AE-%E9%99%88-297182102/" title="陈广亮的技术博客 on LinkedIn" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 11v5" /><path d="M8 8v.01" /><path d="M12 16v-5" /><path d="M16 16v-3a2 2 0 1 0 -4 0" /><path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" /></svg> <span class="sr-only">陈广亮的技术博客 on LinkedIn</span>  </a><a href="mailto:geraldchen890806@gmail.com" title="Send an email to 陈广亮的技术博客" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to 陈广亮的技术博客</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/privacy-policy/" class="hover:text-accent underline decoration-dashed underline-offset-4">隐私政策</a> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <a href="/contact/" class="hover:text-accent underline decoration-dashed underline-offset-4">联系方式</a> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html>  <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+
+  /* Mark post as read */
+  function markPostAsRead() {
+    // Remove trailing slash to match data-post-path format
+    const postId = window.location.pathname.replace(/\/$/, '');
+    const readPosts = JSON.parse(localStorage.getItem('readPosts') || '[]');
+    
+    if (!readPosts.includes(postId)) {
+      readPosts.push(postId);
+      localStorage.setItem('readPosts', JSON.stringify(readPosts));
+    }
+  }
+  
+  // Mark as read after a short delay (user has started reading)
+  setTimeout(markPostAsRead, 3000);
+</script>
